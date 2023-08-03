@@ -1,5 +1,5 @@
 #
- 
+
 
 ## ML3PlatformClient
 ```python 
@@ -44,7 +44,6 @@ the company id associated with the new company (string)
 ```
 
 ---
-# TODO sistemare doc
 Get company
 
 
@@ -60,13 +59,11 @@ the company
 ```
 
 ---
-#TODO sistemare doc
 Update company
 
 
 **Args**
 
-#TODO
 
 **Returns**
 

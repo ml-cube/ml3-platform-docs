@@ -9,4 +9,3 @@ ML cube Platform allows interaction through REST APIs:
 
   [Python]: python.md
   [REST]: rest.md
-
