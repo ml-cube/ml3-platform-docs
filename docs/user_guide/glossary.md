@@ -1,0 +1,31 @@
+# Glossary
+
+## General Terms
+- **User**: registered user with username and password that interact with ML cube Platform. 
+A User can create API keys that inherits his/her permissions and that the he/she uses to communicate with ML cube Platform though API. 
+- **Company**: collection of Users that work with ML cube Platform. 
+Subscription plan and contracts with ML cube are managed at Company level.
+A Company has one owner that has all the privileges and that can assign admin role to other Users in the Company.
+- **Project**: collection of AI Tasks that belong to the same business domain.
+- **Task**: it is the standard AI problem with a dataset, a target and a set of AI models that predicts the target.
+All AI models inside the AI Task predicts the same target quantity and they are considered as champion and challengers or deployed and shadow models.
+Data drift detection is done at Task level because the models uses the same dataset.
+- **Model**: AI model inside a Task that makes predictions over the Task's dataset.
+
+## Data Terms
+- **Historical data**: data not used for the newest retraining but that belong to the Task. ML cube Platform uses these data during the retraining dataset selection to exploit all the available information. They are not mandatory, if they are not present then the Retraining Tool selects data from the reference set and the production data.
+- **Reference data**: dataset used as reference for the current model version. It can be the training dataset, the test set or both. Reference data represents the current view of the model over the Task
+- **Production data**: data the model encounter during production, the production data are monitored by the ML cube Platform detectors to detect drifts
+- **Data schema**: represents the schema of the data that ML cube Platform uses to know the features and the target columns.
+
+## Drifts Terms
+- **Input drift**: statistically significant change in the input data P(X)
+- **Concept drift**: statistically significant change in the input and target data P(X, y)
+- **Model drift**: statistically significant change in the model error P(y – y_pred).
+
+## Actions Terms
+- **Importance weights**: the retraining dataset is given in form of a set of importance weights associated to every data available for the Task. This importance score will be used during the training pipeline of the customer to weights samples. In particular, the ML model will use the form of the sample weighted loss instead of the standard loss during its retraining phase
+- **Dataset boostrapping**: if the ML model does not support the sample weighted loss then ML cube Platform can provide a dataset extracted from the available data using sampling with replacement based on the importance weights of the data. The customer can specify the size of the retraining dataset and ML cube Platform provides the best retraining bootstapped dataset of that size
+- **Relabeling**: in case of concept drift in a classification Task, old labels are no meaningful, given a budget/size constraint ML cube Platform provides the subset of data to be relabelled
+- **Active Learning**: ML cube Platform provides a set of new synthetic data to label or it provides indication where to collect new real data from the environment
+

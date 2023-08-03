@@ -29,6 +29,10 @@ theme:
     #- toc.integrate
   palette:
     primary: custom
+    accent: custom
+  font:
+    text: Poppins
+    code: Roboto Mono
   logo: assets/logo.svg
   favicon: assets/favicon.png
 extra_css:
@@ -40,6 +44,7 @@ plugins:
       separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
   - minify:
       minify_html: true
+  - glightbox
 
 # Extensions
 markdown_extensions:
@@ -89,7 +94,10 @@ nav:
       - getting_started/index.md
   - User Guide:
       - user_guide/index.md
+      - user_guide/basic_concepts.md
+      - user_guide/glossary.md
   - API:
       - api/index.md
       - Examples: api/examples.md
       - Python SDK: api/python.md
+      - REST: api/rest.md
