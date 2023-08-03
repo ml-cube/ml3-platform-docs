@@ -84,9 +84,11 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Client SDK:
-      - client_sdk/index.md
-      - Python SDK: client_sdk/python.md
-
-
-
+  - Getting Started:
+      - getting_started/index.md
+  - User Guide:
+      - user_guide/index.md
+  - API:
+      - api/index.md
+      - Examples: api/examples.md
+      - Python SDK: api/python.md
