@@ -1,4 +1,6 @@
 site_name: ML cube Platform Documentation
+docs_dir: md-docs
+site_dir: docs
 theme:
   name: material
   features:
