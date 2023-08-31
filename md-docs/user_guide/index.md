@@ -42,7 +42,13 @@ They are used simultaneously to improve the overall detection quality.
 ML cube Platform's detection algorithms works at model level.
 Therefore, uploaded *input data* are the numeric features the model model receives as input to make inferece.
 Those data are the ones at the end of the data processing pipeline after the cleaning, feature extraction and normalization.
- 
+
+<figure markdown>
+  ![Image title](../imgs/drift_monitoring.png){ width="1000" }
+  <figcaption>ML cube Platform in the ML inference pipeline.</figcaption>
+</figure>
+
+
 ## Creating a baseline with Reference Data
 Reference data are part of the datasets used during the development of the AI model: they contain training, validation, and test sets, i.e., anything the AI model saw during its training phase.
 Reference data are used to initialize data detectors calibrating them to what the model learnt.
