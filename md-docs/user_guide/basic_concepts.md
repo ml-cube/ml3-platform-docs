@@ -8,6 +8,11 @@ Everything starts with a **Company**, when you register on ML cube Platform, you
 A Company has a **Subscription Plan** that defines how many Projects, Tasks, Data you can create.
 Moreover, billing and payments are done at Company level.
 
+<figure markdown>
+  ![Image title](../imgs/company project task structure.png){ width="500" }
+  <figcaption>ML cube Platform entities structure.</figcaption>
+</figure>
+
 After you created your Company you become the *company owner*, and as company owner, you can create new **Users**, assigning them the right **Role**.
 
 > To help you to better understand the concepts and the entities in ML cube Platform we use a fictional company: it is called *Delta Energy*, and it is a producer of Photovoltaic Modules that own Photovoltaic fields and trades the energy to the market.
