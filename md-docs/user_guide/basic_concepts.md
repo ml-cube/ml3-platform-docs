@@ -1,5 +1,7 @@
 # Basic Concepts
 
+This page will explain you the basic concept of ML cube Platform to get familiar with the product.
+
 ## Company, Project, Task and Model
 
 Everything starts with a **Company**, when you register on ML cube Platform, you are asked to create a Company.
@@ -92,22 +94,41 @@ The roles are Owner, Admin, Standard User.
 The Company Owner or Admin will assign a Project Role to User when needed.
 The roles are Admin, Edit User, View User.
 
-## Model Life Cycle
-It's possible to identify an usage cycle of ML cube Platform that covers the main aspects of the life cycle management of a AI model.
+<figure markdown>
+  ![Image title](../imgs/user roles.png){ width="500" }
+  <figcaption>User Roles in ML cube Platform.</figcaption>
+</figure>
 
-1. Define new model version uploading a reference data
-2. Log production data containing input, target and model prediction
-3. Receive drift alarms when they occur
-4. Get the retraining dataset
-5. Train model locally and uplaod new model version with the new reference data
+> Delta Energy has one dedicatd AI Team to each Task. 
+> Hence, they assigned specific Project Administrator Role to each Team leader; while
+> the other Data Scientists have the Project Edit Role for the project they are working on.
 
 ## Drift Detection
 For each AI Task, ML cube Platform provides a set of Detectors that analyze different quantities of the Task.
-**Data Detectors** are look at the Task data without considering its AI models.
-Data detectors are resposible to identify input and concept drifts.
-Each Model has associated a **Model Detector** that analyses the its performance metric and detect negative trends.
+**Data Detectors** look at the Task's data without considering its AI models.
+They are resposible to identify input and concept drifts and more generally changes that happen in the data.
+
+Indeed, each Model has associated a **Model Detector** that analyses its performance metrics and detect negative trends.
 
 ## Retraining
-A Data drift determines a drop in the model's performance that require to update it with new and fresh data.
-The retraining module of ML cube Platform provides the best dataset to train the model using as much data as possible.
-In particular, using the data after the drifts as reference, it computes an importance score
+A Data drift determines a drop in the model's performance that starts providing bad estimation or predictions.
+In Artificial Intelligence, Data plays a crucial role and usually, choosing the best data has higher impact in the resulting Model quality with respect to increasing the model complexity.
+
+ML cube Platform with its Retraining Tool Module provides you the best retraining dataset to use when updating the Model after a drift reducing the reaction time after the detection.
+Even if, the data has changed you can extract useful information from the past.
+ML cube Platform leverages all the available data belonging to the three categories: histrical, reference and production, computing an Importance Score to every data sample you have.
+These Importance Scores will be used during the training phase of your model as weights in the loss function.
+
+## Model Life Cycle
+ML cube Platform covers all the aspects of the *post-deployment life cycle* of your AI models:
+<figure markdown>
+  ![Image title](../imgs/model life cycle.png){ width="500" }
+  <figcaption>Post-deployment AI model life cycle.</figcaption>
+</figure>
+
+> In Delta Energy data are collected every minute and are sent simultaneously to ML cube Platform.
+> Ground truth data like the presence of a fault and the fault category are uploaded after they are available and therefore, they will sent with a delay compared the others.
+
+> Drift alerting system is integrated with their Microsoft Teams and ML cube Platform sends alerts to the specified channels.
+> After they receive an alerting message, they run a retraining pipeline that communicated with ML cube Platform to retrieve the retraining dataset to use.
+> After that, they are ready to update the new version on ML cube Platform to start the monitoring.
