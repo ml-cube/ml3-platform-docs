@@ -7,5 +7,5 @@ ML cube Platform allows interaction through REST APIs:
 - :material-api: __[REST]__ – Use directly the API
 
 
-  [Python]: python.md
+  [Python]: python/index.md
   [REST]: rest.md

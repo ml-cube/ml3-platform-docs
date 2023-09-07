@@ -9,7 +9,7 @@ theme:
     - content.action.view
     - content.code.annotate
     - content.code.copy
-    # - content.code.select
+    - content.code.select
     # - content.tabs.link
     - content.tooltips
     # - header.autohide
@@ -106,5 +106,10 @@ nav:
   - API:
       - api/index.md
       - Examples: api/examples.md
-      - Python SDK: api/python.md
+      - Python SDK: 
+          - api/python/index.md
+          - Client: api/python/client.md
+          - Models: api/python/models.md
+          - Exceptions: api/python/exceptions.md
+          - Enums: api/python/enums.md
       - REST: api/rest.md
