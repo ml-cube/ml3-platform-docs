@@ -279,7 +279,7 @@ Create a task inside the project.
 * **name**  : the name of the task
 * **tags**  : a list of tags associated with the task
 * **task_type**  : the type of the task. See `TaskType`
-documentation for more information
+    documentation for more information
 
 
 **Returns**
@@ -614,6 +614,12 @@ By specifying the `suggestion_id`, ML cube Platform
 automatically knows which is the reference data the model is
 trained on.
 
+This request starts an operation pipeline that is
+executed by ML cube Platform.
+Thus, the method returns the identifier of the job that you can
+monitor to know its status and proceed with the other work
+using the method `wait_job_completion(job_id)`
+
 **Allowed Roles:**
 
 - At least `PROJECT_EDIT` for that project
@@ -653,6 +659,12 @@ has been not already upload to ML cube Platform.
 After the retraining is completed, you use this method to
 create the new model version in ML cube Platform by
 specifying the data to load.
+
+This request starts an operation pipeline that is
+executed by ML cube Platform.
+Thus, the method returns the identifier of the job that you can
+monitor to know its status and proceed with the other work
+using the method `wait_job_completion(job_id)`
 
 **Allowed Roles:**
 
@@ -799,11 +811,11 @@ Update an existing data schema
 - `COMPANY_ADMIN`
 
 
-
 **Args**
 
 * **task_id**  : the identifier of the task
-* **data_schema**  : the set of new columns that should be added to the data schema
+* **data_schema**  : the set of new columns that should be added to
+    the data schema
 
 
 **Raises**
@@ -818,17 +830,36 @@ Update an existing data schema
 ```
 
 ---
-Add a batch of historical data
+Add a batch of historical data for the Task.
+
+This request starts an operation pipeline that is
+executed by ML cube Platform.
+Thus, the method returns the identifier of the job that you can
+monitor to know its status and proceed with the other work
+using the method `wait_job_completion(job_id)`
+
+**Allowed Roles:**
+
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
 
 
 **Args**
 
 * **task_id**  : the identifier of the task
-* **dataset_type**  :  Dataset type describes the nature of data stored (DatasetType)
+* **dataset_type**  :  Dataset type describes the nature of data stored
 * **data_path**  : path to the csv file containing the historical data
 
----
-Returns the job_id associated to the pipeline
+
+**Returns**
+
+* **job_id**  : `str` identifier of the submitted job
+
+
+**Raises**
+
+`AddHistoricalDataException`
 
 ### .add_model_reference
 ```python
@@ -838,17 +869,36 @@ Returns the job_id associated to the pipeline
 ```
 
 ---
-Add a batch of reference data associated with a given model
+Add a batch of reference data associated with a given model.
+
+This request starts an operation pipeline that is
+executed by ML cube Platform.
+Thus, the method returns the identifier of the job that you can
+monitor to know its status and proceed with the other work
+using the method `wait_job_completion(job_id)`
+
+**Allowed Roles:**
+
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
 
 
 **Args**
 
 * **model_id**  : the identifier of the model
-* **dataset_type**  :  Dataset type describes the nature of data stored (DatasetType)
+* **dataset_type**  :  Dataset type describes the nature of data stored
 * **data_path**  : path to the csv file containing the reference data
 
----
-Returns the job_id associated to the pipeline
+
+**Returns**
+
+* **job_id**  : `str` identifier of the submitted job
+
+
+**Raises**
+
+`AddModelReferenceException`
 
 ### .add_production_data
 ```python
@@ -858,17 +908,36 @@ Returns the job_id associated to the pipeline
 ```
 
 ---
-Add a batch of production data associated with a given task
+Add a batch of production data associated with a given task.
+
+This request starts an operation pipeline that is
+executed by ML cube Platform.
+Thus, the method returns the identifier of the job that you can
+monitor to know its status and proceed with the other work
+using the method `wait_job_completion(job_id)`
+
+**Allowed Roles:**
+
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
 
 
 **Args**
 
 * **task_id**  : the identifier of the task
-* **dataset_type**  :  Dataset type describes the nature of data stored (DatasetType)
+* **dataset_type**  :  Dataset type describes the nature of data stored
 * **data_path**  : path to the csv file containing the production data
 
----
-Returns the job_id associated to the pipeline
+
+**Returns**
+
+* **job_id**  : `str` identifier of the submitted job
+
+
+**Raises**
+
+`AddProductionDataException`
 
 ### .compute_importance_weights
 ```python
@@ -878,8 +947,20 @@ Returns the job_id associated to the pipeline
 ```
 
 ---
-For a given model version, get the importance weights
-with the possibility to specify a retrain_event_id.
+For a given model version, get the importance weights to
+perform a new training.
+
+This request starts an operation pipeline that is
+executed by ML cube Platform.
+Thus, the method returns the identifier of the job that you can
+monitor to know its status and proceed with the other work
+using the method `wait_job_completion(job_id)`
+
+**Allowed Roles:**
+
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
 
 
 **Args**
@@ -887,9 +968,15 @@ with the possibility to specify a retrain_event_id.
 * **model_id**  : the identifier of the task
 * **model_version**  : the version of the model
 
----
-It returns the job_id associated to the job that computes the
-weights
+
+**Returns**
+
+* **job_id**  : `str` identifier of the submitted job
+
+
+**Raises**
+
+`ComputeImportanceWeightsException`
 
 ### .get_importance_weights
 ```python
@@ -899,8 +986,13 @@ weights
 ```
 
 ---
-For a given model version, get the importance weights
-with the possibility to specify a retrain_event_id.
+For a given model version, get the importance weights.
+
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
 
 
 **Args**
@@ -908,6 +1000,15 @@ with the possibility to specify a retrain_event_id.
 * **model_id**  : the identifier of the task
 * **model_version**  : the version of the model
 
+
+**Returns**
+
+* **iw_suggestion**  : `ImportanceWeightsSuggestion`
+
+
+**Raises**
+
+`GetImportanceWeightsException`
 
 ### .get_jobs
 ```python
@@ -920,17 +1021,37 @@ with the possibility to specify a retrain_event_id.
 
 ---
 Get current jobs information.
-Jobs can be filtered by project_id, task_id, model_id or status
+Jobs can be filtered by project_id, task_id, model_id or status.
+
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
 
 
 **Args**
 
-* **project_id**  : the project_id to filter job. If ``None`` job of every project will be returned
-* **task_id**  : the task_id to filter job. If ``None`` job of every task will be returned
-* **model_id**  : the model_id to filter job. If ``None`` job of every model will be returned
-* **status**  : the status to filter job. If ``None`` job with every status will be retrieved
-* **job_id**  : id of the job to filter. If ``None`` job with every id will be retrieved
+* **project_id**  : the project_id to filter job.
+    If ``None`` job of every project will be returned
+* **task_id**  : the task_id to filter job.
+    If ``None`` job of every task will be returned
+* **model_id**  : the model_id to filter job.
+    If ``None`` job of every model will be returned
+* **status**  : the status to filter job.
+    If ``None`` job with every status will be retrieved
+* **job_id**  : id of the job to filter.
+    If ``None`` job with every id will be retrieved
 
+
+**Returns**
+
+* **jobs_list**  : `List[Job]`
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .get_job
 ```python
@@ -942,11 +1063,26 @@ Jobs can be filtered by project_id, task_id, model_id or status
 ---
 Get current job information.
 
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
 
 **Args**
 
 * **job_id**  : id of the job to retrieve
 
+
+**Returns**
+
+* **job**  : `Job`
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .show_jobs
 ```python
@@ -954,18 +1090,18 @@ Get current job information.
 ```
 
 ---
-Show current job information.
-Jobs can be filtered by project_id, task_id, model_id or status
+Show current job information to stdout.
+
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
 
 
-**Args**
+**Raises**
 
-* **project_id**  : the project_id to filter job. If ``None`` job of every project will be returned
-* **task_id**  : the task_id to filter job. If ``None`` job of every task will be returned
-* **model_id**  : the model_id to filter job. If ``None`` job of every model will be returned
-* **status**  : the status to filter job. If ``None`` job with every status will be retrieved
-* **job_id**  : id of the job to filter. If ``None`` job with every id will be retrieved
-
+`SDKClientException`
 
 ### .get_detection_event_rules
 ```python
@@ -977,11 +1113,27 @@ Jobs can be filtered by project_id, task_id, model_id or status
 ---
 Get all detection event rules of a given task.
 
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
 
 **Args**
 
 * **task_id**  : id of the task for which you want to retrieve
 the detection event rules
+
+
+**Returns**
+
+* **rules_list**  : `List[DetectionEventRule]`
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .get_detection_event_rule
 ```python
@@ -993,11 +1145,26 @@ the detection event rules
 ---
 Get a detection event rule by id.
 
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
 
 **Args**
 
 * **rule_id**  : id of the rule
 
+
+**Returns**
+
+* **rule**  : `DetectionEventRule`
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .create_detection_event_rule
 ```python
@@ -1011,29 +1178,39 @@ Get a detection event rule by id.
 ---
 Create a detection event rule.
 
+**Allowed Roles:**
+
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
 
 **Args**
 
 * **name**  : the name of the rule
 * **task_id**  : the id of the task to which the rule belongs.
-* **model_id**  : the id of the model, only required if event_type
-* **detection_event_type**  : the type of detection event that this
-* **monitoring_target**  : the type of monitoring target that this
-* **severity**  : the level of severity of the detection event that
-* **actions**  : the list of actions to execute, in order, when the
+    The rule will only respond to detection events
+    generated by this task.
+* **model_id**  : the id of the model, only required if
+    event_type is set to PERFORMANCE.
+* **detection_event_type**  : the type of detection event that
+    this rule should respond to.
+* **monitoring_target**  : the type of monitoring target that
+    this rule should respond to.
+* **severity**  : the level of severity of the detection event
+    that this rule should respond to.
+* **actions**  : the list of actions to execute, in order,
+    when the conditions of the rule are matched.
 
-The rule will only respond to detection events generated by
-this task.
 
-is set to PERFORMANCE.
+**Returns**
 
-rule should respond to.
+* **rule_id**  : `str`
 
-rule should respond to.
 
-this rule should respond to.
+**Raises**
 
-conditions of the rule are matched.
+`CreateDetectionEventRuleException`
 
 ### .update_detection_event_rule
 ```python
@@ -1050,30 +1227,34 @@ conditions of the rule are matched.
 ---
 Update a detection event rule.
 
+**Allowed Roles:**
+
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
 
 **Args**
 
 * **rule_id**  : the id of the rule to update
-* **name**  : the name of the rule.
+* **name**  : the name of the rule. If None, keeps the existing value.
 * **model_id**  : the id of the model, only required if event_type
+    is set to PERFORMANCE. If None, keeps the existing value.
 * **detection_event_type**  : the type of detection event that this
+    rule should respond to. If None, keeps the existing value.
 * **monitoring_target**  : the type of monitoring target that this
+    rule should respond to. If None, keeps the existing value.
 * **severity**  : the level of severity of the detection event that
+    this rule should respond to. If None, keeps the
+    existing value.
 * **actions**  : the list of actions to execute, in order, when the
+    conditions of the rule are matched. If None,
+     keeps the existing value.
 
-If None, keeps the existing value.
 
-is set to PERFORMANCE. If None, keeps the existing value.
+**Raises**
 
-rule should respond to. If None, keeps the existing value.
-
-rule should respond to. If None, keeps the existing value.
-
-this rule should respond to. If None, keeps the existing
-value.
-
-conditions of the rule are matched. If None, keeps the
-existing value.
+`CreateDetectionEventRuleException`
 
 ### .delete_detection_event_rule
 ```python
@@ -1085,11 +1266,21 @@ existing value.
 ---
 Delete a detection event rule by id.
 
+**Allowed Roles:**
+
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
 
 **Args**
 
 * **rule_id**  : id of the rule to delete
 
+
+**Raises**
+
+`SDKClientException`
 
 ### .wait_job_completion
 ```python
@@ -1098,12 +1289,34 @@ Delete a detection event rule by id.
 )
 ```
 
+---
+Wait that the ML cube Platform job terminates successfully its
+execution.
 
-### .delete_company
-```python
-.delete_company()
-```
+Note that this method stops the execution.
 
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **job_id**  : identifier of the job
+* **max_wait_timeout**  : maximum amount of seconds to wait before
+    launching `JobWaitTimeoutException`
+
+
+**Raises**
+
+
+- `JobWaitTimeoutException` when the maximum timeout time
+    is reached
+- `JobNotFoundException` when the requested job does not
+    exist
+- `JobFailureException` when the requested job is failed
 
 ### .create_company_user
 ```python
@@ -1114,27 +1327,32 @@ Delete a detection event rule by id.
 ```
 
 ---
-TODO
+Creates a new User in the company.
 
-### .remove_user_from_company
-```python
-.remove_user_from_company(
-   user_id: str
-)
-```
+**Allowed Roles:**
 
----
-TODO
+- `COMPANY_OWNER`
 
-### .add_user_to_company
-```python
-.add_user_to_company(
-   user_id: str
-)
-```
 
----
-TODO
+**Args**
+
+* **name**  : name of the user
+* **surname**  : surname of the user
+* **username**  : username of the user
+* **password**  : temporary password for the user. It will change
+    this at the first login
+* **email**  : email of the user
+* **company_role**  : role of the user inside the company
+
+
+**Returns**
+
+* **user_id**  : `str`
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .get_company_users
 ```python
@@ -1142,7 +1360,23 @@ TODO
 ```
 
 ---
-TODO
+Returns the list of users in the company.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+- `COMPANY_USER`
+
+
+**Returns**
+
+* **users_list**  : `List[CompanyUser]`
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .change_user_company_role
 ```python
@@ -1152,7 +1386,23 @@ TODO
 ```
 
 ---
-TODO
+Change the company role of a user in the company.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`: can change the roles of all the Users
+    Users apart from other Admins and the Owner
+
+
+**Args**
+
+* **user_id**  : the user for which the role is updated
+* **company_role**  : the new role to assign
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .show_company_users
 ```python
@@ -1160,7 +1410,18 @@ TODO
 ```
 
 ---
-TODO
+Show company users to stdout.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+- `COMPANY_USER`
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .get_user_projects
 ```python
@@ -1170,7 +1431,28 @@ TODO
 ```
 
 ---
-TODO
+Returns a list of projects that the user can view.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+- `COMPANY_USER`
+
+
+**Args**
+
+* **user_id**  : the user for which you want to see the list
+
+
+**Returns**
+
+* **projects_list**  : `List[Project]`
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .show_user_projects
 ```python
@@ -1180,7 +1462,23 @@ TODO
 ```
 
 ---
-TODO
+Shows the projects that the user can view to stdout.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+- `COMPANY_USER`
+
+
+**Args**
+
+* **user_id**  : the user for which you want to see the list
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .add_user_project_role
 ```python
@@ -1190,7 +1488,28 @@ TODO
 ```
 
 ---
-TODO
+Add a project role to the user for the given project.
+
+The User Project role can be assigned only to `COMPANY_USER`
+because Admin and Owner already have all the permission over
+projects.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **user_id**  : the user for which you want to see the list
+* **project_id**  : identifies the project
+* **project_role**  : the project role to assign
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .delete_project_role
 ```python
@@ -1200,7 +1519,26 @@ TODO
 ```
 
 ---
-TODO
+Delete the role of the user for the given project.
+
+The User Project role can be deleted only for `COMPANY_USER`
+because Admin and Owner have all the permission over projects.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **user_id**  : the user for which you want to see the list
+* **project_id**  : identifies the project
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .get_api_keys
 ```python
@@ -1208,7 +1546,21 @@ TODO
 ```
 
 ---
-TODO
+Returns a list of api keys the user has.
+
+**Allowed Roles:**
+
+- `COMPANY_USER`
+
+
+**Returns**
+
+* **api_keys_list**  : `List[ApiKey]`
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .show_api_keys
 ```python
@@ -1216,7 +1568,16 @@ TODO
 ```
 
 ---
-TODO
+Shows the list of api keys the user has to stdout.
+
+**Allowed Roles:**
+
+- `COMPANY_USER`
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .create_api_key
 ```python
@@ -1224,7 +1585,21 @@ TODO
 ```
 
 ---
-TODO
+Create a new api key for the user
+
+**Allowed Roles:**
+
+- `COMPANY_USER`
+
+
+**Returns**
+
+* **api_key**  : the created api key
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .delete_api_key
 ```python
@@ -1234,7 +1609,21 @@ TODO
 ```
 
 ---
-TODO
+Delete the api key of the user
+
+**Allowed Roles:**
+
+- `COMPANY_USER`
+
+
+**Args**
+
+* **api_key**  : api key to delete
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .get_user_api_keys
 ```python
@@ -1244,7 +1633,22 @@ TODO
 ```
 
 ---
-TODO
+Get the list of api keys a user has.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **user_id**  : the user to get his api keys
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .show_user_api_keys
 ```python
@@ -1254,7 +1658,22 @@ TODO
 ```
 
 ---
-TODO
+Shows the list of api keys a user has to stdout.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **user_id**  : the user to get his api keys
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .create_user_api_key
 ```python
@@ -1264,7 +1683,27 @@ TODO
 ```
 
 ---
-TODO
+Create a new api key for the user.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **user_id**  : the user to create a new api key
+
+
+**Returns**
+
+* **api_key**  : the new created api key for the user
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .delete_user_api_key
 ```python
@@ -1274,7 +1713,23 @@ TODO
 ```
 
 ---
-TODO
+Delete the api key of the user
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+    Admin
+
+
+**Args**
+
+* **user_id**  : the user to create a new api key
+* **api_key**  : the api key to delete
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .change_company_owner
 ```python
@@ -1284,7 +1739,22 @@ TODO
 ```
 
 ---
-TODO
+Change the company owner role from the requesting user to the
+other user.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+
+
+**Args**
+
+* **user_id**  : the user that become Company Owner
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .delete_company_user
 ```python
@@ -1294,4 +1764,19 @@ TODO
 ```
 
 ---
-TODO
+ Delete a user from the company.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`: cannot delete other company admins
+
+
+**Args**
+
+* **user_id**  : the user to delete
+
+
+**Raises**
+
+`SDKClientException`

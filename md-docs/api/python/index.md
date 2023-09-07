@@ -1,3 +1,3 @@
 # Python SDK
 
-ciao ciao
+It is possible to interact with ML cube Platform through Python SDK.

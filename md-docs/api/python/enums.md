@@ -8,7 +8,10 @@ TaskType()
 
 
 ---
-Task Type
+**Fields:**
+
+- REGRESSION
+- CLASSIFICATION
 
 ----
 
@@ -20,7 +23,11 @@ TaskStatus()
 
 
 ---
-Status of a task
+**Fields:**
+
+- OK
+- WARNING
+- DRIFT
 
 ----
 
@@ -32,7 +39,12 @@ ModelStatus()
 
 
 ---
-Status of a model
+**Fields:**
+
+- NOT_INITIALIZED
+- OK
+- WARNING
+- DRIFT
 
 ----
 
@@ -44,8 +56,9 @@ DatasetType()
 
 
 ---
-Enum class to describe the type of
-data that can be handled
+**Fields:**
+
+- TABULAR
 
 ----
 
@@ -57,8 +70,11 @@ StoringDataType()
 
 
 ---
-Data type describing which dataset the user is storing
-in ml3 platform
+**Fields:**
+
+- HISTORICAL
+- REFERENCE
+- PRODUCTION
 
 ----
 
@@ -70,7 +86,10 @@ FileType()
 
 
 ---
-Enum class for file types
+**Fields:**
+
+- CSV
+- JSON
 
 ----
 
@@ -82,7 +101,13 @@ JobStatus()
 
 
 ---
-Job status
+**Fields:**
+
+- IDLE
+- STARTING
+- RUNNING
+- COMPLETED
+- ERROR
 
 ----
 
@@ -94,7 +119,12 @@ UserCompanyRole()
 
 
 ---
-UserCompanyRole
+**Fields:**
+
+- COMPANY_OWNER
+- COMPANY_ADMIN
+- COMPANY_USER
+- COMPANY_NONE
 
 ----
 
@@ -106,7 +136,11 @@ UserProjectRole()
 
 
 ---
-UserProjectRole
+**Fields:**
+
+- PROJECT_ADMIN
+- PROJECT_USER
+- PROJECT_VIEW
 
 ----
 
@@ -118,7 +152,11 @@ DetectionEventSeverity()
 
 
 ---
-Severity of a detection event
+**Fields:**
+
+- LOW
+- MEDIUM
+- HIGH
 
 ----
 
@@ -130,7 +168,9 @@ DetectionEventType()
 
 
 ---
-Type of event that a detection event rule will respond to
+**Fields:**
+
+- DRIFT
 
 ----
 
@@ -142,7 +182,11 @@ MonitoringTarget()
 
 
 ---
-Type of target that a detection event rule will respond to
+**Fields:**
+
+- MODEL
+- INPUT
+- CONCEPT
 
 ----
 
@@ -154,4 +198,7 @@ DetectionEventActionType()
 
 
 ---
-Type of detection event action
+**Fields:**
+
+- DISCORD_NOTIFICATION
+- SLACK_NOTIFICATION
