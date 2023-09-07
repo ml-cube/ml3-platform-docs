@@ -90,6 +90,7 @@ Detection algorithms analise production data to detect the presence of drifts.
 ## User Roles
 Before to dive into details about the functionalities and modules covered, let's talk about the Role Based Access Control in ML cube Platform.
 As mentioned above, the company owner can create new Users assigning to them a Role.
+See the [Roles](rbac.md) page to read more about it.
 The Role defines the set of actions a User has inside the ML cube Platform.
 There are two levels of roles:
 

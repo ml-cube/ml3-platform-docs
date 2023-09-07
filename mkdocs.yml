@@ -10,13 +10,13 @@ theme:
     - content.code.annotate
     - content.code.copy
     - content.code.select
-    # - content.tabs.link
+    - content.tabs.link
     - content.tooltips
     # - header.autohide
     - navigation.expand
     - navigation.footer
     - navigation.indexes
-    # - navigation.instant
+    - navigation.instant
     # - navigation.prune
     - navigation.sections
     - navigation.tabs
@@ -47,6 +47,7 @@ plugins:
   - minify:
       minify_html: true
   - glightbox
+  - table-reader
 
 # Extensions
 markdown_extensions:
@@ -56,6 +57,7 @@ markdown_extensions:
   - def_list
   - footnotes
   - md_in_html
+  - tables
   - toc:
       permalink: true
   - pymdownx.arithmatex:
@@ -102,6 +104,7 @@ nav:
   - User Guide:
       - user_guide/index.md
       - user_guide/basic_concepts.md
+      - user_guide/rbac.md
       - user_guide/glossary.md
   - API:
       - api/index.md
@@ -112,4 +115,5 @@ nav:
           - Models: api/python/models.md
           - Exceptions: api/python/exceptions.md
           - Enums: api/python/enums.md
-      - REST: api/rest.md
+      - REST: 
+        - api/rest/index.md
