@@ -373,7 +373,7 @@ Task ID                   Name     Type            Status     Status start date
 ### .create_model
 ```python
 .create_model(
-   task_id: str, name: str, version: str
+   task_id: str, name: str, version: str, metric_name: ModelMetricName
 )
 ```
 
@@ -392,6 +392,8 @@ Create a model inside the task.
 * **task_id**  : the identifier of the task
 * **name**  : the name of the model
 * **version**  : the current version of the model
+* **metric_name**  : performance or error metric associated with
+    the model
 
 
 **Returns**
@@ -524,9 +526,9 @@ Show a list of models included in a task to stdout.
 ---
 **Example output:**
 ```
-Model ID                  Name        Version    Status     Status start date
-------------------------  ----------  ---------  --------   -----------------
-64760430583201813ab4ad1e  model_name  v1.0       OK         03-02-2023 10:14:06
+Model Id                  Task Id                   Name                    Version    Status           Status start timestamp    Status insert date          Metric Name
+------------------------  ------------------------  ----------------------  ---------  ---------------  ------------------------  --------------------------  --------------------
+64fecf7d323311ab78f17280  64fecf7c323311ab78f17262  model_local_experiment  v0.0.1     not_initialized                            2023-09-11 08:27:41.431000  ModelMetricName.RMSE
 ```
 
 ### .get_suggestions

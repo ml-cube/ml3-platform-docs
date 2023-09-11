@@ -82,6 +82,8 @@ Base model to define model item
 * **status**  : ModelStatus
 * **status_data_start_timestamp**  : Optional[datetime]
 * **status_insert_datetime**  : datetime
+* **metric_name**  : performance or error metric associated with
+    the model
 
 
 ----
