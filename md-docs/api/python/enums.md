@@ -202,3 +202,37 @@ DetectionEventActionType()
 
 - DISCORD_NOTIFICATION
 - SLACK_NOTIFICATION
+
+----
+
+
+## ModelMetricName
+```python 
+ModelMetricName()
+```
+
+
+---
+Name of the model metrics that is associated with the model
+
+**Fields:**
+- RMSE
+- RSQUARE
+
+----
+
+
+## ApiKeyExpirationTime
+```python 
+ApiKeyExpirationTime()
+```
+
+
+---
+**Fields:**
+
+- ONE_MONTH
+- THREE_MONTHS
+- SIX_MONTHS
+- ONE_YEAR
+- NEVER

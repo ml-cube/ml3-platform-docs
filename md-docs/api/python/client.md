@@ -17,7 +17,7 @@ Every operation is performed verifying the API Key and the
 permissions associated to the User that own that key.
 
 ### Methods categories
-The there are the following types of methods:
+There are the following types of methods:
 
 - **entity creation:** create the entity and return its identifier.
 It is used in the other methods to indicate the entity.
@@ -134,7 +134,7 @@ Empty values will not be updated.
 
 ---
 Create a project inside the company. You don't need to specify
-the company because a User belong only to one company and it
+the company because a User belongs only to one company and it
 is retrieved automatically.
 
 **Allowed Roles**
@@ -1583,7 +1583,9 @@ Shows the list of api keys the user has to stdout.
 
 ### .create_api_key
 ```python
-.create_api_key()
+.create_api_key(
+   name: str, expiration_time: ApiKeyExpirationTime
+)
 ```
 
 ---
@@ -1596,7 +1598,8 @@ Create a new api key for the user
 
 **Returns**
 
-* **api_key**  : the created api key
+* **name**  : the name of the api key
+* **expiration_time**  : the expiration time of the api key
 
 
 **Raises**
@@ -1680,7 +1683,7 @@ Shows the list of api keys a user has to stdout.
 ### .create_user_api_key
 ```python
 .create_user_api_key(
-   user_id: str
+   user_id: str, name: str, expiration_time: ApiKeyExpirationTime
 )
 ```
 
@@ -1696,6 +1699,8 @@ Create a new api key for the user.
 **Args**
 
 * **user_id**  : the user to create a new api key
+* **name**  : the name of the api key
+* **expiration_time**  : the expiration time of the api key
 
 
 **Returns**
@@ -1725,7 +1730,7 @@ Delete the api key of the user
 
 **Args**
 
-* **user_id**  : the user to create a new api key
+* **user_id**  : the user to delete an api key
 * **api_key**  : the api key to delete
 
 
