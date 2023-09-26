@@ -318,3 +318,157 @@ a series of actions.
 * **monitoring_target**  : MonitoringTarget
 * **actions**  : List[DetectionEventAction]
 
+
+----
+
+
+## IntegrationCredentials
+```python 
+IntegrationCredentials()
+```
+
+
+---
+Credentials to authenticate to a 3rd party service provider
+via an integration.
+
+
+**Attributes**
+
+* **credentials_id**  : str
+* **name**  : str
+* **default**  : bool
+* **type**  : ExternalIntegration
+
+
+----
+
+
+## AWSCredentials
+```python 
+AWSCredentials()
+```
+
+
+---
+AWS integration credentials.
+
+
+**Attributes**
+
+* **credentials_id**  : str
+* **name**  : str
+* **default**  : bool
+* **type**  : ExternalIntegration
+* **role_arn**  : The ARN of the role that should be assumed via STS
+
+
+----
+
+
+## SecretAWSCredentials
+```python 
+SecretAWSCredentials()
+```
+
+
+---
+AWS integration credentials, that also include the external_id
+you need to set up the trust policy on AWS.
+
+
+**Attributes**
+
+* **credentials_id**  : str
+* **name**  : str
+* **default**  : bool
+* **type**  : ExternalIntegration
+* **role_arn**  : The ARN of the IAM role that should be assumed
+* **external_id**  : Secret key used to assume the IAM role via STS
+
+
+
+**Methods:**
+
+
+### .generate_trust_policy
+```python
+.generate_trust_policy()
+```
+
+---
+Generates a JSON trust policy that you can copy into the IAM
+role on AWS.
+
+----
+
+
+## DataSource
+```python 
+DataSource()
+```
+
+
+---
+Generic data source.
+
+
+**Attributes**
+
+* **dataset_type**  : DatasetType
+
+
+----
+
+
+## LocalDataSource
+```python 
+LocalDataSource()
+```
+
+
+---
+Use this data source if you want to upload a file from your
+local disk to the ML cube platform cloud.
+
+
+**Attributes**
+
+* **file_path**  : str
+
+
+----
+
+
+## RemoteDataSource
+```python 
+RemoteDataSource()
+```
+
+
+---
+A source that identifies where data is stored.
+
+
+**Attributes**
+
+* **credentials_id**  : str
+
+
+----
+
+
+## S3DataSource
+```python 
+S3DataSource()
+```
+
+
+---
+A source that identifies a file in an S3 bucket.
+
+
+**Attributes**
+
+* **object_path**  : str
+

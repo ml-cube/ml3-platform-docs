@@ -648,7 +648,7 @@ using the method `wait_job_completion(job_id)`
 ### .update_model_version_from_raw_data
 ```python
 .update_model_version_from_raw_data(
-   model_id: str, new_model_version: str, dataset_type: DatasetType, data_path: str
+   model_id: str, new_model_version: str, data_source: DataSource
 )
 ```
 
@@ -679,10 +679,7 @@ using the method `wait_job_completion(job_id)`
 
 * **model_id**  : the identifier of the model
 * **new_model_version**  : the new version of the model
-* **dataset_type**  :  Dataset type describes the nature
-               of data stored (DatasetType)
-* **data_path**  : path to the csv file containing the data
-           which will be used as new reference
+* **data_source**  : the source where your data can be found
 
 
 **Returns**
@@ -827,7 +824,7 @@ Update an existing data schema
 ### .add_historical_data
 ```python
 .add_historical_data(
-   task_id: str, dataset_type: DatasetType, data_path: str
+   task_id: str, data_source: DataSource
 )
 ```
 
@@ -850,8 +847,7 @@ using the method `wait_job_completion(job_id)`
 **Args**
 
 * **task_id**  : the identifier of the task
-* **dataset_type**  :  Dataset type describes the nature of data stored
-* **data_path**  : path to the csv file containing the historical data
+* **data_source**  : the source where your data can be found
 
 
 **Returns**
@@ -866,7 +862,7 @@ using the method `wait_job_completion(job_id)`
 ### .add_model_reference
 ```python
 .add_model_reference(
-   model_id: str, dataset_type: DatasetType, data_path: str
+   model_id: str, data_source: DataSource
 )
 ```
 
@@ -889,8 +885,7 @@ using the method `wait_job_completion(job_id)`
 **Args**
 
 * **model_id**  : the identifier of the model
-* **dataset_type**  :  Dataset type describes the nature of data stored
-* **data_path**  : path to the csv file containing the reference data
+* **data_source**  : the source where your data can be found
 
 
 **Returns**
@@ -905,7 +900,7 @@ using the method `wait_job_completion(job_id)`
 ### .add_production_data
 ```python
 .add_production_data(
-   task_id: str, dataset_type: DatasetType, data_path: str
+   task_id: str, data_source: DataSource
 )
 ```
 
@@ -928,8 +923,7 @@ using the method `wait_job_completion(job_id)`
 **Args**
 
 * **task_id**  : the identifier of the task
-* **dataset_type**  :  Dataset type describes the nature of data stored
-* **data_path**  : path to the csv file containing the production data
+* **data_source**  : the source where your data can be found
 
 
 **Returns**
@@ -1782,6 +1776,141 @@ other user.
 **Args**
 
 * **user_id**  : the user to delete
+
+
+**Raises**
+
+`SDKClientException`
+
+### .get_integration_credentials
+```python
+.get_integration_credentials(
+   credentials_id: str
+)
+```
+
+---
+Get the credentials with the given id for 3rd party service
+provider integration.
+
+**Allowed Roles:**
+
+- At least `WORK_ON_PROJECT` for the project where the
+credentials have been configured
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **credentials_id**  : id of the integration credentials to
+retrieve.
+
+
+**Returns**
+
+* **credentials**  : `IntegrationCredentials`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .get_all_project_integration_credentials
+```python
+.get_all_project_integration_credentials(
+   project_id: str
+)
+```
+
+---
+Get the list of credentials for 3rd party service provider
+integrations that are currently configured in a project.
+
+**Allowed Roles:**
+
+- At least `WORK_ON_PROJECT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : id of the project for which all configured
+credentials should be retrieved.
+
+
+**Returns**
+
+* **credentials_list**  : `List[IntegrationCredentials]`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .delete_integration_credentials
+```python
+.delete_integration_credentials(
+   credentials_id: str
+)
+```
+
+---
+ Delete credentials for the integration with a 3rd party
+ service provider.
+
+**Allowed Roles:**
+
+- At least `UPDATE_PROJECT_INFORMATION` for the project
+where the credentials have been configured
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`: cannot delete other company admins
+
+
+**Args**
+
+* **credentials_id**  : id of the integration credentials to
+delete.
+
+
+**Raises**
+
+`SDKClientException`
+
+### .create_aws_integration_credentials
+```python
+.create_aws_integration_credentials(
+   name: str, default: bool, project_id: str, role_arn: str
+)
+```
+
+---
+Create credentials to integrate with AWS. Returns an object
+that contains the external_id you will need to configure in
+your trust policy.
+
+**Allowed Roles:**
+
+- At least `UPDATE_PROJECT_INFORMATION` for the project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **name**  : a simple name to identify this set of credentials
+* **default**  : whether to use these credentials by default when
+    using an AWS integration
+* **project_id**  : the project in which these credentials will
+    be configured
+* **role_arn**  : the ARN of the IAM role that will be assumed by ML
+    cube Platform
+
+
+**Returns**
+
+* **credentials**  : `SecretAWSCredentials`
 
 
 **Raises**

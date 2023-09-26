@@ -236,3 +236,18 @@ ApiKeyExpirationTime()
 - SIX_MONTHS
 - ONE_YEAR
 - NEVER
+
+----
+
+
+## ExternalIntegration
+```python 
+ExternalIntegration()
+```
+
+
+---
+An integration with a 3rd party service provider
+
+**Fields:**
+- AWS
