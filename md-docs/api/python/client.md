@@ -935,16 +935,15 @@ using the method `wait_job_completion(job_id)`
 
 `AddProductionDataException`
 
-### .compute_importance_weights
+### .compute_retraining_report
 ```python
-.compute_importance_weights(
-   model_id: str, model_version: str
+.compute_retraining_report(
+   model_id: str
 )
 ```
 
 ---
-For a given model version, get the importance weights to
-perform a new training.
+Compute the retraining report for a given model
 
 This request starts an operation pipeline that is
 executed by ML cube Platform.
@@ -961,8 +960,7 @@ using the method `wait_job_completion(job_id)`
 
 **Args**
 
-* **model_id**  : the identifier of the task
-* **model_version**  : the version of the model
+* **model_id**  : the identifier of the model
 
 
 **Returns**
@@ -972,17 +970,19 @@ using the method `wait_job_completion(job_id)`
 
 **Raises**
 
-`ComputeImportanceWeightsException`
+`ComputeRetrainingReportException`
 
-### .get_importance_weights
+### .get_retraining_report
 ```python
-.get_importance_weights(
-   model_id: str, model_version: str
+.get_retraining_report(
+   model_id: str
 )
 ```
 
 ---
-For a given model version, get the importance weights.
+For a given model id, get the sample weights computed
+and additional information about them included in
+the retraining report
 
 **Allowed Roles:**
 
@@ -993,18 +993,17 @@ For a given model version, get the importance weights.
 
 **Args**
 
-* **model_id**  : the identifier of the task
-* **model_version**  : the version of the model
+* **model_id**  : the identifier of the model
 
 
 **Returns**
 
-* **iw_suggestion**  : `ImportanceWeightsSuggestion`
+* **retraining_report**  : `RetrainingReport`
 
 
 **Raises**
 
-`GetImportanceWeightsException`
+`GetRetrainingReportException`
 
 ### .get_jobs
 ```python

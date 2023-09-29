@@ -178,23 +178,25 @@ Suggestion base model
 ----
 
 
-## ImportanceWeightsSuggestion
+## RetrainingReport
 ```python 
-ImportanceWeightsSuggestion()
+RetrainingReport()
 ```
 
 
 ---
-base model for importance weights suggestion
+base model for Retraining Report
 
 
 **Attributes**
 
-* **model_id**  : str
-* **model_version**  : str
-* **suggestion_id**  : str
+* **report_id**  : str
 * **sample_ids**  : List[str]
 * **sample_weights**  : List[float]
+* **effective_sample_size**  : float
+* **model_metric_name**  : str
+* **upper_bound**  : float
+* **lower_bound**  : float
 
 
 ----

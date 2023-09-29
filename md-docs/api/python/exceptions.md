@@ -147,26 +147,26 @@ AddProductionDataException
 ----
 
 
-## ComputeImportanceWeightsException
+## ComputeRetrainingReportException
 ```python 
-ComputeImportanceWeightsException()
+ComputeRetrainingReportException()
 ```
 
 
 ---
-ComputeImportanceWeightsException
+ComputeRetrainingReportException
 
 ----
 
 
-## GetImportanceWeightsException
+## GetRetrainingReportException
 ```python 
-GetImportanceWeightsException()
+GetRetrainingReportException()
 ```
 
 
 ---
-ComputeImportanceWeightsException
+GetRetrainingReportException
 
 ----
 
