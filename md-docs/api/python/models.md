@@ -1,116 +1,41 @@
 #
 
 
-## Company
+## AWSCredentials
 ```python 
-Company()
+AWSCredentials()
 ```
 
 
 ---
-Company model
+AWS integration credentials.
 
 
 **Attributes**
 
-* **company_id**  : str
+* **credentials_id**  : str
 * **name**  : str
-* **address**  : str
-* **vat**  : str
+* **default**  : bool
+* **type**  : ExternalIntegration
+* **role_arn**  : The ARN of the role that should be assumed via STS
 
 
 ----
 
 
-## Project
+## ApiKey
 ```python 
-Project()
+ApiKey()
 ```
 
 
 ---
-Project model
+base model for api key
 
 
 **Attributes**
 
-* **project_id**  : str
-* **name**  : str
-
-
-----
-
-
-## Task
-```python 
-Task()
-```
-
-
----
-Task model
-
-
-**Attributes**
-
-* **task_id**  : str
-* **name**  : str
-* **type**  : TaskType
-* **status**  : TaskStatus
-* **status_start_date**  : str
-
-
-----
-
-
-## Model
-```python 
-Model()
-```
-
-
----
-Base model to define model item
-
-
-**Attributes**
-
-* **model_id**  : str
-* **task_id**  : str
-* **name**  : str
-* **version**  : str
-* **status**  : ModelStatus
-* **status_data_start_timestamp**  : Optional[datetime]
-* **status_insert_datetime**  : datetime
-* **metric_name**  : performance or error metric associated with
-    the model
-
-
-----
-
-
-## Job
-```python 
-Job()
-```
-
-
----
-Job information item model
-
-
-**Attributes**
-
-* **job_id**  : str
-* **job_group**  : str
-* **project_id**  : str
-* **project_name**  : str
-* **task_id**  : str
-* **task_name**  : str
-* **model_id**  : Optional[str]
-* **model_name**  : Optional[str]
-* **status**  : str
-* **error**  : Optional[str]
+* **api_key**  : str
 
 
 ----
@@ -140,63 +65,22 @@ Column base model
 ----
 
 
-## DataSchema
+## Company
 ```python 
-DataSchema()
+Company()
 ```
 
 
 ---
-Data schema base model
+Company model
 
 
 **Attributes**
 
-* **columns**  : List[ColumnInfo]
-
-
-----
-
-
-## Suggestion
-```python 
-Suggestion()
-```
-
-
----
-Suggestion base model
-
-
-**Attributes**
-
-* **id**  : str
-* **executed**  : bool
-* **timestamp**  : str
-
-
-----
-
-
-## RetrainingReport
-```python 
-RetrainingReport()
-```
-
-
----
-base model for Retraining Report
-
-
-**Attributes**
-
-* **report_id**  : str
-* **sample_ids**  : List[str]
-* **sample_weights**  : List[float]
-* **effective_sample_size**  : float
-* **model_metric_name**  : str
-* **upper_bound**  : float
-* **lower_bound**  : float
+* **company_id**  : str
+* **name**  : str
+* **address**  : str
+* **vat**  : str
 
 
 ----
@@ -221,19 +105,37 @@ base model for company user
 ----
 
 
-## ApiKey
+## DataSchema
 ```python 
-ApiKey()
+DataSchema()
 ```
 
 
 ---
-base model for api key
+Data schema base model
 
 
 **Attributes**
 
-* **api_key**  : str
+* **columns**  : List[ColumnInfo]
+
+
+----
+
+
+## DataSource
+```python 
+DataSource()
+```
+
+
+---
+Generic data source.
+
+
+**Attributes**
+
+* **dataset_type**  : DatasetType
 
 
 ----
@@ -253,45 +155,6 @@ Generic action that can be performed
 
 * **type**  : DetectionEventActionType
 
-
-----
-
-
-## DiscordNotificationAction
-```python 
-DiscordNotificationAction()
-```
-
-
----
-Action that sends a notification to a Discord server through
-a webhook that you configure
-
-
-**Attributes**
-
-* **webhook**  : str
-type = DetectionEventActionType.DISCORD_NOTIFICATION
-
-----
-
-
-## SlackNotificationAction
-```python 
-SlackNotificationAction()
-```
-
-
----
-Action that sends a notification to a Slack channel through
-a webhook that you configure.
-
-
-**Attributes**
-
-* **webhook**  : str
-* **channel**  : str
-type = DetectionEventActionType.SLACK_NOTIFICATION
 
 ----
 
@@ -324,6 +187,25 @@ a series of actions.
 ----
 
 
+## DiscordNotificationAction
+```python 
+DiscordNotificationAction()
+```
+
+
+---
+Action that sends a notification to a Discord server through
+a webhook that you configure
+
+
+**Attributes**
+
+* **webhook**  : str
+type = DetectionEventActionType.DISCORD_NOTIFICATION
+
+----
+
+
 ## IntegrationCredentials
 ```python 
 IntegrationCredentials()
@@ -346,23 +228,165 @@ via an integration.
 ----
 
 
-## AWSCredentials
+## Job
 ```python 
-AWSCredentials()
+Job()
 ```
 
 
 ---
-AWS integration credentials.
+Job information item model
+
+
+**Attributes**
+
+* **job_id**  : str
+* **job_group**  : str
+* **project_id**  : str
+* **project_name**  : str
+* **task_id**  : str
+* **task_name**  : str
+* **model_id**  : Optional[str]
+* **model_name**  : Optional[str]
+* **status**  : str
+* **error**  : Optional[str]
+
+
+----
+
+
+## LocalDataSource
+```python 
+LocalDataSource()
+```
+
+
+---
+Use this data source if you want to upload a file from your
+local disk to the ML cube platform cloud.
+
+
+**Attributes**
+
+* **file_path**  : str
+
+
+----
+
+
+## Model
+```python 
+Model()
+```
+
+
+---
+Base model to define model item
+
+
+**Attributes**
+
+* **model_id**  : str
+* **task_id**  : str
+* **name**  : str
+* **version**  : str
+* **status**  : ModelStatus
+* **status_data_start_timestamp**  : Optional[datetime]
+* **status_insert_datetime**  : datetime
+* **metric_name**  : performance or error metric associated with
+    the model
+
+
+----
+
+
+## PredictionDataSourceInfo
+```python 
+PredictionDataSourceInfo()
+```
+
+
+---
+Base model to define the relationship
+between a model and its prediction file
+
+----
+
+
+## Project
+```python 
+Project()
+```
+
+
+---
+Project model
+
+
+**Attributes**
+
+* **project_id**  : str
+* **name**  : str
+
+
+----
+
+
+## RemoteDataSource
+```python 
+RemoteDataSource()
+```
+
+
+---
+A source that identifies where data is stored.
 
 
 **Attributes**
 
 * **credentials_id**  : str
-* **name**  : str
-* **default**  : bool
-* **type**  : ExternalIntegration
-* **role_arn**  : The ARN of the role that should be assumed via STS
+
+
+----
+
+
+## RetrainingReport
+```python 
+RetrainingReport()
+```
+
+
+---
+base model for Retraining Report
+
+
+**Attributes**
+
+* **report_id**  : str
+* **sample_ids**  : List[str]
+* **sample_weights**  : List[float]
+* **effective_sample_size**  : float
+* **model_metric_name**  : str
+* **upper_bound**  : float
+* **lower_bound**  : float
+
+
+----
+
+
+## S3DataSource
+```python 
+S3DataSource()
+```
+
+
+---
+A source that identifies a file in an S3 bucket.
+
+
+**Attributes**
+
+* **object_path**  : str
 
 
 ----
@@ -405,72 +429,61 @@ role on AWS.
 ----
 
 
-## DataSource
+## SlackNotificationAction
 ```python 
-DataSource()
+SlackNotificationAction()
 ```
 
 
 ---
-Generic data source.
+Action that sends a notification to a Slack channel through
+a webhook that you configure.
 
 
 **Attributes**
 
-* **dataset_type**  : DatasetType
+* **webhook**  : str
+* **channel**  : str
+type = DetectionEventActionType.SLACK_NOTIFICATION
+
+----
+
+
+## Suggestion
+```python 
+Suggestion()
+```
+
+
+---
+Suggestion base model
+
+
+**Attributes**
+
+* **id**  : str
+* **executed**  : bool
+* **timestamp**  : str
 
 
 ----
 
 
-## LocalDataSource
+## Task
 ```python 
-LocalDataSource()
+Task()
 ```
 
 
 ---
-Use this data source if you want to upload a file from your
-local disk to the ML cube platform cloud.
+Task model
 
 
 **Attributes**
 
-* **file_path**  : str
-
-
-----
-
-
-## RemoteDataSource
-```python 
-RemoteDataSource()
-```
-
-
----
-A source that identifies where data is stored.
-
-
-**Attributes**
-
-* **credentials_id**  : str
-
-
-----
-
-
-## S3DataSource
-```python 
-S3DataSource()
-```
-
-
----
-A source that identifies a file in an S3 bucket.
-
-
-**Attributes**
-
-* **object_path**  : str
+* **task_id**  : str
+* **name**  : str
+* **type**  : TaskType
+* **status**  : TaskStatus
+* **status_start_date**  : str
 

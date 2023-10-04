@@ -1,50 +1,20 @@
 #
 
 
-## TaskType
+## ApiKeyExpirationTime
 ```python 
-TaskType()
+ApiKeyExpirationTime()
 ```
 
 
 ---
 **Fields:**
 
-- REGRESSION
-- CLASSIFICATION
-
-----
-
-
-## TaskStatus
-```python 
-TaskStatus()
-```
-
-
----
-**Fields:**
-
-- OK
-- WARNING
-- DRIFT
-
-----
-
-
-## ModelStatus
-```python 
-ModelStatus()
-```
-
-
----
-**Fields:**
-
-- NOT_INITIALIZED
-- OK
-- WARNING
-- DRIFT
+- ONE_MONTH
+- THREE_MONTHS
+- SIX_MONTHS
+- ONE_YEAR
+- NEVER
 
 ----
 
@@ -63,18 +33,62 @@ DatasetType()
 ----
 
 
-## StoringDataType
+## DetectionEventActionType
 ```python 
-StoringDataType()
+DetectionEventActionType()
 ```
 
 
 ---
 **Fields:**
 
-- HISTORICAL
-- REFERENCE
-- PRODUCTION
+- DISCORD_NOTIFICATION
+- SLACK_NOTIFICATION
+
+----
+
+
+## DetectionEventSeverity
+```python 
+DetectionEventSeverity()
+```
+
+
+---
+**Fields:**
+
+- LOW
+- MEDIUM
+- HIGH
+
+----
+
+
+## DetectionEventType
+```python 
+DetectionEventType()
+```
+
+
+---
+**Fields:**
+
+- DRIFT
+
+----
+
+
+## ExternalIntegration
+```python 
+ExternalIntegration()
+```
+
+
+---
+An integration with a 3rd party service provider
+
+**Fields:**
+- AWS
 
 ----
 
@@ -112,6 +126,102 @@ JobStatus()
 ----
 
 
+## ModelMetricName
+```python 
+ModelMetricName()
+```
+
+
+---
+Name of the model metrics that is associated with the model
+
+**Fields:**
+- RMSE
+- RSQUARE
+
+----
+
+
+## ModelStatus
+```python 
+ModelStatus()
+```
+
+
+---
+**Fields:**
+
+- NOT_INITIALIZED
+- OK
+- WARNING
+- DRIFT
+
+----
+
+
+## MonitoringTarget
+```python 
+MonitoringTarget()
+```
+
+
+---
+**Fields:**
+
+- MODEL
+- INPUT
+- CONCEPT
+
+----
+
+
+## StoringDataType
+```python 
+StoringDataType()
+```
+
+
+---
+**Fields:**
+
+- HISTORICAL
+- REFERENCE
+- PRODUCTION
+
+----
+
+
+## TaskStatus
+```python 
+TaskStatus()
+```
+
+
+---
+**Fields:**
+
+- OK
+- WARNING
+- DRIFT
+
+----
+
+
+## TaskType
+```python 
+TaskType()
+```
+
+
+---
+**Fields:**
+
+- REGRESSION
+- CLASSIFICATION
+
+----
+
+
 ## UserCompanyRole
 ```python 
 UserCompanyRole()
@@ -141,113 +251,3 @@ UserProjectRole()
 - PROJECT_ADMIN
 - PROJECT_USER
 - PROJECT_VIEW
-
-----
-
-
-## DetectionEventSeverity
-```python 
-DetectionEventSeverity()
-```
-
-
----
-**Fields:**
-
-- LOW
-- MEDIUM
-- HIGH
-
-----
-
-
-## DetectionEventType
-```python 
-DetectionEventType()
-```
-
-
----
-**Fields:**
-
-- DRIFT
-
-----
-
-
-## MonitoringTarget
-```python 
-MonitoringTarget()
-```
-
-
----
-**Fields:**
-
-- MODEL
-- INPUT
-- CONCEPT
-
-----
-
-
-## DetectionEventActionType
-```python 
-DetectionEventActionType()
-```
-
-
----
-**Fields:**
-
-- DISCORD_NOTIFICATION
-- SLACK_NOTIFICATION
-
-----
-
-
-## ModelMetricName
-```python 
-ModelMetricName()
-```
-
-
----
-Name of the model metrics that is associated with the model
-
-**Fields:**
-- RMSE
-- RSQUARE
-
-----
-
-
-## ApiKeyExpirationTime
-```python 
-ApiKeyExpirationTime()
-```
-
-
----
-**Fields:**
-
-- ONE_MONTH
-- THREE_MONTHS
-- SIX_MONTHS
-- ONE_YEAR
-- NEVER
-
-----
-
-
-## ExternalIntegration
-```python 
-ExternalIntegration()
-```
-
-
----
-An integration with a 3rd party service provider
-
-**Fields:**
-- AWS

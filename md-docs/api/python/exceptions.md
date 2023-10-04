@@ -1,92 +1,6 @@
 #
 
 
-## SDKClientException
-```python 
-SDKClientException(
-   error_code: str = 'UNEXPECTED', error_message: str = 'Anunexpectederroroccurred'
-)
-```
-
-
----
-Base class for client sdk exceptions
-
-----
-
-
-## CreateCompanyException
-```python 
-CreateCompanyException()
-```
-
-
----
-CreateCompanyException
-
-----
-
-
-## UpdateCompanyException
-```python 
-UpdateCompanyException()
-```
-
-
----
-UpdateCompanyException
-
-----
-
-
-## CreateProjectException
-```python 
-CreateProjectException()
-```
-
-
----
-CreateProjectException
-
-----
-
-
-## UpdateProjectException
-```python 
-UpdateProjectException()
-```
-
-
----
-UpdateProjectException
-
-----
-
-
-## CreateTaskException
-```python 
-CreateTaskException()
-```
-
-
----
-CreateTaskException
-
-----
-
-
-## CreateModelException
-```python 
-CreateModelException()
-```
-
-
----
-CreateModelException
-
-----
-
-
 ## AddDataSchemaException
 ```python 
 AddDataSchemaException()
@@ -123,18 +37,6 @@ AddModelReferenceException
 ----
 
 
-## UpdateModelVersionException
-```python 
-UpdateModelVersionException()
-```
-
-
----
-UpdateModelVersionException
-
-----
-
-
 ## AddProductionDataException
 ```python 
 AddProductionDataException()
@@ -159,62 +61,14 @@ ComputeRetrainingReportException
 ----
 
 
-## GetRetrainingReportException
+## CreateCompanyException
 ```python 
-GetRetrainingReportException()
+CreateCompanyException()
 ```
 
 
 ---
-GetRetrainingReportException
-
-----
-
-
-## UpdateDataSchemaException
-```python 
-UpdateDataSchemaException()
-```
-
-
----
-UpdateDataSchemaException
-
-----
-
-
-## JobWaitTimeoutException
-```python 
-JobWaitTimeoutException()
-```
-
-
----
-JobWaitTimeoutException
-
-----
-
-
-## JobNotFoundException
-```python 
-JobNotFoundException()
-```
-
-
----
-JobNotFoundException
-
-----
-
-
-## JobFailureException
-```python 
-JobFailureException()
-```
-
-
----
-JobFailureException
+CreateCompanyException
 
 ----
 
@@ -231,6 +85,128 @@ CreateDetectionEventRuleException
 ----
 
 
+## CreateModelException
+```python 
+CreateModelException()
+```
+
+
+---
+CreateModelException
+
+----
+
+
+## CreateProjectException
+```python 
+CreateProjectException()
+```
+
+
+---
+CreateProjectException
+
+----
+
+
+## CreateTaskException
+```python 
+CreateTaskException()
+```
+
+
+---
+CreateTaskException
+
+----
+
+
+## GetRetrainingReportException
+```python 
+GetRetrainingReportException()
+```
+
+
+---
+GetRetrainingReportException
+
+----
+
+
+## JobFailureException
+```python 
+JobFailureException()
+```
+
+
+---
+JobFailureException
+
+----
+
+
+## JobNotFoundException
+```python 
+JobNotFoundException()
+```
+
+
+---
+JobNotFoundException
+
+----
+
+
+## JobWaitTimeoutException
+```python 
+JobWaitTimeoutException()
+```
+
+
+---
+JobWaitTimeoutException
+
+----
+
+
+## SDKClientException
+```python 
+SDKClientException(
+   error_code: str = 'UNEXPECTED', error_message: str = 'Anunexpectederroroccurred'
+)
+```
+
+
+---
+Base class for client sdk exceptions
+
+----
+
+
+## UpdateCompanyException
+```python 
+UpdateCompanyException()
+```
+
+
+---
+UpdateCompanyException
+
+----
+
+
+## UpdateDataSchemaException
+```python 
+UpdateDataSchemaException()
+```
+
+
+---
+UpdateDataSchemaException
+
+----
+
+
 ## UpdateDetectionEventRuleException
 ```python 
 UpdateDetectionEventRuleException()
@@ -239,3 +215,27 @@ UpdateDetectionEventRuleException()
 
 ---
 UpdateDetectionEventRuleException
+
+----
+
+
+## UpdateModelVersionException
+```python 
+UpdateModelVersionException()
+```
+
+
+---
+UpdateModelVersionException
+
+----
+
+
+## UpdateProjectException
+```python 
+UpdateProjectException()
+```
+
+
+---
+UpdateProjectException

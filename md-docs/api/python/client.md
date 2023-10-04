@@ -648,7 +648,8 @@ using the method `wait_job_completion(job_id)`
 ### .update_model_version_from_raw_data
 ```python
 .update_model_version_from_raw_data(
-   model_id: str, new_model_version: str, data_source: DataSource
+   model_id: str, new_model_version: str, features_data_source: DataSource,
+   targets_data_source: DataSource
 )
 ```
 
@@ -679,7 +680,10 @@ using the method `wait_job_completion(job_id)`
 
 * **model_id**  : the identifier of the model
 * **new_model_version**  : the new version of the model
-* **data_source**  : the source where your data can be found
+* **dataset_type**  :  Dataset type describes the nature
+               of data stored (DatasetType)
+* **features_data_source**  : data source that contains features data
+* **targets_data_source**  : data source that contains targets data
 
 
 **Returns**
@@ -824,7 +828,7 @@ Update an existing data schema
 ### .add_historical_data
 ```python
 .add_historical_data(
-   task_id: str, data_source: DataSource
+   task_id: str, features_data_source: DataSource, targets_data_source: DataSource
 )
 ```
 
@@ -847,7 +851,9 @@ using the method `wait_job_completion(job_id)`
 **Args**
 
 * **task_id**  : the identifier of the task
-* **data_source**  : the source where your data can be found
+* **dataset_type**  :  Dataset type describes the nature of data stored
+* **features_data_source**  : data source that contains features data
+* **targets_data_source**  : data source that contains targets data
 
 
 **Returns**
@@ -862,7 +868,8 @@ using the method `wait_job_completion(job_id)`
 ### .add_model_reference
 ```python
 .add_model_reference(
-   model_id: str, data_source: DataSource
+   model_id: str, features_data_source: DataSource,
+   targets_data_source: DataSource
 )
 ```
 
@@ -885,7 +892,9 @@ using the method `wait_job_completion(job_id)`
 **Args**
 
 * **model_id**  : the identifier of the model
-* **data_source**  : the source where your data can be found
+* **dataset_type**  :  Dataset type describes the nature of data stored
+* **features_data_source**  : data source that contains features data
+* **targets_data_source**  : data source that contains targets data
 
 
 **Returns**
@@ -900,7 +909,9 @@ using the method `wait_job_completion(job_id)`
 ### .add_production_data
 ```python
 .add_production_data(
-   task_id: str, data_source: DataSource
+   task_id: str, features_data_source: Optional[DataSource] = None,
+   targets_data_source: Optional[DataSource] = None,
+   predictions_data_sources: Optional[List[PredictionDataSourceInfo]] = None
 )
 ```
 
@@ -923,7 +934,10 @@ using the method `wait_job_completion(job_id)`
 **Args**
 
 * **task_id**  : the identifier of the task
-* **data_source**  : the source where your data can be found
+* **dataset_type**  :  Dataset type describes the nature of data stored
+* **features_data_source**  : data source that contains features data. It can be None if you upload other kinds of data
+* **targets_data_source**  : data source that contains targets data. It can be None if you upload other kinds of data
+* **predictions_data_sources**  : list of data sources for each models' predictions. It can be None if you upload other kinds of data
 
 
 **Returns**
