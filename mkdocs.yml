@@ -106,14 +106,15 @@ nav:
       - user_guide/basic_concepts.md
       - user_guide/rbac.md
       - user_guide/glossary.md
+      - user_guide/data_sources.md
   - API:
       - api/index.md
       - Examples: api/examples.md
-      - Python SDK: 
+      - Python SDK:
           - api/python/index.md
           - Client: api/python/client.md
           - Models: api/python/models.md
           - Exceptions: api/python/exceptions.md
           - Enums: api/python/enums.md
-      - REST: 
-        - api/rest/index.md
+      - REST:
+          - api/rest/index.md
