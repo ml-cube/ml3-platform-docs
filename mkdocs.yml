@@ -107,6 +107,7 @@ nav:
       - user_guide/rbac.md
       - user_guide/glossary.md
       - user_guide/data_sources.md
+      - user_guide/notifications.md
   - API:
       - api/index.md
       - Examples: api/examples.md

@@ -1,26 +1,24 @@
 # Basic Concepts
 
-This page will explain you the basic concept of ML cube Platform to get familiar with the product.
+This page provides an overview of the fundamental concepts in the ML Cube Platform, helping you familiarize yourself with the product.
 
 ## Company, Project, Task and Model
 
-Everything starts with a **Company**, when you register on ML cube Platform, you are asked to create a Company.
-A Company has a **Subscription Plan** that defines how many Projects, Tasks, Data you can create.
-Moreover, billing and payments are done at Company level.
+At the core of the ML Cube Platform is a **Company**. Upon registration, you create a Company, which comes with a **Subscription Plan** defining the number of Projects, Tasks, and Data you can manage. Billing and payments occur at the Company level.
 
 <figure markdown>
   ![Image title](../imgs/company project task structure.png){ width="500" }
-  <figcaption>ML cube Platform entities structure.</figcaption>
+  <figcaption>Structure of entities in ML Cube Platform.</figcaption>
 </figure>
 
-After you created your Company you become the *company owner*, and as company owner, you can create new **Users**, assigning them the right **Role**.
+Once your Company is established, you, as the company owner, can create **Users** and assign them specific **Roles**.
 
 > To help you to better understand the concepts and the entities in ML cube Platform we use a fictional company: it is called *Delta Energy*, and it is a producer of Photovoltaic Modules that own Photovoltaic fields and trades the energy to the market.
 
 After the Company is created, you can create a **Project** and AI Tasks inside it.
 Think of a Project as an application of Artificial Intelligence algorithms and techniques to optimize a KPI.
 
-> Delta Energy created the Project *Energy Revenue* for increasing the revenue from trading the produced energy.
+> *Delta Energy*, for instance, created the *Energy Revenue* Project to enhance their revenue from energy trading.
 > They invested in four AI algorithms:
 > 
 > 1. Fault detection
@@ -51,17 +49,17 @@ It's worth nothing to note that in ML cube Platform you do not actually need to 
 We just need to know its training data and its predictions for the production data.
 In this way, ML cube Platform is considered as *model agnostic*.
 
-## Data Tassonomy
+## Data Taxonomy
 A Batch of data is composed of four types of data:
 
-- **metadata:** additional information that AI models do not use as input but that are important to define the data or the samples.
+- **metadata:** additional information that AI models do not use as input but that is important to define the data or the samples.
 Mandatory for this category are the `sample-id`, a unique identifier for each sample used to avoid confusion and misinterpretation; and the
 `sample-timestamp`, a timestamp associated with each sample used for ordering.
 Moreover, the User can provide additional data used to segment the data space. 
 For instance, sensitive information like zip code or country are not used by AI models to prevent bias, however, ML cube Platform can use them to 
 check and prevent bias in the suggested retraining dataset or to perform segmented drift detection.
 - **input:** set of input features the AI model uses to predict the output. 
-ML cube Platform uses the input data that come at the end of the processing data pipeline and not the raw data.
+ML cube Platform uses the input data that comes at the end of the processing data pipeline and not the raw data.
 This is due to the fact that ML cube Platform detects drifts in what the AI model uses and not in the general data the customer has.
 - **output:** target quantity predicted by the AI models.
 It is present in the training data but can be not available for production data.

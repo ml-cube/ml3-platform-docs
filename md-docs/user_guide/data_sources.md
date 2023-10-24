@@ -1,8 +1,6 @@
 # Data Sources
 
-This page will help you understand how to integrate your data sources into your project on ML cube Platform.
-
-There are three types of data sources that can be used to let the ML cube Platform can access your data:
+This page provides guidance on integrating your data sources into your ML cube Platform project. There are three types of data sources you can use to enable the ML cube Platform to access your data:
 
 1. Local data source
 2. Remote data source with ML cube Storage
