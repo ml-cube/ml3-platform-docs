@@ -24,7 +24,7 @@ The monitored metrics are split in two categories:
 - **Serving metrics:** quantities related to the infrastructure and the software application like inference time and network rate;
 - **AI metrics:** quantities related to the Artificial Intelligence application like model performance, missing values and data distributions.
  
-ML cube Platform focuses on AI metrics, its goal is to monitor data and AI models to detect drifts and AI related problems and to provide actions keep model performance high.
+ML cube Platform focuses on AI metrics, its goal is to monitor data and AI models to detect drifts and AI related problems and to provide actions that keep model performance high.
  
 ## Data and model monitoring
 ML cube Platform implements data monitoring and model monitoring. 
