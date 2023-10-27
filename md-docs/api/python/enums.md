@@ -89,6 +89,7 @@ An integration with a 3rd party service provider
 
 **Fields:**
 - AWS
+- GCP
 
 ----
 
@@ -122,6 +123,23 @@ JobStatus()
 - RUNNING
 - COMPLETED
 - ERROR
+
+----
+
+
+## KPIStatus
+```python 
+KPIStatus()
+```
+
+
+---
+**Fields:**
+
+- NOT_INITIALIZED
+- OK
+- WARNING
+- DRIFT
 
 ----
 
@@ -171,6 +189,23 @@ MonitoringTarget()
 - MODEL
 - INPUT
 - CONCEPT
+
+----
+
+
+## StoragePolicy
+```python 
+StoragePolicy()
+```
+
+
+---
+Enumeration that specify the storage policy for the data sent to
+ML cube Platform
+
+**Fields:**
+    cloud
+    it needs to read data
 
 ----
 

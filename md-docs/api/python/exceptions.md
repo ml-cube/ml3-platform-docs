@@ -25,6 +25,18 @@ AddHistoricalDataException
 ----
 
 
+## AddKPIDataException
+```python 
+AddKPIDataException()
+```
+
+
+---
+AddKPIDataException
+
+----
+
+
 ## AddModelReferenceException
 ```python 
 AddModelReferenceException()
@@ -81,6 +93,18 @@ CreateDetectionEventRuleException()
 
 ---
 CreateDetectionEventRuleException
+
+----
+
+
+## CreateKPIException
+```python 
+CreateKPIException()
+```
+
+
+---
+CreateKPIEventRuleException
 
 ----
 

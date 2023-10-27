@@ -128,7 +128,7 @@ Empty values will not be updated.
 ### .create_project
 ```python
 .create_project(
-   name: str, description: Optional[str]
+   name: str, description: Optional[str], default_storage_policy: StoragePolicy
 )
 ```
 
@@ -146,6 +146,8 @@ is retrieved automatically.
 
 * **name**  : the name of the project
 * **description**  : optional description of the project
+* **default_storage_policy**  : represents the default policy to
+    use for storing data in ML cube Platform
 
 
 **Returns**
@@ -210,7 +212,8 @@ Get a project with the given id
 ### .update_project
 ```python
 .update_project(
-   project_id: str, name: Optional[str], description: Optional[str]
+   project_id: str, name: Optional[str], description: Optional[str],
+   default_storage_policy: Optional[StoragePolicy]
 )
 ```
 
@@ -231,6 +234,8 @@ Empty values will not be updated.
 * **project_id**  : project identifier
 * **name**  : new name of the project
 * **description**  : new description of the project
+* **default_storage_policy**  : represents the default policy to
+    use for storing data in ML cube Platform
 
 
 **Returns**
@@ -948,6 +953,166 @@ using the method `wait_job_completion(job_id)`
 **Raises**
 
 `AddProductionDataException`
+
+### .create_kpi
+```python
+.create_kpi(
+   project_id: str, name: str
+)
+```
+
+---
+Create a KPI.
+
+**Allowed Roles:**
+
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : the identifier of the project
+* **name**  : the name of the kpi
+
+
+**Returns**
+
+* **kpi_id**  : `str` identifier of the created kpi
+
+
+**Raises**
+
+`CreateKpiException`
+
+### .get_kpi
+```python
+.get_kpi(
+   kpi_id: str
+)
+```
+
+---
+Get kpi by id.
+
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+**Args**
+
+* **kpi_id**  : identifier of the kpi
+
+
+**Returns**
+
+* **kpi**  : `KPI`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .get_kpis
+```python
+.get_kpis(
+   project_id: str
+)
+```
+
+---
+Get all kpis of a project.
+
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+**Args**
+
+* **project_id**  : identifier of the project
+
+
+**Returns**
+
+* **kpis_list**  : `List[KPI]`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .show_kpis
+```python
+.show_kpis(
+   project_id: str
+)
+```
+
+---
+Show the list of KPIs included in a project to stdout.
+
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : the identifier of the project
+
+---
+**Example output:**
+```
+KPI Id                    Project Id                Name                    Status           Status start timestamp    Status insert date
+------------------------  ------------------------  ----------------------  ---------------  ------------------------  --------------------------
+64fecf7d323311ab78f17280  64fecf7c323311ab78f17262  model_local_experiment  not_initialized                            2023-09-11 08:27:41.431000
+```
+
+### .add_kpi_data
+```python
+.add_kpi_data(
+   project_id: str, kpi_id: str, kpi_data_source: DataSource
+)
+```
+
+---
+Add a batch of a given kpi with the given project.
+
+This request starts an operation pipeline that is
+executed by ML cube Platform.
+Thus, the method returns the identifier of the job that you can
+monitor to know its status and proceed with the other work
+using the method `wait_job_completion(job_id)`
+
+**Allowed Roles:**
+
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : the identifier of the project
+* **kpi_id**  : the identifier of the kpi
+* **kpi_data_source**  : data source that contains data.
+
+
+**Returns**
+
+* **job_id**  : `str` identifier of the submitted job
+
+
+**Raises**
+
+`AddKPIDataException`
 
 ### .compute_retraining_report
 ```python
@@ -1924,6 +2089,81 @@ your trust policy.
 **Returns**
 
 * **credentials**  : `SecretAWSCredentials`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .create_gcp_integration_credentials
+```python
+.create_gcp_integration_credentials(
+   name: str, default: bool, project_id: str, service_account_info_json: str
+)
+```
+
+---
+Create credentials to integrate with GCP.
+
+**Allowed Roles:**
+
+- At least `UPDATE_PROJECT_INFORMATION` for the project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **name**  : a simple name to identify this set of credentials
+* **default**  : whether to use these credentials by default when
+    using an AWS integration
+* **project_id**  : the project in which these credentials will
+    be configured
+* **service_account_info_json**  : the json-encoded string
+    containing the key of the service account
+
+
+**Returns**
+
+* **credentials**  : `GCPCredentials`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .create_azure_integration_credentials
+```python
+.create_azure_integration_credentials(
+   name: str, default: bool, project_id: str,
+   service_principal_credentials_json: str
+)
+```
+
+---
+Create credentials to integrate with Azure.
+
+**Allowed Roles:**
+
+- At least `UPDATE_PROJECT_INFORMATION` for the project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **name**  : a simple name to identify this set of credentials
+* **default**  : whether to use these credentials by default when
+    using an AWS integration
+* **project_id**  : the project in which these credentials will
+    be configured
+* **service_principal_credentials_json**  : the json-encoded string
+    containing the credentials of the service principal
+
+
+**Returns**
+
+* **credentials**  : `AzureCredentials`
 
 
 **Raises**

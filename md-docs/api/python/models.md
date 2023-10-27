@@ -41,6 +41,42 @@ base model for api key
 ----
 
 
+## AzureBlobDataSource
+```python 
+AzureBlobDataSource()
+```
+
+
+---
+A source that identifies a blob in Azure Storage.
+
+
+**Attributes**
+
+* **object_path**  : str
+
+
+----
+
+
+## AzureCredentials
+```python 
+AzureCredentials()
+```
+
+
+---
+Azure integration credentials.
+
+
+**Attributes**
+
+* **app_id**  : The id of the service principal
+
+
+----
+
+
 ## ColumnInfo
 ```python 
 ColumnInfo()
@@ -206,6 +242,48 @@ type = DetectionEventActionType.DISCORD_NOTIFICATION
 ----
 
 
+## GCPCredentials
+```python 
+GCPCredentials()
+```
+
+
+---
+GCP integration credentials.
+
+
+**Attributes**
+
+* **credentials_id**  : str
+* **name**  : str
+* **default**  : bool
+* **type**  : ExternalIntegration
+* **gcp_project_id**  : The id of the project on GCP
+* **client_email**  : The email that identifies the service account
+* **client_id**  : The client id
+
+
+----
+
+
+## GCSDataSource
+```python 
+GCSDataSource()
+```
+
+
+---
+A source that identifies a file in a GCS bucket.
+
+
+**Attributes**
+
+* **object_path**  : str
+
+
+----
+
+
 ## IntegrationCredentials
 ```python 
 IntegrationCredentials()
@@ -250,6 +328,28 @@ Job information item model
 * **model_name**  : Optional[str]
 * **status**  : str
 * **error**  : Optional[str]
+
+
+----
+
+
+## KPI
+```python 
+KPI()
+```
+
+
+---
+KPI base model
+
+
+**Attributes**
+
+* **kpi_id**  : str
+* **name**  : str
+* **status**  : ModelStatus
+* **status_kpi_start_timestamp**  : Optional[datetime]
+* **status_insert_datetime**  : datetime
 
 
 ----
@@ -344,8 +444,8 @@ A source that identifies where data is stored.
 
 **Attributes**
 
-* **credentials_id**  : str
-
+* **credentials_id**  : The id of the credentials to use to authenticate
+to the remote data source. If None, the default will be used
 
 ----
 
