@@ -17,6 +17,8 @@ The following actions are currently supported:
 
 - `SlackNotificationAction`: sends a notification to a Slack channel via webhook.
 - `DiscordNotificationAction`: sends a notification to a Discord channel via webhook.
+- `EmailNotificationAction`: sends an email to the provided email address.
+- `TeamsNotificationAction`: sends a notification to Microsoft Teams via webhook.
 
 !!! example
     The following code snippet demonstrates how to create a rule that matches high severity drift events for a specific model. When triggered, it sends a notification to the `ml3-platform-notifications` channel on your Slack workspace using the provided webhook URL.
