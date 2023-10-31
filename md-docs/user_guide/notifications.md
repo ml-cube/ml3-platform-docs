@@ -9,7 +9,7 @@ When a detection event occurs, the platform evaluates your set detection event r
 - `task_id`: The unique identifier of the task to which the rule is applicable.
 - `severity`: Indicates the severity level of the event - it can be `HIGH`, `MEDIUM`, or `LOW`.
 - `detection_event_type`: Currently, only `DRIFT` events are available for detection.
-- `monitoring_target`: Specifies what is being monitored, which can be `MODEL`, `INPUT`, or `CONCEPT`. If the value is `MODEL`, you need to provide a corresponding `model_id`.
+- `monitoring_target`: Specifies what is being monitored, which can be `MODEL`, `INPUT`, or `CONCEPT`. If the value is `MODEL`, you need to provide a corresponding `model_name`.
 - `actions`: A sequential list of actions to be executed when the rule is triggered.
 
 ## Supported Actions
@@ -26,8 +26,8 @@ The following actions are currently supported:
     ```py
     rule_id = client.create_detection_event_rule(
         name='Send Slack notification on my_model severe drift',
-        task_id='my-task-id',
-        model_id='my-model-id',
+        task_id='my-task-id,
+        model_name='my-model',
         severity=DetectionEventSeverity.HIGH,
         detection_event_type=DetectionEventType.DRIFT,
         monitoring_target=MonitoringTarget.MODEL,
