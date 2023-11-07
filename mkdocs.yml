@@ -107,8 +107,8 @@ nav:
       - user_guide/rbac.md
       - user_guide/glossary.md
       - user_guide/data_sources.md
-      - user_guide/notifications.md
-      - user_guide/retrain_trigger.md
+      - user_guide/retrain_triggers.md
+      - user_guide/detection_event_rules.md
   - API:
       - api/index.md
       - Examples: api/examples.md
