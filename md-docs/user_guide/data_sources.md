@@ -67,8 +67,30 @@ Below, you can find the configuration steps required to integrate the data sourc
             ]
         }
         ```
-
-    Once the **IAM Policy** has been created, navigate to the **Roles** section and create a new role. When asked, select the `Custom trust policy` option and accept the default policy. Then, assign the **IAM Policy** we created previously to the role, so any entity that assumes the role will be able to access the S3 bucket.
+    Once the **IAM Policy** has been created, navigate to the **Roles** section and create a new role. When asked, select the `Custom trust policy` option and paste the following json.
+    ```json
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "Statement1",
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": "arn:aws:iam::883313729965:root"
+                },
+                "Action": "sts:AssumeRole",
+                "Condition": {
+                    "StringEquals": {
+                        "sts:ExternalId": "<EXTERNAL_ID>"
+                    }
+                }
+            }
+        ]
+    }
+    ```
+    We will populate the value of `EXTERNAL_ID` after creating the credentials entity on ML cube Platform.
+    
+    Then, assign the **IAM Policy** we created previously to the role, so any entity that assumes the role will be able to access the S3 bucket.
 
     Now, you will need to create the credentials through the ML cube Platform SDK.
 
