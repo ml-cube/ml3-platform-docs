@@ -19,6 +19,18 @@ ApiKeyExpirationTime()
 ----
 
 
+## Currency
+```python 
+Currency()
+```
+
+
+---
+Currency of to use for the Task
+
+----
+
+
 ## DatasetType
 ```python 
 DatasetType()
@@ -90,6 +102,7 @@ An integration with a 3rd party service provider
 **Fields:**
 - AWS
 - GCP
+- AZURE
 
 ----
 
@@ -193,6 +206,18 @@ MonitoringTarget()
 ----
 
 
+## RetrainTriggerType
+```python 
+RetrainTriggerType()
+```
+
+
+---
+Enumeration of the possible retrain triggers
+
+----
+
+
 ## StoragePolicy
 ```python 
 StoragePolicy()
@@ -200,7 +225,7 @@ StoragePolicy()
 
 
 ---
-Enumeration that specify the storage policy for the data sent to
+Enumeration that specifies the storage policy for the data sent to
 ML cube Platform
 
 **Fields:**

@@ -23,6 +23,25 @@ AWS integration credentials.
 ----
 
 
+## AWSEventBridgeRetrainTrigger
+```python 
+AWSEventBridgeRetrainTrigger()
+```
+
+
+---
+Base model to define an AWS EventBridge retrain trigger
+
+Fields:
+type
+credentials_id
+credentials_name
+aws_region_name
+event_bus_name
+
+----
+
+
 ## ApiKey
 ```python 
 ApiKey()
@@ -73,6 +92,34 @@ Azure integration credentials.
 
 * **app_id**  : The id of the service principal
 
+
+----
+
+
+## ClassificationTaskCostInfo
+```python 
+ClassificationTaskCostInfo()
+```
+
+
+---
+Regression cost info is expressed in two terms:
+- cost due to overestimation
+- cost due to underestimation
+
+Both terms have tolerance threshold that allows to ignore the costs
+if the overestimation is lower than that specific value
+
+Fields:
+currency
+false_positive_cost
+false_negative_cost
+false_positive_threshold:
+    maximum value for which the cost of a false positive is
+    negligible
+false_negative_threshold:
+    maximum value for which the cost of a false negative is
+    negligible
 
 ----
 
@@ -213,7 +260,7 @@ a series of actions.
 * **rule_id**  : str
 * **name**  : str
 * **task_id**  : str
-* **model_id**  : Optional[str]
+* **model_name**  : Optional[str]
 * **severity**  : DetectionEventSeverity
 * **detection_event_type**  : DetectionEventType
 * **monitoring_target**  : MonitoringTarget
@@ -238,6 +285,24 @@ a webhook that you configure
 
 * **webhook**  : str
 type = DetectionEventActionType.DISCORD_NOTIFICATION
+
+----
+
+
+## EmailNotificationAction
+```python 
+EmailNotificationAction()
+```
+
+
+---
+Base Model for Email Notification Action
+
+
+**Attributes**
+
+* **address**  : str
+type = DetectionEventActionType.EMAIL_NOTIFICATION
 
 ----
 
@@ -391,10 +456,12 @@ Base model to define model item
 * **name**  : str
 * **version**  : str
 * **status**  : ModelStatus
-* **status_data_start_timestamp**  : Optional[datetime]
+* **status_data_start_timestamp**  : Optional[str]
 * **status_insert_datetime**  : datetime
 * **metric_name**  : performance or error metric associated with
     the model
+* **creation_datetime**  : Optional[datetime]
+* **retrain_trigger**  : Optional[RetrainTrigger]
 
 
 ----
@@ -432,6 +499,34 @@ Project model
 ----
 
 
+## RegressionTaskCostInfo
+```python 
+RegressionTaskCostInfo()
+```
+
+
+---
+Regression cost info is expressed in two terms:
+- cost due to overestimation
+- cost due to underestimation
+
+Both terms have tolerance threshold that allows to ignore the costs
+if the overestimation is lower than that specific value.
+
+Fields:
+currency
+overestimation_cost
+underestimation_cost
+overestimation_threshold:
+    maximum value for which the cost of a overestimation is
+    negligible
+underestimation_threshold:
+    maximum value for which the cost of a underestimation is
+    negligible
+
+----
+
+
 ## RemoteDataSource
 ```python 
 RemoteDataSource()
@@ -446,6 +541,41 @@ A source that identifies where data is stored.
 
 * **credentials_id**  : The id of the credentials to use to authenticate
 to the remote data source. If None, the default will be used
+
+----
+
+
+## RetrainAction
+```python 
+RetrainAction()
+```
+
+
+---
+Base Model for Retrain Action
+
+
+**Attributes**
+
+* **type**  : DetectionEventActionType.RETRAIN
+* **model_name**  : str
+
+
+----
+
+
+## RetrainTrigger
+```python 
+RetrainTrigger()
+```
+
+
+---
+Base model to define a retrain trigger
+
+Fields:
+type
+credentials_id
 
 ----
 
@@ -586,4 +716,37 @@ Task model
 * **type**  : TaskType
 * **status**  : TaskStatus
 * **status_start_date**  : str
+
+
+----
+
+
+## TaskCostInfo
+```python 
+TaskCostInfo()
+```
+
+
+---
+Base class for task cost info.
+It depends on TaskType because classification is different from
+regression in terms of business costs due to errors
+
+----
+
+
+## TeamsNotificationAction
+```python 
+TeamsNotificationAction()
+```
+
+
+---
+Base Model for Teams Notification Action
+
+
+**Attributes**
+
+* **type**  : DetectionEventActionType.TEAMS_NOTIFICATION
+* **webhook**  : str
 

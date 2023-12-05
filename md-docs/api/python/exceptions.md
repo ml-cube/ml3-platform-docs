@@ -157,6 +157,19 @@ GetRetrainingReportException
 ----
 
 
+## InvalidActionList
+```python 
+InvalidActionList()
+```
+
+
+---
+Exception raised when the detection event actions in the rule are
+not valid
+
+----
+
+
 ## JobFailureException
 ```python 
 JobFailureException()
@@ -263,3 +276,15 @@ UpdateProjectException()
 
 ---
 UpdateProjectException
+
+----
+
+
+## UpdateTaskException
+```python 
+UpdateTaskException()
+```
+
+
+---
+UpdateTaskException
