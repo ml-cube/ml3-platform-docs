@@ -109,6 +109,7 @@ nav:
       - user_guide/data_sources.md
       - user_guide/retrain_triggers.md
       - user_guide/detection_event_rules.md
+      - user_guide/credentials.md
   - API:
       - api/index.md
       - Examples: api/examples.md
