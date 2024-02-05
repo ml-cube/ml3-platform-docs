@@ -23,6 +23,24 @@ AWS integration credentials.
 ----
 
 
+## AWSEventBridgeRetrainTrigger
+```python 
+AWSEventBridgeRetrainTrigger()
+```
+
+
+---
+Base model to define an AWS EventBridge retrain trigger
+
+Fields:
+type
+credentials_id
+aws_region_name
+event_bus_name
+
+----
+
+
 ## ApiKey
 ```python 
 ApiKey()
@@ -73,6 +91,42 @@ Azure integration credentials.
 
 * **app_id**  : The id of the service principal
 
+
+----
+
+
+## AzureEventGridRetrainTrigger
+```python 
+AzureEventGridRetrainTrigger()
+```
+
+
+---
+Base model to define an Azure EventGrid retrain trigger
+
+Fields:
+type
+credentials_id
+topic_endpoint
+
+----
+
+
+## ClassificationTaskCostInfo
+```python 
+ClassificationTaskCostInfo()
+```
+
+
+---
+Regression cost info is expressed in two terms:
+- cost due to overestimation
+- cost due to underestimation
+
+Fields:
+currency
+false_positive_cost
+false_negative_cost
 
 ----
 
@@ -213,7 +267,7 @@ a series of actions.
 * **rule_id**  : str
 * **name**  : str
 * **task_id**  : str
-* **model_id**  : Optional[str]
+* **model_name**  : Optional[str]
 * **severity**  : DetectionEventSeverity
 * **detection_event_type**  : DetectionEventType
 * **monitoring_target**  : MonitoringTarget
@@ -242,6 +296,24 @@ type = DetectionEventActionType.DISCORD_NOTIFICATION
 ----
 
 
+## EmailNotificationAction
+```python 
+EmailNotificationAction()
+```
+
+
+---
+Base Model for Email Notification Action
+
+
+**Attributes**
+
+* **address**  : str
+type = DetectionEventActionType.EMAIL_NOTIFICATION
+
+----
+
+
 ## GCPCredentials
 ```python 
 GCPCredentials()
@@ -262,6 +334,23 @@ GCP integration credentials.
 * **client_email**  : The email that identifies the service account
 * **client_id**  : The client id
 
+
+----
+
+
+## GCPPubSubRetrainTrigger
+```python 
+GCPPubSubRetrainTrigger()
+```
+
+
+---
+Base model to define a GCP PubSub retrain trigger
+
+Fields:
+type
+credentials_id
+topic_name
 
 ----
 
@@ -391,10 +480,12 @@ Base model to define model item
 * **name**  : str
 * **version**  : str
 * **status**  : ModelStatus
-* **status_data_start_timestamp**  : Optional[datetime]
+* **status_data_start_timestamp**  : Optional[str]
 * **status_insert_datetime**  : datetime
 * **metric_name**  : performance or error metric associated with
     the model
+* **creation_datetime**  : Optional[datetime]
+* **retrain_trigger**  : Optional[RetrainTrigger]
 
 
 ----
@@ -432,6 +523,25 @@ Project model
 ----
 
 
+## RegressionTaskCostInfo
+```python 
+RegressionTaskCostInfo()
+```
+
+
+---
+Regression cost info is expressed in two terms:
+- cost due to overestimation
+- cost due to underestimation
+
+Fields:
+currency
+overestimation_cost
+underestimation_cost
+
+----
+
+
 ## RemoteDataSource
 ```python 
 RemoteDataSource()
@@ -450,6 +560,62 @@ to the remote data source. If None, the default will be used
 ----
 
 
+## ResampledDatasetSuggestion
+```python 
+ResampledDatasetSuggestion()
+```
+
+
+---
+ResampledDatasetSuggestion base model
+
+
+**Attributes**
+
+* **suggestion_id**  : str
+* **suggestion_type**  : SuggestionType
+* **sample_ids**  : List[str]
+* **sample_counts**  : List[int]
+
+
+----
+
+
+## RetrainAction
+```python 
+RetrainAction()
+```
+
+
+---
+Base Model for Retrain Action
+
+
+**Attributes**
+
+* **type**  : DetectionEventActionType.RETRAIN
+* **model_name**  : str
+
+
+----
+
+
+## RetrainTrigger
+```python 
+RetrainTrigger()
+```
+
+
+---
+Base model to define a retrain trigger
+
+Fields:
+type
+credentials_id
+
+----
+
+
 ## RetrainingReport
 ```python 
 RetrainingReport()
@@ -463,12 +629,13 @@ base model for Retraining Report
 **Attributes**
 
 * **report_id**  : str
-* **sample_ids**  : List[str]
-* **sample_weights**  : List[float]
+* **suggestion**  : Suggestion
 * **effective_sample_size**  : float
 * **model_metric_name**  : str
-* **upper_bound**  : float
-* **lower_bound**  : float
+* **performance_upper_bound**  : float
+* **performance_lower_bound**  : float
+* **cost_upper_bound**  : float
+* **cost_lower_bound**  : float
 
 
 ----
@@ -487,6 +654,27 @@ A source that identifies a file in an S3 bucket.
 **Attributes**
 
 * **object_path**  : str
+
+
+----
+
+
+## SampleWeightsSuggestion
+```python 
+SampleWeightsSuggestion()
+```
+
+
+---
+SampleWeightsSuggestion base model
+
+
+**Attributes**
+
+* **suggestion_id**  : str
+* **suggestion_type**  : SuggestionType
+* **sample_ids**  : List[str]
+* **sample_weights**  : List[float]
 
 
 ----
@@ -561,6 +749,25 @@ Suggestion base model
 
 **Attributes**
 
+* **suggestion_id**  : str
+* **suggestion_type**  : SuggestionType
+
+
+----
+
+
+## SuggestionInfo
+```python 
+SuggestionInfo()
+```
+
+
+---
+SuggestionInfo base model
+
+
+**Attributes**
+
 * **id**  : str
 * **executed**  : bool
 * **timestamp**  : str
@@ -586,4 +793,37 @@ Task model
 * **type**  : TaskType
 * **status**  : TaskStatus
 * **status_start_date**  : str
+
+
+----
+
+
+## TaskCostInfo
+```python 
+TaskCostInfo()
+```
+
+
+---
+Base class for task cost info.
+It depends on TaskType because classification is different from
+regression in terms of business costs due to errors
+
+----
+
+
+## TeamsNotificationAction
+```python 
+TeamsNotificationAction()
+```
+
+
+---
+Base Model for Teams Notification Action
+
+
+**Attributes**
+
+* **type**  : DetectionEventActionType.TEAMS_NOTIFICATION
+* **webhook**  : str
 

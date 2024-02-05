@@ -265,7 +265,8 @@ Project ID                Name
 ### .create_task
 ```python
 .create_task(
-   project_id: str, name: str, tags: List[str], task_type: TaskType
+   project_id: str, name: str, tags: List[str], task_type: TaskType,
+   cost_info: Optional[TaskCostInfo] = None, optional_target: bool = False
 )
 ```
 
@@ -285,6 +286,12 @@ Create a task inside the project.
 * **tags**  : a list of tags associated with the task
 * **task_type**  : the type of the task. See `TaskType`
     documentation for more information
+* **cost_info**  : optional argument that specify the cost
+    information of the task
+* **optional_target**  : True if the target value in not always
+    available. This changes the behaviour and the detection
+    phase of ML cube Platform that will analyse production
+    data without considering the actual target
 
 
 **Returns**
@@ -295,6 +302,39 @@ Create a task inside the project.
 **Raises**
 
 `CreateTaskException`
+
+### .update_task
+```python
+.update_task(
+   task_id: str, name: Optional[str] = None, tags: Optional[List[str]] = None,
+   cost_info: Optional[TaskCostInfo] = None
+)
+```
+
+---
+Update task attributes.
+
+`None` parameters are ignored for the update.
+
+**Allowed Roles:**
+
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+**Args**
+
+* **task_id**  : the identifier of the task
+* **name**  : the name of the task
+* **tags**  : a list of tags associated with the task. To remove
+    all the tags then pass an empty list.
+* **cost_info**  : optional argument that specify the cost
+    information of the task
+
+
+**Raises**
+
+`UpdateTaskException`
 
 ### .get_tasks
 ```python
@@ -378,7 +418,9 @@ Task ID                   Name     Type            Status     Status start date
 ### .create_model
 ```python
 .create_model(
-   task_id: str, name: str, version: str, metric_name: ModelMetricName
+   task_id: str, name: str, version: str, metric_name: ModelMetricName,
+   preferred_suggestion_type: SuggestionType, retraining_cost: float = 0.0,
+   resampled_dataset_size: Optional[int] = None
 )
 ```
 
@@ -399,6 +441,17 @@ Create a model inside the task.
 * **version**  : the current version of the model
 * **metric_name**  : performance or error metric associated with
     the model
+* **retraining_cost**  : estimated costs in the Task currency to
+    retrain the model. This information is used by the
+    retraining tool to show gain-cost information.
+    Default value is 0.0 meaning that the cost is negligible
+* **preferred_suggestion_type**  : preferred type of suggestion that
+    will be computed to retrain the model
+* **resampled_dataset_size**  : size of the resampled dataset that
+    will be proposed to retrain the model
+    note: this parameter is required if
+    `preferred_suggestion_type` is
+    `SuggestionType.RESAMPLED_DATASET`
 
 
 **Returns**
@@ -536,9 +589,9 @@ Model Id                  Task Id                   Name                    Vers
 64fecf7d323311ab78f17280  64fecf7c323311ab78f17262  model_local_experiment  v0.0.1     not_initialized                            2023-09-11 08:27:41.431000  ModelMetricName.RMSE
 ```
 
-### .get_suggestions
+### .get_suggestions_info
 ```python
-.get_suggestions(
+.get_suggestions_info(
    model_id: str, model_version: str
 )
 ```
@@ -561,7 +614,7 @@ Retrieve suggestions associated with a model.
 
 **Returns**
 
-* **suggestion_list**  : `List[Suggestion]`
+* **suggestion_info_list**  : `List[SuggestionInfo]`
 
 
 **Raises**
@@ -604,6 +657,40 @@ Suggestion Id                     Executed    Timestamp
 
 `SDKClientException`
 
+### .set_model_suggestion_type
+```python
+.set_model_suggestion_type(
+   model_id: str, preferred_suggestion_type: SuggestionType,
+   resampled_dataset_size: Optional[int] = None
+)
+```
+
+---
+Set model suggestion type.
+
+**Allowed Roles:**
+
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **model_id**  : the identifier of the task
+* **preferred_suggestion_type**  : preferred type of suggestion that
+    will be computed to retrain the model
+* **resampled_dateset_size**  : size of the resampled dataset that
+    will be proposed to retrain the model
+    note: this parameter is required if
+    `preferred_suggestion_type` is
+    `SuggestionType.RESAMPLED_DATASET`
+
+
+**Raises**
+
+`SetModelSuggestionTypeException`
+
 ### .update_model_version_by_suggestion_id
 ```python
 .update_model_version_by_suggestion_id(
@@ -614,7 +701,7 @@ Suggestion Id                     Executed    Timestamp
 ---
 Update model version by suggestion id.
 To retrain the Model, ML cube Platform provides importance
-weights through a `Suggestion`.
+weights through a `SuggestionInfo`.
 After the retraining is completed, you use this method to
 create the new model version in ML cube Platform.
 By specifying the `suggestion_id`, ML cube Platform
@@ -661,7 +748,7 @@ using the method `wait_job_completion(job_id)`
 ---
 Update model version by suggestion id.
 To retrain the Model, ML cube Platform provides importance
-weights through a `Suggestion`.
+weights through a `SuggestionInfo`.
 However, it is possible to train the model with new data that
 has been not already upload to ML cube Platform.
 After the retraining is completed, you use this method to
@@ -802,38 +889,11 @@ Show data schema of associated with a task
     petalwidth        input    float     False
     class             target   category  False
 
-### .update_data_schema
-```python
-.update_data_schema(
-   task_id: str, data_schema: DataSchema
-)
-```
-
----
-Update an existing data schema
-
-**Allowed Roles:**
-
-- At least `PROJECT_EDIT` for that project
-- `COMPANY_OWNER`
-- `COMPANY_ADMIN`
-
-
-**Args**
-
-* **task_id**  : the identifier of the task
-* **data_schema**  : the set of new columns that should be added to
-    the data schema
-
-
-**Raises**
-
-`UpdateDataSchemaException`
-
 ### .add_historical_data
 ```python
 .add_historical_data(
-   task_id: str, features_data_source: DataSource, targets_data_source: DataSource
+   task_id: str, features_data_source: DataSource,
+   targets_data_source: Optional[DataSource] = None
 )
 ```
 
@@ -856,7 +916,6 @@ using the method `wait_job_completion(job_id)`
 **Args**
 
 * **task_id**  : the identifier of the task
-* **dataset_type**  :  Dataset type describes the nature of data stored
 * **features_data_source**  : data source that contains features data
 * **targets_data_source**  : data source that contains targets data
 
@@ -1343,9 +1402,9 @@ Get a detection event rule by id.
 ### .create_detection_event_rule
 ```python
 .create_detection_event_rule(
-   name: str, task_id: str, model_id: str, severity: DetectionEventSeverity,
+   name: str, task_id: str, severity: DetectionEventSeverity,
    detection_event_type: DetectionEventType, monitoring_target: MonitoringTarget,
-   actions: List[Union[DiscordNotificationAction, SlackNotificationAction]]
+   actions: List[DetectionEventAction], model_name: Optional[str] = None
 )
 ```
 
@@ -1365,8 +1424,8 @@ Create a detection event rule.
 * **task_id**  : the id of the task to which the rule belongs.
     The rule will only respond to detection events
     generated by this task.
-* **model_id**  : the id of the model, only required if
-    event_type is set to PERFORMANCE.
+* **model_name**  : the name of the model, only required if
+    monitoring_target is set to MODEL.
 * **detection_event_type**  : the type of detection event that
     this rule should respond to.
 * **monitoring_target**  : the type of monitoring target that
@@ -1389,12 +1448,11 @@ Create a detection event rule.
 ### .update_detection_event_rule
 ```python
 .update_detection_event_rule(
-   rule_id: str, name: Optional[str] = None, model_id: Optional[str] = None,
+   rule_id: str, name: Optional[str] = None, model_name: Optional[str] = None,
    severity: Optional[DetectionEventSeverity] = None,
    detection_event_type: Optional[DetectionEventType] = None,
    monitoring_target: Optional[MonitoringTarget] = None,
-   actions: Optional[List[Union[DiscordNotificationAction,
-   SlackNotificationAction]]] = None
+   actions: Optional[List[DetectionEventAction]] = None
 )
 ```
 
@@ -1412,8 +1470,9 @@ Update a detection event rule.
 
 * **rule_id**  : the id of the rule to update
 * **name**  : the name of the rule. If None, keeps the existing value.
-* **model_id**  : the id of the model, only required if event_type
-    is set to PERFORMANCE. If None, keeps the existing value.
+* **model_name**  : the name of the model, only required if
+    monitoring_target is set to MODEL.
+    If None, keeps the existing value.
 * **detection_event_type**  : the type of detection event that this
     rule should respond to. If None, keeps the existing value.
 * **monitoring_target**  : the type of monitoring target that this
@@ -2056,6 +2115,35 @@ delete.
 
 `SDKClientException`
 
+### .set_integration_credentials_as_default
+```python
+.set_integration_credentials_as_default(
+   credentials_id: str
+)
+```
+
+---
+ Set the credentials with the given id as default for 3rd party
+ service provider integration.
+
+**Allowed Roles:**
+
+- At least `UPDATE_PROJECT_INFORMATION` for the project
+where the credentials have been configured
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **credentials_id**  : id of the integration credentials to
+set as default.
+
+
+**Raises**
+
+`SDKClientException`
+
 ### .create_aws_integration_credentials
 ```python
 .create_aws_integration_credentials(
@@ -2164,6 +2252,88 @@ Create credentials to integrate with Azure.
 **Returns**
 
 * **credentials**  : `AzureCredentials`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .set_retrain_trigger
+```python
+.set_retrain_trigger(
+   model_id: str, trigger: Optional[RetrainTrigger]
+)
+```
+
+---
+Set the retrain trigger for a given model.
+
+**Allowed Roles:**
+
+- At least `WORK_ON_PROJECT` for the project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **model_id**  : the id of the model
+* **trigger**  : the trigger to set. If you want to remove the
+    trigger, set it to None
+
+
+**Raises**
+
+`SDKClientException`
+
+### .test_retrain_trigger
+```python
+.test_retrain_trigger(
+   model_id: str, trigger: RetrainTrigger
+)
+```
+
+---
+Test the retrain trigger for a given model.
+
+
+**Allowed Roles:**
+
+- At least `WORK_ON_PROJECT` for the project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **model_id**  : the id of the model
+* **trigger**  : the trigger to test
+
+
+**Raises**
+
+`SDKClientException`
+
+### .retrain_model
+```python
+.retrain_model(
+   model_id: str
+)
+```
+
+---
+Retrain a model via the configured retrain trigger.
+
+**Allowed Roles:**
+
+- At least `WORK_ON_PROJECT` for the project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **model_id**  : the id of the model
 
 
 **Raises**

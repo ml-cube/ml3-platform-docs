@@ -157,6 +157,19 @@ GetRetrainingReportException
 ----
 
 
+## InvalidActionList
+```python 
+InvalidActionList()
+```
+
+
+---
+Exception raised when the detection event actions in the rule are
+not valid
+
+----
+
+
 ## JobFailureException
 ```python 
 JobFailureException()
@@ -203,6 +216,18 @@ SDKClientException(
 
 ---
 Base class for client sdk exceptions
+
+----
+
+
+## SetModelSuggestionTypeException
+```python 
+SetModelSuggestionTypeException()
+```
+
+
+---
+SetModelSuggestionTypeException
 
 ----
 
@@ -263,3 +288,15 @@ UpdateProjectException()
 
 ---
 UpdateProjectException
+
+----
+
+
+## UpdateTaskException
+```python 
+UpdateTaskException()
+```
+
+
+---
+UpdateTaskException
