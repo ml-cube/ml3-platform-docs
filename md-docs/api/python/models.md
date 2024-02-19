@@ -35,7 +35,6 @@ Base model to define an AWS EventBridge retrain trigger
 Fields:
 type
 credentials_id
-credentials_name
 aws_region_name
 event_bus_name
 
@@ -96,6 +95,23 @@ Azure integration credentials.
 ----
 
 
+## AzureEventGridRetrainTrigger
+```python 
+AzureEventGridRetrainTrigger()
+```
+
+
+---
+Base model to define an Azure EventGrid retrain trigger
+
+Fields:
+type
+credentials_id
+topic_endpoint
+
+----
+
+
 ## ClassificationTaskCostInfo
 ```python 
 ClassificationTaskCostInfo()
@@ -107,19 +123,10 @@ Regression cost info is expressed in two terms:
 - cost due to overestimation
 - cost due to underestimation
 
-Both terms have tolerance threshold that allows to ignore the costs
-if the overestimation is lower than that specific value
-
 Fields:
 currency
 false_positive_cost
 false_negative_cost
-false_positive_threshold:
-    maximum value for which the cost of a false positive is
-    negligible
-false_negative_threshold:
-    maximum value for which the cost of a false negative is
-    negligible
 
 ----
 
@@ -331,6 +338,23 @@ GCP integration credentials.
 ----
 
 
+## GCPPubSubRetrainTrigger
+```python 
+GCPPubSubRetrainTrigger()
+```
+
+
+---
+Base model to define a GCP PubSub retrain trigger
+
+Fields:
+type
+credentials_id
+topic_name
+
+----
+
+
 ## GCSDataSource
 ```python 
 GCSDataSource()
@@ -510,19 +534,10 @@ Regression cost info is expressed in two terms:
 - cost due to overestimation
 - cost due to underestimation
 
-Both terms have tolerance threshold that allows to ignore the costs
-if the overestimation is lower than that specific value.
-
 Fields:
 currency
 overestimation_cost
 underestimation_cost
-overestimation_threshold:
-    maximum value for which the cost of a overestimation is
-    negligible
-underestimation_threshold:
-    maximum value for which the cost of a underestimation is
-    negligible
 
 ----
 
@@ -541,6 +556,27 @@ A source that identifies where data is stored.
 
 * **credentials_id**  : The id of the credentials to use to authenticate
 to the remote data source. If None, the default will be used
+
+----
+
+
+## ResampledDatasetSuggestion
+```python 
+ResampledDatasetSuggestion()
+```
+
+
+---
+ResampledDatasetSuggestion base model
+
+
+**Attributes**
+
+* **suggestion_id**  : str
+* **suggestion_type**  : SuggestionType
+* **sample_ids**  : List[str]
+* **sample_counts**  : List[int]
+
 
 ----
 
@@ -593,12 +629,13 @@ base model for Retraining Report
 **Attributes**
 
 * **report_id**  : str
-* **sample_ids**  : List[str]
-* **sample_weights**  : List[float]
+* **suggestion**  : Suggestion
 * **effective_sample_size**  : float
 * **model_metric_name**  : str
-* **upper_bound**  : float
-* **lower_bound**  : float
+* **performance_upper_bound**  : float
+* **performance_lower_bound**  : float
+* **cost_upper_bound**  : float
+* **cost_lower_bound**  : float
 
 
 ----
@@ -617,6 +654,27 @@ A source that identifies a file in an S3 bucket.
 **Attributes**
 
 * **object_path**  : str
+
+
+----
+
+
+## SampleWeightsSuggestion
+```python 
+SampleWeightsSuggestion()
+```
+
+
+---
+SampleWeightsSuggestion base model
+
+
+**Attributes**
+
+* **suggestion_id**  : str
+* **suggestion_type**  : SuggestionType
+* **sample_ids**  : List[str]
+* **sample_weights**  : List[float]
 
 
 ----
@@ -687,6 +745,25 @@ Suggestion()
 
 ---
 Suggestion base model
+
+
+**Attributes**
+
+* **suggestion_id**  : str
+* **suggestion_type**  : SuggestionType
+
+
+----
+
+
+## SuggestionInfo
+```python 
+SuggestionInfo()
+```
+
+
+---
+SuggestionInfo base model
 
 
 **Attributes**

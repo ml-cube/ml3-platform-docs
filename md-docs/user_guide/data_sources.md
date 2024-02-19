@@ -1,6 +1,6 @@
 # Data Sources
 
-This page provides guidance on integrating your data sources into your ML cube Platform project. There are three types of data sources you can use to enable the ML cube Platform to access your data:
+This page provides guidance on integrating external data sources into your ML cube Platform project. There are three types of data sources you can use to enable the ML cube Platform to access your data:
 
 1. Local data source
 2. Remote data source with ML cube Storage
@@ -33,86 +33,18 @@ This method should be used when the ML cube Platform is allowed to perform a one
 This method should be used when, due to compliance requirements, the ML cube Platform is only allowed to read data from your data sources when it needs to access it, without storing any sensitive information in its systems. The ML cube Platform will only store a set of anonymous identifiers that are used for data mapping. This gives you the ability to be in full control of when the ML cube Platform can access your data, but it comes at the expense of performance and cost, since constant data transfers can be slow and expensive.
 
 ## Integration Credentials
-The ML cube Platform SDK provides a way to configure credentials that can be used to access the integrated data sources of your choice. The scope of these credentials is a project, so multiple tasks in the same project will be able to access the same credentials. You can configure multiple credentials for the same provider, for example you could have two sets of credentials to access two different AWS S3 buckets.
+To allow the ML cube Platform to access your external data sources, you need to configure credentials for them. Once the credentials have been configured, they will be available across your entire project, so multiple tasks in the same project will be able to access the same credentials.
+
+You can configure multiple credentials for the same provider, for example you could have two sets of credentials to access two different S3 buckets on two different AWS accounts.
 
 Below, you can find the configuration steps required to integrate the data source of your choice
 
 === "Amazon S3"
     ![Amazon Web Services](../imgs/aws.svg){: style="height:50px;width:50px"}
     
-    To integrate Amazon S3, you will need to create a set of AWS credentials. Before doing this, you need to create an **IAM Role** in your AWS Account that will be used by the ML cube Platform to read data from the S3 bucket of your choice.
+    To integrate Amazon S3, you will need to create a set of AWS credentials, and add a policy that grants read access to objects in your bucket. Please refer to [this page](../credentials) to know more.
 
-    First of all, log into your AWS account and open the AWS console. Here, go to the **IAM** service, then navigate to the **Policies** section. Here, we will create an **IAM Policy**.
-
-    !!! example
-        The following policy will allow read access to objects in the `my-company-data-bucket` to the IAM entity it is attached to.
-
-        ```json
-        {
-            "Version": "2012-10-17",
-            "Statement": [
-                {
-                    "Sid": "Statement1",
-                    "Effect": "Allow",
-                    "Action": [
-                        "s3:GetBucketTagging",
-                        "s3:GetObject",
-                        "s3:ListBucket"
-                    ],
-                    "Resource": [
-                        "arn:aws:s3:::my-company-data-bucket",
-                        "arn:aws:s3:::my-company-data-bucket/*"
-                    ]
-                }
-            ]
-        }
-        ```
-    Once the **IAM Policy** has been created, navigate to the **Roles** section and create a new role. When asked, select the `Custom trust policy` option and paste the following json.
-    ```json
-    {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Sid": "Statement1",
-                "Effect": "Allow",
-                "Principal": {
-                    "AWS": "arn:aws:iam::883313729965:root"
-                },
-                "Action": "sts:AssumeRole",
-                "Condition": {
-                    "StringEquals": {
-                        "sts:ExternalId": "<EXTERNAL_ID>"
-                    }
-                }
-            }
-        ]
-    }
-    ```
-    We will populate the value of `EXTERNAL_ID` after creating the credentials entity on ML cube Platform.
-    
-    Then, assign the **IAM Policy** we created previously to the role, so any entity that assumes the role will be able to access the S3 bucket.
-
-    Now, you will need to create the credentials through the ML cube Platform SDK.
-
-    !!! example
-        The following code will create a set of AWS credentials from the IAM Role we just created.
-
-        ```py
-        aws_creds = client.create_aws_integration_credentials(
-            name='AWS_01',
-            default=True,  # Set these credentials as the default to use when not specified
-            project_id='your_project_id',
-            role_arn='arn:aws:iam::{{YOUR_AWS_ACCOUNT_ID}}:role/{{YOUR_ROLE_NAME}}',
-        )
-
-        trust_policy = aws_creds.generate_trust_policy()
-        print(trust_policy)
-        ```
-
-    You can call the `generate_trust_policy` function on the created credentials to obtain the **trust policy**.
-    Edit your IAM Role and change the **trust policy** to the one you just obtained.
-
-    Now, you will be able to specify an `S3DataSource` when adding your data to a task.
+    Once you have some credentials, you will be able to specify an `S3DataSource` when adding your data to a task.
 
     !!! example
         Note that, if you don't specify the `credentials_id`, the default ones will be used.
@@ -133,59 +65,12 @@ Below, you can find the configuration steps required to integrate the data sourc
         )
         ```
 
-    Congratulations! You have successfully connected your S3 bucket to the ML cube Platform. The ML cube Platform will now be able to assume the role via STS by providing the secret `external_id` that is included in the trust policy. This way, only the ML cube Platform is able to access that specific role on your AWS account. To revoke access, simply delete the role or change the trust policy.
-
 === "Google Cloud Storage"
     ![Google Cloud Platform](../imgs/gcp.svg){: style="height:50px;width:50px"}
 
-    To integrate Google Cloud Storage, you will need to create a set of GCP credentials. Before doing this, you need to create a **Service Account** in your GCP Account that will be used by the ML cube Platform to read data from the GCS bucket of your choice.
+    To integrate Google Cloud Storage, you will need to create a set of GCP credentials, and add a policy that grants read access to objects in your bucket. Please refer to [this page](../credentials) to know more.
 
-    First of all, log into your GCP account, select the correct project and open the **Cloud Shell**. You can find the button to open it in the upper-right corner of the page. Now we will enter some commands that will create the **Service Account** with the required permissions. A description of each command is provided to help you understand its purpose.
-
-    ```bash
-    # Change these according to your project and bucket
-    export GCP_PROJECT=my-project
-    export GCP_BUCKET=my-company-data-bucket
-
-    # Creates an IAM Role called ml3PlatformServiceRole for your project, with read permissions on buckets and objects in the storage service
-    gcloud iam roles create ml3PlatformServiceRole --project=$GCP_PROJECT --title="ML3 Platform Service Role" --description="Role that allows the ML cube Platform to access resources in a project" --permissions=storage.buckets.get,storage.buckets.list,storage.objects.get,storage.objects.list --stage=ALPHA
-
-    # Creates a service account called ml3PlatformServiceAccount
-    gcloud iam service-accounts create ml3PlatformServiceAccount --display-name "ML3 Platform Service Account"
-
-    # Adds the previously created IAM Role to the service account
-    gcloud projects add-iam-policy-binding $GCP_PROJECT --member=serviceAccount:ml3PlatformServiceAccount@$GCP_PROJECT.iam.gserviceaccount.com --role=projects/$GCP_PROJECT/roles/ml3PlatformServiceRole
-
-    # Allows the service account we created to access the given bucket with the objectViewer role
-    gsutil iam ch serviceAccount:ml3PlatformServiceAccount@$GCP_PROJECT.iam.gserviceaccount.com:roles/storage.objectViewer gs://$GCP_BUCKET
-
-    # Generates the access key that will be used to authenticate as the service account
-    gcloud iam service-accounts keys create ml3-platform-key.json --iam-account=ml3PlatformServiceAccount@$GCP_PROJECT.iam.gserviceaccount.com
-
-    # Displays the access key to the terminal screen
-    cat ml3-platform-key.json
-    ```
-
-    Copy the JSON object containing the key and save it to a file with the same name on your disk.
-
-    Now, you will need to create the credentials through the ML cube Platform SDK.
-
-    !!! example
-        The following code will create a set of GCP credentials that will be able to access the service account.
-
-        ```py
-        with open('path/to/ml3-platform-key.json', 'r') as f:
-            creds_json = f.read()
-
-            gcp_creds = client.create_gcp_integration_credentials(
-                name='GCP_01',
-                default=True,  # Set these credentials as the default to use when not specified
-                project_id='your_project_id',
-                service_account_info_json=creds_json
-            )
-        ```
-
-    Now, you will be able to specify a `GCSDataSource` when adding your data to a task.
+    Once you have some credentials, you will be able to specify a `GCSDataSource` when adding your data to a task.
 
     !!! example
         Note that, if you don't specify the `credentials_id`, the default ones will be used.

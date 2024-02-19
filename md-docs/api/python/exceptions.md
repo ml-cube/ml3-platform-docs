@@ -220,6 +220,18 @@ Base class for client sdk exceptions
 ----
 
 
+## SetModelSuggestionTypeException
+```python 
+SetModelSuggestionTypeException()
+```
+
+
+---
+SetModelSuggestionTypeException
+
+----
+
+
 ## UpdateCompanyException
 ```python 
 UpdateCompanyException()

@@ -251,6 +251,23 @@ StoringDataType()
 ----
 
 
+## SuggestionType
+```python 
+SuggestionType()
+```
+
+
+---
+Enum to specify the preferred
+type of suggestion
+
+**Fields:**
+- SAMPLE_WEIGHTS
+- RESAMPLED_DATASET
+
+----
+
+
 ## TaskStatus
 ```python 
 TaskStatus()

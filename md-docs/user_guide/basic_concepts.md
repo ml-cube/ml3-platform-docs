@@ -108,11 +108,41 @@ The roles are Admin, Edit User, View User.
 > the other Data Scientists have the Project Edit Role for the project they are working on.
 
 ## Drift Detection
-For each AI Task, ML cube Platform provides a set of Detectors that analyze different quantities of the Task.
-**Data Detectors** look at the Task's data without considering its AI models.
-They are resposible to identify input and concept drifts and more generally changes that happen in the data.
+ML cube Platform provides a set of Detectors for each AI Task. These detectors are used to monitor the task according 
+to different levels. The choice over the types of detectors to be instantiated depends on the type of task (classification or regression) and on 
+the type of data available for that task (input, output, model predictions).   
+There are mainly two classes of detectors:  
 
-Indeed, each Model has associated a **Model Detector** that analyses its performance metrics and detect negative trends.
+- **Data Detectors:** they take into account data associated with the task. They may be *input only* 
+data or *input and ground truth* data. These detectors are independent from the models trained on the 
+task as they do not either consider their predictions or performances. These detectors are responsible for the identification of 
+input and concept drifts. According to the type of the used detector, changes in data are either monitored at feature 
+level or using a multivariate monitoring strategy.
+- **Model Detectors:** they monitor the performances associated with the models related to the task.
+In cases where the user has multiple models trained for a single task, a single detector is created for each model.
+
+Each detector is initially created using **Reference data** provided by the user. Every time a new batch of data 
+is uploaded, the detectors observe the batch and update their statistics.  
+Each detector updates its statistics independently from the others and each of them presents a double-level alarm scheme in 
+order to either signal a **Warning** or a **Drift** for the monitored task. Each of these levels are identified by properly 
+setting specific thresholds for each detector. The choice over the sensibility associated with the alarms can be chosen 
+by the user.  
+The detectors may be in three different states: 
+
+- **Regular:** the detector is monitoring data that are similar to the reference data, 
+- **Warning:** the detector has fired a Warning alarm since the data has started to change. From this zone, it is possible 
+to either go into the Drift status or to go back to the Regular one, depending on the monitored data.
+- **Drift:** the detector has fired a Drift alarm and a change has been established between the reference data and the last 
+ones. After a drift, the detector is usually reset by defining a new set of reference data. The reset process is different 
+according to what has been monitored by the detector.  
+<When a detector 
+enters the warning zone, it generates a warning alert. It is possible to exit from the it if the new data gets more similar 
+to the reference data. If instead, data exhibit significant differences with respect to the original ones, the detectors 
+may enter the drift zone and fire a drift alarm.>
+
+All the alarms generated during this process are combined and a final set of alarms is shown to the user. The alarms generated 
+during this process will be helpful to define the division into **Concepts**.
+<After having raised drift alarms, the detectors can be reset in different ways, according to what the detector is actually monitoring.>
 
 ## Retraining
 A Data drift determines a drop in the model's performance that starts providing bad estimation or predictions.

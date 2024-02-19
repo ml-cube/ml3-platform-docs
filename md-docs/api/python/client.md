@@ -266,7 +266,7 @@ Project ID                Name
 ```python
 .create_task(
    project_id: str, name: str, tags: List[str], task_type: TaskType,
-   cost_info: Optional[TaskCostInfo] = None
+   cost_info: Optional[TaskCostInfo] = None, optional_target: bool = False
 )
 ```
 
@@ -288,6 +288,10 @@ Create a task inside the project.
     documentation for more information
 * **cost_info**  : optional argument that specify the cost
     information of the task
+* **optional_target**  : True if the target value in not always
+    available. This changes the behaviour and the detection
+    phase of ML cube Platform that will analyse production
+    data without considering the actual target
 
 
 **Returns**
@@ -415,7 +419,8 @@ Task ID                   Name     Type            Status     Status start date
 ```python
 .create_model(
    task_id: str, name: str, version: str, metric_name: ModelMetricName,
-   retraining_cost: float = 0.0
+   preferred_suggestion_type: SuggestionType, retraining_cost: float = 0.0,
+   resampled_dataset_size: Optional[int] = None
 )
 ```
 
@@ -440,6 +445,13 @@ Create a model inside the task.
     retrain the model. This information is used by the
     retraining tool to show gain-cost information.
     Default value is 0.0 meaning that the cost is negligible
+* **preferred_suggestion_type**  : preferred type of suggestion that
+    will be computed to retrain the model
+* **resampled_dataset_size**  : size of the resampled dataset that
+    will be proposed to retrain the model
+    note: this parameter is required if
+    `preferred_suggestion_type` is
+    `SuggestionType.RESAMPLED_DATASET`
 
 
 **Returns**
@@ -577,9 +589,9 @@ Model Id                  Task Id                   Name                    Vers
 64fecf7d323311ab78f17280  64fecf7c323311ab78f17262  model_local_experiment  v0.0.1     not_initialized                            2023-09-11 08:27:41.431000  ModelMetricName.RMSE
 ```
 
-### .get_suggestions
+### .get_suggestions_info
 ```python
-.get_suggestions(
+.get_suggestions_info(
    model_id: str, model_version: str
 )
 ```
@@ -602,7 +614,7 @@ Retrieve suggestions associated with a model.
 
 **Returns**
 
-* **suggestion_list**  : `List[Suggestion]`
+* **suggestion_info_list**  : `List[SuggestionInfo]`
 
 
 **Raises**
@@ -645,6 +657,40 @@ Suggestion Id                     Executed    Timestamp
 
 `SDKClientException`
 
+### .set_model_suggestion_type
+```python
+.set_model_suggestion_type(
+   model_id: str, preferred_suggestion_type: SuggestionType,
+   resampled_dataset_size: Optional[int] = None
+)
+```
+
+---
+Set model suggestion type.
+
+**Allowed Roles:**
+
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **model_id**  : the identifier of the task
+* **preferred_suggestion_type**  : preferred type of suggestion that
+    will be computed to retrain the model
+* **resampled_dateset_size**  : size of the resampled dataset that
+    will be proposed to retrain the model
+    note: this parameter is required if
+    `preferred_suggestion_type` is
+    `SuggestionType.RESAMPLED_DATASET`
+
+
+**Raises**
+
+`SetModelSuggestionTypeException`
+
 ### .update_model_version_by_suggestion_id
 ```python
 .update_model_version_by_suggestion_id(
@@ -655,7 +701,7 @@ Suggestion Id                     Executed    Timestamp
 ---
 Update model version by suggestion id.
 To retrain the Model, ML cube Platform provides importance
-weights through a `Suggestion`.
+weights through a `SuggestionInfo`.
 After the retraining is completed, you use this method to
 create the new model version in ML cube Platform.
 By specifying the `suggestion_id`, ML cube Platform
@@ -702,7 +748,7 @@ using the method `wait_job_completion(job_id)`
 ---
 Update model version by suggestion id.
 To retrain the Model, ML cube Platform provides importance
-weights through a `Suggestion`.
+weights through a `SuggestionInfo`.
 However, it is possible to train the model with new data that
 has been not already upload to ML cube Platform.
 After the retraining is completed, you use this method to
@@ -846,7 +892,8 @@ Show data schema of associated with a task
 ### .add_historical_data
 ```python
 .add_historical_data(
-   task_id: str, features_data_source: DataSource, targets_data_source: DataSource
+   task_id: str, features_data_source: DataSource,
+   targets_data_source: Optional[DataSource] = None
 )
 ```
 
@@ -869,7 +916,6 @@ using the method `wait_job_completion(job_id)`
 **Args**
 
 * **task_id**  : the identifier of the task
-* **dataset_type**  :  Dataset type describes the nature of data stored
 * **features_data_source**  : data source that contains features data
 * **targets_data_source**  : data source that contains targets data
 
