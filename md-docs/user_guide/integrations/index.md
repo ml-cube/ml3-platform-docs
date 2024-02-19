@@ -1,4 +1,4 @@
-# Credentials
+# Integrations
 Below, you will find a guide that will help you create the credentials and configure the permissions that ML cube will use to access your resources on the supported cloud providers.
 
 ## Creating the credentials

@@ -19,6 +19,7 @@ theme:
     - navigation.instant
     # - navigation.prune
     - navigation.sections
+    - navigation.expand
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.top
@@ -100,16 +101,22 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 nav:
-  - Home: index.md
+  #- Home: index.md
   - User Guide:
       - user_guide/index.md
-      - user_guide/basic_concepts.md
-      - user_guide/rbac.md
       - user_guide/glossary.md
-      - user_guide/data_sources.md
-      - user_guide/retrain_triggers.md
+      - user_guide/rbac.md
+      - Modules:
+        - user_guide/modules/index.md
+        - user_guide/modules/monitoring.md
+        - user_guide/modules/retraining.md
+        - user_guide/modules/business.md
+        - user_guide/modules/labeling.md
+      - Integrations:
+        - user_guide/integrations/index.md
+        - user_guide/integrations/data_sources.md
+        - user_guide/integrations/retrain_triggers.md
       - user_guide/detection_event_rules.md
-      - user_guide/credentials.md
   - API:
       - api/index.md
       - Examples: api/examples.md
@@ -121,3 +128,4 @@ nav:
           - Enums: api/python/enums.md
       - REST:
           - api/rest/index.md
+  - Web App: https://app.platform.mlcube.com/

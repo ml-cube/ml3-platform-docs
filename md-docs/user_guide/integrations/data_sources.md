@@ -12,14 +12,14 @@ This is the easiest way to send data to the ML cube Platform. You can simply spe
 !!! example
 
     ```py
-    job_id = client.add_historical_data(
-        task_id='your_task_id',
-        features_data_source=LocalDataSource(
-            dataset_type=DatasetType.TABULAR, file_path='historical_features.csv'
-        ),
-        targets_data_source=LocalDataSource(
-            dataset_type=DatasetType.TABULAR, file_path='historical_targets.csv'
-        ),
+    data = TabularData(
+        source=LocalDataSource(
+            data_structure=DataStructure.TABULAR,
+            file_type=FileType.CSV,
+            file_path=file_path,
+            is_folder=False,
+            folder_type=None,
+        )
     )
     ```
 
@@ -50,18 +50,15 @@ Below, you can find the configuration steps required to integrate the data sourc
         Note that, if you don't specify the `credentials_id`, the default ones will be used.
 
         ```py
-        job_id = client.add_historical_data(
-            task_id='your_task_id',
-            features_data_source=S3DataSource(
-                dataset_type=DatasetType.TABULAR,
+        data = TabularData(
+            source=S3DataSource(
                 object_path='s3://my-company-data-bucket/historical/features.csv',
-                credentials_id=aws_creds.credentials_id
-            ),
-            targets_data_source=S3DataSource(
-                dataset_type=DatasetType.TABULAR,
-                object_path='s3://my-company-data-bucket/historical/targets.csv',
-                credentials_id=aws_creds.credentials_id
-            ),
+                credentials_id=aws_creds.credentials_id,
+                data_structure=DataStructure.TABULAR,
+                file_type=FileType.CSV,
+                is_folder=False,
+                folder_type=None,
+            )
         )
         ```
 
@@ -76,18 +73,15 @@ Below, you can find the configuration steps required to integrate the data sourc
         Note that, if you don't specify the `credentials_id`, the default ones will be used.
 
         ```py
-        job_id = client.add_historical_data(
-            task_id='your_task_id',
-            features_data_source=GCSDataSource(
-                dataset_type=DatasetType.TABULAR,
+        data = TabularData(
+            source=GCSDataSource(
                 object_path='gs://my-company-data-bucket/historical/features.csv',
-                credentials_id=gcp_creds.credentials_id
-            ),
-            targets_data_source=GCSDataSource(
-                dataset_type=DatasetType.TABULAR,
-                object_path='gs://my-company-data-bucket/historical/targets.csv',
-                credentials_id=gcp_creds.credentials_id
-            ),
+                credentials_id=gcp_creds.credentials_id,
+                data_structure=DataStructure.TABULAR,
+                file_type=FileType.CSV,
+                is_folder=False,
+                folder_type=None,
+            )
         )
         ```
 
@@ -96,59 +90,22 @@ Below, you can find the configuration steps required to integrate the data sourc
 === "Azure Blob Storage"
     ![Microsoft Azure](../imgs/azure.svg){: style="height:50px;width:50px"}
     
-    To integrate Azure Blob Storage, you will need to create a set of Azure credentials. Before doing this, you need to create a **Service Principal** in your Azure Account that will be used by the ML cube Platform to read data from the specified Container in the Storage Account of your choice.
-
-    First of all, log into your Azure account, select the correct project and open the **Cloud Shell**. You can find the button to open it in the upper-right corner of the page. Set the Cloud Shell to use bash instead of powershell. Now we will enter the following commands that will create the **Service Principal** with the required permissions to read blobs from your container.
-
-    ```bash
-    # Change these according to your Azure resources
-    export SUBSCRIPTION_ID=your-subscription-id
-    export RESOURCE_GROUP=your-resource-group
-    export STORAGE_ACCOUNT=your-storage-account
-    export BLOB_CONTAINER=your-blob-container
-
-    az ad sp create-for-rbac --name ML3PlatformSP --role "Storage Blob Data Reader" --scopes /subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.Storage/storageAccounts/$STORAGE_ACCOUNT/blobServices/default/containers/$BLOB_CONTAINER
-    ```
     
-    If you would like to use a custom role, for example to restrict the reads to a specific subfolder, create it and then replace "Storage Blob Data Reader" with the name of your role.
-
-    Once the operation finishes running, it will output a JSON object with the following fields: `appId`, `displayName`, `password` and `tenant`. Copy this object and save it to a file on your disk, for example `azure-credentials.json`.
-
-    Now, you will need to create the credentials through the ML cube Platform SDK.
-
-    !!! example
-        The following code will create a set of Azure credentials that will be able to access the service account.
-
-        ```py
-        with open('path/to/azure-credentials.json', 'r') as f:
-            creds_json = f.read()
-
-            azure_creds = client.create_azure_integration_credentials(
-                name='AZURE_01',
-                default=True,  # Set these credentials as the default to use when not specified
-                project_id='your_project_id',
-                service_principal_credentials_json=creds_json
-            )
-        ```
-
     Now, you will be able to specify an `AzureBlobDataSource` when adding your data to a task.
 
     !!! example
         Note that, if you don't specify the `credentials_id`, the default ones will be used.
 
         ```py
-        job_id = client.add_historical_data(
-            task_id='your_task_id',
-            features_data_source=AzureBlobDataSource(
-                dataset_type=DatasetType.TABULAR,
+        data = TabularData(
+            source=AzureBlobDataSource(
                 object_path='https://mystorageaccount.blob.core.windows.net/my-container/historical/features.csv',
                 credentials_id=azure_creds.credentials_id
-            ),
-            targets_data_source=AzureBlobDataSource(
-                dataset_type=DatasetType.TABULAR,
-                object_path='https://mystorageaccount.blob.core.windows.net/my-container/historical/targets.csv',
-                credentials_id=azure_creds.credentials_id
-            ),
+                data_structure=DataStructure.TABULAR,
+                file_type=FileType.CSV,
+                is_folder=False,
+                folder_type=None,
+            )
         )
         ```
 

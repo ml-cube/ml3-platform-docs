@@ -74,6 +74,22 @@ A source that identifies a blob in Azure Storage.
 * **object_path**  : str
 
 
+
+**Methods:**
+
+
+### .get_path
+```python
+.get_path()
+```
+
+
+### .get_source_type
+```python
+.get_source_type()
+```
+
+
 ----
 
 
@@ -144,12 +160,14 @@ Column base model
 **Attributes**
 
 * **name**  : str
-* **data_type**  : str
 * **role**  : str
 * **is_nullable**  : bool
+* **data_type**  : DataType
 * **predicted_target**  : Optional[str] = None
 * **possible_values**  : Optional[List] = None
 * **model_id**  : Optional[str] = None
+* **dims**  : Optional[Tuple[int]] = None
+    it is manadatory when data_type is Array
 
 
 ----
@@ -195,6 +213,25 @@ base model for company user
 ----
 
 
+## Data
+```python 
+Data()
+```
+
+
+---
+Generic data model that contains all information about a data
+
+
+**Attributes**
+
+* **data_structure**  : DataStructure
+* **source**  : DataSource
+
+
+----
+
+
 ## DataSchema
 ```python 
 DataSchema()
@@ -221,12 +258,6 @@ DataSource()
 
 ---
 Generic data source.
-
-
-**Attributes**
-
-* **dataset_type**  : DatasetType
-
 
 ----
 
@@ -370,6 +401,34 @@ A source that identifies a file in a GCS bucket.
 * **object_path**  : str
 
 
+
+**Methods:**
+
+
+### .get_path
+```python
+.get_path()
+```
+
+
+### .get_source_type
+```python
+.get_source_type()
+```
+
+
+----
+
+
+## ImageData
+```python 
+ImageData()
+```
+
+
+---
+Image unstructured data
+
 ----
 
 
@@ -491,19 +550,6 @@ Base model to define model item
 ----
 
 
-## PredictionDataSourceInfo
-```python 
-PredictionDataSourceInfo()
-```
-
-
----
-Base model to define the relationship
-between a model and its prediction file
-
-----
-
-
 ## Project
 ```python 
 Project()
@@ -556,6 +602,26 @@ A source that identifies where data is stored.
 
 * **credentials_id**  : The id of the credentials to use to authenticate
 to the remote data source. If None, the default will be used
+
+
+**Methods:**
+
+
+### .get_path
+```python
+.get_path()
+```
+
+---
+Return the path of the object
+
+### .get_source_type
+```python
+.get_source_type()
+```
+
+---
+Returns raw data source type
 
 ----
 
@@ -654,6 +720,22 @@ A source that identifies a file in an S3 bucket.
 **Attributes**
 
 * **object_path**  : str
+
+
+
+**Methods:**
+
+
+### .get_path
+```python
+.get_path()
+```
+
+
+### .get_source_type
+```python
+.get_source_type()
+```
 
 
 ----
@@ -776,6 +858,19 @@ SuggestionInfo base model
 ----
 
 
+## TabularData
+```python 
+TabularData()
+```
+
+
+---
+Tabular data model i.e., a data that can be represented via
+DataFrame and is stored in formats like: csv, parquet, json
+
+----
+
+
 ## Task
 ```python 
 Task()
@@ -826,4 +921,24 @@ Base Model for Teams Notification Action
 
 * **type**  : DetectionEventActionType.TEAMS_NOTIFICATION
 * **webhook**  : str
+
+
+----
+
+
+## UnstructuredData
+```python 
+UnstructuredData()
+```
+
+
+---
+Unstructured data model i.e., images, text or other. Since it is
+composed of multiple files, it needs a mapping between customer ids
+and those files
+
+
+**Attributes**
+
+* **mapping_source**  : DataSource
 
