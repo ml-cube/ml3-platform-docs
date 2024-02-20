@@ -6,7 +6,7 @@ Each User has associated a *company role* and one or more *project roles*.
 
 !!! tip "Delta Energy inc"
 
-    Delta Energy has one dedicatd AI Team to each Task. Hence, they assigned specific Project Administrator Role to each Team leader; while the other Data Scientists have the Project Edit Role for the project they are working on.
+    Delta Energy has one dedicated AI Team to each Task. Hence, they assigned specific Project Administrator Role to each Team leader; while the other Data Scientists have the Project Edit Role for the project they are working on.
 
 <figure markdown>
   ![Image title](../imgs/user roles.png){ width="500" }

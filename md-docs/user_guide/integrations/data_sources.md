@@ -40,9 +40,9 @@ You can configure multiple credentials for the same provider, for example you co
 Below, you can find the configuration steps required to integrate the data source of your choice
 
 === "Amazon S3"
-    ![Amazon Web Services](../imgs/aws.svg){: style="height:50px;width:50px"}
+    ![Amazon Web Services](../../imgs/aws.svg){: style="height:50px;width:50px"}
     
-    To integrate Amazon S3, you will need to create a set of AWS credentials, and add a policy that grants read access to objects in your bucket. Please refer to [this page](../credentials) to know more.
+    To integrate Amazon S3, you will need to create a set of AWS credentials, and add a policy that grants read access to objects in your bucket. Please refer to [this page](index.md) to know more.
 
     Once you have some credentials, you will be able to specify an `S3DataSource` when adding your data to a task.
 
@@ -63,9 +63,9 @@ Below, you can find the configuration steps required to integrate the data sourc
         ```
 
 === "Google Cloud Storage"
-    ![Google Cloud Platform](../imgs/gcp.svg){: style="height:50px;width:50px"}
+    ![Google Cloud Platform](../../imgs/gcp.svg){: style="height:50px;width:50px"}
 
-    To integrate Google Cloud Storage, you will need to create a set of GCP credentials, and add a policy that grants read access to objects in your bucket. Please refer to [this page](../credentials) to know more.
+    To integrate Google Cloud Storage, you will need to create a set of GCP credentials, and add a policy that grants read access to objects in your bucket. Please refer to [this page](index.md) to know more.
 
     Once you have some credentials, you will be able to specify a `GCSDataSource` when adding your data to a task.
 
@@ -88,7 +88,7 @@ Below, you can find the configuration steps required to integrate the data sourc
     Congratulations! You have successfully connected your GCS bucket to the ML cube Platform. The ML cube Platform will now be able to authenticate to the service account you created via the generated key. To revoke access, simply delete the key.
 
 === "Azure Blob Storage"
-    ![Microsoft Azure](../imgs/azure.svg){: style="height:50px;width:50px"}
+    ![Microsoft Azure](../../imgs/azure.svg){: style="height:50px;width:50px"}
     
     
     Now, you will be able to specify an `AzureBlobDataSource` when adding your data to a task.
@@ -112,6 +112,6 @@ Below, you can find the configuration steps required to integrate the data sourc
     Congratulations! You have successfully connected your Azure blob container to the ML cube Platform. The ML cube Platform will now be able to authenticate to the service principal you created via the generated key. To revoke access, search for 'App Registrations' in the Azure Console, then navigate to the 'All Applications' tab, select 'ML3PlatformSP' and delete it.
 
 === "Databricks"
-    ![Databricks](../imgs/databricks.svg){: style="height:50px;width:50px"}
+    ![Databricks](../../imgs/databricks.svg){: style="height:50px;width:50px"}
 
     *Coming Soon...*
