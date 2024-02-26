@@ -31,16 +31,32 @@ Currency of to use for the Task
 ----
 
 
-## DatasetType
+## DataStructure
 ```python 
-DatasetType()
+DataStructure()
 ```
 
 
 ---
+Represents the typology of the data to send
+
 **Fields:**
 
 - TABULAR
+- IMAGE
+
+----
+
+
+## DataType
+```python 
+DataType()
+```
+
+
+---
+Data type enum
+Describe data type of an input
 
 ----
 
@@ -118,6 +134,24 @@ FileType()
 
 - CSV
 - JSON
+
+----
+
+
+## FolderType
+```python 
+FolderType()
+```
+
+
+---
+Type of folder
+
+**Fields**
+
+- UNCOMPRESSED
+- TAR
+- ZIP
 
 ----
 

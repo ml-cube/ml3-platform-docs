@@ -1,73 +1,123 @@
 # User Guide
 
-ML cube Platform is an MLOps tool in the *Serving Stage* of MLOps pipeline.
-It is an AI Supervision tool that implements Monitoring and Observability to avoid AI's models obsolescence and performance degradation.
+ML cube Platform is built following the API first principle, by which it can be used both via Web Application and REST API.
+In this first guide, we explain the basic concepts in ML cube Platform.
+In order to find easily every information we suggest you to use the search bar, moreover, you can go to [Glossary] to find the key concepts and definition we use along this site.
 
-In the Figure below are depicted the covered areas by ML cube Platform:
-<figure markdown>
-  ![Image title](../imgs/tech_stack.png){ width="1000" }
-  <figcaption>Covered Areas in the MLOps Stack.</figcaption>
-</figure>
+[Glossary]: glossary.md
 
-With ML cube Platform you can:
+!!! tip "Example Company"
 
-- log inference data and identify the presence of drifts;
-- obtain the best retraining dataset to update your model after a drift;
-- have a business perspective on your AI Tasks to link your KPIs with AI models' performance
-- apply expert learning techniques during inference to mitigate the problems due to changes in the data;
-- use relabeling module to obtain the most important samples to relabel.
+    Every time you find a section like this you will see a examples with a fictional company that will help you to better understand the concepts and the entities in ML cube Platform.
+    We will use a fictional company called *Delta Energy* that is a producer of Photovoltaic Modules that own Photovoltaic fields and trades the produced energy to the market.
 
-## Artificial Intelligence applications monitoring
-AI monitoring consists of applying detection algorithms to metrics that comes from an Artificial Intelligence system.
-The monitored metrics are split in two categories:
+## Company
 
-- **Serving metrics:** quantities related to the infrastructure and the software application like inference time and network rate;
-- **AI metrics:** quantities related to the Artificial Intelligence application like model performance, missing values and data distributions.
- 
-ML cube Platform focuses on AI metrics, its goal is to monitor data and AI models to detect drifts and AI related problems and to provide actions that keep model performance high.
- 
-## Data and model monitoring
-ML cube Platform implements data monitoring and model monitoring. 
-Model monitoring detects drifts and problems in the monitored AI model.
-Model monitoring means analyzing its performance metric (like RMSE, precision, or any custom performance metric) over time to detect deviations and negative trends before they will be problematic.
-Whenever a drift in the model performance is detected, an alarm is raised because the model needs to be updated with a new training data.
- 
-Data monitoring processes the input and the ground truth.
-Detectors that monitor only the input check for input drift, i.e., a change in $P(X)$ distribution, while detectors that monitor both input and ground truth check for concept drift i.e., change in $P(y | X)$ distribution.
- 
-Model and data monitoring are related and interdependent since the presence of a concept drift usually determines a model drift as well.
-They are used simultaneously to improve the overall detection quality.
- 
-## What do you need to log on ML cube Platform?
-ML cube Platform's detection algorithms works at model level.
-Therefore, uploaded *input data* are the numeric features the model model receives as input to make inferece.
-Those data are the ones at the end of the data processing pipeline after the cleaning, feature extraction and normalization.
+To use ML cube Platform you need to belong to a **Company** that is created during your first login in the Web Application.
+Everything will be done inside it, for example, if you want your colleagues to work with you in ML cube Platform you need to create new **Users** inside the company.
+Users has assigned a specific **Role** that defines their privileges and what they are able to do (refer to [User Roles] for more information).
 
-<figure markdown>
-  ![Image title](../imgs/drift_monitoring.png){ width="1000" }
-  <figcaption>ML cube Platform in the ML inference pipeline.</figcaption>
-</figure>
+[User Roles]: rbac.md
 
 
-## Creating a baseline with Reference Data
-Reference data are part of the datasets used during the development of the AI model: they contain training, validation, and test sets, i.e., anything the AI model saw during its training phase.
-Reference data are used to initialize data detectors calibrating them to what the model learnt.
- 
-Reference data are not used to initialize the model detectors since the error on training set is not fair with respect the error with external data.
-Therefore, model detectors initialize themselves with production data assuming that the performance the AI model has in the first timesteps after the deployment belong to the same data distribution.
- 
-## Improving retraining quality with Historical Data
-Historical data are composed of any dataset the customer has that were not used to train the AI model that is used in production (they potentially can be old training datasets of old models).
-Historical data are not used during the drift detection phase but during the retraining dataset selection phase.
-They are not mandatory, but their availability increase the quality and the information of the retraining dataset ML cube Platform provides to the customer.
-Indeed, ML cube Platform will use all the information available to provide the best dataset for retraining. 
-The historical data have the same format as the input data, therefore, they are data after the data processing pipeline.
- 
-## What is a retraining dataset?
-When a drift occurs, the AI model performance decreases.
-The retraining dataset is the new dataset ML cube Platform provides to the customer that should be used to retrain the AI model in order to increase the AI model performance.
-Conceptually, the retraining dataset is composed of the production data after the data drift with all the data that are similar to them.
-What ML cube Platform provides is a set of importance weights, one for each data sample belonging to the three data categories: historical, reference, production.
-The magnitude of the importance weights indicates how much the single sample is important for the current retraining.
-The customer integrates the weights in the training procedure using a weighted loss function.
-If the AI model does not support weighted loss function, ML cube Platform can provide a list of sample ids to use as training dataset.
+## Project
+
+Your work on ML cube Platform is organized through **Projects**, **Task** and **Models**.
+A **Project** is an artificial intelligence application that uses a set of algorithms to reach a common set of **KPIs**, usually a **Project** contains several **Tasks**.
+
+!!! tip "Delta Energy inc"
+
+    Delta Energy, created the *Energy Revenue* Project to enhance their revenue from energy trading. They invested in four AI algorithms:
+
+    - Fault detection
+    - Fault diagnosis
+    - Soiling detection
+    - Trading
+
+    In ML cube Platform, these four algorithms define four Tasks inside the Project Energy Revenue.
+    They have been placed into the same Project because they share the business goal i.e., the net revenue, the data and are interdependent.
+
+## Task
+
+As you may have guessed, in ML cube Platform a **Task** corresponds to an AI Algorithm.
+To be more precise, a **Task** is an AI Problem with a dataset composed of input features and a target.
+**A Task** can have more than one AI **Model** that uses the input features estimates the target.
+
+!!! tip "Delta Energy inc"
+
+    In out example company, the Fault Detection Task has as input features the PV modules and weather data and the target is the presence of a fault. 
+    The Task has two Models: logistic regression and random forest. 
+    Both models use the same data and predict the same target but are different in the techniques used to perform the estimation.
+
+A **Task** is specified by several attributes, the most important are:
+
+- `type`: regression, classification, object detection ...
+- `data structure`: tabular data, image data, ...
+- `optional target`: if the target is not always available. This happen when input samples are labeled and the most part of production data do not have a label
+- `data schema`: specifies the inputs and the target of the task, see [Data Schema](data_schema.md) section for more details
+- `cost info`: information about the economic costs of the error on the target
+
+!!! tip "Delta Energy inc"
+
+    The Task of Fault Detection has clear costs due to false positives or false negatives. 
+    Every time a fault is not detected the false negative cost is proportional to the power reduction.
+    While, false positives determine costs for the maintenance team that will go on the field for nothing.
+
+## Model
+
+The last entity is the **Model** that is the actual AI model that predicts the target.
+A **Model** has a Version that defines the training data used to train it.
+All model's data will be uploaded specifying the model version in order to track each prediction with the right model instance. 
+The model version is updated whenever a new training of the model is done.
+
+A **Model** has the following attributes:
+
+- `name`: uniquely identifies the model inside the **Task**
+- `version`: specifies different trained instance of the model
+- `metric name`: metric to use to measure the model performance
+- `suggestion type`: type of retraining action to use for that model, see [Retraining](modules/retraining.md) section for more details
+- `retraining cost`: how much model training cost. This information is used by the [Business](modules/business.md) module
+
+!!! note
+
+    It's worth nothing to note that in ML cube Platform you do not actually need to upload the model on the application. 
+    We just need to know its training data and its predictions for the production data. 
+    In this way, ML cube Platform is considered as model agnostic.
+
+Now that you have clear the basic concepts we invite you to explore the other ML cube Platform pages:
+
+<div class="grid cards" markdown>
+
+-   :simple-hive_blockchain:{ .lg .middle } **Modules**
+
+    ---
+
+    Explore available features in ML cube Platform
+
+    [:octicons-arrow-right-24: More info](modules/index.md)
+
+-   :material-connection:{ .lg .middle } **Integrations**
+
+    ---
+
+    We are part of MLOps ecosystem and natively integrated with other solutions.
+
+    [:octicons-arrow-right-24: More info](integrations/index.md)
+
+-   :material-flash-auto:{ .lg .middle } **Automation rules**
+
+    ---
+
+    Discover how to setup automation rules to increase your reactivity.
+
+    [:octicons-arrow-right-24: More info](detection_event_rules.md)
+
+-   :material-lock:{ .lg .middle } **Roles and access**
+
+    ---
+
+    Get more info about RBAC inside ML cube Platform
+
+    [:octicons-arrow-right-24: More info](rbac.md)
+
+</div>

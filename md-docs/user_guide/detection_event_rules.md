@@ -1,6 +1,6 @@
 # Detection Event Rules
 
-This section provides an overview of how you can setup automation rules after a detection event occurrs in order to receive notifications or to start retraining.
+This section provides an overview of how you can setup automation rules after a detection event occurs in order to receive notifications or to start retraining.
 
 When a detection event occurs, the platform evaluates your set detection event rules.
 If a rule matches the event, the specified actions will be triggered.

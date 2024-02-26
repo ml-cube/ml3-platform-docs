@@ -266,7 +266,8 @@ Project ID                Name
 ```python
 .create_task(
    project_id: str, name: str, tags: List[str], task_type: TaskType,
-   cost_info: Optional[TaskCostInfo] = None, optional_target: bool = False
+   data_structure: DataStructure, cost_info: Optional[TaskCostInfo] = None,
+   optional_target: bool = False
 )
 ```
 
@@ -286,6 +287,7 @@ Create a task inside the project.
 * **tags**  : a list of tags associated with the task
 * **task_type**  : the type of the task. See `TaskType`
     documentation for more information
+* **data_structure**  : type of data in the task
 * **cost_info**  : optional argument that specify the cost
     information of the task
 * **optional_target**  : True if the target value in not always
@@ -680,7 +682,7 @@ Set model suggestion type.
 * **model_id**  : the identifier of the task
 * **preferred_suggestion_type**  : preferred type of suggestion that
     will be computed to retrain the model
-* **resampled_dateset_size**  : size of the resampled dataset that
+* **resampled_dataset_size**  : size of the resampled dataset that
     will be proposed to retrain the model
     note: this parameter is required if
     `preferred_suggestion_type` is
@@ -740,8 +742,7 @@ using the method `wait_job_completion(job_id)`
 ### .update_model_version_from_raw_data
 ```python
 .update_model_version_from_raw_data(
-   model_id: str, new_model_version: str, features_data_source: DataSource,
-   targets_data_source: DataSource
+   model_id: str, new_model_version: str, inputs: Data, target: Data
 )
 ```
 
@@ -772,15 +773,10 @@ using the method `wait_job_completion(job_id)`
 
 * **model_id**  : the identifier of the model
 * **new_model_version**  : the new version of the model
-* **dataset_type**  :  Dataset type describes the nature
-               of data stored (DatasetType)
-* **features_data_source**  : data source that contains features data
-* **targets_data_source**  : data source that contains targets data
-
-
-**Returns**
-
-* **job_id**  : `str` job identifier of the pipeline in execution
+* **inputs**  : data object that contain input data source.
+    It can be None if you upload other kinds of data
+* **target**  : data object that contains target data.
+    It can be None if you upload other kinds of data
 
 
 **Raises**
@@ -892,8 +888,7 @@ Show data schema of associated with a task
 ### .add_historical_data
 ```python
 .add_historical_data(
-   task_id: str, features_data_source: DataSource,
-   targets_data_source: Optional[DataSource] = None
+   task_id: str, inputs: Data, target: Optional[Data] = None
 )
 ```
 
@@ -916,8 +911,10 @@ using the method `wait_job_completion(job_id)`
 **Args**
 
 * **task_id**  : the identifier of the task
-* **features_data_source**  : data source that contains features data
-* **targets_data_source**  : data source that contains targets data
+* **inputs**  : data object that contain input data source.
+    It can be None if you upload other kinds of data
+* **target**  : data object that contains target data.
+    It can be None if you upload other kinds of data
 
 
 **Returns**
@@ -932,8 +929,7 @@ using the method `wait_job_completion(job_id)`
 ### .add_model_reference
 ```python
 .add_model_reference(
-   model_id: str, features_data_source: DataSource,
-   targets_data_source: DataSource
+   model_id: str, inputs: Data, target: Data
 )
 ```
 
@@ -956,9 +952,10 @@ using the method `wait_job_completion(job_id)`
 **Args**
 
 * **model_id**  : the identifier of the model
-* **dataset_type**  :  Dataset type describes the nature of data stored
-* **features_data_source**  : data source that contains features data
-* **targets_data_source**  : data source that contains targets data
+* **inputs**  : data object that contain input data source.
+    It can be None if you upload other kinds of data
+* **target**  : data object that contains target data.
+    It can be None if you upload other kinds of data
 
 
 **Returns**
@@ -973,9 +970,8 @@ using the method `wait_job_completion(job_id)`
 ### .add_production_data
 ```python
 .add_production_data(
-   task_id: str, features_data_source: Optional[DataSource] = None,
-   targets_data_source: Optional[DataSource] = None,
-   predictions_data_sources: Optional[List[PredictionDataSourceInfo]] = None
+   task_id: str, inputs: Optional[Data] = None, target: Optional[Data] = None,
+   predictions: Optional[List[Tuple[str, Data]]] = None
 )
 ```
 
@@ -998,10 +994,13 @@ using the method `wait_job_completion(job_id)`
 **Args**
 
 * **task_id**  : the identifier of the task
-* **dataset_type**  :  Dataset type describes the nature of data stored
-* **features_data_source**  : data source that contains features data. It can be None if you upload other kinds of data
-* **targets_data_source**  : data source that contains targets data. It can be None if you upload other kinds of data
-* **predictions_data_sources**  : list of data sources for each models' predictions. It can be None if you upload other kinds of data
+* **inputs**  : data object that contain input data source.
+    It can be None if you upload other kinds of data
+* **target**  : data object that contains target data.
+    It can be None if you upload other kinds of data
+* **predictions**  : list of data objects that contain prediction data.
+    Each element is a tuple with model_id and data object.
+    It can be None if you upload other kinds of data
 
 
 **Returns**
@@ -1137,7 +1136,7 @@ KPI Id                    Project Id                Name                    Stat
 ### .add_kpi_data
 ```python
 .add_kpi_data(
-   project_id: str, kpi_id: str, kpi_data_source: DataSource
+   project_id: str, kpi_id: str, kpi: TabularData
 )
 ```
 
@@ -1161,7 +1160,7 @@ using the method `wait_job_completion(job_id)`
 
 * **project_id**  : the identifier of the project
 * **kpi_id**  : the identifier of the kpi
-* **kpi_data_source**  : data source that contains data.
+* **kpi**  : data object that contains data source.
 
 
 **Returns**

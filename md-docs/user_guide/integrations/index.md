@@ -1,10 +1,10 @@
-# Credentials
+# Integrations
 Below, you will find a guide that will help you create the credentials and configure the permissions that ML cube will use to access your resources on the supported cloud providers.
 
 ## Creating the credentials
 
 === "Amazon Web Services"
-    ![Amazon Web Services](../imgs/aws.svg){: style="height:50px;width:50px"}
+    ![Amazon Web Services](../../imgs/aws.svg){: style="height:50px;width:50px"}
 
     The ML cube Platform can assume an **IAM Role** on your AWS Account, that can be used to authorize actions on specific resources.
     To create this, log into your AWS account and open the AWS console. Here, go to the **IAM** service, navigate to the **Roles** section and create a new role. When asked, select the **Custom trust policy** option and paste the following json:
@@ -57,7 +57,7 @@ Below, you will find a guide that will help you create the credentials and confi
     To revoke access, simply delete the role or change the trust policy.
 
 === "Google Cloud Platform"
-    ![Google Cloud Platform](../imgs/gcp.svg){: style="height:50px;width:50px"}
+    ![Google Cloud Platform](../../imgs/gcp.svg){: style="height:50px;width:50px"}
 
     The ML cube Platform can operate in your GCP Account through the creation of a dedicated **Service Account**. You will then be able to assign one or more **IAM Roles** to this Service Account, to allow the ML cube Platform to perform specific actions.
 
@@ -98,7 +98,7 @@ Below, you will find a guide that will help you create the credentials and confi
     Right now, your **IAM Role** grants no permissions. Please refer to the next sections that will explain how to set up **IAM Policies** for Google Cloud Storage, Pub/Sub and so on.
 
 === "Microsoft Azure"
-    ![Microsoft Azure](../imgs/azure.svg){: style="height:50px;width:50px"}
+    ![Microsoft Azure](../../imgs/azure.svg){: style="height:50px;width:50px"}
     
     The ML cube Platform can operate in your Azure Account through the creation of a dedicated **Service Principal**. You will then be able to assign one or more **Roles** to this Service Principal, to allow the ML cube Platform to perform specific actions.
 
@@ -130,7 +130,7 @@ Below, you will find a guide that will help you create the credentials and confi
 ## Storage integration
 
 === "AWS S3"
-    ![Amazon Web Services](../imgs/aws.svg){: style="height:50px;width:50px"}
+    ![Amazon Web Services](../../imgs/aws.svg){: style="height:50px;width:50px"}
 
     Log into your AWS account and open the AWS console, then go to the **IAM** service and navigate to the **Policies** section. Here, we will create an **IAM Policy**.
 
@@ -161,7 +161,7 @@ Below, you will find a guide that will help you create the credentials and confi
     Once the **IAM Policy** has been created, navigate to the **Roles** section, select the **IAM Role** you previously created and finally attach the **IAM Policy** to it.
 
 === "Google Cloud Storage"
-    ![Google Cloud Platform](../imgs/gcp.svg){: style="height:50px;width:50px"}
+    ![Google Cloud Platform](../../imgs/gcp.svg){: style="height:50px;width:50px"}
 
     Log into your GCP account, select the correct project and open the **Cloud Shell**. You can find the button to open it in the upper-right corner of the page. Now we will enter some commands that will create an **IAM Role** with the required permissions, bind it to the service account you previously created, and grant access to the bucket. A description of each command is provided to help you understand its purpose.
 
@@ -181,7 +181,7 @@ Below, you will find a guide that will help you create the credentials and confi
     ```
 
 === "Azure Blob Storage"
-    ![Microsoft Azure](../imgs/azure.svg){: style="height:50px;width:50px"}
+    ![Microsoft Azure](../../imgs/azure.svg){: style="height:50px;width:50px"}
 
     Log into your Azure account and open the **Cloud Shell**. You can find the button to open it in the upper-right corner of the page. The following command will associate the previously created Service Principal with a role that is able to read data from a given blob container.
 
@@ -199,7 +199,7 @@ Below, you will find a guide that will help you create the credentials and confi
 ## Retrain events integration
 
 === "Amazon EventBridge"
-    ![Amazon Web Services](../imgs/aws.svg){: style="height:50px;width:50px"}
+    ![Amazon Web Services](../../imgs/aws.svg){: style="height:50px;width:50px"}
 
     Log into your AWS account and open the AWS console, then go to the **IAM** service and navigate to the **Policies** section. Here, we will create an **IAM Policy**.
 
@@ -229,7 +229,7 @@ Below, you will find a guide that will help you create the credentials and confi
     Once the **IAM Policy** has been created, navigate to the **Roles** section, select the **IAM Role** you previously created and finally attach the **IAM Policy** to it.
 
 === "GCP Pub/Sub"
-    ![Google Cloud Platform](../imgs/gcp.svg){: style="height:50px;width:50px"}
+    ![Google Cloud Platform](../../imgs/gcp.svg){: style="height:50px;width:50px"}
 
     Log into your GCP account, select the correct project and open the **Cloud Shell**. You can find the button to open it in the upper-right corner of the page. Now we will enter some commands that will create an **IAM Policy** with the required permissions, bind it to the service account you previously created, and grant access to the Pub/Sub topic. A description of each command is provided to help you understand its purpose.
 
@@ -243,7 +243,7 @@ Below, you will find a guide that will help you create the credentials and confi
     ```
 
 === "Azure Event Grid"
-    ![Microsoft Azure](../imgs/azure.svg){: style="height:50px;width:50px"}
+    ![Microsoft Azure](../../imgs/azure.svg){: style="height:50px;width:50px"}
 
     Log into your Azure account and open the **Cloud Shell**. You can find the button to open it in the upper-right corner of the page. The following command will associate the previously created Service Principal with a role that is able to publish events to an Event Grid topic.
 
