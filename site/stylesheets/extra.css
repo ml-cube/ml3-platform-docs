@@ -1,0 +1,9 @@
+:root {
+  --md-primary-fg-color:        #28313F;
+  --md-primary-fg-color--light: #28313F;
+  --md-primary-fg-color--dark:  #28313F;
+  --md-accent-fg-color:        #98BE59;
+}
+.md-content {
+  --md-typeset-a-color: #98BE59;
+}

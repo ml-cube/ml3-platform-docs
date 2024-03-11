@@ -1,6 +1,7 @@
 site_name: ML cube Platform Documentation
+site_url: https://ml-cube.github.io/ml3-platform-docs/
 docs_dir: md-docs
-site_dir: docs/
+site_dir: docs
 theme:
   name: material
   features:
