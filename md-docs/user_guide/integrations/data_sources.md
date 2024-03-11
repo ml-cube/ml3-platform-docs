@@ -85,13 +85,12 @@ Below, you can find the configuration steps required to integrate the data sourc
         )
         ```
 
-    Congratulations! You have successfully connected your GCS bucket to the ML cube Platform. The ML cube Platform will now be able to authenticate to the service account you created via the generated key. To revoke access, simply delete the key.
-
 === "Azure Blob Storage"
     ![Microsoft Azure](../../imgs/azure.svg){: style="height:50px;width:50px"}
     
+    To integrate Azure Blob Storage, you will need to create a set of Azure credentials, and add a policy that grants read access to objects in your blob container. Please refer to [this page](index.md) to know more.
     
-    Now, you will be able to specify an `AzureBlobDataSource` when adding your data to a task.
+    Once you have some credentials, you will be able to specify an `AzureBlobDataSource` when adding your data to a task.
 
     !!! example
         Note that, if you don't specify the `credentials_id`, the default ones will be used.
@@ -108,8 +107,6 @@ Below, you can find the configuration steps required to integrate the data sourc
             )
         )
         ```
-
-    Congratulations! You have successfully connected your Azure blob container to the ML cube Platform. The ML cube Platform will now be able to authenticate to the service principal you created via the generated key. To revoke access, search for 'App Registrations' in the Azure Console, then navigate to the 'All Applications' tab, select 'ML3PlatformSP' and delete it.
 
 === "Databricks"
     ![Databricks](../../imgs/databricks.svg){: style="height:50px;width:50px"}
