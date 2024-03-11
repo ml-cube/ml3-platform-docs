@@ -1,6 +1,6 @@
 site_name: ML cube Platform Documentation
 docs_dir: md-docs
-site_dir: docs
+site_dir: docs/
 theme:
   name: material
   features:
@@ -101,26 +101,26 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 nav:
-  - Home: 
+  - Home:
       - index.md
   - User Guide:
       - user_guide/index.md
-      
+
       - Modules:
-        - user_guide/modules/index.md
-        - user_guide/modules/monitoring.md
-        - user_guide/modules/retraining.md
-        - user_guide/modules/business.md
-        - user_guide/modules/labeling.md
+          - user_guide/modules/index.md
+          - user_guide/modules/monitoring.md
+          - user_guide/modules/retraining.md
+          - user_guide/modules/business.md
+          - user_guide/modules/labeling.md
       - Integrations:
-        - user_guide/integrations/index.md
-        - user_guide/integrations/data_sources.md
-        - user_guide/integrations/retrain_triggers.md
+          - user_guide/integrations/index.md
+          - user_guide/integrations/data_sources.md
+          - user_guide/integrations/retrain_triggers.md
       - Other resources:
-        - user_guide/rbac.md
-        - user_guide/detection_event_rules.md
-        - user_guide/data_schema.md
-        - user_guide/glossary.md
+          - user_guide/rbac.md
+          - user_guide/detection_event_rules.md
+          - user_guide/data_schema.md
+          - user_guide/glossary.md
   - API:
       - api/index.md
       - Examples: api/examples.md
