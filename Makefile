@@ -1,18 +1,45 @@
+# === USER PARAMETERS
+
 ifdef OS
    export PYTHON_COMMAND=python
+   export UV_INSTALL_CMD=powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+   export VENV_BIN=.venv/Scripts
 else
-   export PYTHON_COMMAND=python3.8
+   export PYTHON_COMMAND=python3.12
+   export UV_INSTALL_CMD=curl -LsSf https://astral.sh/uv/install.sh | sh
+   export VENV_BIN=.venv/bin
 endif
 
+export SRC_DIR=ml3_platform_docs
 
-setup:
-	$(PYTHON_COMMAND) -m pip install poetry
-	poetry env use $(PYTHON_COMMAND)
-	poetry run pip install --upgrade pip
+DEPLOY_ENVIRONMENT=$(shell if [ $(findstring main, $(BRANCH_NAME)) ]; then \
+			echo 'prod'; \
+		elif [ $(findstring pre, $(BRANCH_NAME)) ]; then \
+			echo 'pre'; \
+		else \
+		 	echo 'dev'; \
+		fi)
+# If use deploy_environment in the tag system
+# `y` => yes
+# `n` => no
+USE_DEPLOY_ENVIRONMENT=n
+
+# == SETUP REPOSITORY AND DEPENDENCIES
+
+install-uv:
+	# install uv package manager
+	$(UV_INSTALL_CMD)
+	# create environment
+	uv venv -p $(PYTHON_COMMAND)
+
+compile:
+	# install extra dev group
+	uv pip compile pyproject.toml -o requirements.txt --cache-dir .uv_cache
 
 install:
-	poetry lock
-	poetry install
+	uv pip sync requirements.txt --cache-dir .uv_cache
+
+setup: install-uv compile install
 
 build-docs:
 	mkdocs build
