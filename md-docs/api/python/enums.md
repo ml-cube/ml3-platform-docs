@@ -19,6 +19,19 @@ ApiKeyExpirationTime()
 ----
 
 
+## ColumnRole
+```python 
+ColumnRole()
+```
+
+
+---
+Column role enum
+Describe the role of a column
+
+----
+
+
 ## Currency
 ```python 
 Currency()
@@ -233,9 +246,10 @@ MonitoringTarget()
 ---
 **Fields:**
 
-- MODEL
+- ERROR
 - INPUT
 - CONCEPT
+- PREDICTION
 
 ----
 

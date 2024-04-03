@@ -160,7 +160,7 @@ Column base model
 **Attributes**
 
 * **name**  : str
-* **role**  : str
+* **role**  : ColumnRole
 * **is_nullable**  : bool
 * **data_type**  : DataType
 * **predicted_target**  : Optional[str] = None
@@ -258,6 +258,33 @@ DataSource()
 
 ---
 Generic data source.
+
+----
+
+
+## DetectionEvent
+```python 
+DetectionEvent()
+```
+
+
+---
+An event created during the detection process.
+
+
+**Attributes**
+
+* **event_id**  : str
+* **event_type**  : DetectionEventType
+* **monitoring_target**  : MonitoringTarget
+* **severity_type**  : Optional[DetectionEventSeverity]
+* **insert_datetime**  : str
+* **sample_timestamp**  : float
+* **sample_id**  : str
+* **model_id**  : Optional[str]
+* **model_name**  : Optional[str]
+* **model_version**  : Optional[str]
+
 
 ----
 

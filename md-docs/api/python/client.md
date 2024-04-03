@@ -739,22 +739,17 @@ using the method `wait_job_completion(job_id)`
 
 `UpdateModelVersionException`
 
-### .update_model_version_from_raw_data
+### .update_model_version_from_time_range
 ```python
-.update_model_version_from_raw_data(
-   model_id: str, new_model_version: str, inputs: Data, target: Data
+.update_model_version_from_time_range(
+   model_id: str, new_model_version: str, from_timestamp: float,
+   to_timestamp: float
 )
 ```
 
 ---
-Update model version by suggestion id.
-To retrain the Model, ML cube Platform provides importance
-weights through a `SuggestionInfo`.
-However, it is possible to train the model with new data that
-has been not already upload to ML cube Platform.
-After the retraining is completed, you use this method to
-create the new model version in ML cube Platform by
-specifying the data to load.
+Update model version by specifying the time range of uploaded
+data on ML cube Platform.
 
 This request starts an operation pipeline that is
 executed by ML cube Platform.
@@ -773,10 +768,8 @@ using the method `wait_job_completion(job_id)`
 
 * **model_id**  : the identifier of the model
 * **new_model_version**  : the new version of the model
-* **inputs**  : data object that contain input data source.
-    It can be None if you upload other kinds of data
-* **target**  : data object that contains target data.
-    It can be None if you upload other kinds of data
+from_timestamp
+to_timestamp
 
 
 **Raises**
@@ -926,15 +919,61 @@ using the method `wait_job_completion(job_id)`
 
 `AddHistoricalDataException`
 
-### .add_model_reference
+### .add_target_data
 ```python
-.add_model_reference(
-   model_id: str, inputs: Data, target: Data
+.add_target_data(
+   task_id: str, target: Data
 )
 ```
 
 ---
-Add a batch of reference data associated with a given model.
+Add target samples for data already uploaded on the Task.
+This operation is used for Tasks with optional target which is
+manually labelled. For instance, fter the labelling process
+(maybe with our Active Learning module) you have a set of
+labelled samples spread over all the uploaded data. Indeed,
+they can belong to different data batches (historical or
+production consistent uploads) and can be a subset of the
+uploaded data.
+
+This request starts an operation pipeline that is
+executed by ML cube Platform.
+Thus, the method returns the identifier of the job that you can
+monitor to know its status and proceed with the other work
+using the method `wait_job_completion(job_id)`
+
+**Allowed Roles:**
+
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the identifier of the task
+* **target**  : data object that contains target data
+
+
+**Returns**
+
+* **job_id**  : `str` identifier of the submitted job
+
+
+**Raises**
+
+`AddHistoricalDataException`
+
+### .set_model_reference
+```python
+.set_model_reference(
+   model_id: str, from_timestamp: float, to_timestamp: float
+)
+```
+
+---
+Specify data to use as reference for the model with time range.
+Data need to be already uploaded on ML cube Platform.
 
 This request starts an operation pipeline that is
 executed by ML cube Platform.
@@ -952,10 +991,8 @@ using the method `wait_job_completion(job_id)`
 **Args**
 
 * **model_id**  : the identifier of the model
-* **inputs**  : data object that contain input data source.
-    It can be None if you upload other kinds of data
-* **target**  : data object that contains target data.
-    It can be None if you upload other kinds of data
+from_timestamp
+to_timestamp
 
 
 **Returns**
@@ -1335,6 +1372,38 @@ Show current job information to stdout.
 
 `SDKClientException`
 
+### .get_detection_events
+```python
+.get_detection_events(
+   task_id: str
+)
+```
+
+---
+Get all detection event of a given task.
+
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : id of the task for which you want to retrieve
+the detection event
+
+
+**Returns**
+
+* **rules_list**  : `List[DetectionEvent]`
+
+
+**Raises**
+
+`SDKClientException`
+
 ### .get_detection_event_rules
 ```python
 .get_detection_event_rules(
@@ -1517,7 +1586,7 @@ Delete a detection event rule by id.
 ### .wait_job_completion
 ```python
 .wait_job_completion(
-   job_id: str, max_wait_timeout: int = 600
+   job_id: str, max_wait_timeout: int = 3000
 )
 ```
 
