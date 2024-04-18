@@ -454,7 +454,15 @@ ImageData()
 
 
 ---
-Image unstructured data
+Image data model i.e., images, text or other. Since it is
+composed of multiple files, it needs a mapping between customer ids
+and those files
+
+
+**Attributes**
+
+* **mapping_source**  : DataSource
+
 
 ----
 
@@ -566,8 +574,11 @@ Base model to define model item
 * **name**  : str
 * **version**  : str
 * **status**  : ModelStatus
-* **status_data_start_timestamp**  : Optional[str]
+* **status_data_start_timestamp**  : Optional[float]
 * **status_insert_datetime**  : datetime
+* **prediction_status**  : ModelStatus
+* **prediction_status_data_start_timestamp**  : Optional[float]
+* **prediction_status_insert_datetime**  : datetime
 * **metric_name**  : performance or error metric associated with
     the model
 * **creation_datetime**  : Optional[datetime]
@@ -879,7 +890,7 @@ SuggestionInfo base model
 
 * **id**  : str
 * **executed**  : bool
-* **timestamp**  : str
+* **timestamp**  : float
 
 
 ----
@@ -913,8 +924,10 @@ Task model
 * **task_id**  : str
 * **name**  : str
 * **type**  : TaskType
-* **status**  : TaskStatus
-* **status_start_date**  : str
+* **input_status**  : TaskStatus
+* **input_status_insert_datetime**  : str
+* **concept_status**  : TaskStatus
+* **concept_status_insert_datetime**  : str
 
 
 ----
@@ -953,19 +966,11 @@ Base Model for Teams Notification Action
 ----
 
 
-## UnstructuredData
+## TextData
 ```python 
-UnstructuredData()
+TextData()
 ```
 
 
 ---
-Unstructured data model i.e., images, text or other. Since it is
-composed of multiple files, it needs a mapping between customer ids
-and those files
-
-
-**Attributes**
-
-* **mapping_source**  : DataSource
-
+Text data model for nlp tasks.

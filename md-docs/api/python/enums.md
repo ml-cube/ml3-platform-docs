@@ -342,7 +342,29 @@ TaskType()
 **Fields:**
 
 - REGRESSION
-- CLASSIFICATION
+- CLASSIFICATION_BINARY
+- CLASSIFICATION_MULTICLASS
+- CLASSIFICATION_MULTILABEL
+- RAG
+
+----
+
+
+## TextLanguage
+```python 
+TextLanguage()
+```
+
+
+---
+Enumeration of text language used in nlp tasks.
+
+Fields
+------
+
+ITALIAN
+ENGLISH
+MULTILANGUAGE
 
 ----
 

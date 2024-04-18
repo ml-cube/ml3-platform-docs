@@ -99,7 +99,7 @@ Returns the company of the User
 ### .update_company
 ```python
 .update_company(
-   name: Optional[str], address: Optional[str], vat: Optional[str]
+   name: (str|None), address: (str|None), vat: (str|None)
 )
 ```
 
@@ -128,7 +128,7 @@ Empty values will not be updated.
 ### .create_project
 ```python
 .create_project(
-   name: str, description: Optional[str], default_storage_policy: StoragePolicy
+   name: str, description: (str|None), default_storage_policy: StoragePolicy
 )
 ```
 
@@ -212,8 +212,8 @@ Get a project with the given id
 ### .update_project
 ```python
 .update_project(
-   project_id: str, name: Optional[str], description: Optional[str],
-   default_storage_policy: Optional[StoragePolicy]
+   project_id: str, name: (str|None), description: (str|None),
+   default_storage_policy: (StoragePolicy|None)
 )
 ```
 
@@ -265,9 +265,9 @@ Project ID                Name
 ### .create_task
 ```python
 .create_task(
-   project_id: str, name: str, tags: List[str], task_type: TaskType,
-   data_structure: DataStructure, cost_info: Optional[TaskCostInfo] = None,
-   optional_target: bool = False
+   project_id: str, name: str, tags: list[str], task_type: TaskType,
+   data_structure: DataStructure, cost_info: (TaskCostInfoUnion|None) = None,
+   optional_target: bool = False, text_language: (TextLanguage|None) = None
 )
 ```
 
@@ -294,6 +294,8 @@ Create a task inside the project.
     available. This changes the behaviour and the detection
     phase of ML cube Platform that will analyse production
     data without considering the actual target
+* **text_language**  : required for NLP tasks, it specifies the
+    language used in the task.
 
 
 **Returns**
@@ -308,8 +310,8 @@ Create a task inside the project.
 ### .update_task
 ```python
 .update_task(
-   task_id: str, name: Optional[str] = None, tags: Optional[List[str]] = None,
-   cost_info: Optional[TaskCostInfo] = None
+   task_id: str, name: (str|None) = None, tags: (list[str]|None) = None,
+   cost_info: (TaskCostInfoUnion|None) = None
 )
 ```
 
@@ -422,7 +424,7 @@ Task ID                   Name     Type            Status     Status start date
 .create_model(
    task_id: str, name: str, version: str, metric_name: ModelMetricName,
    preferred_suggestion_type: SuggestionType, retraining_cost: float = 0.0,
-   resampled_dataset_size: Optional[int] = None
+   resampled_dataset_size: (int|None) = None
 )
 ```
 
@@ -663,7 +665,7 @@ Suggestion Id                     Executed    Timestamp
 ```python
 .set_model_suggestion_type(
    model_id: str, preferred_suggestion_type: SuggestionType,
-   resampled_dataset_size: Optional[int] = None
+   resampled_dataset_size: (int|None) = None
 )
 ```
 
@@ -881,7 +883,7 @@ Show data schema of associated with a task
 ### .add_historical_data
 ```python
 .add_historical_data(
-   task_id: str, inputs: Data, target: Optional[Data] = None
+   task_id: str, inputs: Data, target: (Data|None) = None
 )
 ```
 
@@ -1007,8 +1009,8 @@ to_timestamp
 ### .add_production_data
 ```python
 .add_production_data(
-   task_id: str, inputs: Optional[Data] = None, target: Optional[Data] = None,
-   predictions: Optional[List[Tuple[str, Data]]] = None
+   task_id: str, inputs: (Data|None) = None, target: (Data|None) = None,
+   predictions: (list[tuple[str, Data]]|None) = None
 )
 ```
 
@@ -1282,9 +1284,9 @@ the retraining report
 ### .get_jobs
 ```python
 .get_jobs(
-   project_id: Optional[str] = None, task_id: Optional[str] = None,
-   model_id: Optional[str] = None, status: Optional[JobStatus] = None,
-   job_id: Optional[str] = None
+   project_id: (str|None) = None, task_id: (str|None) = None,
+   model_id: (str|None) = None, status: (JobStatus|None) = None,
+   job_id: (str|None) = None
 )
 ```
 
@@ -1472,7 +1474,7 @@ Get a detection event rule by id.
 .create_detection_event_rule(
    name: str, task_id: str, severity: DetectionEventSeverity,
    detection_event_type: DetectionEventType, monitoring_target: MonitoringTarget,
-   actions: List[DetectionEventAction], model_name: Optional[str] = None
+   actions: list[DetectionEventAction], model_name: (str|None) = None
 )
 ```
 
@@ -1516,11 +1518,11 @@ Create a detection event rule.
 ### .update_detection_event_rule
 ```python
 .update_detection_event_rule(
-   rule_id: str, name: Optional[str] = None, model_name: Optional[str] = None,
-   severity: Optional[DetectionEventSeverity] = None,
-   detection_event_type: Optional[DetectionEventType] = None,
-   monitoring_target: Optional[MonitoringTarget] = None,
-   actions: Optional[List[DetectionEventAction]] = None
+   rule_id: str, name: (str|None) = None, model_name: (str|None) = None,
+   severity: (DetectionEventSeverity|None) = None,
+   detection_event_type: (DetectionEventType|None) = None,
+   monitoring_target: (MonitoringTarget|None) = None,
+   actions: (list[DetectionEventAction]|None) = None
 )
 ```
 
@@ -2329,7 +2331,7 @@ Create credentials to integrate with Azure.
 ### .set_retrain_trigger
 ```python
 .set_retrain_trigger(
-   model_id: str, trigger: Optional[RetrainTrigger]
+   model_id: str, trigger: (RetrainTrigger|None)
 )
 ```
 
