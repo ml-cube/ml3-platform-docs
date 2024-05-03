@@ -57,6 +57,8 @@ Represents the typology of the data to send
 
 - TABULAR
 - IMAGE
+- TEXT
+- EMBEDDING
 
 ----
 
@@ -233,6 +235,23 @@ ModelStatus()
 - OK
 - WARNING
 - DRIFT
+
+----
+
+
+## MonitoringMetric
+```python 
+MonitoringMetric()
+```
+
+
+---
+**Fields:**
+
+- FEATURE
+- TEXT_TOXICITY
+- TEXT_EMOTION
+- TEXT_SENTIMENT
 
 ----
 

@@ -372,6 +372,20 @@ type = DetectionEventActionType.EMAIL_NOTIFICATION
 ----
 
 
+## EmbeddingData
+```python 
+EmbeddingData()
+```
+
+
+---
+Embedding data model i.e., a data that can be represented via
+DataFrame and is stored in formats like: csv, parquet, json.
+There is only one input that has type array_1
+
+----
+
+
 ## GCPCredentials
 ```python 
 GCPCredentials()

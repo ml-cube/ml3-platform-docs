@@ -1474,7 +1474,8 @@ Get a detection event rule by id.
 .create_detection_event_rule(
    name: str, task_id: str, severity: DetectionEventSeverity,
    detection_event_type: DetectionEventType, monitoring_target: MonitoringTarget,
-   actions: list[DetectionEventAction], model_name: (str|None) = None
+   actions: list[DetectionEventAction],
+   monitoring_metric: (MonitoringMetric|None) = None, model_name: (str|None) = None
 )
 ```
 
@@ -1500,6 +1501,8 @@ Create a detection event rule.
     this rule should respond to.
 * **monitoring_target**  : the type of monitoring target that
     this rule should respond to.
+* **monitoring_metric**  : additional metric extracted from
+    monitoring target that is monitored
 * **severity**  : the level of severity of the detection event
     that this rule should respond to.
 * **actions**  : the list of actions to execute, in order,

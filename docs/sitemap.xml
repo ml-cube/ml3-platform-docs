@@ -2,112 +2,112 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/api/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/api/examples/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/api/python/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/api/python/client/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/api/python/enums/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/api/python/exceptions/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/api/python/models/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/api/rest/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/user_guide/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/user_guide/data_schema/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/user_guide/detection_event_rules/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/user_guide/glossary/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/user_guide/rbac/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/user_guide/integrations/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/user_guide/integrations/data_sources/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/user_guide/integrations/retrain_triggers/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/user_guide/modules/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/user_guide/modules/business/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/user_guide/modules/labeling/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/user_guide/modules/monitoring/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ml-cube.github.io/ml3-platform-docs/user_guide/modules/retraining/</loc>
-         <lastmod>2024-04-18</lastmod>
+         <lastmod>2024-05-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
