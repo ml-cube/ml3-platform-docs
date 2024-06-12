@@ -267,7 +267,8 @@ Project ID                Name
 .create_task(
    project_id: str, name: str, tags: list[str], task_type: TaskType,
    data_structure: DataStructure, cost_info: (TaskCostInfoUnion|None) = None,
-   optional_target: bool = False, text_language: (TextLanguage|None) = None
+   optional_target: bool = False, text_language: (TextLanguage|None) = None,
+   positive_class: (str|int|bool|None) = None
 )
 ```
 
@@ -296,6 +297,8 @@ Create a task inside the project.
     data without considering the actual target
 * **text_language**  : required for NLP tasks, it specifies the
     language used in the task.
+* **positive_class**  : required for binary classification tasks,
+    it specifies the positive class of the target.
 
 
 **Returns**

@@ -128,21 +128,16 @@ topic_endpoint
 ----
 
 
-## ClassificationTaskCostInfo
+## BinaryClassificationTaskCostInfo
 ```python 
-ClassificationTaskCostInfo()
+BinaryClassificationTaskCostInfo()
 ```
 
 
 ---
-Regression cost info is expressed in two terms:
-- cost due to overestimation
-- cost due to underestimation
-
-Fields:
-currency
-false_positive_cost
-false_negative_cost
+Binary classification cost info is expressed in two terms:
+- cost of false positive
+- cost of false negative
 
 ----
 
@@ -164,10 +159,13 @@ Column base model
 * **is_nullable**  : bool
 * **data_type**  : DataType
 * **predicted_target**  : Optional[str] = None
-* **possible_values**  : Optional[List] = None
+* **possible_values**  : Optional[list[str | int | bool]] = None
 * **model_id**  : Optional[str] = None
-* **dims**  : Optional[Tuple[int]] = None
-    it is manadatory when data_type is Array
+* **dims**  : Optional[tuple[int]] = None
+    it is mandatory when data_type is Array
+* **classes_names**  : Optional[list[str]] = None
+    it is mandatory when the column is the target
+    in multilabel classification tasks
 
 
 ----
@@ -598,6 +596,32 @@ Base model to define model item
 * **creation_datetime**  : Optional[datetime]
 * **retrain_trigger**  : Optional[RetrainTrigger]
 
+
+----
+
+
+## MulticlassClassificationTaskCostInfo
+```python 
+MulticlassClassificationTaskCostInfo()
+```
+
+
+---
+Multiclass classification cost info is expressed in terms of
+the misclassification costs for each class
+
+----
+
+
+## MultilabelClassificationTaskCostInfo
+```python 
+MultilabelClassificationTaskCostInfo()
+```
+
+
+---
+Multilabel classification cost info is expressed in terms of
+false positive and false negative costs for each class
 
 ----
 
