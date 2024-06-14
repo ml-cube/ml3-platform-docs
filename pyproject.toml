@@ -22,7 +22,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "ml3-platform-sdk @ file://${PROJECT_ROOT}/../ml3-platform-sdk",
+    "ml3-platform-sdk==0.0.15",
     "polars>=0.19.3",
     "scikit-learn",
     "torch==2.2.0",
@@ -34,4 +34,5 @@ dev = [
     "pillow",
     "requests",
     "jupyter",
+    "ipykernel",
 ]
