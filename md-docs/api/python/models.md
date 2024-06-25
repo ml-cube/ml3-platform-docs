@@ -128,21 +128,16 @@ topic_endpoint
 ----
 
 
-## ClassificationTaskCostInfo
+## BinaryClassificationTaskCostInfo
 ```python 
-ClassificationTaskCostInfo()
+BinaryClassificationTaskCostInfo()
 ```
 
 
 ---
-Regression cost info is expressed in two terms:
-- cost due to overestimation
-- cost due to underestimation
-
-Fields:
-currency
-false_positive_cost
-false_negative_cost
+Binary classification cost info is expressed in two terms:
+- cost of false positive
+- cost of false negative
 
 ----
 
@@ -160,14 +155,17 @@ Column base model
 **Attributes**
 
 * **name**  : str
-* **role**  : str
+* **role**  : ColumnRole
 * **is_nullable**  : bool
 * **data_type**  : DataType
 * **predicted_target**  : Optional[str] = None
-* **possible_values**  : Optional[List] = None
+* **possible_values**  : Optional[list[str | int | bool]] = None
 * **model_id**  : Optional[str] = None
-* **dims**  : Optional[Tuple[int]] = None
-    it is manadatory when data_type is Array
+* **dims**  : Optional[tuple[int]] = None
+    it is mandatory when data_type is Array
+* **classes_names**  : Optional[list[str]] = None
+    it is mandatory when the column is the target
+    in multilabel classification tasks
 
 
 ----
@@ -262,6 +260,33 @@ Generic data source.
 ----
 
 
+## DetectionEvent
+```python 
+DetectionEvent()
+```
+
+
+---
+An event created during the detection process.
+
+
+**Attributes**
+
+* **event_id**  : str
+* **event_type**  : DetectionEventType
+* **monitoring_target**  : MonitoringTarget
+* **severity_type**  : Optional[DetectionEventSeverity]
+* **insert_datetime**  : str
+* **sample_timestamp**  : float
+* **sample_id**  : str
+* **model_id**  : Optional[str]
+* **model_name**  : Optional[str]
+* **model_version**  : Optional[str]
+
+
+----
+
+
 ## DetectionEventAction
 ```python 
 DetectionEventAction()
@@ -341,6 +366,20 @@ Base Model for Email Notification Action
 
 * **address**  : str
 type = DetectionEventActionType.EMAIL_NOTIFICATION
+
+----
+
+
+## EmbeddingData
+```python 
+EmbeddingData()
+```
+
+
+---
+Embedding data model i.e., a data that can be represented via
+DataFrame and is stored in formats like: csv, parquet, json.
+There is only one input that has type array_1
 
 ----
 
@@ -427,7 +466,15 @@ ImageData()
 
 
 ---
-Image unstructured data
+Image data model i.e., images, text or other. Since it is
+composed of multiple files, it needs a mapping between customer ids
+and those files
+
+
+**Attributes**
+
+* **mapping_source**  : DataSource
+
 
 ----
 
@@ -539,13 +586,42 @@ Base model to define model item
 * **name**  : str
 * **version**  : str
 * **status**  : ModelStatus
-* **status_data_start_timestamp**  : Optional[str]
+* **status_data_start_timestamp**  : Optional[float]
 * **status_insert_datetime**  : datetime
+* **prediction_status**  : ModelStatus
+* **prediction_status_data_start_timestamp**  : Optional[float]
+* **prediction_status_insert_datetime**  : datetime
 * **metric_name**  : performance or error metric associated with
     the model
 * **creation_datetime**  : Optional[datetime]
 * **retrain_trigger**  : Optional[RetrainTrigger]
 
+
+----
+
+
+## MulticlassClassificationTaskCostInfo
+```python 
+MulticlassClassificationTaskCostInfo()
+```
+
+
+---
+Multiclass classification cost info is expressed in terms of
+the misclassification costs for each class
+
+----
+
+
+## MultilabelClassificationTaskCostInfo
+```python 
+MultilabelClassificationTaskCostInfo()
+```
+
+
+---
+Multilabel classification cost info is expressed in terms of
+false positive and false negative costs for each class
 
 ----
 
@@ -852,7 +928,7 @@ SuggestionInfo base model
 
 * **id**  : str
 * **executed**  : bool
-* **timestamp**  : str
+* **timestamp**  : float
 
 
 ----
@@ -886,8 +962,10 @@ Task model
 * **task_id**  : str
 * **name**  : str
 * **type**  : TaskType
-* **status**  : TaskStatus
-* **status_start_date**  : str
+* **input_status**  : TaskStatus
+* **input_status_insert_datetime**  : str
+* **concept_status**  : TaskStatus
+* **concept_status_insert_datetime**  : str
 
 
 ----
@@ -926,19 +1004,11 @@ Base Model for Teams Notification Action
 ----
 
 
-## UnstructuredData
+## TextData
 ```python 
-UnstructuredData()
+TextData()
 ```
 
 
 ---
-Unstructured data model i.e., images, text or other. Since it is
-composed of multiple files, it needs a mapping between customer ids
-and those files
-
-
-**Attributes**
-
-* **mapping_source**  : DataSource
-
+Text data model for nlp tasks.

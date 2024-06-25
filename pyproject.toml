@@ -19,3 +19,20 @@ dependencies = [
     "mkdocs-glightbox>=0.3.4",
     "mkdocs-table-reader-plugin>=2.0.1",
 ]
+
+[project.optional-dependencies]
+dev = [
+    "ml3-platform-sdk==0.0.15",
+    "polars>=0.19.3",
+    "scikit-learn",
+    "torch==2.2.0",
+    "torchvision==0.17.0",
+    "transformers[torch]",
+    "datasets==2.15.0",
+    "sentence-transformers",
+    "evaluate",
+    "pillow",
+    "requests",
+    "jupyter",
+    "ipykernel",
+]

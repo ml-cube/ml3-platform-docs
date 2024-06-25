@@ -34,7 +34,7 @@ install-uv:
 
 compile:
 	# install extra dev group
-	uv pip compile pyproject.toml -o requirements.txt --cache-dir .uv_cache
+	uv pip compile pyproject.toml -o requirements.txt --extra dev --cache-dir .uv_cache
 
 install:
 	uv pip sync requirements.txt --cache-dir .uv_cache

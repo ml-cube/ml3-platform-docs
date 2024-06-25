@@ -99,7 +99,7 @@ Returns the company of the User
 ### .update_company
 ```python
 .update_company(
-   name: Optional[str], address: Optional[str], vat: Optional[str]
+   name: (str|None), address: (str|None), vat: (str|None)
 )
 ```
 
@@ -128,7 +128,7 @@ Empty values will not be updated.
 ### .create_project
 ```python
 .create_project(
-   name: str, description: Optional[str], default_storage_policy: StoragePolicy
+   name: str, description: (str|None), default_storage_policy: StoragePolicy
 )
 ```
 
@@ -212,8 +212,8 @@ Get a project with the given id
 ### .update_project
 ```python
 .update_project(
-   project_id: str, name: Optional[str], description: Optional[str],
-   default_storage_policy: Optional[StoragePolicy]
+   project_id: str, name: (str|None), description: (str|None),
+   default_storage_policy: (StoragePolicy|None)
 )
 ```
 
@@ -265,9 +265,10 @@ Project ID                Name
 ### .create_task
 ```python
 .create_task(
-   project_id: str, name: str, tags: List[str], task_type: TaskType,
-   data_structure: DataStructure, cost_info: Optional[TaskCostInfo] = None,
-   optional_target: bool = False
+   project_id: str, name: str, tags: list[str], task_type: TaskType,
+   data_structure: DataStructure, cost_info: (TaskCostInfoUnion|None) = None,
+   optional_target: bool = False, text_language: (TextLanguage|None) = None,
+   positive_class: (str|int|bool|None) = None
 )
 ```
 
@@ -294,6 +295,10 @@ Create a task inside the project.
     available. This changes the behaviour and the detection
     phase of ML cube Platform that will analyse production
     data without considering the actual target
+* **text_language**  : required for NLP tasks, it specifies the
+    language used in the task.
+* **positive_class**  : required for binary classification tasks,
+    it specifies the positive class of the target.
 
 
 **Returns**
@@ -308,8 +313,8 @@ Create a task inside the project.
 ### .update_task
 ```python
 .update_task(
-   task_id: str, name: Optional[str] = None, tags: Optional[List[str]] = None,
-   cost_info: Optional[TaskCostInfo] = None
+   task_id: str, name: (str|None) = None, tags: (list[str]|None) = None,
+   cost_info: (TaskCostInfoUnion|None) = None
 )
 ```
 
@@ -422,7 +427,7 @@ Task ID                   Name     Type            Status     Status start date
 .create_model(
    task_id: str, name: str, version: str, metric_name: ModelMetricName,
    preferred_suggestion_type: SuggestionType, retraining_cost: float = 0.0,
-   resampled_dataset_size: Optional[int] = None
+   resampled_dataset_size: (int|None) = None
 )
 ```
 
@@ -663,7 +668,7 @@ Suggestion Id                     Executed    Timestamp
 ```python
 .set_model_suggestion_type(
    model_id: str, preferred_suggestion_type: SuggestionType,
-   resampled_dataset_size: Optional[int] = None
+   resampled_dataset_size: (int|None) = None
 )
 ```
 
@@ -739,22 +744,17 @@ using the method `wait_job_completion(job_id)`
 
 `UpdateModelVersionException`
 
-### .update_model_version_from_raw_data
+### .update_model_version_from_time_range
 ```python
-.update_model_version_from_raw_data(
-   model_id: str, new_model_version: str, inputs: Data, target: Data
+.update_model_version_from_time_range(
+   model_id: str, new_model_version: str, from_timestamp: float,
+   to_timestamp: float
 )
 ```
 
 ---
-Update model version by suggestion id.
-To retrain the Model, ML cube Platform provides importance
-weights through a `SuggestionInfo`.
-However, it is possible to train the model with new data that
-has been not already upload to ML cube Platform.
-After the retraining is completed, you use this method to
-create the new model version in ML cube Platform by
-specifying the data to load.
+Update model version by specifying the time range of uploaded
+data on ML cube Platform.
 
 This request starts an operation pipeline that is
 executed by ML cube Platform.
@@ -773,10 +773,8 @@ using the method `wait_job_completion(job_id)`
 
 * **model_id**  : the identifier of the model
 * **new_model_version**  : the new version of the model
-* **inputs**  : data object that contain input data source.
-    It can be None if you upload other kinds of data
-* **target**  : data object that contains target data.
-    It can be None if you upload other kinds of data
+from_timestamp
+to_timestamp
 
 
 **Raises**
@@ -888,7 +886,7 @@ Show data schema of associated with a task
 ### .add_historical_data
 ```python
 .add_historical_data(
-   task_id: str, inputs: Data, target: Optional[Data] = None
+   task_id: str, inputs: Data, target: (Data|None) = None
 )
 ```
 
@@ -926,15 +924,61 @@ using the method `wait_job_completion(job_id)`
 
 `AddHistoricalDataException`
 
-### .add_model_reference
+### .add_target_data
 ```python
-.add_model_reference(
-   model_id: str, inputs: Data, target: Data
+.add_target_data(
+   task_id: str, target: Data
 )
 ```
 
 ---
-Add a batch of reference data associated with a given model.
+Add target samples for data already uploaded on the Task.
+This operation is used for Tasks with optional target which is
+manually labelled. For instance, fter the labelling process
+(maybe with our Active Learning module) you have a set of
+labelled samples spread over all the uploaded data. Indeed,
+they can belong to different data batches (historical or
+production consistent uploads) and can be a subset of the
+uploaded data.
+
+This request starts an operation pipeline that is
+executed by ML cube Platform.
+Thus, the method returns the identifier of the job that you can
+monitor to know its status and proceed with the other work
+using the method `wait_job_completion(job_id)`
+
+**Allowed Roles:**
+
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the identifier of the task
+* **target**  : data object that contains target data
+
+
+**Returns**
+
+* **job_id**  : `str` identifier of the submitted job
+
+
+**Raises**
+
+`AddHistoricalDataException`
+
+### .set_model_reference
+```python
+.set_model_reference(
+   model_id: str, from_timestamp: float, to_timestamp: float
+)
+```
+
+---
+Specify data to use as reference for the model with time range.
+Data need to be already uploaded on ML cube Platform.
 
 This request starts an operation pipeline that is
 executed by ML cube Platform.
@@ -952,10 +996,8 @@ using the method `wait_job_completion(job_id)`
 **Args**
 
 * **model_id**  : the identifier of the model
-* **inputs**  : data object that contain input data source.
-    It can be None if you upload other kinds of data
-* **target**  : data object that contains target data.
-    It can be None if you upload other kinds of data
+from_timestamp
+to_timestamp
 
 
 **Returns**
@@ -970,8 +1012,8 @@ using the method `wait_job_completion(job_id)`
 ### .add_production_data
 ```python
 .add_production_data(
-   task_id: str, inputs: Optional[Data] = None, target: Optional[Data] = None,
-   predictions: Optional[List[Tuple[str, Data]]] = None
+   task_id: str, inputs: (Data|None) = None, target: (Data|None) = None,
+   predictions: (list[tuple[str, Data]]|None) = None
 )
 ```
 
@@ -1245,9 +1287,9 @@ the retraining report
 ### .get_jobs
 ```python
 .get_jobs(
-   project_id: Optional[str] = None, task_id: Optional[str] = None,
-   model_id: Optional[str] = None, status: Optional[JobStatus] = None,
-   job_id: Optional[str] = None
+   project_id: (str|None) = None, task_id: (str|None) = None,
+   model_id: (str|None) = None, status: (JobStatus|None) = None,
+   job_id: (str|None) = None
 )
 ```
 
@@ -1335,6 +1377,38 @@ Show current job information to stdout.
 
 `SDKClientException`
 
+### .get_detection_events
+```python
+.get_detection_events(
+   task_id: str
+)
+```
+
+---
+Get all detection event of a given task.
+
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : id of the task for which you want to retrieve
+the detection event
+
+
+**Returns**
+
+* **rules_list**  : `List[DetectionEvent]`
+
+
+**Raises**
+
+`SDKClientException`
+
 ### .get_detection_event_rules
 ```python
 .get_detection_event_rules(
@@ -1403,7 +1477,8 @@ Get a detection event rule by id.
 .create_detection_event_rule(
    name: str, task_id: str, severity: DetectionEventSeverity,
    detection_event_type: DetectionEventType, monitoring_target: MonitoringTarget,
-   actions: List[DetectionEventAction], model_name: Optional[str] = None
+   actions: list[DetectionEventAction],
+   monitoring_metric: (MonitoringMetric|None) = None, model_name: (str|None) = None
 )
 ```
 
@@ -1429,6 +1504,8 @@ Create a detection event rule.
     this rule should respond to.
 * **monitoring_target**  : the type of monitoring target that
     this rule should respond to.
+* **monitoring_metric**  : additional metric extracted from
+    monitoring target that is monitored
 * **severity**  : the level of severity of the detection event
     that this rule should respond to.
 * **actions**  : the list of actions to execute, in order,
@@ -1447,11 +1524,11 @@ Create a detection event rule.
 ### .update_detection_event_rule
 ```python
 .update_detection_event_rule(
-   rule_id: str, name: Optional[str] = None, model_name: Optional[str] = None,
-   severity: Optional[DetectionEventSeverity] = None,
-   detection_event_type: Optional[DetectionEventType] = None,
-   monitoring_target: Optional[MonitoringTarget] = None,
-   actions: Optional[List[DetectionEventAction]] = None
+   rule_id: str, name: (str|None) = None, model_name: (str|None) = None,
+   severity: (DetectionEventSeverity|None) = None,
+   detection_event_type: (DetectionEventType|None) = None,
+   monitoring_target: (MonitoringTarget|None) = None,
+   actions: (list[DetectionEventAction]|None) = None
 )
 ```
 
@@ -1517,7 +1594,7 @@ Delete a detection event rule by id.
 ### .wait_job_completion
 ```python
 .wait_job_completion(
-   job_id: str, max_wait_timeout: int = 600
+   job_id: str, max_wait_timeout: int = 3000
 )
 ```
 
@@ -2260,7 +2337,7 @@ Create credentials to integrate with Azure.
 ### .set_retrain_trigger
 ```python
 .set_retrain_trigger(
-   model_id: str, trigger: Optional[RetrainTrigger]
+   model_id: str, trigger: (RetrainTrigger|None)
 )
 ```
 

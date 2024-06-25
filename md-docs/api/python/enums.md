@@ -19,6 +19,19 @@ ApiKeyExpirationTime()
 ----
 
 
+## ColumnRole
+```python 
+ColumnRole()
+```
+
+
+---
+Column role enum
+Describe the role of a column
+
+----
+
+
 ## Currency
 ```python 
 Currency()
@@ -44,6 +57,8 @@ Represents the typology of the data to send
 
 - TABULAR
 - IMAGE
+- TEXT
+- EMBEDDING
 
 ----
 
@@ -224,6 +239,23 @@ ModelStatus()
 ----
 
 
+## MonitoringMetric
+```python 
+MonitoringMetric()
+```
+
+
+---
+**Fields:**
+
+- FEATURE
+- TEXT_TOXICITY
+- TEXT_EMOTION
+- TEXT_SENTIMENT
+
+----
+
+
 ## MonitoringTarget
 ```python 
 MonitoringTarget()
@@ -233,9 +265,10 @@ MonitoringTarget()
 ---
 **Fields:**
 
-- MODEL
+- ERROR
 - INPUT
 - CONCEPT
+- PREDICTION
 
 ----
 
@@ -328,7 +361,29 @@ TaskType()
 **Fields:**
 
 - REGRESSION
-- CLASSIFICATION
+- CLASSIFICATION_BINARY
+- CLASSIFICATION_MULTICLASS
+- CLASSIFICATION_MULTILABEL
+- RAG
+
+----
+
+
+## TextLanguage
+```python 
+TextLanguage()
+```
+
+
+---
+Enumeration of text language used in nlp tasks.
+
+Fields
+------
+
+ITALIAN
+ENGLISH
+MULTILANGUAGE
 
 ----
 

@@ -37,18 +37,6 @@ AddKPIDataException
 ----
 
 
-## AddModelReferenceException
-```python 
-AddModelReferenceException()
-```
-
-
----
-AddModelReferenceException
-
-----
-
-
 ## AddProductionDataException
 ```python 
 AddProductionDataException()
@@ -57,6 +45,18 @@ AddProductionDataException()
 
 ---
 AddProductionDataException
+
+----
+
+
+## AddTargetDataException
+```python 
+AddTargetDataException()
+```
+
+
+---
+AddTargetDataException
 
 ----
 
@@ -216,6 +216,18 @@ SDKClientException(
 
 ---
 Base class for client sdk exceptions
+
+----
+
+
+## SetModelReferenceException
+```python 
+SetModelReferenceException()
+```
+
+
+---
+AddModelReferenceException
 
 ----
 
