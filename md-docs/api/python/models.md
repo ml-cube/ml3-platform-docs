@@ -166,6 +166,10 @@ Column base model
 * **classes_names**  : Optional[list[str]] = None
     it is mandatory when the column is the target
     in multilabel classification tasks
+* **subrole**  : Optional[ColumnSubRole] = None
+    Indicates the subrole of the column. It's used in
+    RAG tasks to define the role of the input columns
+    (e.g. user input or retrieved context)
 
 
 ----
@@ -278,7 +282,6 @@ An event created during the detection process.
 * **severity_type**  : Optional[DetectionEventSeverity]
 * **insert_datetime**  : str
 * **sample_timestamp**  : float
-* **sample_id**  : str
 * **model_id**  : Optional[str]
 * **model_name**  : Optional[str]
 * **model_version**  : Optional[str]
@@ -585,17 +588,24 @@ Base model to define model item
 * **task_id**  : str
 * **name**  : str
 * **version**  : str
-* **status**  : ModelStatus
-* **status_data_start_timestamp**  : Optional[float]
-* **status_insert_datetime**  : datetime
-* **prediction_status**  : ModelStatus
-* **prediction_status_data_start_timestamp**  : Optional[float]
-* **prediction_status_insert_datetime**  : datetime
 * **metric_name**  : performance or error metric associated with
     the model
 * **creation_datetime**  : Optional[datetime]
 * **retrain_trigger**  : Optional[RetrainTrigger]
 
+
+----
+
+
+## MonitoringQuantityStatus
+```python 
+MonitoringQuantityStatus()
+```
+
+
+---
+Base model to store the monitoring status
+of a monitoring quantity (target or metric)
 
 ----
 
@@ -962,10 +972,6 @@ Task model
 * **task_id**  : str
 * **name**  : str
 * **type**  : TaskType
-* **input_status**  : TaskStatus
-* **input_status_insert_datetime**  : str
-* **concept_status**  : TaskStatus
-* **concept_status_insert_datetime**  : str
 
 
 ----
