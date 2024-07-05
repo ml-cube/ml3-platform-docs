@@ -32,6 +32,19 @@ Describe the role of a column
 ----
 
 
+## ColumnSubRole
+```python 
+ColumnSubRole()
+```
+
+
+---
+Column subrole enum
+Describe the subrole of a column
+
+----
+
+
 ## Currency
 ```python 
 Currency()
@@ -222,23 +235,6 @@ Name of the model metrics that is associated with the model
 ----
 
 
-## ModelStatus
-```python 
-ModelStatus()
-```
-
-
----
-**Fields:**
-
-- NOT_INITIALIZED
-- OK
-- WARNING
-- DRIFT
-
-----
-
-
 ## MonitoringMetric
 ```python 
 MonitoringMetric()
@@ -256,6 +252,22 @@ MonitoringMetric()
 ----
 
 
+## MonitoringStatus
+```python 
+MonitoringStatus()
+```
+
+
+---
+**Fields:**
+
+- OK
+- WARNING
+- DRIFT
+
+----
+
+
 ## MonitoringTarget
 ```python 
 MonitoringTarget()
@@ -269,6 +281,10 @@ MonitoringTarget()
 - INPUT
 - CONCEPT
 - PREDICTION
+- USER_INPUT
+- USER_INPUT_RETRIEVED_CONTEXT
+- USER_INPUT_MODEL_OUTPUT
+- MODEL_OUTPUT_RETRIEVED_CONTEXT
 
 ----
 
@@ -331,22 +347,6 @@ type of suggestion
 **Fields:**
 - SAMPLE_WEIGHTS
 - RESAMPLED_DATASET
-
-----
-
-
-## TaskStatus
-```python 
-TaskStatus()
-```
-
-
----
-**Fields:**
-
-- OK
-- WARNING
-- DRIFT
 
 ----
 

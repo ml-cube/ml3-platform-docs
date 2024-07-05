@@ -133,4 +133,5 @@ nav:
           - Enums: api/python/enums.md
       - REST:
           - api/rest/index.md
+  - Examples: api/examples.md
   - Web App: https://app.platform.mlcube.com/

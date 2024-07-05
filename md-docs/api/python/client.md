@@ -425,9 +425,9 @@ Task ID                   Name     Type            Status     Status start date
 ### .create_model
 ```python
 .create_model(
-   task_id: str, name: str, version: str, metric_name: ModelMetricName,
-   preferred_suggestion_type: SuggestionType, retraining_cost: float = 0.0,
-   resampled_dataset_size: (int|None) = None
+   task_id: str, name: str, version: str, metric_name: (ModelMetricName|None),
+   preferred_suggestion_type: (SuggestionType|None) = None,
+   retraining_cost: float = 0.0, resampled_dataset_size: (int|None) = None
 )
 ```
 
@@ -593,7 +593,7 @@ Show a list of models included in a task to stdout.
 ```
 Model Id                  Task Id                   Name                    Version    Status           Status start timestamp    Status insert date          Metric Name
 ------------------------  ------------------------  ----------------------  ---------  ---------------  ------------------------  --------------------------  --------------------
-64fecf7d323311ab78f17280  64fecf7c323311ab78f17262  model_local_experiment  v0.0.1     not_initialized                            2023-09-11 08:27:41.431000  ModelMetricName.RMSE
+64fecf7d323311ab78f17280  64fecf7c323311ab78f17262  model_local_experiment  v0.0.1     ok                                         2023-09-11 08:27:41.431000  ModelMetricName.RMSE
 ```
 
 ### .get_suggestions_info
@@ -1283,6 +1283,41 @@ the retraining report
 **Raises**
 
 `GetRetrainingReportException`
+
+### .get_monitoring_status
+```python
+.get_monitoring_status(
+   task_id: str, monitoring_target: MonitoringTarget,
+   monitoring_metric: (MonitoringMetric|None) = None
+)
+```
+
+---
+Get the monitoring status of a monitoring target (or metric) in a task.
+
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the identifier of the task
+* **monitoring_target**  : the type of monitoring target to get the status
+* **monitoring_metric**  : the type of monitoring metric to get the status
+    If ``None``, only the monitoring target is considered
+
+
+**Returns**
+
+* **monitoring_quantity_status**  : `MonitoringQuantityStatus`
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .get_jobs
 ```python
