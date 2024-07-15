@@ -610,6 +610,27 @@ of a monitoring quantity (target or metric)
 ----
 
 
+## MqttNotificationAction
+```python 
+MqttNotificationAction()
+```
+
+
+---
+Base Model for Mqtt Notification Action
+
+
+**Attributes**
+
+* **type**  : DetectionEventActionType.MQTT_NOTIFICATION
+* **connection_string**  : str
+* **topic**  : str
+* **payload**  : str
+
+
+----
+
+
 ## MulticlassClassificationTaskCostInfo
 ```python 
 MulticlassClassificationTaskCostInfo()
