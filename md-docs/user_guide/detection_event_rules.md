@@ -22,10 +22,11 @@ Two types of actions are currently supported: notification and retrain.
 - `DiscordNotificationAction`: sends a notification to a Discord channel via webhook.
 - `EmailNotificationAction`: sends an email to the provided email address.
 - `TeamsNotificationAction`: sends a notification to Microsoft Teams via webhook.
+- `MqttNotificationAction`: sends a notification to an MQTT broker.
 
 ### Retrain Actions
 
-Retrain actions let you to retrain your model, therefore, they are only available when the rule monitoring target is a model.
+Retrain actions let you retrain your model, therefore, they are only available when the rule monitoring target is a model.
 The retrain action does not need any parameter because it is automatically inferred from the `model_name` attribute of the rule.
 Of course, it is mandatory that the model has a retrain trigger associated in order to add a retrain action to the rule.
 
