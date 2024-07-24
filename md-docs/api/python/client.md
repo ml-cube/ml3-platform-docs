@@ -425,7 +425,8 @@ Task ID                   Name     Type            Status     Status start date
 ### .create_model
 ```python
 .create_model(
-   task_id: str, name: str, version: str, metric_name: (ModelMetricName|None),
+   task_id: str, name: str, version: str, with_probabilistic_output: bool,
+   metric_name: (ModelMetricName|None),
    preferred_suggestion_type: (SuggestionType|None) = None,
    retraining_cost: float = 0.0, resampled_dataset_size: (int|None) = None
 )
