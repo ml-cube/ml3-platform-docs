@@ -4,7 +4,7 @@
 ## ML3PlatformClient
 ```python 
 ML3PlatformClient(
-   url: str, api_key: str
+   url: str, api_key: str, timeout: int = 60
 )
 ```
 
@@ -12,7 +12,8 @@ ML3PlatformClient(
 ---
 Client class is the single point of interaction with ML cube
 Platform APIs, it is initialized providing the `url` and the User
-`api_key`.
+`api_key`. Optionally, you can specify the `timeout` for the
+operations.
 Every operation is performed verifying the API Key and the
 permissions associated to the User that own that key.
 
@@ -745,6 +746,43 @@ using the method `wait_job_completion(job_id)`
 
 `UpdateModelVersionException`
 
+### .update_model_version
+```python
+.update_model_version(
+   model_id: str, new_model_version: str
+)
+```
+
+---
+Update model version with empty reference data.
+It is similar to create model but it does not actually create
+a different Model but a new version of the existent one.
+After this request, it is possible to upload data with
+add_historical_data. To start monitoring is required to set the
+reference of this new model with set_reference request.
+
+**Allowed Roles:**
+
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **model_id**  : the identifier of the model
+* **new_model_version**  : the new version of the model
+
+
+**Returns**
+
+* **model_id**  : `str` job identifier of new model id
+
+
+**Raises**
+
+`UpdateModelVersionException`
+
 ### .update_model_version_from_time_range
 ```python
 .update_model_version_from_time_range(
@@ -887,7 +925,8 @@ Show data schema of associated with a task
 ### .add_historical_data
 ```python
 .add_historical_data(
-   task_id: str, inputs: Data, target: (Data|None) = None
+   task_id: str, inputs: Data, target: (Data|None) = None,
+   predictions: (list[tuple[str, Data]]|None) = None
 )
 ```
 
@@ -914,6 +953,11 @@ using the method `wait_job_completion(job_id)`
     It can be None if you upload other kinds of data
 * **target**  : data object that contains target data.
     It can be None if you upload other kinds of data
+* **predictions**  : list of data objects that contain prediction data.
+    Each element is a tuple with model_id and data object.
+    It can be None if you upload other kinds of data.
+    Predictions are mandatory for RAG tasks while not
+    permitted for the other TaskType.
 
 
 **Returns**
