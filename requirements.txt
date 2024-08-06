@@ -14,6 +14,8 @@ anyio==4.4.0
     # via
     #   httpx
     #   jupyter-server
+appnope==0.1.4
+    # via ipykernel
 argon2-cffi==23.1.0
     # via jupyter-server
 argon2-cffi-bindings==21.2.0
@@ -49,12 +51,7 @@ charset-normalizer==3.3.2
 click==8.1.7
     # via mkdocs
 colorama==0.4.6
-    # via
-    #   click
-    #   ipython
-    #   mkdocs
-    #   mkdocs-material
-    #   tqdm
+    # via mkdocs-material
 comm==0.2.2
     # via
     #   ipykernel
@@ -324,6 +321,8 @@ parso==0.8.4
     # via jedi
 pathspec==0.12.1
     # via mkdocs
+pexpect==4.9.0
+    # via ipython
 pillow==10.3.0
     # via
     #   ml3-platform-docs (pyproject.toml)
@@ -345,6 +344,10 @@ psutil==5.9.8
     # via
     #   accelerate
     #   ipykernel
+ptyprocess==0.7.0
+    # via
+    #   pexpect
+    #   terminado
 pure-eval==0.2.2
     # via stack-data
 pyarrow==16.1.0
@@ -379,13 +382,6 @@ python-json-logger==2.0.7
     # via jupyter-events
 pytz==2024.1
     # via pandas
-pywin32==306
-    # via jupyter-core
-pywinpty==2.0.13
-    # via
-    #   jupyter-server
-    #   jupyter-server-terminals
-    #   terminado
 pyyaml==6.0.1
     # via
     #   accelerate
