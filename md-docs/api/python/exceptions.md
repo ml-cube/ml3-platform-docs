@@ -61,6 +61,18 @@ AddTargetDataException
 ----
 
 
+## ComputeRagEvaluationReportException
+```python 
+ComputeRagEvaluationReportException()
+```
+
+
+---
+ComputeRagEvaluationReportException
+
+----
+
+
 ## ComputeRetrainingReportException
 ```python 
 ComputeRetrainingReportException()
@@ -141,6 +153,18 @@ CreateTaskException()
 
 ---
 CreateTaskException
+
+----
+
+
+## GetRagEvaluationReportException
+```python 
+GetRagEvaluationReportException()
+```
+
+
+---
+GetRagEvaluationReportException
 
 ----
 

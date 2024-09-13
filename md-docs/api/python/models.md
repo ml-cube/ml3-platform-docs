@@ -285,6 +285,7 @@ An event created during the detection process.
 * **model_id**  : Optional[str]
 * **model_name**  : Optional[str]
 * **model_version**  : Optional[str]
+* **user_feedback**  : Optional[bool]
 
 
 ----
@@ -926,6 +927,39 @@ type = DetectionEventActionType.SLACK_NOTIFICATION
 ----
 
 
+## SubscriptionPlanInfo
+```python 
+SubscriptionPlanInfo()
+```
+
+
+---
+Data model for a subscription plan
+Permission limit set to None means no limit is set
+Expiration date set to None means no expiration is set
+Product key data are set only if a product key is associated to the
+subscription plan
+
+
+**Attributes**
+
+* **subscription_id**  : str
+* **type**  : SubscriptionType
+* **max_tasks**  : int | None
+* **max_users**  : int | None
+* **monitoring**  : bool
+* **explainability**  : bool
+* **retraining**  : bool
+* **is_active**  : bool
+* **start_date**  : date
+* **expiration_date**  : date | None
+* **product_key**  : str | None
+* **product_key_status**  : ProductKeyStatus | None
+
+
+----
+
+
 ## Suggestion
 ```python 
 Suggestion()
@@ -1008,6 +1042,16 @@ TaskCostInfo()
 Base class for task cost info.
 It depends on TaskType because classification is different from
 regression in terms of business costs due to errors
+
+----
+
+
+## TaskRagEvalReportItem
+```python 
+TaskRagEvalReportItem()
+```
+
+
 
 ----
 
