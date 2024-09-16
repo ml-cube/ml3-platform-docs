@@ -126,6 +126,53 @@ Empty values will not be updated.
 
 `UpdateCompanyException`
 
+### .get_all_company_subscription_plans
+```python
+.get_all_company_subscription_plans()
+```
+
+---
+Returns all subscription plans associated with the user company.
+
+**Allowed Roles**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Returns**
+
+* **subscription_plan_list**  : `List[SubscriptionPlanInfo]`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .get_active_subscription_plan
+```python
+.get_active_subscription_plan()
+```
+
+---
+Returns the current active subscription plan associated with the user
+company. Returns None if no active subscription plan found.
+
+**Allowed Roles**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Returns**
+
+* **subscription_plan**  : `SubscriptionPlanInfo | None`
+
+
+**Raises**
+
+`SDKClientException`
+
 ### .create_project
 ```python
 .create_project(
@@ -269,7 +316,8 @@ Project ID                Name
    project_id: str, name: str, tags: list[str], task_type: TaskType,
    data_structure: DataStructure, cost_info: (TaskCostInfoUnion|None) = None,
    optional_target: bool = False, text_language: (TextLanguage|None) = None,
-   positive_class: (str|int|bool|None) = None
+   positive_class: (str|int|bool|None) = None,
+   rag_contexts_separator: (str|None) = None
 )
 ```
 
@@ -300,6 +348,8 @@ Create a task inside the project.
     language used in the task.
 * **positive_class**  : required for binary classification tasks,
     it specifies the positive class of the target.
+* **rag_contexts_separator**  : Separator used to separate rag contexts
+    from different sources. If missing then only one source exists.
 
 
 **Returns**
@@ -1329,6 +1379,98 @@ the retraining report
 
 `GetRetrainingReportException`
 
+### .compute_rag_evaluation_report
+```python
+.compute_rag_evaluation_report(
+   task_id: str, report_name: str, from_timestamp: float, to_timestamp: float
+)
+```
+
+---
+Compute the RAG evaluation report for a given task.
+
+This request starts an operation pipeline that is
+executed by ML cube Platform.
+Thus, the method returns the identifier of the job that you can
+monitor to know its status and proceed with the other work
+using the method `wait_job_completion(job_id)`
+
+**Allowed Roles:**
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the identifier of the task
+* **report_name**  : the name of the report
+* **from_timestamp**  : start timestamp of the samples to evaluate
+* **to_timestamp**  : end timestamp of the samples to evaluate
+
+
+**Returns**
+
+* **job_id**  : `str` identifier of the submitted job
+
+
+**Raises**
+
+ComputeRagEvaluationReportException
+
+### .get_rag_evaluation_reports
+```python
+.get_rag_evaluation_reports(
+   task_id: str
+)
+```
+
+---
+For a given task id, get the computed RAG evaluation reports.
+
+**Allowed Roles:**
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the identifier of the task
+
+
+**Returns**
+
+* **rag_eval_reports**  : list[TaskRagEvalReportItem]
+
+
+### .export_rag_evaluation_report
+```python
+.export_rag_evaluation_report(
+   report_id: str, folder: str, file_name: str
+)
+```
+
+---
+Export a RAG evaluation report to a file.
+
+**Allowed Roles:**
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **report_id**  : the identifier of the report
+* **folder**  : the folder where the report will be saved
+* **file_name**  : the name of the file where the report will be saved
+
+
+**Returns**
+
+None
+
 ### .get_monitoring_status
 ```python
 .get_monitoring_status(
@@ -1552,10 +1694,37 @@ Get a detection event rule by id.
 
 `SDKClientException`
 
+### .set_detection_event_user_feedback
+```python
+.set_detection_event_user_feedback(
+   detection_id: str, user_feedback: bool
+)
+```
+
+---
+Get a detection event rule by id.
+
+**Allowed Roles:**
+
+- At least `WORK_ON_PROJECT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **detection_id**  : id of the detection event
+* **user_feedback**  : user feedback
+
+
+**Raises**
+
+`SDKClientException`
+
 ### .create_detection_event_rule
 ```python
 .create_detection_event_rule(
-   name: str, task_id: str, severity: DetectionEventSeverity,
+   name: str, task_id: str, severity: (DetectionEventSeverity|None),
    detection_event_type: DetectionEventType, monitoring_target: MonitoringTarget,
    actions: list[DetectionEventAction],
    monitoring_metric: (MonitoringMetric|None) = None, model_name: (str|None) = None
@@ -1587,7 +1756,8 @@ Create a detection event rule.
 * **monitoring_metric**  : additional metric extracted from
     monitoring target that is monitored
 * **severity**  : the level of severity of the detection event
-    that this rule should respond to.
+    that this rule should respond to. None means any
+    severity is matched.
 * **actions**  : the list of actions to execute, in order,
     when the conditions of the rule are matched.
 

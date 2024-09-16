@@ -295,6 +295,24 @@ MonitoringTarget()
 ----
 
 
+## ProductKeyStatus
+```python 
+ProductKeyStatus()
+```
+
+
+---
+Status of a product key
+
+Fields
+------
+NEW = generated but not yet used product key
+VALIDATING = validation requested from client
+IN_USE = validated product key, client activated
+
+----
+
+
 ## RetrainTriggerType
 ```python 
 RetrainTriggerType()
@@ -336,6 +354,23 @@ StoringDataType()
 - HISTORICAL
 - REFERENCE
 - PRODUCTION
+
+----
+
+
+## SubscriptionType
+```python 
+SubscriptionType()
+```
+
+
+---
+Type of subscription plan of a company
+
+Fields
+------
+CLOUD: subscription plan for web app or sdk access
+EDGE: subscription plan for edge deployment
 
 ----
 
