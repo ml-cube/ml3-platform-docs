@@ -42,7 +42,7 @@ install:
 setup: install-uv compile install
 
 build-docs:
-	mkdocs build
+	. $(VENV_BIN)/activate && mkdocs build
 
 serve-docs:
-	mkdocs serve
+	. $(VENV_BIN)/activate && mkdocs serve
