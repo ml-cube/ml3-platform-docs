@@ -1,6 +1,29 @@
 #
 
 
+## AWSCompatibleCredentials
+```python 
+AWSCompatibleCredentials()
+```
+
+
+---
+AWS-compatible integration credentials.
+
+
+**Attributes**
+
+* **credentials_id**  : str
+* **name**  : str
+* **default**  : bool
+* **type**  : ExternalIntegration
+* **access_key_id**  : The access key id
+* **endpoint_url**  : The endpoint url (if any)
+
+
+----
+
+
 ## AWSCredentials
 ```python 
 AWSCredentials()
@@ -170,6 +193,9 @@ Column base model
     Indicates the subrole of the column. It's used in
     RAG tasks to define the role of the input columns
     (e.g. user input or retrieved context)
+* **image_mode**  : Optional[ImageMode] = None
+    Indicates the mode of the image. It must be provided
+    when the data type is an image
 
 
 ----
@@ -1052,6 +1078,43 @@ TaskRagEvalReportItem()
 ```
 
 
+---
+base model for Rag Evaluation Report
+
+
+**Attributes**
+
+* **id**  : str
+* **creation_datetime**  : datetime
+* **name**  : str
+* **status**  : JobStatus
+* **from_datetime**  : datetime
+* **to_datetime**  : datetime
+
+
+----
+
+
+## TaskTopicModelingReportDetails
+```python 
+TaskTopicModelingReportDetails()
+```
+
+
+---
+Task Topic Modeling Report Details base model
+
+----
+
+
+## TaskTopicModelingReportItem
+```python 
+TaskTopicModelingReportItem()
+```
+
+
+---
+Task Topic Modeling Report Item base model
 
 ----
 

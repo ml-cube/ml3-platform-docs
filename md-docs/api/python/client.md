@@ -1471,6 +1471,101 @@ Export a RAG evaluation report to a file.
 
 None
 
+### .compute_topic_modeling_report
+```python
+.compute_topic_modeling_report(
+   task_id: str, report_name: str, from_timestamp: float, to_timestamp: float
+)
+```
+
+---
+Compute the topic modeling report for a given task. This
+functionality is available only for tasks based on text data.
+The data on which the report is computed is determined
+by the timestamps.
+
+This request starts an operation pipeline that is
+executed by ML cube Platform.
+Thus, the method returns the identifier of the job that you can
+monitor to know its status and proceed with the other work
+using the method `wait_job_completion(job_id)`
+
+**Allowed Roles:**
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the identifier of the task
+* **report_name**  : the name of the report
+* **from_timestamp**  : start timestamp of the samples to evaluate
+* **to_timestamp**  : end timestamp of the samples to evaluate
+
+
+**Returns**
+
+* **job_id**  : `str` identifier of the submitted job
+
+
+**Raises**
+
+ComputeTopicModelingReportException
+
+### .get_topic_modeling_reports
+```python
+.get_topic_modeling_reports(
+   task_id: str
+)
+```
+
+---
+For a given task id, get the computed topic modeling reports.
+
+**Allowed Roles:**
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the identifier of the task
+
+
+**Returns**
+
+* **topic_modeling_reports**  : list[TaskTopicModelingReportItem]
+
+
+### .get_topic_modeling_report
+```python
+.get_topic_modeling_report(
+   report_id: str
+)
+```
+
+---
+For a given task id, get the computed topic modeling report
+for a specific report id.
+
+**Allowed Roles:**
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **report_id**  : the identifier of the report
+
+
+**Returns**
+
+* **topic_modeling_report_detail**  : TaskTopicModelingReportDetails
+
+
 ### .get_monitoring_status
 ```python
 .get_monitoring_status(
@@ -2503,6 +2598,46 @@ your trust policy.
 **Returns**
 
 * **credentials**  : `SecretAWSCredentials`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .create_aws_compatible_integration_credentials
+```python
+.create_aws_compatible_integration_credentials(
+   name: str, default: bool, project_id: str, access_key_id: str,
+   secret_access_key: str, endpoint_url: (str|None) = None
+)
+```
+
+---
+Create credentials to integrate with AWS-compatible services.
+
+**Allowed Roles:**
+
+- At least `UPDATE_PROJECT_INFORMATION` for the project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **name**  : a simple name to identify this set of credentials
+* **default**  : whether to use these credentials by default when
+    using an AWS integration
+* **project_id**  : the project in which these credentials will
+    be configured
+* **access_key_id**  : the access key id
+* **secret_access_key**  : the secret access key
+* **endpoint_url**  : the endpoint url of the service. If None,
+    AWS itself is used
+
+
+**Returns**
+
+* **credentials**  : `AWSCompatibleCredentials`
 
 
 **Raises**

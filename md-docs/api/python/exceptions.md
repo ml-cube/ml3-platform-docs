@@ -85,6 +85,18 @@ ComputeRetrainingReportException
 ----
 
 
+## ComputeTopicModelingReportException
+```python 
+ComputeTopicModelingReportException()
+```
+
+
+---
+ComputeTopicModelingReportException
+
+----
+
+
 ## CreateCompanyException
 ```python 
 CreateCompanyException()
@@ -177,6 +189,18 @@ GetRetrainingReportException()
 
 ---
 GetRetrainingReportException
+
+----
+
+
+## GetTopicModelingReportException
+```python 
+GetTopicModelingReportException()
+```
+
+
+---
+GetTopicModelingReportException
 
 ----
 

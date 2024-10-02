@@ -19,6 +19,18 @@ ApiKeyExpirationTime()
 ----
 
 
+## BaseML3Enum
+```python 
+BaseML3Enum()
+```
+
+
+---
+Base class for all enums in the ML3 Platform SDK
+
+----
+
+
 ## ColumnRole
 ```python 
 ColumnRole()
@@ -84,7 +96,7 @@ DataType()
 
 ---
 Data type enum
-Describe data type of an input
+Describe data type of input
 
 ----
 
@@ -151,6 +163,7 @@ An integration with a 3rd party service provider
 - AWS
 - GCP
 - AZURE
+- AWS_COMPATIBLE
 
 ----
 
@@ -184,6 +197,24 @@ Type of folder
 - UNCOMPRESSED
 - TAR
 - ZIP
+
+----
+
+
+## ImageMode
+```python 
+ImageMode()
+```
+
+
+---
+Image mode enumeration
+
+Fields
+------
+RGB: Red, Green, Blue
+RGBA: Red, Green, Blue, Alpha
+GRAYSCALE: Grayscale
 
 ----
 
