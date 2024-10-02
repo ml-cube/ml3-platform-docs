@@ -17,8 +17,6 @@ This is the easiest way to send data to the ML cube Platform. You can simply spe
             data_structure=DataStructure.TABULAR,
             file_type=FileType.CSV,
             file_path=file_path,
-            is_folder=False,
-            folder_type=None,
         )
     )
     ```
@@ -56,8 +54,6 @@ Below, you can find the configuration steps required to integrate the data sourc
                 credentials_id=aws_creds.credentials_id,
                 data_structure=DataStructure.TABULAR,
                 file_type=FileType.CSV,
-                is_folder=False,
-                folder_type=None,
             )
         )
         ```
@@ -79,8 +75,6 @@ Below, you can find the configuration steps required to integrate the data sourc
                 credentials_id=gcp_creds.credentials_id,
                 data_structure=DataStructure.TABULAR,
                 file_type=FileType.CSV,
-                is_folder=False,
-                folder_type=None,
             )
         )
         ```
@@ -102,13 +96,37 @@ Below, you can find the configuration steps required to integrate the data sourc
                 credentials_id=azure_creds.credentials_id
                 data_structure=DataStructure.TABULAR,
                 file_type=FileType.CSV,
-                is_folder=False,
-                folder_type=None,
             )
         )
         ```
 
-=== "Databricks"
-    ![Databricks](../../imgs/databricks.svg){: style="height:50px;width:50px"}
+=== "MinIO"
+    ![MinIO](../../imgs/minio.svg){: style="width:100px"}
+    
+    To integrate MinIO, follow these steps:
 
-    *Coming Soon...*
+1. Create a set of AWS-compatible credentials:
+    - Set `access_key_id` to the username of the MinIO user you want to use.
+    - Set `secret_access_key` to the password of that MinIO user.
+    - Set `endpoint_url` to the URL of your MinIO instance.
+2. Ensure accessibility:
+    - The MinIO instance must be reachable from the ML cube Platform.
+    - If you're using the SaaS version, the MinIO instance must be accessible over the internet.
+3. Set appropriate permissions:
+    - The specified MinIO user must have read access to the bucket and its objects.
+
+    Then, you will be able to specify an `S3DataSource` when adding your data to a task.
+
+    !!! example
+        Note that, if you don't specify the `credentials_id`, the default ones will be used.
+
+        ```py
+        data = TabularData(
+            source=S3DataSource(
+                object_path='s3://my-company-data-bucket/historical/features.csv',
+                credentials_id=aws_creds.credentials_id,
+                data_structure=DataStructure.TABULAR,
+                file_type=FileType.CSV,
+            )
+        )
+        ```
