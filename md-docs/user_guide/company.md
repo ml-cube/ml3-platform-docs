@@ -12,7 +12,7 @@ The information required that describe the Company are:
 - Address
 - VAT
 
-The Company is created by ML cube team during the onboarding, then, at the first login the owner needs to complete the remaining information.
+The Company is created by ML cube team during the onboarding, then, during first login the Owner needs to complete the remaining information.
 
 ## Subscriptions
 
