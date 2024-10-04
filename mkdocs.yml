@@ -106,6 +106,7 @@ nav:
       - index.md
   - User Guide:
       - user_guide/index.md
+      - user_guide/company.md
 
       - Modules:
           - user_guide/modules/index.md
