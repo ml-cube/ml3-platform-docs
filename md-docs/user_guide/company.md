@@ -16,7 +16,7 @@ The Company is created by ML cube team during the onboarding, then, at the first
 
 ## Subscriptions
 
-A Subscription is the payment arrangement where a Company pays a regular fee to access ML cube Platform services.
+A Subscription is the payment arrangement where a Company pays a periodical fee to access ML cube Platform services.
 A Subscription has a *start* and an *expiration* date and contains the *modules* and *quotas* the Company can handle.
 
 === "Quotas"
@@ -51,7 +51,7 @@ Moreover, there are two types of subcriptions depending on where ML cube Platfor
     ---
 
     Edge subscriptions are used, as the name suggests, for edge devices that hosts ML cube Platform Edge.
-    A common use case is an industrial machinery computers that runs AI algorithms.
+    A common use case is an industrial machinery computer that runs AI algorithms.
     Edge subscriptions are validated via Product Key and are uniquely linked to a specific edge device.
 
   </div>
