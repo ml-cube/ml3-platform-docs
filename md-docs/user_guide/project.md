@@ -8,7 +8,7 @@ Users in the [Company] can access to one or more Projects according to their [ro
 
 ## Creation
 
-When a Project is created, the [User] specifies its *name*, and *description*, and selects the *default storage policy*.
+When a Project is created, the [User] specifies its *name*, *description*, and selects the *default storage policy*.
 
 *Storage Policy* defines the default behavior the Platform follows to access data that are shared with it.
 Indeed, data shared with ML cube Platform can either be duplicated and stored in ML cube private cloud storage or stay only on customer's cloud and accessed as a remote data source.
@@ -21,7 +21,8 @@ To create a Demo Project, you need to check the "Demo Project" checkbox and sele
 
 ## KPI Monitoring
 
-A Key Performance Indicator is a measure of performance over time for a specific objective, while artificial intelligence algorithms try to minimize their loss function, artificial intelligence based solutions and applications look at KPIs.
+A Key Performance Indicator is a measure of performance over time for a specific objective. 
+While artificial intelligence algorithms try to minimize their loss function, artificial intelligence based solutions and applications look at KPIs.
 Therefore, it is essential to monitor Project's KPIs along with algorithm performance to have a complete view of the current situation.
 
 ML cube Platform offers the possibility to upload Project's KPIs to monitor them via drift detection algorithms.
@@ -43,7 +44,7 @@ See the [Integrations] page for more information about credentials setup, data s
 
 Operations like sharing data to ML cube Platform, submitting the creation of a retraining dataset or reports like RAG evaluation, trigger the execution of asynchronous pipelines in ML cube Platform cloud infrastructure.
 Each pipeline is associated with an identifier named *job id* that can be used to monitor its execution status.
-This monitoring can be done both from Web App in the *Job Status* page and, with provided SDKs allowing automation.
+This monitoring can be done both from Web App in the *Job Status* page and, with specific SDKs method allowing automation.
 A job failure can be either due to bad requests or internal errors, you can check the error message information via the same page.
 
 [Company]: company.md
