@@ -127,6 +127,33 @@ Below, you will find a guide that will help you create the credentials and confi
             )
         ```
 
+=== "AWS Compatible"
+    ![Amazon Web Services](../../imgs/aws.svg){: style="height:50px;width:50px"}
+
+    The ML cube Platform can be connected to AWS compatible services through security credentials.
+    
+    For example, to use min.io's S3-compatible storage, you can use the username and password of your min.io's user as the security credentials. You also need to provide the endpoint where your min.io instance can be reached.
+    You will need to create the credentials through the ML cube Platform SDK or the web application.
+
+    !!! example
+        The following code will create a set of AWS-compatible credentials.
+
+        ```py
+        aws_compatible_creds = client.create_aws_compatible_integration_credentials(
+            name='AWS_COMPATIBLE_01',
+            default=True,  # Set these credentials as the default to use when not specified
+            project_id='your_project_id',
+            access_key_id='username',
+            secret_access_key='password',
+            endpoint_url='https://my-service.com:1234'
+        )
+        ```
+
+    If `endpoint_url` is set to `None`, these credentials can be used to access AWS itself as an IAM User.
+
+    !!! warning
+        Using AWS-compatible credentials to access AWS itself is discouraged, and should only be used in special cases where you are not able to use an IAM Role.
+
 ## Storage integration
 
 === "AWS S3"
@@ -195,6 +222,39 @@ Below, you will find a guide that will help you create the credentials and confi
 
     az role assignment create --assignee $SERVICE_PRINCIPAL_APP_ID --role "Storage Blob Data Reader" --scope /subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.Storage/storageAccounts/$STORAGE_ACCOUNT/blobServices/default/containers/$BLOB_CONTAINER
     ```
+
+=== "AWS S3 Compatible"
+    ![Amazon Web Services](../../imgs/aws.svg){: style="height:50px;width:50px"}
+
+    Log into your AWS S3 compatible service and set up a policy that allows to access objects in the bucket of your choice.
+
+    !!! example
+        The following policy will grant read access to objects in the `my-company-data-bucket`.
+
+        ```json
+        {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Sid": "Statement1",
+                    "Effect": "Allow",
+                    "Action": [
+                        "s3:GetBucketTagging",
+                        "s3:GetObject",
+                        "s3:ListBucket"
+                    ],
+                    "Resource": [
+                        "arn:aws:s3:::my-company-data-bucket",
+                        "arn:aws:s3:::my-company-data-bucket/*"
+                    ]
+                }
+            ]
+        }
+        ```
+
+        Adjust the policy according to the specifics of the S3-compatible service you are using.
+
+    Make sure the policy is attached to the user whose credentials you are going to configure as AWS-compatible credentials in the ML cube platform.
 
 ## Retrain events integration
 
