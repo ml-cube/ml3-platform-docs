@@ -108,6 +108,7 @@ nav:
       - user_guide/index.md
       - user_guide/company.md
       - user_guide/project.md
+      - user_guide/monitoring.md
 
       - Modules:
           - user_guide/modules/index.md
