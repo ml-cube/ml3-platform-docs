@@ -56,9 +56,9 @@ The MLCube platform supports the following monitoring targets:
 
 As mentioned, some targets are available only for specific task types. The following table shows all the available monitoring targets in relation with the task type. 
 Notice that while some targets were specifically designed for a certain task type, others are more general and can be used in different contexts. 
-Nonetheless, the platform might not support yet all possible combinations.
+Nonetheless, the platform might not support yet all possible combinations. The table will be updated as new targets are added to the product.
 
-|                                |   **REGRESSION**   | **CLASSIFICATION_BINARY** | **CLASSIFICATION_MULTICLASS** | **CLASSIFICATION_MULTILABEL** | **OBJECT_DETECTION** |      **RAG**       |
+| **Monitoring Target**          |   **REGRESSION**   | **CLASSIFICATION_BINARY** | **CLASSIFICATION_MULTICLASS** | **CLASSIFICATION_MULTILABEL** | **OBJECT_DETECTION** |      **RAG**       |
 |--------------------------------|:------------------:|:-------------------------:|:-----------------------------:|:-----------------------------:|:--------------------:|:------------------:|
 | INPUT                          | :white_check_mark: |    :white_check_mark:     |      :white_check_mark:       |      :white_check_mark:       |  :white_check_mark:  |                    |
 | CONCEPT                        | :white_check_mark: |    :white_check_mark:     |      :white_check_mark:       |      :white_check_mark:       |                      |                    |
@@ -73,7 +73,27 @@ Nonetheless, the platform might not support yet all possible combinations.
 
 #### Monitoring Metrics
 
-A Monitoring Metric is a generic quantity that can be computed on a Monitoring Target. Its purpose 
+A Monitoring Metric is a generic quantity that can be computed on a Monitoring Target. They enable the monitoring of specific
+aspects of a target, which might help in identifying the root cause of a drift, as well as defining the corrective actions to be taken.
+
+The following table display the monitoring metrics supported, along with their monitoring target and the conditions
+under which they are actually monitored. Notice that also this table is subject to changes, as new metrics are added.
+
+| **Monitoring Metric** |               **Monitoring Target**              |             **Conditions**             |
+|:---------------------:|:------------------------------------------------:|:--------------------------------------:|
+|     TEXT_TOXICITY     |          INPUT, USER_INPUT, PREDICTION           |     When the data structure is text    |
+|     TEXT_EMOTION      |                INPUT, USER_INPUT                 |     When the data structure is text    |
+|    TEXT_SENTIMENT     |                INPUT, USER_INPUT                 |     When the data structure is text    |
+|      TEXT_LENGTH      | INPUT, USER_INPUT, RETRIEVED_CONTEXT, PREDICTION |     When the data structure is text    |
+|   MODEL_PERPLEXITY    |                    PREDICTION                    |        When the task type is RAG       |
+|   IMAGE_BRIGHTNESS    |                      INPUT                       |    When the data structure is image    |
+|    IMAGE_CONTRAST     |                      INPUT                       |    When the data structure is image    |
+|      BBOXES_AREA      |                    PREDICTION                    | When the task type is Object Detection |
+|    BBOXES_QUANTITY    |                    PREDICTION                    | When the task type is Object Detection |
+
+
+
+
 
 [Task]: task.md
 [set_model_reference]: ../../api/python/client#set_model_reference

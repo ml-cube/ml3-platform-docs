@@ -1,16 +1,19 @@
 # Detection Event Rules
 
-This section provides an overview of how you can setup automation rules after a detection event occurs in order to receive notifications or to start retraining.
+This section provides an overview of how you can set up automation rules after a detection event occurs in 
+order to receive notifications or to start retraining.
 
-When a detection event occurs, the platform evaluates your set detection event rules.
-If a rule matches the event, the specified actions will be triggered.
+When a detection event occurs, the platform scans all the detection event rules you specified.
+If a rule matches the event, it will be triggered.
+
 These rules are specific to a task and require the following parameters for configuration:
 
-- `name`: A descriptive label for your rule, helping you understand its purpose quickly.
-- `task_id`: The unique identifier of the task to which the rule is applicable.
+- `name`: A descriptive label for your rule.
+- `task_id`: The unique identifier of the task to which the rule belongs.
 - `severity`: Indicates the severity level of the event - it can be `HIGH`, `MEDIUM`, or `LOW`.
 - `detection_event_type`: Currently, only `DRIFT` events are available for detection.
-- `monitoring_target`: Specifies what is being monitored, which can be `MODEL`, `INPUT`, or `CONCEPT`. If the value is `MODEL`, you need to provide a corresponding `model_name`.
+  - `monitoring_target`: Specifies what is being monitored, which can be `MODEL`, `INPUT`, or `CONCEPT`. 
+    If the value is `MODEL`, you need to provide a corresponding `model_name`.
 - `actions`: A sequential list of actions to be executed when the rule is triggered.
 
 ## Supported Actions
