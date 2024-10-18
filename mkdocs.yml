@@ -17,7 +17,7 @@ theme:
     - navigation.expand
     - navigation.footer
     - navigation.indexes
-    - navigation.instant
+    #- navigation.instant
     # - navigation.prune
     - navigation.sections
     - navigation.expand
@@ -108,6 +108,7 @@ nav:
       - user_guide/index.md
       - user_guide/company.md
       - user_guide/project.md
+      - user_guide/task.md
 
       - Modules:
           - user_guide/modules/index.md
