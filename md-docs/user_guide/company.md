@@ -35,7 +35,7 @@ A Subscription has a *start* and an *expiration* date and contains the *modules*
     | Explainability       | Explainability of detected drifts to better understand what happened and how to tackle it. |
 
 
-Moreover, there are two types of subcriptions depending on where ML cube Platform is used:
+Moreover, there are two types of subscriptions depending on where ML cube Platform is used:
 
 <div class="grid cards" markdown>
 - :material-cloud:{ .lg .middle .green-icon} <span style="color:#98BE59"> **Cloud** </span>
