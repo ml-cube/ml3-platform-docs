@@ -70,7 +70,6 @@ Nonetheless, the platform might not support yet all possible combinations. The t
 | USER_INPUT_MODEL_OUTPUT        |                    |                           |                               |                               |                      | :white_check_mark: |
 | MODEL_OUTPUT_RETRIEVED_CONTEXT |                    |                           |                               |                               |                      | :white_check_mark: |
 
-
 #### Monitoring Metrics
 
 A Monitoring Metric is a generic quantity that can be computed on a Monitoring Target. They enable the monitoring of specific
@@ -79,20 +78,17 @@ aspects of a target, which might help in identifying the root cause of a drift, 
 The following table display the monitoring metrics supported, along with their monitoring target and the conditions
 under which they are actually monitored. Notice that also this table is subject to changes, as new metrics are added.
 
-| **Monitoring Metric** |               **Monitoring Target**              |             **Conditions**             |
-|:---------------------:|:------------------------------------------------:|:--------------------------------------:|
-|     TEXT_TOXICITY     |          INPUT, USER_INPUT, PREDICTION           |     When the data structure is text    |
-|     TEXT_EMOTION      |                INPUT, USER_INPUT                 |     When the data structure is text    |
-|    TEXT_SENTIMENT     |                INPUT, USER_INPUT                 |     When the data structure is text    |
-|      TEXT_LENGTH      | INPUT, USER_INPUT, RETRIEVED_CONTEXT, PREDICTION |     When the data structure is text    |
-|   MODEL_PERPLEXITY    |                    PREDICTION                    |        When the task type is RAG       |
-|   IMAGE_BRIGHTNESS    |                      INPUT                       |    When the data structure is image    |
-|    IMAGE_CONTRAST     |                      INPUT                       |    When the data structure is image    |
-|      BBOXES_AREA      |                    PREDICTION                    | When the task type is Object Detection |
-|    BBOXES_QUANTITY    |                    PREDICTION                    | When the task type is Object Detection |
-
-
-
+| **Monitoring Metric** | Description                                              |              **Monitoring Target**               |             **Conditions**             |
+|:---------------------:|----------------------------------------------------------|:------------------------------------------------:|:--------------------------------------:|
+|     TEXT_TOXICITY     | The toxicity of the text                                 |          INPUT, USER_INPUT, PREDICTION           |    When the data structure is text     |
+|     TEXT_EMOTION      | The emotion of the text                                  |                INPUT, USER_INPUT                 |    When the data structure is text     |
+|    TEXT_SENTIMENT     | The sentiment of the text                                |                INPUT, USER_INPUT                 |    When the data structure is text     |
+|      TEXT_LENGTH      | The length of the text                                   | INPUT, USER_INPUT, RETRIEVED_CONTEXT, PREDICTION |    When the data structure is text     |
+|   MODEL_PERPLEXITY    | The uncertainty of the LLM                               |                    PREDICTION                    |       When the task type is RAG        |
+|   IMAGE_BRIGHTNESS    | The brightness of the image                              |                      INPUT                       |    When the data structure is image    |
+|    IMAGE_CONTRAST     | The contrast of the image                                |                      INPUT                       |    When the data structure is image    |
+|      BBOXES_AREA      | The average area of the predicted bounding boxes         |                    PREDICTION                    | When the task type is Object Detection |
+|    BBOXES_QUANTITY    | The average number of predicted bounding boxes per image |                    PREDICTION                    | When the task type is Object Detection |
 
 
 [Task]: task.md

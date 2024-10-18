@@ -109,6 +109,9 @@ nav:
       - user_guide/company.md
       - user_guide/project.md
       - user_guide/monitoring.md
+      - user_guide/detection_event_rules.md
+      - user_guide/drift_explainability.md
+      - user_guide/detection_event.md
 
       - Modules:
           - user_guide/modules/index.md
@@ -122,7 +125,7 @@ nav:
           - user_guide/integrations/retrain_triggers.md
       - Other resources:
           - user_guide/rbac.md
-          - user_guide/detection_event_rules.md
+#          - user_guide/detection_event_rules.md
           - user_guide/data_schema.md
           - user_guide/glossary.md
   - API:
