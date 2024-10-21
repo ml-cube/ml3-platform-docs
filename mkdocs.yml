@@ -108,10 +108,12 @@ nav:
       - user_guide/index.md
       - user_guide/company.md
       - user_guide/project.md
-      - user_guide/monitoring.md
-      - user_guide/detection_event_rules.md
-      - user_guide/drift_explainability.md
-      - user_guide/detection_event.md
+
+      - Monitoring:
+          - user_guide/monitoring/monitoring.md
+          - user_guide/monitoring/detection_event.md
+          - user_guide/monitoring/detection_event_rules.md
+          - user_guide/monitoring/drift_explainability.md
 
       - Modules:
           - user_guide/modules/index.md

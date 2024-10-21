@@ -5,7 +5,7 @@ It enables continuous tracking of your AI models performance over time, helping 
 Additionally, it allows the monitoring of production data to preemptively detect distribution changes, ensuring
 that the model continues to perform as expected and aligns with business requirements.
 
-## Why do we need Monitoring?
+## Why do you need Monitoring?
 
 Machine Learning algorithms are based on the assumption that the distribution of the data used for training is the same as the one from which
 production data are drawn from. This assumption never holds in practice, as the real world is characterized by dynamic and ever-changing conditions.
@@ -23,18 +23,17 @@ is drifting away from the expected behavior and that corrective actions should b
 
 In more practical terms, the [set_model_reference] method can be used to specify the time period where the reference of a given model should be placed. As a consequence,
 all algorithms associated with the specified model (not just those monitoring the performance, but also those operating on the data used by the model) will
-be initialized on the specified reference. Of course, you should send the data you want to use as a reference to the platform before calling this method, for instance using the 
+be initialized on the specified reference. Of course, you should provide the data you want to use as a reference to the platform before calling this method, for instance using the 
 [add_historical_data] method.
 
 After setting the reference, the [add_production_data] method can be used to send production data to the platform. This data will be analyzed by the monitoring algorithms
-and, if a significant difference is detected, an alarm will be raised, in the form of a [DetectionEvent]. We will go into more detail about detection events and
-how you can set up automatic actions upon their reception in the [Detection Event] section.
-
-The MLCube Platform monitors different entities, which will be explored in the following section.
+and, if a significant difference is detected, an alarm will be raised, in the form of a [DetectionEvent]. 
+You can explore more about detection events and how you can set up automatic actions upon their reception in the [Detection Event] 
+and the [Detection Event Rule] sections respectively.
 
 ### Targets and Metrics
 
-After going through the reasons why monitoring is so important in modern AI systems and explaining how monitoring is performed in the ML cube Platform, 
+After explaining why monitoring is so important in modern AI systems and detailing how it is performed in the ML cube Platform, 
 we can introduce the concepts of Monitoring Targets and Monitoring Metrics. They both represent quantities that the MLCube Platform monitors, but they differ in their nature.
 
 #### Monitoring Targets
@@ -96,3 +95,5 @@ under which they are actually monitored. Notice that also this table is subject 
 [add_production_data]: ../../api/python/client#add_production_data
 [add_historical_data]: ../../api/python/client#add_historical_data
 [DetectionEvent]: ../../api/python/models#detectionevent
+[Detection Event Rule]: detection_event_rules.md
+[Detection Event]: detection_event.md
