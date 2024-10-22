@@ -110,7 +110,7 @@ nav:
       - user_guide/project.md
 
       - Monitoring:
-          - user_guide/monitoring/monitoring.md
+          - user_guide/monitoring/index.md
           - user_guide/monitoring/detection_event.md
           - user_guide/monitoring/detection_event_rules.md
           - user_guide/monitoring/drift_explainability.md
