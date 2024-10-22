@@ -50,6 +50,7 @@ plugins:
       minify_html: true
   - glightbox
   - table-reader
+  - macros
 
 # Extensions
 markdown_extensions:
