@@ -90,10 +90,10 @@ under which they are actually monitored. Notice that also this table is subject 
 |    BBOXES_QUANTITY    | The average number of predicted bounding boxes per image |                    PREDICTION                    | When the task type is Object Detection |
 
 
-[Task]: task.md
-[set_model_reference]: ../../../api/python/client#set_model_reference
-[add_production_data]: ../../../api/python/client#add_production_data
-[add_historical_data]: ../../../api/python/client#add_historical_data
-[DetectionEvent]: ../../../api/python/models#detectionevent
+[Task]: ../task.md
+[set_model_reference]:  ../../api/python/client.md#set_model_reference
+[add_production_data]: ../../api/python/client.md#add_production_data
+[add_historical_data]: ../../api/python/client.md#add_historical_data
+[DetectionEvent]: ../../api/python/models.md#detectionevent
 [Detection Event Rule]: detection_event_rules.md
 [Detection Event]: detection_event.md

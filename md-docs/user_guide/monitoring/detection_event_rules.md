@@ -55,7 +55,7 @@ Of course, the model must already have a retrain trigger associated before setti
     )
     ```
 
-[add_historical_data]: ../../../api/python/client#add_historical_data
+[add_historical_data]: ../../api/python/client.md#add_historical_data
 [Detection Event]: detection_event.md
-[DetectionEventType]: ../../../api/python/enums#detectioneventtype
-[DetectionEventSeverity]: ../../../api/python/enums#detectioneventseverity
+[DetectionEventType]: ../../api/python/enums.md#detectioneventtype
+[DetectionEventSeverity]: ../../api/python/enums.md#detectioneventseverity

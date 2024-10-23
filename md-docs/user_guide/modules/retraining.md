@@ -7,7 +7,7 @@ Even if, the data has changed you can extract useful information from the past.
 ML cube Platform leverages all the available data belonging to the three categories: historical, reference and production, computing an Importance Score to every data sample you have.
 These Importance Scores will be used during the training phase of your model as weights in the loss function.
 
-A **Retraining Report** is generated whenever you request it or as a consequence of a [Detection automation rules](../detection_event_rules.md).
+A **Retraining Report** is generated whenever you request it or as a consequence of a [Detection automation rules](../monitoring/detection_event_rules.md).
 It contains several information and aspects that let you to decide if it is the right time to retrain your model.
 It's sections are:
 

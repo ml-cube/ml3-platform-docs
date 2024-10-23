@@ -33,5 +33,5 @@ These are the entities currently available:
  The values represent how strongly a given feature helps distinguishing the datasets, with higher values representing stronger 
  separating power. This entity is available only for tasks with tabular data.
 
-[Monitoring]: monitoring.md
-[Data Structure]: ../../../api/python/enums#datastructure
+[Monitoring]: index.md
+[Data Structure]: ../../api/python/enums.md#datastructure

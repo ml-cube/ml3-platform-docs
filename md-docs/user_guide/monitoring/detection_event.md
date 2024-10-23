@@ -36,11 +36,11 @@ to tune the monitoring algorithms and improve their performance. The feedback ca
 To automate actions upon the reception of a detection event, you can set up detection event rules. 
 You can learn more about how to configure them in the [Detection Event Rules] section.
 
-[Detection Event]: ../../../api/python/models#detectionevent
-[DetectionEventType]: ../../../api/python/enums#detectioneventtype
-[DetectionEventSeverity]: ../../../api/python/enums#detectioneventseverity
-[MonitoringTarget]: ../../../api/python/enums#monitoringtarget
-[MonitoringMetric]: ../../../api/python/enums#monitoringmetric
-[get_detection_events]: ../../../api/python/client/#get_detection_events
-[set_detection_event_user_feedback]: ../../../api/python/client/#set_detection_event_user_feedback
+[Detection Event]: ../../api/python/models.md#detectionevent
+[DetectionEventType]: ../../api/python/enums.md#detectioneventtype
+[DetectionEventSeverity]: ../../api/python/enums.md#detectioneventseverity
+[MonitoringTarget]: ../../api/python/enums.md#monitoringtarget
+[MonitoringMetric]: ../../api/python/enums.md#monitoringmetric
+[get_detection_events]: ../../api/python/client.md#get_detection_events
+[set_detection_event_user_feedback]: ../../api/python/client.md#set_detection_event_user_feedback
 [Detection Event Rules]: detection_event_rules.md
