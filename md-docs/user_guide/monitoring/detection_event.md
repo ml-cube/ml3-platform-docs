@@ -14,6 +14,7 @@ the criticality of the detected drift.
 - `model_version`: the version of the model that raised the event.
 - `insert_datetime`: the time when the event was raised.
 - `sample_timestamp`: the timestamp of the sample that triggered the event.
+- 'sample_customer_id': the id of the customer that triggered the event.
 - `user_feedback`: the feedback provided by the user on whether the event was expected or not.
 
 ## Retrieve Detection Events
