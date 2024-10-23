@@ -12,16 +12,17 @@ of the change occurred.
 
 You can access the reports by navigating to the `Drift Explainability` tab in the sidebar of the task page.
 
-## Content
+## Structure
 
-A Drift Explainability Report consists in comparing the reference data and the portion of production data that caused the drift, hence 
-belonging to the new concept. Notice that these reports are generated after a sufficient amount of samples has been collected after the drift.
-If a drift event is soon followed by a drift off event, the report might not be generated.
+A Drift Explainability Report consists in comparing the reference data and the portion of production data where the drift was identified, hence 
+those belonging to the new concept. Notice that these reports are generated after a sufficient amount of samples has been collected after the drift.
+If the distribution moves back to the reference before enough samples are collected, the report might not be generated.
 
-Each report is composed of several entities, each one providing a different view of the data and the drift. They might be in the form of
-a table, a plot, or a textual explanation.
-Observed and analyzed together, they should provide a comprehensive understanding of the drift and its causes. Some entities are
-only available for specific task types and data structure.
+Each report is composed of several entities, each providing a different perspective on the data and the drift occurred. 
+Most of them are specific to a certain [Data Structure], so they might not be available for all tasks.
+
+These entities can take the form of tables, plots, or textual explanations. 
+Observed and analyzed together, they should provide a comprehensive understanding of the drift and its underlying causes.
 These are the entities currently available:
 
 - `Feature Importance`: it's a barplot that illustrates how the significance of each feature differs between the reference 
@@ -33,3 +34,4 @@ These are the entities currently available:
  separating power. This entity is available only for tasks with tabular data.
 
 [Monitoring]: monitoring.md
+[Data Structure]: ../../../api/python/enums#datastructure

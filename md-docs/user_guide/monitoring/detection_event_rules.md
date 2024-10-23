@@ -30,7 +30,7 @@ Two types of actions are currently supported: notification and retrain.
 
 Retrain action lets you retrain your model. Therefore, it is only available when the monitoring target of the rule is related to a model.
 The retrain action does not need any parameter because it is automatically inferred from the `model_name` attribute of the rule.
-Of course, the model must already have a retrain trigger associated before adding a retrain action to a rule.
+Of course, the model must already have a retrain trigger associated before setting up this action.
 
 !!! example
     The following code snippet demonstrates how to create a rule that matches high severity drift events on the error of a model. 

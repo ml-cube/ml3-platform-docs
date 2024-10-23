@@ -1,7 +1,7 @@
 # Monitoring
 
 The monitoring module is a key feature of the ML cube Platform. 
-It enables continuous tracking of your AI models performance over time, helping to identify potential issues. 
+It enables continuous tracking of AI models performance over time, helping to identify potential issues. 
 Additionally, it allows the monitoring of production data to preemptively detect distribution changes, ensuring
 that the model continues to perform as expected and aligns with business requirements.
 
@@ -23,7 +23,7 @@ is drifting away from the expected behavior and that corrective actions should b
 
 In more practical terms, the [set_model_reference] method can be used to specify the time period where the reference of a given model should be placed. As a consequence,
 all algorithms associated with the specified model (not just those monitoring the performance, but also those operating on the data used by the model) will
-be initialized on the specified reference. Of course, you should provide the data you want to use as a reference to the platform before calling this method, for instance using the 
+be initialized on the specified reference. Of course, you should provide to the Platform the data you want to use as a reference before calling this method, for instance using the 
 [add_historical_data] method.
 
 After setting the reference, the [add_production_data] method can be used to send production data to the platform. This data will be analyzed by the monitoring algorithms
@@ -75,7 +75,7 @@ A Monitoring Metric is a generic quantity that can be computed on a Monitoring T
 aspects of a target, which might help in identifying the root cause of a drift, as well as defining the corrective actions to be taken.
 
 The following table display the monitoring metrics supported, along with their monitoring target and the conditions
-under which they are actually monitored. Notice that also this table is subject to changes, as new metrics are added.
+under which they are actually monitored. Notice that also this table is subject to changes, as new metrics will be added.
 
 | **Monitoring Metric** | Description                                              |              **Monitoring Target**               |             **Conditions**             |
 |:---------------------:|----------------------------------------------------------|:------------------------------------------------:|:--------------------------------------:|
