@@ -90,6 +90,25 @@ under which they are actually monitored. Notice that also this table is subject 
 |    BBOXES_QUANTITY    | The average number of predicted bounding boxes per image |                    PREDICTION                    | When the task type is Object Detection |
 
 
+### Monitoring Status
+
+All the entities being monitored are associated with a status, which is defined according to the enumeration [MonitoringStatus]. 
+
+The status can be one of the following:
+
+- `OK`: the entity is behaving as expected.
+- `WARNING`: the entity has shown signs of drifts, but it is still within the acceptable range.
+- `DRIFT`: the entity has experienced a significant change and corrective actions should be taken.
+
+You can check the status of the monitored entities in two ways:
+
+- **WebApp**: The homepage of the task displays the status of both monitoring targets and metrics.
+- **SDK**: The [get_monitoring_status] method can be used to retrieve the status of the monitored entities programmatically. 
+  This method returns a [MonitoringQuantityStatus], a BaseModel holding the status of the monitoring entity requested.
+  Otherwise, you can use the [get_task] method, which returns a BaseModel with all the information related to a task, including
+    the list of [MonitoringQuantityStatus] for all the entities monitored in the task.
+
+
 [Task]: ../task.md
 [set_model_reference]:  ../../api/python/client.md#set_model_reference
 [add_production_data]: ../../api/python/client.md#add_production_data
@@ -97,3 +116,7 @@ under which they are actually monitored. Notice that also this table is subject 
 [DetectionEvent]: ../../api/python/models.md#detectionevent
 [Detection Event Rule]: detection_event_rules.md
 [Detection Event]: detection_event.md
+[MonitoringStatus]: ../../api/python/enums.md#monitoringstatus
+[get_monitoring_status]: ../../api/python/client.md#get_monitoring_status
+[MonitoringQuantityStatus]: ../../api/python/models.md#monitoringquantitystatus
+[get_task]: ../../api/python/client.md#get_task
