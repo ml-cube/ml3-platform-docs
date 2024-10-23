@@ -53,7 +53,7 @@ A **Task** is specified by several attributes, the most important are:
 
 - `type`: regression, classification, object detection ...
 - `data structure`: tabular data, image data, ...
-- `optional target`: if the target is not always available. This happen when input samples are labeled and the most part of production data do not have a label
+- `optional target`: if the target is not always available. This happens when input samples are labeled and the most part of production data do not have a label
 - `data schema`: specifies the inputs and the target of the task, see [Data Schema](data_schema.md) section for more details
 - `cost info`: information about the economic costs of the error on the target
 
@@ -110,7 +110,7 @@ Now that you have clear the basic concepts we invite you to explore the other ML
 
     Discover how to setup automation rules to increase your reactivity.
 
-    [:octicons-arrow-right-24: More info](detection_event_rules.md)
+    [:octicons-arrow-right-24: More info](monitoring/detection_event_rules.md)
 
 -   :material-lock:{ .lg .middle } **Roles and access**
 
