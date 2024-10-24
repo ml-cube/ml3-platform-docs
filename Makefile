@@ -28,7 +28,7 @@ USE_DEPLOY_ENVIRONMENT=n
 
 install-uv:
 	# install uv package manager
-	$(UV_INSTALL_CMD)
+	# $(UV_INSTALL_CMD)
 	# create environment
 	uv venv -p $(PYTHON_COMMAND)
 
