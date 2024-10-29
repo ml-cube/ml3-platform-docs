@@ -14,8 +14,6 @@ anyio==4.4.0
     # via
     #   httpx
     #   jupyter-server
-appnope==0.1.4
-    # via ipykernel
 argon2-cffi==23.1.0
     # via jupyter-server
 argon2-cffi-bindings==21.2.0
@@ -51,7 +49,12 @@ charset-normalizer==3.3.2
 click==8.1.7
     # via mkdocs
 colorama==0.4.6
-    # via mkdocs-material
+    # via
+    #   click
+    #   ipython
+    #   mkdocs
+    #   mkdocs-material
+    #   tqdm
 comm==0.2.2
     # via
     #   ipykernel
@@ -230,10 +233,12 @@ mistune==3.0.2
     # via nbconvert
 mkdocs==1.5.3
     # via
+    #   mkdocs-macros-plugin
     #   mkdocs-material
     #   mkdocs-minify-plugin
     #   mkdocs-table-reader-plugin
 mkdocs-glightbox==0.3.7
+mkdocs-macros-plugin==1.3.6
 mkdocs-material==9.5.17
 mkdocs-material-extensions==1.3.1
     # via mkdocs-material
@@ -284,7 +289,6 @@ numpy==1.26.4
     #   torchvision
     #   transformers
 openpyxl==3.1.5
-    # via ml3-platform-docs (pyproject.toml)
 overrides==7.7.0
     # via jupyter-server
 packaging==24.0
@@ -307,7 +311,6 @@ paginate==0.5.6
     # via mkdocs-material
 pandas==2.2.1
     # via
-    #   ml3-platform-docs (pyproject.toml)
     #   datasets
     #   evaluate
     #   mkdocs-table-reader-plugin
@@ -319,8 +322,6 @@ pathspec==0.12.1
     # via
     #   mkdocs
     #   mkdocs-macros-plugin
-pexpect==4.9.0
-    # via ipython
 pillow==10.3.0
     # via
     #   sentence-transformers
@@ -340,10 +341,6 @@ psutil==5.9.8
     # via
     #   accelerate
     #   ipykernel
-ptyprocess==0.7.0
-    # via
-    #   pexpect
-    #   terminado
 pure-eval==0.2.2
     # via stack-data
 pyarrow==16.1.0
@@ -376,6 +373,13 @@ python-json-logger==2.0.7
     # via jupyter-events
 pytz==2024.1
     # via pandas
+pywin32==308
+    # via jupyter-core
+pywinpty==2.0.14
+    # via
+    #   jupyter-server
+    #   jupyter-server-terminals
+    #   terminado
 pyyaml==6.0.1
     # via
     #   accelerate

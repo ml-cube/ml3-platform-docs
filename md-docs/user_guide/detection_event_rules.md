@@ -14,10 +14,11 @@ These rules are specific to a task and require the following parameters for conf
 - `actions`: A sequential list of actions to be executed when the rule is triggered.
 
 ## Supported Actions
+
 Two types of actions are currently supported: notification and retrain.
 
-
 ### Notifications
+
 - `SlackNotificationAction`: sends a notification to a Slack channel via webhook.
 - `DiscordNotificationAction`: sends a notification to a Discord channel via webhook.
 - `EmailNotificationAction`: sends an email to the provided email address.
