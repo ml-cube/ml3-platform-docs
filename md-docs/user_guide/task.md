@@ -74,7 +74,7 @@ Cost information is expressed by two proportional coefficients $c_{o}$ and $c_{u
 
 Given a data batch, the mean cost $\bar{C}$ is expressed as 
 $$
-\bar{C} = \frac{\sum_{i | \delta_i < 0} \delta_i \times c_{o} + \sum_{i | \delta_i > 0} \delta_i \times c_{u}}{N}
+\bar{C} = \frac{\sum_{i | \delta_i < 0} |\delta_i| \times c_{o} + \sum_{i | \delta_i > 0} \delta_i \times c_{u}}{N}
 $$
 where $\delta_i = y_i - \hat{y}_i$ is the different between the target and the estimated value.
 
