@@ -41,6 +41,20 @@ ColumnRole()
 Column role enum
 Describe the role of a column
 
+**Fields:**
+- INPUT
+- INPUT_MASK
+- PREDICTION
+- TARGET
+- ERROR
+- ID
+- TIME_ID
+- INPUT_ADDITIONAL_EMBEDDING
+- TARGET_ADDITIONAL_EMBEDDING
+- PREDICTION_ADDITIONAL_EMBEDDING
+- USER_INPUT
+- RETRIEVED_CONTEXT
+
 ----
 
 
@@ -54,6 +68,13 @@ ColumnSubRole()
 Column subrole enum
 Describe the subrole of a column
 
+**Fields:**
+- RAG_USER_INPUT
+- RAG_RETRIEVED_CONTEXT
+- MODEL_PROBABILITY
+- OBJECT_DETECTION_LABEL_TARGET
+- OBJECT_DETECTION_LABEL_PREDICTION
+
 ----
 
 
@@ -65,6 +86,10 @@ Currency()
 
 ---
 Currency of to use for the Task
+
+**Fields:**
+- EURO
+- DOLLAR
 
 ----
 
@@ -97,6 +122,14 @@ DataType()
 ---
 Data type enum
 Describe data type of input
+
+**Fields:**
+- FLOAT
+- STRING
+- CATEGORICAL
+- ARRAY_1
+- ARRAY_2
+- ARRAY_3
 
 ----
 
@@ -145,7 +178,10 @@ DetectionEventType()
 ---
 **Fields:**
 
-- DRIFT
+- WARNING_OFF
+- WARNING_ON
+- DRIFT_ON
+- DRIFT_OFF
 
 ----
 
@@ -179,6 +215,10 @@ FileType()
 
 - CSV
 - JSON
+- PARQUET
+- PNG
+- JPG
+- NPY
 
 ----
 
@@ -210,11 +250,10 @@ ImageMode()
 ---
 Image mode enumeration
 
-Fields
-------
-RGB: Red, Green, Blue
-RGBA: Red, Green, Blue, Alpha
-GRAYSCALE: Grayscale
+**Fields:**
+- RGB
+- RGBA
+- GRAYSCALE
 
 ----
 
@@ -233,6 +272,7 @@ JobStatus()
 - RUNNING
 - COMPLETED
 - ERROR
+- ROLLBACK_COMPLETE
 
 ----
 
@@ -266,6 +306,8 @@ Name of the model metrics that is associated with the model
 **Fields:**
 - RMSE
 - RSQUARE
+- ACCURACY
+- AVERAGE_PRECISION
 
 ----
 
@@ -284,6 +326,10 @@ MonitoringMetric()
 - TEXT_EMOTION
 - TEXT_SENTIMENT
 - MODEL_PERPLEXITY
+- IMAGE_BRIGHTNESS
+- IMAGE_CONTRAST
+- BBOXES_QUANTITY
+- BBOXES_AREA
 
 ----
 
@@ -317,9 +363,10 @@ MonitoringTarget()
 - INPUT
 - CONCEPT
 - PREDICTION
+- INPUT_PREDICTION
 - USER_INPUT
-- USER_INPUT_RETRIEVED_CONTEXT
 - RETRIEVED_CONTEXT
+- USER_INPUT_RETRIEVED_CONTEXT
 - USER_INPUT_MODEL_OUTPUT
 - MODEL_OUTPUT_RETRIEVED_CONTEXT
 
@@ -335,11 +382,10 @@ ProductKeyStatus()
 ---
 Status of a product key
 
-Fields
-------
-NEW = generated but not yet used product key
-VALIDATING = validation requested from client
-IN_USE = validated product key, client activated
+**Fields:**:
+- NEW = generated but not yet used product key
+- VALIDATING = validation requested from client
+- IN_USE = validated product key, client activated
 
 ----
 
@@ -352,6 +398,11 @@ RetrainTriggerType()
 
 ---
 Enumeration of the possible retrain triggers
+
+**Fields:**:
+- AWS_EVENT_BRIDGE
+- GCP_PUBSUB
+- AZURE_EVENT_GRID
 
 ----
 
@@ -385,6 +436,7 @@ StoringDataType()
 - HISTORICAL
 - REFERENCE
 - PRODUCTION
+- KPI
 
 ----
 
@@ -398,10 +450,9 @@ SubscriptionType()
 ---
 Type of subscription plan of a company
 
-Fields
-------
-CLOUD: subscription plan for web app or sdk access
-EDGE: subscription plan for edge deployment
+**Fields:**:
+- CLOUD: subscription plan for web app or sdk access
+- EDGE: subscription plan for edge deployment
 
 ----
 
@@ -437,6 +488,7 @@ TaskType()
 - CLASSIFICATION_MULTICLASS
 - CLASSIFICATION_MULTILABEL
 - RAG
+- OBJECT_DETECTION
 
 ----
 
@@ -450,12 +502,10 @@ TextLanguage()
 ---
 Enumeration of text language used in nlp tasks.
 
-Fields
-------
-
-ITALIAN
-ENGLISH
-MULTILANGUAGE
+**Fields:**
+- ITALIAN
+- ENGLISH
+- MULTILANGUAGE
 
 ----
 

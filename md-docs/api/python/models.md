@@ -77,6 +77,8 @@ base model for api key
 **Attributes**
 
 * **api_key**  : str
+* **name**  : str
+* **expiration_time**  : str | None
 
 
 ----
@@ -94,6 +96,11 @@ A source that identifies a blob in Azure Storage.
 
 **Attributes**
 
+* **file_type**  : FileType
+* **is_folder**  : bool
+* **folder_type**  : FolderType | None
+* **credentials_id**  : The id of the credentials to use to authenticate
+    to the remote data source. If None, the default will be used
 * **object_path**  : str
 
 
@@ -287,6 +294,14 @@ DataSource()
 ---
 Generic data source.
 
+
+**Attributes**
+
+* **file_type**  : FileType
+* **is_folder**  : bool
+* **folder_type**  : FolderType | None
+
+
 ----
 
 
@@ -308,6 +323,7 @@ An event created during the detection process.
 * **severity_type**  : Optional[DetectionEventSeverity]
 * **insert_datetime**  : str
 * **sample_timestamp**  : float
+* **sample_customer_id**  : str
 * **model_id**  : Optional[str]
 * **model_name**  : Optional[str]
 * **model_version**  : Optional[str]
@@ -411,6 +427,13 @@ Embedding data model i.e., a data that can be represented via
 DataFrame and is stored in formats like: csv, parquet, json.
 There is only one input that has type array_1
 
+
+**Attributes**
+
+* **data_structure**  : DataStructure = DataStructure.EMBEDDING
+* **source**  : DataSource
+
+
 ----
 
 
@@ -467,6 +490,11 @@ A source that identifies a file in a GCS bucket.
 
 **Attributes**
 
+* **file_type**  : FileType
+* **is_folder**  : bool
+* **folder_type**  : FolderType | None
+* **credentials_id**  : The id of the credentials to use to authenticate
+    to the remote data source. If None, the default will be used
 * **object_path**  : str
 
 
@@ -503,7 +531,10 @@ and those files
 
 **Attributes**
 
+* **data_structure**  : DataStructure = DataStructure.IMAGE
+* **source**  : DataSource
 * **mapping_source**  : DataSource
+* **embedding_source**  : DataSource | None
 
 
 ----
@@ -593,6 +624,9 @@ local disk to the ML cube platform cloud.
 
 **Attributes**
 
+* **file_type**  : FileType
+* **is_folder**  : bool
+* **folder_type**  : FolderType | None
 * **file_path**  : str
 
 
@@ -619,6 +653,7 @@ Base model to define model item
     the model
 * **creation_datetime**  : Optional[datetime]
 * **retrain_trigger**  : Optional[RetrainTrigger]
+* **retraining_cost**  : float
 
 
 ----
@@ -633,6 +668,14 @@ MonitoringQuantityStatus()
 ---
 Base model to store the monitoring status
 of a monitoring quantity (target or metric)
+
+
+**Attributes**
+
+* **monitoring_target**  : MonitoringTarget
+* **status**  : MonitoringStatus
+* **monitoring_metric**  : MonitoringMetric | None
+
 
 ----
 
@@ -734,8 +777,12 @@ A source that identifies where data is stored.
 
 **Attributes**
 
+* **file_type**  : FileType
+* **is_folder**  : bool
+* **folder_type**  : FolderType | None
 * **credentials_id**  : The id of the credentials to use to authenticate
-to the remote data source. If None, the default will be used
+    to the remote data source. If None, the default will be used
+
 
 
 **Methods:**
@@ -853,6 +900,11 @@ A source that identifies a file in an S3 bucket.
 
 **Attributes**
 
+* **file_type**  : FileType
+* **is_folder**  : bool
+* **folder_type**  : FolderType | None
+* **credentials_id**  : The id of the credentials to use to authenticate
+    to the remote data source. If None, the default will be used
 * **object_path**  : str
 
 
@@ -1000,6 +1052,7 @@ Suggestion base model
 
 * **suggestion_id**  : str
 * **suggestion_type**  : SuggestionType
+* **sample_ids**  : List[str]
 
 
 ----
@@ -1035,6 +1088,13 @@ TabularData()
 Tabular data model i.e., a data that can be represented via
 DataFrame and is stored in formats like: csv, parquet, json
 
+
+**Attributes**
+
+* **data_structure**  : DataStructure = DataStructure.TABULAR
+* **source**  : DataSource
+
+
 ----
 
 
@@ -1053,6 +1113,13 @@ Task model
 * **task_id**  : str
 * **name**  : str
 * **type**  : TaskType
+* **cost_info**  : TaskCostInfoUnion | None
+* **optional_target**  : bool
+* **monitoring_targets**  : list[str]
+* **monitoring_metrics**  : dict[str, list[str]] | None
+* **positive_class**  : str | int | bool | None
+* **text_language**  : TextLanguage | None
+* **monitoring_status**  : list[MonitoringQuantityStatus]
 
 
 ----
@@ -1104,6 +1171,13 @@ TaskTopicModelingReportDetails()
 ---
 Task Topic Modeling Report Details base model
 
+
+**Attributes**
+
+* **sample_ids**  : list[str]
+* **topics**  : list[str]
+
+
 ----
 
 
@@ -1115,6 +1189,17 @@ TaskTopicModelingReportItem()
 
 ---
 Task Topic Modeling Report Item base model
+
+
+**Attributes**
+
+* **id**  : str
+* **creation_datetime**  : datetime
+* **name**  : str
+* **status**  : JobStatus
+* **from_date**  : datetime
+* **to_date**  : datetime
+
 
 ----
 
@@ -1146,3 +1231,11 @@ TextData()
 
 ---
 Text data model for nlp tasks.
+
+
+**Attributes**
+
+* **data_structure**  : DataStructure = DataStructure.TEXT
+* **source**  : DataSource
+* **embedding_source**  : DataSource | None
+

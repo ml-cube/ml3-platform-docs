@@ -932,6 +932,37 @@ Get task data schema
 
 `SDKClientException`
 
+### .get_data_schema_template
+```python
+.get_data_schema_template(
+   task_id: str
+)
+```
+
+---
+Get task data schema
+
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : identifier of the task
+
+
+**Returns**
+
+* **data_schema**  : `DataSchema`
+
+
+**Raises**
+
+`SDKClientException`
+
 ### .show_data_schema
 ```python
 .show_data_schema(
