@@ -15,9 +15,9 @@ in turn can have a negative impact on the business.
 Monitoring, also known as __Drift Detection__ in the literature, refers the process of continuously tracking the performance of a model 
 and the distribution of the data it is operating on. 
 
-## How does the MLCube Platform perform Monitoring?
+## How does the ML cube Platform perform Monitoring?
 
-The MLCube platform performs monitoring by employing statistical techniques to compare a certain reference (for instance, data used for training or the performance of a model
+The ML cube platform performs monitoring by employing statistical techniques to compare a certain reference (for instance, data used for training or the performance of a model
 on the test set) to incoming production data. If a significant difference is detected, an alarm is raised, signaling that the monitored entity
 is drifting away from the expected behavior and that corrective actions should be taken.
 
@@ -34,14 +34,15 @@ and the [Detection Event Rule] sections respectively.
 ### Targets and Metrics
 
 After explaining why monitoring is so important in modern AI systems and detailing how it is performed in the ML cube Platform, 
-we can introduce the concepts of Monitoring Targets and Monitoring Metrics. They both represent quantities that the MLCube Platform monitors, but they differ in their nature.
+we can introduce the concepts of Monitoring Targets and Monitoring Metrics. They both represent quantities that the ML cube Platform monitors, but they differ in their nature.
+They are both automatically defined by the ML cube platform based on the [Task] attributes, such as the Task type and the data structure.
 
 #### Monitoring Targets
 
 A Monitoring Target is a relevant entity involved in a [Task]. They represent the main quantities monitored by the platform, those whose
 variation can have a significant impact on the AI task success. 
 
-The MLCube platform supports the following monitoring targets:
+The ML cube platform supports the following monitoring targets:
 
 - `INPUT`: the input distribution, $P(X)$.
 - `CONCEPT`: the joint distribution of input and target, $P(X, Y)$.
@@ -72,9 +73,9 @@ Nonetheless, the platform might not support yet all possible combinations. The t
 #### Monitoring Metrics
 
 A Monitoring Metric is a generic quantity that can be computed on a Monitoring Target. They enable the monitoring of specific
-aspects of a target, which might help in identifying the root cause of a drift, as well as defining the corrective actions to be taken.
+aspects of an entity, which might help in identifying the root cause of a drift, as well as defining the corrective actions to be taken.
 
-The following table display the monitoring metrics supported, along with their monitoring target and the conditions
+The following table displays the monitoring metrics supported, along with their monitoring target and the conditions
 under which they are actually monitored. Notice that also this table is subject to changes, as new metrics will be added.
 
 | **Monitoring Metric** | Description                                              |              **Monitoring Target**               |             **Conditions**             |
@@ -83,7 +84,7 @@ under which they are actually monitored. Notice that also this table is subject 
 |     TEXT_EMOTION      | The emotion of the text                                  |                INPUT, USER_INPUT                 |    When the data structure is text     |
 |    TEXT_SENTIMENT     | The sentiment of the text                                |                INPUT, USER_INPUT                 |    When the data structure is text     |
 |      TEXT_LENGTH      | The length of the text                                   | INPUT, USER_INPUT, RETRIEVED_CONTEXT, PREDICTION |    When the data structure is text     |
-|   MODEL_PERPLEXITY    | The uncertainty of the LLM                               |                    PREDICTION                    |       When the task type is RAG        |
+|   MODEL_PERPLEXITY    | A measure of how well the LLM predicts the next words    |                    PREDICTION                    |       When the task type is RAG        |
 |   IMAGE_BRIGHTNESS    | The brightness of the image                              |                      INPUT                       |    When the data structure is image    |
 |    IMAGE_CONTRAST     | The contrast of the image                                |                      INPUT                       |    When the data structure is image    |
 |      BBOXES_AREA      | The average area of the predicted bounding boxes         |                    PREDICTION                    | When the task type is Object Detection |

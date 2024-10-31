@@ -2,7 +2,7 @@
 
 This section outlines how to configure automation to receive notifications or start retraining after a [Detection Event] occurs.
 
-When a detection event is produced, the MLCube Platform reviews all the detection event rules you have set 
+When a detection event is produced, the ML cube Platform reviews all the detection event rules you have set 
 and triggers those matching the event.
 
 Rules are specific to a task and require the following parameters:

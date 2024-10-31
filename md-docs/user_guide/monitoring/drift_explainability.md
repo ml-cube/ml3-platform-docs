@@ -6,7 +6,7 @@ ensuring the model continues to function as expected. However, monitoring only i
 In order to make the right decisions, you need to understand what were the main factors that led to the drift in the first place, so that
 the correct actions can be taken to mitigate it.
 
-The MLCube Platform supports this process by offering what we refer to as "**Drift Explainability Reports**", 
+The ML cube Platform supports this process by offering what we refer to as "**Drift Explainability Reports**", 
 automatically generated upon the detection of a drift and containing several elements that should help you diagnose the root causes 
 of the change occurred.
 
@@ -16,6 +16,7 @@ You can access the reports by navigating to the `Drift Explainability` tab in th
 
 A Drift Explainability Report consists in comparing the reference data and the portion of production data where the drift was identified, hence 
 those belonging to the new concept. Notice that these reports are generated after a sufficient amount of samples has been collected after the drift.
+This is because the elements of the report needs a significant number of samples to guarantee statistical reliability of the results.
 If the distribution moves back to the reference before enough samples are collected, the report might not be generated.
 
 Each report is composed of several entities, each providing a different perspective on the data and the drift occurred. 
