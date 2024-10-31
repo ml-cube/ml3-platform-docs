@@ -5,16 +5,16 @@ This section outlines how to configure automation to receive notifications or st
 When a detection event is produced, the ML cube Platform reviews all the detection event rules you have set 
 and triggers those matching the event.
 
-Rules are specific to a task and require the following parameters:
+Rules are specific to a task and are characterized by the following attributes:
 
-- `name`: a descriptive label of the rule.
-- `task_id`: the unique identifier of the task to which the rule belongs.
-- `detection_event_type`: the [DetectionEventType] that the rule matches.
-- `severity`: the [DetectionEventSeverity] of the event.
-- `monitoring_target`: the monitoring target whose event should trigger the rule. 
-- `model_name`: the name of the model to which the rule applies. This is only required when the monitoring target is related to a model
+- `Name`: a descriptive label of the rule.
+- `Detection Event Type`: the type of event that triggers the rule.
+- `Severity`: the severity of the event that triggers the rule. If not specified, the rule will be triggered by events of any severity.
+- `Monitoring Target`: the monitoring target whose event should trigger the rule. 
+- `Monitoring Metric`: the monitoring metric whose event should trigger the rule.
+- `Model name`: the name of the model to which the rule applies. This is only required when the monitoring target is related to a model
   (such as `ERROR` or `PREDICTION`).
-- `actions`: A sequential list of actions to be executed when the rule is triggered.
+- `Actions`: A list of actions to be executed sequentially when the rule is triggered.
 
 ## Detection Event Actions
 Three types of actions are currently supported: notification, plot configuration and retrain.
@@ -23,11 +23,11 @@ Three types of actions are currently supported: notification, plot configuration
 
 These actions send notifications to external services when a detection event is triggered. The following notification actions are available:
 
-- `SlackNotificationAction`: sends a notification to a Slack channel via webhook.
-- `DiscordNotificationAction`: sends a notification to a Discord channel via webhook.
-- `EmailNotificationAction`: sends an email to the provided email address.
-- `TeamsNotificationAction`: sends a notification to Microsoft Teams via webhook.
-- `MqttNotificationAction`: sends a notification to an MQTT broker.
+- `Slack Notification`: sends a notification to a Slack channel via webhook.
+- `Discord Notification`: sends a notification to a Discord channel via webhook.
+- `Email Notification`: sends an email to the provided email address.
+- `Teams Notification`: sends a notification to Microsoft Teams via webhook.
+- `Mqtt Notification`: sends a notification to an MQTT broker.
 
 ### Plot Configuration
 
@@ -37,7 +37,7 @@ data preceding the event, while the second one includes data following the event
 ### Retrain Action
 
 Retrain action lets you retrain your model. Therefore, it is only available when the monitoring target of the rule is related to a model.
-The retrain action does not need any parameter because it is automatically inferred from the `model_name` attribute of the rule.
+The retrain action does not need any parameter because it is automatically inferred from the `Model Name` attribute of the rule.
 Of course, the model must already have a retrain trigger associated before setting up this action.
 
 !!! example
@@ -63,7 +63,4 @@ Of course, the model must already have a retrain trigger associated before setti
     )
     ```
 
-[add_historical_data]: ../../api/python/client.md#add_historical_data
 [Detection Event]: detection_event.md
-[DetectionEventType]: ../../api/python/enums.md#detectioneventtype
-[DetectionEventSeverity]: ../../api/python/enums.md#detectioneventseverity
