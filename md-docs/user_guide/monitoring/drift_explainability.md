@@ -31,7 +31,7 @@ These are the entities currently available:
  has changed over time. This entity is available only for tasks with tabular data.
 - `Variable discriminative power`: it's also a bar plot displays the influence of each feature, as well as the target, 
  in differentiating between the reference and the production datasets. 
- The values represent how strongly a given feature helps distinguishing the datasets, with higher values representing stronger 
+ The values represent how strongly a given feature helps to distinguish the datasets, with higher values representing stronger 
  separating power. This entity is available only for tasks with tabular data.
 
 [Monitoring]: index.md

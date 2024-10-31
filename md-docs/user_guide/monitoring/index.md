@@ -44,9 +44,11 @@ and the [Detection Event Rule] sections respectively.
 After explaining why monitoring is so important in modern AI systems and detailing how it is performed in the ML cube Platform, 
 we can introduce the concepts of Monitoring Targets and Monitoring Metrics. They both represent quantities that the ML cube Platform monitors, 
 but they differ in their nature.
-They are both automatically defined by the ML cube platform based on the [Task] attributes, such as the Task type and the data structure,
 
-
+Targets and Metrics are defined by the ML cube platform based on the [Task] attributes, such as the Task type and the data structure, and their monitoring
+is automatically enabled upon the task creation. The idea underlying defining many entities to monitor, rather than monitoring
+only the model error, is to provide a comprehensive view of the model's
+performance and the data distribution, easing the identification of the root causes of a drift and thus facilitating the corrective actions.
 
 #### Monitoring Targets
 
@@ -87,44 +89,62 @@ A Monitoring Metric is a generic quantity that can be computed on a Monitoring T
 aspects of an entity, which might help in identifying the root cause of a drift, as well as defining the corrective actions to be taken.
 
 The following table displays the monitoring metrics supported, along with their monitoring target and the conditions
-under which they are actually monitored. Notice that also this table is subject to changes, as new metrics will be added.
+under which they are actually monitored. The possible values that each metric can assume are also provided.
+Notice that also this table is subject to changes, as new metrics will be added.
 
-| **Monitoring Metric** | Description                                              |              **Monitoring Target**               |             **Conditions**             |
-|:---------------------:|----------------------------------------------------------|:------------------------------------------------:|:--------------------------------------:|
-|     TEXT_TOXICITY     | The toxicity of the text                                 |          INPUT, USER_INPUT, PREDICTION           |    When the data structure is text     |
-|     TEXT_EMOTION      | The emotion of the text                                  |                INPUT, USER_INPUT                 |    When the data structure is text     |
-|    TEXT_SENTIMENT     | The sentiment of the text                                |                INPUT, USER_INPUT                 |    When the data structure is text     |
-|      TEXT_LENGTH      | The length of the text                                   | INPUT, USER_INPUT, RETRIEVED_CONTEXT, PREDICTION |    When the data structure is text     |
-|   MODEL_PERPLEXITY    | A measure of how well the LLM predicts the next words    |                    PREDICTION                    |       When the task type is RAG        |
-|   IMAGE_BRIGHTNESS    | The brightness of the image                              |                      INPUT                       |    When the data structure is image    |
-|    IMAGE_CONTRAST     | The contrast of the image                                |                      INPUT                       |    When the data structure is image    |
-|      BBOXES_AREA      | The average area of the predicted bounding boxes         |                    PREDICTION                    | When the task type is Object Detection |
-|    BBOXES_QUANTITY    | The average number of predicted bounding boxes per image |                    PREDICTION                    | When the task type is Object Detection |
+| **Monitoring Metric** | Description                                              |              **Monitoring Target**               |             **Conditions**             | **Possible values**                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+|:---------------------:|----------------------------------------------------------|:------------------------------------------------:|:--------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|     TEXT_TOXICITY     | The toxicity of the text                                 |          INPUT, USER_INPUT, PREDICTION           |    When the data structure is text     | Either _neutral_ or _toxic_.                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+|     TEXT_EMOTION      | The emotion of the text                                  |                INPUT, USER_INPUT                 |    When the data structure is text     | If the Task text language is Italian, one between these: _anger_, _joy_, _sadness_, _fear_. <br/> <br/> Otherwise, _one_ between these: _admiration_, _amusement_, _anger_, _annoyance_, _approval_, _caring_, _confusion_, _curiosity_, _desire_, _disappointment_, _disapproval_, _disgust_, _embarrassment_, _excitement_, _fear_, _gratitude_, _grief_, _joy_, _love_, _nervousness_, _optimism_, _pride_, _realization_, _relief_, _remorse_, _sadness_, _surprise_, _neutral_. |
+|    TEXT_SENTIMENT     | The sentiment of the text                                |                INPUT, USER_INPUT                 |    When the data structure is text     | If the Task text language is Italian, one between these: _POSITIVE_, _NEGATIVE_. Otherwise, one between these: _negative_, _neutral_, _positive_                                                                                                                                                                                                                                                                                                                                     |
+|      TEXT_LENGTH      | The length of the text                                   | INPUT, USER_INPUT, RETRIEVED_CONTEXT, PREDICTION |    When the data structure is text     | An integer value.                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+|   MODEL_PERPLEXITY    | A measure of how well the LLM predicts the next words    |                    PREDICTION                    |       When the task type is RAG        | A floating point value.                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+|   IMAGE_BRIGHTNESS    | The brightness of the image                              |                      INPUT                       |    When the data structure is image    | A floating point value.                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+|    IMAGE_CONTRAST     | The contrast of the image                                |                      INPUT                       |    When the data structure is image    | A floating point value.                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+|      BBOXES_AREA      | The average area of the predicted bounding boxes         |                    PREDICTION                    | When the task type is Object Detection | A floating point value.                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+|    BBOXES_QUANTITY    | The average number of predicted bounding boxes per image |                    PREDICTION                    | When the task type is Object Detection | An integer value.                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 
 
 ### Monitoring Status
 
-All the entities being monitored are associated with a status, which is defined according to the enumeration [MonitoringStatus]. 
-
-The status can be one of the following:
+All the entities being monitored are associated with a status, which can be one of the following:
 
 - `OK`: the entity is behaving as expected.
 - `WARNING`: the entity has shown signs of drifts, but it is still within the acceptable range.
 - `DRIFT`: the entity has experienced a significant change and corrective actions should be taken.
 
+The following diagram illustrates the possible transitions between the statuses.
+Each transition is triggered by a [Detection Event] and the status of the entity is updated accordingly.
+
+<div class="mermaid-container">
+
+```mermaid
+stateDiagram-v2
+    direction LR
+    
+    [*] --> OK : Initial State
+    
+    OK --> WARNING : Warning On
+    WARNING --> OK : Warning Off
+    
+    WARNING --> DRIFT : Drift On
+    DRIFT --> WARNING : Drift Off
+    
+    DRIFT --> OK : Drift Off
+```
+</div>
+
+Notice that a drift off event can either bring the entity back to the `OK` status or to the `WARNING` status, 
+depending on the velocity of the change and the monitoring algorithm's sensitivity.
+
 You can check the status of the monitored entities in two ways:
 
 - **WebApp**: The homepage of the task displays the status of both monitoring targets and metrics.
-- **SDK**: The [get_monitoring_status] method can be used to retrieve the status of the monitored entities programmatically. 
-  This method returns a [MonitoringQuantityStatus], a BaseModel holding the status of the monitoring entity requested.
-  Otherwise, you can use the [get_task] method, which returns a BaseModel with all the information related to a task, including
-    the list of [MonitoringQuantityStatus] for all the entities monitored in the task.
+- **SDK**: there are a couple of methods to retrieve the status of the monitored entities programmatically. You can either get the status of a specific entity
+            or retrieve the status of all the entities associated with a task.
 
 
 [Task]: ../task.md
 [Detection Event Rule]: detection_event_rules.md
 [Detection Event]: detection_event.md
-[MonitoringStatus]: ../../api/python/enums.md#monitoringstatus
-[get_monitoring_status]: ../../api/python/client.md#get_monitoring_status
-[MonitoringQuantityStatus]: ../../api/python/models.md#monitoringquantitystatus
 [get_task]: ../../api/python/client.md#get_task
