@@ -17,14 +17,22 @@ Rules are specific to a task and require the following parameters:
 - `actions`: A sequential list of actions to be executed when the rule is triggered.
 
 ## Detection Event Actions
-Two types of actions are currently supported: notification and retrain.
+Three types of actions are currently supported: notification, plot configuration and retrain.
 
 ### Notifications
+
+These actions send notifications to external services when a detection event is triggered. The following notification actions are available:
+
 - `SlackNotificationAction`: sends a notification to a Slack channel via webhook.
 - `DiscordNotificationAction`: sends a notification to a Discord channel via webhook.
 - `EmailNotificationAction`: sends an email to the provided email address.
 - `TeamsNotificationAction`: sends a notification to Microsoft Teams via webhook.
 - `MqttNotificationAction`: sends a notification to an MQTT broker.
+
+### Plot Configuration
+
+This action consists in creating two plot configurations when a detection event is triggered: the first one includes
+data preceding the event, while the second one includes data following the event.
 
 ### Retrain Action
 

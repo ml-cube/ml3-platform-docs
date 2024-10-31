@@ -17,25 +17,36 @@ and the distribution of the data it is operating on.
 
 ## How does the ML cube Platform perform Monitoring?
 
-The ML cube platform performs monitoring by employing statistical techniques to compare a certain reference (for instance, data used for training or the performance of a model
-on the test set) to incoming production data. If a significant difference is detected, an alarm is raised, signaling that the monitored entity
+The ML cube platform performs monitoring by employing statistical techniques to compare a certain reference (for instance, data used for training or the 
+performance of a model
+on the test set) to incoming production data. 
+
+These statistical techniques, also known as _monitoring algorithms_, are tailored to the type of data
+being observed; for instance, univariate data requires different monitoring techniques than multivariate data. However, you don't need to worry about
+the specifics of these algorithms, as the ML cube Platform takes care of selecting the most appropriate ones for your task.
+
+If a significant difference between reference and production data is detected, an alarm is raised, signaling that the monitored entity
 is drifting away from the expected behavior and that corrective actions should be taken.
 
-In more practical terms, the [set_model_reference] method can be used to specify the time period where the reference of a given model should be placed. As a consequence,
-all algorithms associated with the specified model (not just those monitoring the performance, but also those operating on the data used by the model) will
-be initialized on the specified reference. Of course, you should provide to the Platform the data you want to use as a reference before calling this method, for instance using the 
-[add_historical_data] method.
+In practical terms, you can use the SDK to specify the time period where the reference of a given model should be placed.
+As a consequence, all algorithms associated with the specified model (not just those monitoring the performance, but also those operating 
+on the data used by the model) will
+be initialized on the specified reference. Of course, you should provide to the 
+Platform the data you want to use as a reference before setting the reference itself. This can be done through the SDK as well.
 
-After setting the reference, the [add_production_data] method can be used to send production data to the platform. This data will be analyzed by the monitoring algorithms
-and, if a significant difference is detected, an alarm will be raised, in the form of a [DetectionEvent]. 
+After setting the reference, you can send production data to the platform, still using the SDK. This data will be analyzed by the monitoring algorithms
+and, if a significant difference is detected, an alarm will be raised, in the form of a [Detection Event]. 
 You can explore more about detection events and how you can set up automatic actions upon their reception in the [Detection Event] 
 and the [Detection Event Rule] sections respectively.
 
 ### Targets and Metrics
 
 After explaining why monitoring is so important in modern AI systems and detailing how it is performed in the ML cube Platform, 
-we can introduce the concepts of Monitoring Targets and Monitoring Metrics. They both represent quantities that the ML cube Platform monitors, but they differ in their nature.
-They are both automatically defined by the ML cube platform based on the [Task] attributes, such as the Task type and the data structure.
+we can introduce the concepts of Monitoring Targets and Monitoring Metrics. They both represent quantities that the ML cube Platform monitors, 
+but they differ in their nature.
+They are both automatically defined by the ML cube platform based on the [Task] attributes, such as the Task type and the data structure,
+
+
 
 #### Monitoring Targets
 
@@ -111,10 +122,6 @@ You can check the status of the monitored entities in two ways:
 
 
 [Task]: ../task.md
-[set_model_reference]:  ../../api/python/client.md#set_model_reference
-[add_production_data]: ../../api/python/client.md#add_production_data
-[add_historical_data]: ../../api/python/client.md#add_historical_data
-[DetectionEvent]: ../../api/python/models.md#detectionevent
 [Detection Event Rule]: detection_event_rules.md
 [Detection Event]: detection_event.md
 [MonitoringStatus]: ../../api/python/enums.md#monitoringstatus

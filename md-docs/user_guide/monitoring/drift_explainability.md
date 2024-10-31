@@ -15,7 +15,7 @@ You can access the reports by navigating to the `Drift Explainability` tab in th
 ## Structure
 
 A Drift Explainability Report consists in comparing the reference data and the portion of production data where the drift was identified, hence 
-those belonging to the new concept. Notice that these reports are generated after a sufficient amount of samples has been collected after the drift.
+those belonging to the new data distribution. Notice that these reports are generated after a sufficient amount of samples has been collected after the drift.
 This is because the elements of the report needs a significant number of samples to guarantee statistical reliability of the results.
 If the distribution moves back to the reference before enough samples are collected, the report might not be generated.
 
