@@ -138,7 +138,6 @@ nav:
           - user_guide/modules/rag_evaluation.md
           - user_guide/modules/llm_security.md
           - user_guide/modules/business.md
-          - user_guide/modules/analytics.md
       - Integrations:
           - user_guide/integrations/index.md
           - user_guide/integrations/data_sources.md
