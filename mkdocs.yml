@@ -4,6 +4,21 @@ docs_dir: md-docs
 site_dir: docs
 theme:
   name: material
+  icon:
+    admonition:
+      note: fontawesome/solid/note-sticky
+      abstract: fontawesome/solid/book
+      info: fontawesome/solid/circle-info
+      tip: fontawesome/solid/bullhorn
+      success: fontawesome/solid/check
+      question: fontawesome/solid/circle-question
+      warning: fontawesome/solid/triangle-exclamation
+      failure: fontawesome/solid/bomb
+      danger: fontawesome/solid/skull
+      bug: fontawesome/solid/robot
+      example: fontawesome/solid/flask
+      quote: fontawesome/solid/quote-left
+      code-block: material/code-tags
   features:
     - announce.dismiss
     - content.action.edit
@@ -77,6 +92,8 @@ markdown_extensions:
       line_spans: __span
       pygments_lang_class: true
   - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
   - pymdownx.keys
   - pymdownx.magiclink:
       repo_url_shorthand: true
@@ -110,6 +127,7 @@ nav:
       - user_guide/company.md
       - user_guide/project.md
       - user_guide/task.md
+      - user_guide/data.md
 
       - Modules:
           - user_guide/modules/index.md
