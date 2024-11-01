@@ -1,13 +1,73 @@
 # ML cube Platform
 
-Welcome to the official [ML cube Platform] documentation site.
-Here you can find everything you need to start using the product.
+Welcome to the ML cube Platform documentation!
 
-This site contains two sections:
+This website is designed to help you get the most out of ML cube Platform by providing clear, detailed explanations about the main concepts of the product and guidance on setup, configuration and usage.
+You will find definitions, tutorials, practical examples and everything you need to make full use of our product.
 
-- [User Guide] provides high overview of ML cube Platform and describes its main components.
-- [API] provides details about the API to interact with ML cube Platform.
+Dive in to explore everything ML cube Platform has to offer, and feel free to reach out if you need further assistance. Let’s get started!
 
-[ML cube Platform]: https://mlcube.com/platform
-[User Guide]: user_guide/index.md
-[API]: api/index.md
+
+<div class="grid cards" markdown>
+
+-   :material-sign-direction:{ .lg .middle } **Basic concepts**
+
+    ---
+
+    New to ML cube Platform?
+
+    Start reading the Company page.
+
+    [:octicons-arrow-right-24: More info](user_guide/company.md)
+
+-   :simple-hive_blockchain:{ .lg .middle } **Modules**
+
+    ---
+
+    Do you want to learn what ML cube Platform can offer?
+
+    Go to the Modules page.
+
+    [:octicons-arrow-right-24: More info](user_guide/modules/index.md)
+
+-   :material-database:{ .lg .middle } **Data**
+
+    ---
+
+    Data are not all the same! 
+    
+    Discover how ML cube Platform handles data in the Data page.
+
+    [:octicons-arrow-right-24: More info](user_guide/data.md)
+
+-   :material-connection:{ .lg .middle } **Integrations**
+
+    ---
+
+    We are part of MLOps ecosystem and natively integrated with cloud solutions!
+
+    Check how to configure them in ML cube Platform.
+
+    [:octicons-arrow-right-24: More info](user_guide/integrations/index.md)
+
+-   :material-file-code:{ .lg .middle } **API**
+
+    ---
+
+    ML cube Platform has been developed with the API first mind!
+
+    Explore how to use our SDK.
+
+    [:octicons-arrow-right-24: More info](api/index.md)
+
+-   :material-notebook:{ .lg .middle } **Notebook Examples**
+
+    ---
+
+    First time using our SDK?
+
+    Check the Examples page to learn from them.
+
+    [:octicons-arrow-right-24: More info](api/examples.md)
+
+</div>

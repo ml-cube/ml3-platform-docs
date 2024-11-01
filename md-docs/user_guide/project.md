@@ -8,7 +8,7 @@ Users in the [Company] can access to one or more Projects according to their [ro
 
 ## Creation
 
-When a Project is created, the [User] specifies its *name*, *description*, and selects the *default storage policy*.
+When a Project is created, the User specifies its *name*, *description*, and selects the *default storage policy*.
 
 *Storage Policy* defines the default behavior the Platform follows to access data that are shared with it.
 Indeed, data shared with ML cube Platform can either be duplicated and stored in ML cube private cloud storage or stay only on customer's cloud and accessed as a remote data source.
@@ -49,6 +49,5 @@ A job failure can be either due to bad requests or internal errors, you can chec
 
 [Company]: company.md
 [Tasks]: task.md
-[User]: user.md
 [roles]: rbac.md
 [Integrations]: integrations/index.md

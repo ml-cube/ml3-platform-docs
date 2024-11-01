@@ -122,28 +122,23 @@ extra_javascript:
 nav:
   - Home:
       - index.md
-  - User Guide:
-      - user_guide/index.md
       - user_guide/company.md
+      - user_guide/rbac.md
       - user_guide/project.md
       - user_guide/task.md
+      - user_guide/model.md
+      - user_guide/data_schema.md
       - user_guide/data.md
-
       - Modules:
           - user_guide/modules/index.md
           - user_guide/modules/monitoring.md
+          - user_guide/detection_event_rules.md
           - user_guide/modules/retraining.md
           - user_guide/modules/business.md
-          - user_guide/modules/labeling.md
       - Integrations:
           - user_guide/integrations/index.md
           - user_guide/integrations/data_sources.md
           - user_guide/integrations/retrain_triggers.md
-      - Other resources:
-          - user_guide/rbac.md
-          - user_guide/detection_event_rules.md
-          - user_guide/data_schema.md
-          - user_guide/glossary.md
   - API:
       - api/index.md
       - Examples: api/examples.md
@@ -153,8 +148,6 @@ nav:
           - Models: api/python/models.md
           - Exceptions: api/python/exceptions.md
           - Enums: api/python/enums.md
-      - REST:
-          - api/rest/index.md
   - Examples: api/examples.md
   - Web App: https://app.platform.mlcube.com/
   - Support: https://support.platform.mlcube.com/en/customer/login
