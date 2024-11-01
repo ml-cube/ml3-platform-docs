@@ -123,12 +123,12 @@ nav:
   - Home:
       - index.md
       - user_guide/company.md
-      - user_guide/rbac.md
       - user_guide/project.md
       - user_guide/task.md
       - user_guide/model.md
       - user_guide/data_schema.md
       - user_guide/data.md
+      - user_guide/rbac.md
       - Modules:
           - user_guide/modules/index.md
           - user_guide/modules/monitoring.md
