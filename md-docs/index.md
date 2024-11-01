@@ -60,7 +60,7 @@ Dive in to explore everything ML cube Platform has to offer, and feel free to re
 
     [:octicons-arrow-right-24: More info](api/index.md)
 
--   :material-notebook:{ .lg .middle } **Notebook Examples**
+-  :simple-jupyter:{ .lg .middle } **Notebook Examples**
 
     ---
 
