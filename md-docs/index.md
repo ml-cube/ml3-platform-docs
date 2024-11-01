@@ -14,7 +14,7 @@ Dive in to explore everything ML cube Platform has to offer, and feel free to re
 
     ---
 
-    New to ML cube Platform?
+    Are you new to the ML cube Platform and don't know where to start?
 
     Start reading the Company page.
 
@@ -44,9 +44,9 @@ Dive in to explore everything ML cube Platform has to offer, and feel free to re
 
     ---
 
-    We are part of MLOps ecosystem and natively integrated with cloud solutions!
+    ML cube Platform is natively integrated with cloud solutions!
 
-    Check how to configure them in ML cube Platform.
+    Check how to configure them.
 
     [:octicons-arrow-right-24: More info](user_guide/integrations/index.md)
 
