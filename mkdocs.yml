@@ -116,6 +116,7 @@ nav:
           - user_guide/modules/retraining.md
           - user_guide/modules/business.md
           - user_guide/modules/labeling.md
+          - user_guide/modules/llm_security.md
       - Integrations:
           - user_guide/integrations/index.md
           - user_guide/integrations/data_sources.md
