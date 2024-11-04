@@ -121,26 +121,17 @@ All the entities being monitored are associated with a status, which can be one 
 The following diagram illustrates the possible transitions between the statuses.
 Each transition is triggered by a [Detection Event] and the status of the entity is updated accordingly.
 
-<div class="mermaid-container">
+<figure markdown style="width: 100%">
+  ![Drift score](../../imgs/monitoring/states.svg)
+  <figcaption>Monitoring status state diagram</figcaption>
+</figure>
 
-```mermaid
-stateDiagram-v2
-    direction LR
-    
-    [*] --> OK : Initial State
-    
-    OK --> WARNING : Warning On
-    WARNING --> OK : Warning Off
-    
-    WARNING --> DRIFT : Drift On
-    DRIFT --> WARNING : Drift Off
-    
-    DRIFT --> OK : Drift Off
-```
-</div>
+Notice that a Drift OFF event can either bring the entity back to the `OK` status or to the `WARNING` status, 
+depending on the velocity of the change and the monitoring algorithm's sensitivity. The same applies
+to the Drift ON events, which can both happen when the entity is in the `WARNING` status or in the `OK` status.
 
-Notice that a drift off event can either bring the entity back to the `OK` status or to the `WARNING` status, 
-depending on the velocity of the change and the monitoring algorithm's sensitivity.
+The only transition which is not due to a detection event is the one caused by the specification of a new reference. In this case, the status of the entity is reset to `OK`
+for every entity as all the monitoring algorithms are reinitialized on the new reference.
 
 You can check the status of the monitored entities in two ways:
 
