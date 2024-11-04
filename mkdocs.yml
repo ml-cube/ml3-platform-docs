@@ -115,6 +115,7 @@ nav:
           - user_guide/modules/index.md
           - user_guide/modules/monitoring.md
           - user_guide/modules/retraining.md
+          - user_guide/modules/rag_evaluation.md
           - user_guide/modules/business.md
           - user_guide/modules/labeling.md
       - Integrations:
