@@ -50,7 +50,10 @@ is automatically enabled upon the task creation. The idea underlying defining ma
 only the model error, is to provide a comprehensive view of the model's
 performance and the data distribution, easing the identification of the root causes of a drift and thus facilitating the corrective actions.
 
-![Monitoring Targets and Metrics overview](../../imgs/monitoring-overview.svg)
+<figure markdown style="width: 100%">
+  ![Monitoring Overview](../../imgs/monitoring-overview.svg)
+  <figcaption> Monitoring Targets and Metrics overview</figcaption>
+</figure>
 
 #### Monitoring Targets
 
