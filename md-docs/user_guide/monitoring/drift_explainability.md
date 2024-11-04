@@ -52,7 +52,7 @@ These are the entities currently available:
   between the two datasets was higher. Notice that some postprocessing is applied on the events to account for the functioning of the drift detection algorithms. 
   Specifically,
   we shift back the drift on events by a certain offset, aiming to point at the precise time when the drift actually started. As a result,
-  drift on events might be shown before the threshold is exceeded. This entity is available for all tasks.
+  drift on events might be shown before the threshold is exceeded. This explainability entity is available for all tasks.
 
 
 <figure markdown style="width: 100%">

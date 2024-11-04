@@ -34,9 +34,9 @@ These actions send notifications to external services when a detection event is 
 This action consists in creating two plot configurations when a detection event is triggered: the first one includes
 data preceding the event, while the second one includes data following the event.
 
-### Retrain Action
+### Retrain
 
-Retrain action lets you retrain your model. Therefore, it is only available when the monitoring target of the rule is related to a model.
+Retrain Action enables the automatic retraining of your model. Therefore, it is only available when the target of the rule is related to a model.
 The retrain action does not need any parameter because it is automatically inferred from the `Model Name` attribute of the rule.
 Of course, the model must already have a retrain trigger associated before setting up this action.
 
