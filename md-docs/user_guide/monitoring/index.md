@@ -139,7 +139,7 @@ stateDiagram-v2
 ```
 
 
-Notice that a Drift OFF event can either bring the entity back to the `OK` status or to the `WARNING` status, 
+Notice that a Drift Off event can either bring the entity back to the `OK` status or to the `WARNING` status, 
 depending on the velocity of the change and the monitoring algorithm's sensitivity. The same applies
 to the Drift ON events, which can both happen when the entity is in the `WARNING` status or in the `OK` status.
 
