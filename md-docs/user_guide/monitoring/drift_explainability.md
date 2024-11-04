@@ -6,7 +6,7 @@ ensuring the model continues to function as expected. However, monitoring only i
 In order to make the right decisions, you need to understand what were the main factors that led to the drift in the first place, so that
 the correct actions can be taken to mitigate it.
 
-The ML cube Platform supports this process by offering what we refer to as "**Drift Explainability Reports**", 
+The ML cube Platform supports this process by offering what we refer to as **Drift Explainability Reports**, 
 automatically generated upon the detection of a drift and containing several elements that should help you diagnose the root causes 
 of the change occurred.
 
@@ -20,7 +20,7 @@ This is because the elements of the report needs a significant number of samples
 If the distribution moves back to the reference before enough samples are collected, the report might not be generated.
 
 Each report is composed of several entities, each providing a different perspective on the data and the drift occurred. 
-Most of them are specific to a certain [Data Structure], so they might not be available for all tasks.
+Most of them are specific to a certain `Data Structure`, so they might not be available for all tasks.
 
 These entities can take the form of tables, plots, or textual explanations. 
 Observed and analyzed together, they should provide a comprehensive understanding of the drift and its underlying causes.
@@ -35,4 +35,3 @@ These are the entities currently available:
  separating power. This entity is available only for tasks with tabular data.
 
 [Monitoring]: index.md
-[Data Structure]: ../../api/python/enums.md#datastructure

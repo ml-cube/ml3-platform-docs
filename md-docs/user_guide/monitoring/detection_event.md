@@ -5,13 +5,17 @@ A Detection Event is raised by the ML cube Platform when a significant change is
 An event is characterized by the following attributes:
 
 - `Event Type`: the type of the event. It's possible values are:
-  - `Warning On`: the monitoring entity is experiencing slight changes that might lead to a drift.
-  - `Warning Off`: the monitoring entity has returned to the reference distribution. 
-  - `Drift On`: the monitoring entity has drifted from the reference distribution.
-  - `Drift Off`: the monitoring entity has returned to the reference distribution.
+        <div class="nice-list">
+            <ul>
+                <li> `Warning On`: the monitoring entity is experiencing slight changes that might lead to a drift.</li>
+                <li> `Warning Off`: the monitoring entity has returned to the reference distribution. </li>
+                <li> `Drift On`: the monitoring entity has drifted from the reference distribution.</li>
+                <li> `Drift Off`: the monitoring entity has returned to the reference distribution.</li>
+            </ul>
+        </div>
 - `Severity`: the severity of the event. It's provided only for drift events and it can be `Low`, `Medium`, or `High`.
-- `Monitoring Target`: the Monitoring Target being monitored (see the [Monitoring] page for more details on what a Monitoring Target is).
-- `Monitoring Metric`: the Monitoring Metric being monitored (see the [Monitoring] page for more details on what a Monitoring Metric is).
+- `Monitoring Target`: the [Monitoring Target](index.md#monitoring-metrics) being monitored.
+- `Monitoring Metric`: the [Monitoring Metric](index.md#monitoring-metrics) being monitored.
 - `Model Name`: the name of the model that raised the event. It's present only if the event is related to a model.
 - `Model Version`: the version of the model that raised the event. It's present only if the event is related to a model.
 - `Insert datetime`: the time when the event was raised.

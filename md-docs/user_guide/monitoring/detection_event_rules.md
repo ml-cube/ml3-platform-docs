@@ -9,9 +9,9 @@ Rules are specific to a task and are characterized by the following attributes:
 
 - `Name`: a descriptive label of the rule.
 - `Detection Event Type`: the type of event that triggers the rule.
-- `Severity`: the severity of the event that triggers the rule. If not specified, the rule will be triggered by events of any severity.
-- `Monitoring Target`: the monitoring target whose event should trigger the rule. 
-- `Monitoring Metric`: the monitoring metric whose event should trigger the rule.
+- `Severity`: the severity of the event that triggers the rule. It is only applicable to drift events. If not specified, the rule will be triggered by drift events of any severity.
+- `Monitoring Target`: the [Monitoring Target](index.md#monitoring-targets) whose event should trigger the rule. 
+- `Monitoring Metric`: the [Monitoring Metric](index.md#monitoring-metrics) whose event should trigger the rule.
 - `Model name`: the name of the model to which the rule applies. This is only required when the monitoring target is related to a model
   (such as `ERROR` or `PREDICTION`).
 - `Actions`: A list of actions to be executed sequentially when the rule is triggered.

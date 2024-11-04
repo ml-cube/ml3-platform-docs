@@ -13,7 +13,7 @@ Modules can be always active or on-demand: Monitoring module and Drift Explainab
 
     Data drift detection over data.
 
-    [:octicons-arrow-right-24: More info](user_guide/company.md)
+    [:octicons-arrow-right-24: More info](../monitoring/index.md)
 
 -   :material-compare:{ .lg .middle } **Drift Explainability**
 
@@ -21,7 +21,7 @@ Modules can be always active or on-demand: Monitoring module and Drift Explainab
 
     Understand the nature of detected drift.
 
-    [:octicons-arrow-right-24: More info](user_guide/modules/index.md)
+    [:octicons-arrow-right-24: More info](../monitoring/drift_explainability.md)
 
 -   :material-speedometer:{ .lg .middle } **Retraining**
 

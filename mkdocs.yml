@@ -138,8 +138,7 @@ nav:
 
       - Modules:
           - user_guide/modules/index.md
-          - user_guide/modules/monitoring.md
-          - user_guide/detection_event_rules.md
+#          - user_guide/modules/monitoring.md
           - user_guide/modules/retraining.md
           - user_guide/modules/topic_modeling.md
           - user_guide/modules/rag_evaluation.md

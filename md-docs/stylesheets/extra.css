@@ -31,3 +31,7 @@
   -webkit-mask-image: var(--md-admonition-icon--code-block);
           mask-image: var(--md-admonition-icon--code-block);
 }
+
+.nice-list ul{
+    list-style-type: circle;
+}
