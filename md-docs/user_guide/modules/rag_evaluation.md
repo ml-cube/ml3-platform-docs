@@ -49,8 +49,10 @@ Below are the metrics computed by the RAG evaluation module, divided into the th
 
 The RAG evaluation module computes the metrics based on the data availability for each sample. 
 If a sample lacks one of the three components (User Input, Context or Response), only the applicable metrics are computed. 
-For instance, if a sample does not have a response, only the **User Input - Context** metrics are computed.
+For instance, if a sample is missing the response, only the **User Input - Context** metrics are computed.
 
 If data added to a [Task] contains contexts with multiple chunks of text, a [context separator](../task.md#retrieval-augmented-generation) must be provided.
+
+When requesting the evaluation, a **timestamp interval** must be provided to specify the time range of the data to be evaluated.
 
 [Task]: ../task.md
