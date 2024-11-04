@@ -19,7 +19,7 @@ Available categories are:
 The [Data Schema] created for the [Task] contains a list of Column objects, each of which has a _Role_.
 Naturally, there is a relationship between the Column's Role and the Data Category.
 In fact, each Data Category comprises a set of Column objects with certain Roles.
-So that, when you upload samples belonging to a Data Category, they must contains all the Columns objects declared on the Data Schema to be considered valid.
+When you upload samples belonging to a Data Category, they must contain all the Columns objects declared on the Data Schema to be considered valid.
 
 The following table shows these relationships:
 
@@ -130,7 +130,7 @@ For RAG Tasks, reference data can be used to indicate the type of data expected 
     You can set reference data as follow:
 
     ``` py
-    job_id = job_id = client.set_model_reference(
+    job_id = client.set_model_reference(
         model_id=model_id,
         from_timestamp=from_timestamp,
         to_timestamp=to_timestamp,
