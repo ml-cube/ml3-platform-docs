@@ -1,6 +1,6 @@
 # Model
 
-In the ML Cube Platform, a Model is a representation of the actual artificial intelligence model used for making predictions. The data used
+In the ML cube Platform, a Model is a representation of the actual artificial intelligence model used for making predictions. The data used
 for its training usually represent the reference data distribution, while production data comprises the data on which the model 
 performs inference.
 For more information about reference and production data see the [Data] page.
