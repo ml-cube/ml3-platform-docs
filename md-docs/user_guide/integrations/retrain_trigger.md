@@ -1,8 +1,11 @@
-This section offers an overview of setting up retrain triggers for your models. These triggers enable the automatic initiation of your retraining pipeline from the ML cube Platform.
+# Retrain Trigger
 
-A retrain trigger can be utilized within a Detection Event Rule. When specific criteria are met, it automatically generates the retrain report and activates the trigger. Alternatively, you can manually activate the trigger for the model on the retraining tool page.
+This section offers an overview of how you can set up a retrain trigger for your model. 
+Retrain triggers enable the automatic initiation of your retraining pipeline from the ML cube Platform. They are designed as 
+integrations with external services and thus require credentials with the appropriate privileges to be executed.
 
-A retrain trigger is designed as an integration with an external service and necessitates credentials with the appropriate privileges to execute the action.
+A Retrain Trigger can be utilized within a [Detection Event Rule](../monitoring/detection_event_rules.md). Alternatively,
+it can be manually activated from the WebApp, in the Retraining section.
 
 ## Supported Triggers
 
@@ -94,11 +97,15 @@ The following retrain triggers are supported:
 
     **Retrain Trigger Setup**
         
-    To integrate Amazon Event Bridge, you will need to create a set of AWS credentials, and add a policy that allows to put events in your event bus. Please refer to [this page](index.md) to know more.
+    To integrate Amazon Event Bridge, you need to create a set of AWS credentials, and add a policy that allows to put events in 
+    your event bus. Please refer to [this page](index.md) for more information.
 
-    Once the credentials and the policy have been created, you can set up the retrain trigger for your model through the SDK or the web application.
+    Once the credentials and the policy have been created, you can set up the retrain trigger for your model through the SDK 
+    or the web application.
 
-    !!! example
+    ??? code-block "SDK Example"
+        
+        Here is an example of how to set up an AWS Event Bridge Retrain Trigger using the SDK:
 
         ```py
         client.set_retrain_trigger(
@@ -147,11 +154,15 @@ The following retrain triggers are supported:
 
     **Retrain Trigger Setup**
 
-    To integrate GCP Pub/Sub, you will need to create a set of GCP credentials, and add a policy that allows to put events in your Pub/Sub topic. Please refer to [this page](index.md) to know more.
+    To integrate GCP Pub/Sub, you need to create a set of GCP credentials, and add a policy that allows to put events 
+    in your Pub/Sub topic. Please refer to [this page](index.md) for more information.
 
-    Once the credentials and the policy have been created, you can set up the retrain trigger for your model through the SDK or the web application.
+    Once the credentials and the policy have been created, you can set up the retrain trigger for your model through the SDK or 
+    the web application.
 
-    !!! example
+    ??? code-block "SDK Example"
+
+        Here is an example of how to set up a GCP Pub/Sub Retrain Trigger using the SDK:
 
         ```py
         client.set_retrain_trigger(
@@ -198,11 +209,14 @@ The following retrain triggers are supported:
 
     **Retrain Trigger Setup**
 
-    To integrate Azure Event Grid, you will need to create a set of Azure credentials, and add a role that allows to publish events in your Event Grid topic. Please refer to [this page](index.md) to know more.
+    To integrate Azure Event Grid, you need to create a set of Azure credentials, and add a role that allows to publish events in your Event Grid topic. 
+    Please refer to [this page](index.md) for more information.
 
     Once the credentials and the policy have been created, you can set up the retrain trigger for your model through the SDK or the web application.
 
-    !!! example
+    ??? code-block "SDK Example"
+
+        Here is an example of how to set up an Azure Event Grid Retrain Trigger using the SDK:
 
         ```py
         client.set_retrain_trigger(
