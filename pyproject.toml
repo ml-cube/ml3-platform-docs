@@ -18,11 +18,14 @@ dependencies = [
     "mkdocs-minify-plugin>=0.7.1",
     "mkdocs-glightbox>=0.3.4",
     "mkdocs-table-reader-plugin>=2.0.1",
+    "mkdocs-macros-plugin",
+    "openpyxl",
+    "pandas",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "ml3-platform-sdk @ file://${PROJECT_ROOT}/../ml3-platform-sdk",
+    "ml3-platform-sdk==0.0.22",
     "polars>=0.19.3",
     "scikit-learn",
     "torch==2.2.0",

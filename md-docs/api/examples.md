@@ -1,4 +1,4 @@
-We wrote for you a set of notebooks that can help you to understand how to use ML cube Platform SDK:
+We prepared for you a set of notebooks that can help you to understand how to use ML cube Platform SDK:
 
 - [0 - Company and Project]
 - [1 - Task and Model]

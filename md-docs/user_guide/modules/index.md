@@ -1,57 +1,58 @@
 # Modules
 
-ML cube Platform covers all the aspects of the *post-deployment life cycle* of your AI models.
-The expected usage flow with ML cube Platform is depicted in the Figure below: the model is updated by specifying its reference dataset, then production data are logged and analyzed, if a drift is detected an alarm is raised, then a retraining dataset is computed to retrain the model that will be updated on the application.
+ML cube Platform is a suite of solutions for AI model supervision, observability and maintenance covering all the aspects of the post deployment phase in the life cycle of your AI systems.
 
-<figure markdown>
-  ![Image title](../../imgs/model life cycle.png){ width="400" }
-  <figcaption>Post-deployment AI model life cycle.</figcaption>
-</figure>
+Modules can be always active or on-demand: Monitoring module and Drift Explainability automatically analyses data and generate reports as soon as new data arrive or new drifts are detected; instead, Retraining report, RAG Evaluation, LLM Security and Topic Modeling reports are explicitly requested by the user.
 
-
-
-!!! note "Delta Energy inc"
-    In Delta Energy data are collected every minute and are sent simultaneously to ML cube Platform.
-    Ground truth data like the presence of a fault and the fault category are uploaded after they are available and therefore, they will sent with a delay compared the others.
-    Drift alerting system is integrated with their Microsoft Teams and ML cube Platform sends alerts to the specified channels.
-    After they receive an alerting message, they run a retraining pipeline that communicated with ML cube Platform to retrieve the retraining dataset to use.
-    After that, they are ready to update the new version on ML cube Platform to start the monitoring.
-
-
-Each step of this journey is covered by a module:
 
 <div class="grid cards" markdown>
 
--   :material-text-search-variant:{ .lg .middle } **Monitoring**
+-   :fontawesome-solid-magnifying-glass:{ .lg .middle } **Monitoring**
 
     ---
 
-    Monitor data and model, detect drifts and receive alerts.
+    Data drift detection over data.
 
-    [:octicons-arrow-right-24: More info](monitoring.md)
+    [:octicons-arrow-right-24: More info](../monitoring/index.md)
 
--   :fontawesome-solid-gears:{ .lg .middle } **Retraining**
-
-    ---
-
-    Adapt your models to the current concept with new retraining dataset.
-
-    [:octicons-arrow-right-24: More info](retraining.md)
-
--   :material-label:{ .lg .middle } **Labeling**
+-   :material-compare:{ .lg .middle } **Drift Explainability**
 
     ---
 
-    Find which data to label to improve the overall performance.
+    Understand the nature of detected drift.
 
-    [:octicons-arrow-right-24: More info](labeling.md)
+    [:octicons-arrow-right-24: More info](../monitoring/drift_explainability.md)
 
--   :material-briefcase:{ .lg .middle } **Business**
+-   :material-speedometer:{ .lg .middle } **Retraining**
 
     ---
 
-    Monitor business KPI to validate the impact of your models.
+    Update your model to handle the drift.
 
-    [:octicons-arrow-right-24: More info](business.md)
+    [:octicons-arrow-right-24: More info](user_guide/data.md)
+
+-   :material-text-box-check:{ .lg .middle } **RAG Evaluation**
+
+    ---
+
+    Check the quality of your RAG system.
+
+    [:octicons-arrow-right-24: More info](user_guide/integrations/index.md)
+
+-   :material-shield-lock:{ .lg .middle } **LLM Security**
+
+    ---
+
+    Verify robustness of your solution.
+
+    [:octicons-arrow-right-24: More info](api/index.md)
+
+-   :material-view-dashboard:{ .lg .middle } **Topic Modeling**
+
+    ---
+
+    Identify sub-domains in your data.
+
+    [:octicons-arrow-right-24: More info](api/examples.md)
 
 </div>

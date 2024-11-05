@@ -4,6 +4,21 @@ docs_dir: md-docs
 site_dir: docs
 theme:
   name: material
+  icon:
+    admonition:
+      note: fontawesome/solid/note-sticky
+      abstract: fontawesome/solid/book
+      info: fontawesome/solid/circle-info
+      tip: fontawesome/solid/bullhorn
+      success: fontawesome/solid/check
+      question: fontawesome/solid/circle-question
+      warning: fontawesome/solid/triangle-exclamation
+      failure: fontawesome/solid/bomb
+      danger: fontawesome/solid/skull
+      bug: fontawesome/solid/robot
+      example: fontawesome/solid/flask
+      quote: fontawesome/solid/quote-left
+      code-block: material/code-tags
   features:
     - announce.dismiss
     - content.action.edit
@@ -50,6 +65,7 @@ plugins:
       minify_html: true
   - glightbox
   - table-reader
+  - macros
 
 # Extensions
 markdown_extensions:
@@ -76,6 +92,8 @@ markdown_extensions:
       line_spans: __span
       pygments_lang_class: true
   - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
   - pymdownx.keys
   - pymdownx.magiclink:
       repo_url_shorthand: true
@@ -104,28 +122,32 @@ extra_javascript:
 nav:
   - Home:
       - index.md
-  - User Guide:
-      - user_guide/index.md
       - user_guide/company.md
       - user_guide/project.md
       - user_guide/task.md
+      - user_guide/model.md
+      - user_guide/data_schema.md
+      - user_guide/data.md
+      - user_guide/rbac.md
+
+      - Monitoring:
+          - user_guide/monitoring/index.md
+          - user_guide/monitoring/detection_event.md
+          - user_guide/monitoring/detection_event_rules.md
+          - user_guide/monitoring/drift_explainability.md
 
       - Modules:
           - user_guide/modules/index.md
-          - user_guide/modules/monitoring.md
+#          - user_guide/modules/monitoring.md
           - user_guide/modules/retraining.md
-          - user_guide/modules/business.md
-          - user_guide/modules/labeling.md
+          - user_guide/modules/topic_modeling.md
+          - user_guide/modules/rag_evaluation.md
           - user_guide/modules/llm_security.md
+          - user_guide/modules/business.md
       - Integrations:
           - user_guide/integrations/index.md
           - user_guide/integrations/data_sources.md
           - user_guide/integrations/retrain_triggers.md
-      - Other resources:
-          - user_guide/rbac.md
-          - user_guide/detection_event_rules.md
-          - user_guide/data_schema.md
-          - user_guide/glossary.md
   - API:
       - api/index.md
       - Examples: api/examples.md
@@ -135,8 +157,6 @@ nav:
           - Models: api/python/models.md
           - Exceptions: api/python/exceptions.md
           - Enums: api/python/enums.md
-      - REST:
-          - api/rest/index.md
   - Examples: api/examples.md
   - Web App: https://app.platform.mlcube.com/
   - Support: https://support.platform.mlcube.com/en/customer/login
