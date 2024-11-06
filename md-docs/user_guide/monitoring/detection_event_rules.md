@@ -41,7 +41,7 @@ data preceding the event, while the second one includes data following the event
 
 Retrain Action enables the automatic retraining of your model. Therefore, it is only available when the target of the rule is related to a model.
 The retrain action does not need any parameter because it is automatically inferred from the `model name` attribute of the rule.
-Of course, the model must already have a retrain trigger associated before setting up this action.
+Of course, the model must already have a [Retrain Trigger](../integrations/retrain_trigger.md) associated before setting up this action.
 
 ??? code-block "SDK Example"
     The following code demonstrates how to create a rule that matches high severity drift events on the error of a model. 

@@ -130,15 +130,16 @@ nav:
       - user_guide/data.md
       - user_guide/rbac.md
 
-      - Monitoring:
-          - user_guide/monitoring/index.md
-          - user_guide/monitoring/detection_event.md
-          - user_guide/monitoring/detection_event_rules.md
-          - user_guide/monitoring/drift_explainability.md
-
       - Modules:
           - user_guide/modules/index.md
-#          - user_guide/modules/monitoring.md
+          #          - user_guide/modules/monitoring.md
+
+          - Monitoring:
+              - user_guide/monitoring/index.md
+              - user_guide/monitoring/detection_event.md
+              - user_guide/monitoring/detection_event_rules.md
+              - user_guide/monitoring/drift_explainability.md
+
           - user_guide/modules/retraining.md
           - user_guide/modules/topic_modeling.md
           - user_guide/modules/rag_evaluation.md
