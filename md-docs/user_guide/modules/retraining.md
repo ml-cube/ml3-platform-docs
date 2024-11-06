@@ -4,6 +4,15 @@ The Retraining module of ML cube Platform plays a fundamental role in dealing wi
 Indeed, usually, a data drift determines a drop in the model's predictive capacity that starts providing bad predictions and therefore, degrading its performance.
 As soon as a data drift has been detected, action must be taken to avoid excessive performance degradation and thus business issues.
 
+Before entering in the details about the retraining module, it is important to describe what happen after the model is in production.
+In fact, the model artifact deployed in production does not last forever but further versions will be generated using newly fresh data that will be up to date with the last data distribution.
+The model update with retraining can be done on temporal basis or as soon as a data drift is detected.
+
+<figure markdown>
+  ![Image title](../../imgs/ai_model_lifecycle.png){ width="900" }
+  <figcaption>AI model lifecycle.</figcaption>
+</figure>
+
 ## Retraining dataset
 
 The main outcome of the Retraining module is the _retraining dataset_ that you should use to retrain your AI model adapting it to the new discovered data distributions.
