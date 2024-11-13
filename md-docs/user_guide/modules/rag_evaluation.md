@@ -9,7 +9,7 @@ RAG (Retrieval-Augmented Generation) is a way of building AI models that enhance
 
 Evaluating RAG involves assessing how well the model does in both retrieval and generation.
 
-Our RAG evaluation module analyzes the three main components of a RAG framework:
+The RAG evaluation module analyzes the three main components of a RAG framework:
 
 | Component  | Description                                                                        |
 | ---------- | ---------------------------------------------------------------------------------- |
@@ -19,12 +19,14 @@ Our RAG evaluation module analyzes the three main components of a RAG framework:
 
 In particular, the analysis is performed on the relationships between these components:
 
-- **User Input - Context**: Retrieval Evaluation
-- **Context - Response**: Context Factual Correctness
-- **User Input - Response**: Response Evaluation
+| Relationship          | Evaluation                  |
+| --------------------- | --------------------------- |
+| User Input - Context  | Retrieval Evaluation        |
+| Context - Response    | Context Factual Correctness |
+| User Input - Response | Response Evaluation         |
 
 <figure markdown>
-  ![ML cube Platform RAG Evaluation](../../imgs/rag_evaluation.svg){ width="600"}
+  ![ML cube Platform RAG Evaluation](../../imgs/rag_evaluation.png){ width="600"}
   <figcaption>ML cube Platform RAG Evaluation</figcaption>
 </figure>
 
@@ -32,7 +34,7 @@ The evaluation is performed through an LLM-as-a-Judge approach, where a Large La
 
 ## Computed metrics
 
-In this paragraph we describe the metrics computed by the RAG evaluation module, divided into the three relationships mentioned above. Every metrics computed is composed by a **score** and an **explanation** provided by the LLM, which explains the reasons behind the assigned score.
+This paragraph describes the metrics computed by the RAG evaluation module, divided into the three relationships mentioned above. Every metrics computed is composed by a **score** and an **explanation** provided by the LLM, which explains the reasons behind the assigned score.
 
 Below is a summary table of the metrics:
 
@@ -47,12 +49,12 @@ Below is a summary table of the metrics:
 
 ### User Input - Context
 
-| Metric      | Description                                                                                                                                                                                                  | Score Range (Lowest-Highest)                                |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------- |
-| Relevance   | How much the retrieved context is relevant to the user input.                                                                                                                                                | 1-5                                                         |
-| Usefulness  | Evaluates how useful the retrieved context is in generating the response, that is if it contains the information to answer the user query                                                                    | 1-5                                                         |
-| Utilization | Measures the percentage of the retrieved context that contains information for the response. A higher utilization score indicates that more of the retrieved context is useful for  generating the response. | 0-100                                                       |
-| Attribution | Indicates which of the chunks of the retrieved context can be used to generate the response.                                                                                                                 | List of indices of the used chunks, first chunk has index 1 |
+| Metric      | Description                                                                                                                                                                                         | Score Range (Lowest-Highest)                                |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| Relevance   | How much the retrieved context is relevant to the user input.                                                                                                                                       | 1-5                                                         |
+| Usefulness  | How useful the retrieved context is in generating the response, that is if it contains the information to answer the user query.                                                                    | 1-5                                                         |
+| Utilization | The percentage of the retrieved context that contains information for the response. A higher utilization score indicates that more of the retrieved context is useful for  generating the response. | 0-100                                                       |
+| Attribution | Which of the chunks of the retrieved context can be used to generate the response.                                                                                                                  | List of indices of the used chunks, first chunk has index 1 |
 
 !!! example
     The **combination** of the metrics provides a comprehensive evaluation of the quality of the retrieved context.
@@ -60,15 +62,15 @@ Below is a summary table of the metrics:
 
 ### Context - Response
 
-| Metric       | Description                                                                                                                                                 | Score Range (Lowest-Highest) |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
-| Faithfulness | Measures how much the response contradicts the retrieved context. A higher faithfulness score indicates that the response is more aligned with the context. | 1-5                          |
+| Metric       | Description                                                                                                                                        | Score Range (Lowest-Highest) |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| Faithfulness | How much the response contradicts the retrieved context. A higher faithfulness score indicates that the response is more aligned with the context. | 1-5                          |
 
 ### User Input - Response
 
-| Metric       | Description                                                                                                                                                                                                                     | Score Range (Lowest-Highest) |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
-| Satisfaction | Evaluates how satisfied the user would be with the generated response. A low score indicates a response that does not address the user quey, a high score indicates a response that fully addresses and answers the user query. | 1-5                          |
+| Metric       | Description                                                                                                                                                                                                           | Score Range (Lowest-Highest) |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| Satisfaction | How satisfied the user would be with the generated response. A low score indicates a response that does not address the user query, a high score indicates a response that fully addresses and answers the user query. | 1-5                          |
 
 ## Required data
 
@@ -81,5 +83,18 @@ Regarding the metrics that cannot be computed for a specific sample, the lowest 
 If data added to a [Task] contains contexts with multiple chunks of text, a [context separator](../task.md#retrieval-augmented-generation) must be provided.
 
 When requesting the evaluation, a **timestamp interval** must be provided to specify the time range of the data to be evaluated.
+
+??? code-block "SDK Example"
+
+    The following code demonstrates how to compute a rag evaluation report for a given timestamp interval.
+
+    ```python
+    rag_evaluation_job_id = client.compute_rag_evaluation_report(
+        task_id=task_id,
+        report_name="rag_evaluation_report_name",
+        from_timestamp=from_timestamp,
+        to_timestamp=to_timestamp,
+    )
+    ```
 
 [Task]: ../task.md
