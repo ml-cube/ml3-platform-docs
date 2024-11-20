@@ -33,7 +33,7 @@ The **Topic Modeling** module enables categorization of documents based on their
 The Topic Modeling Report provides a comprehensive analysis of identified topics and associated documents. After providing a general overview, the report includes two sections: Visualization and Sample Viewer.
 
 ### Visualization
-The ML Cube Platform supports two visualization options.
+The ML cube Platform supports two visualization options.
 
 #### Timeseries
 The Timeseries shows how topics evolve over time, revealing temporal trends. Documents are grouped into time intervals, the `x-axis` displays timestamps, while the `y-axis` shows the topic proportions as percentages, thus the height indicates the percentage of samples associated with that topic at a given time. From the figure below, it is possible to see how the prevalence of topics changes over time.
