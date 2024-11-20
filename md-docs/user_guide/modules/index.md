@@ -29,7 +29,7 @@ Modules can be always active or on-demand: Monitoring module and Drift Explainab
 
     Update your model to handle the drift.
 
-    [:octicons-arrow-right-24: More info](user_guide/data.md)
+    [:octicons-arrow-right-24: More info](retraining.md)
 
 -   :material-text-box-check:{ .lg .middle } **RAG Evaluation**
 
@@ -37,7 +37,7 @@ Modules can be always active or on-demand: Monitoring module and Drift Explainab
 
     Check the quality of your RAG system.
 
-    [:octicons-arrow-right-24: More info](user_guide/integrations/index.md)
+    [:octicons-arrow-right-24: More info](rag_evaluation.md)
 
 -   :material-shield-lock:{ .lg .middle } **LLM Security**
 
@@ -45,7 +45,7 @@ Modules can be always active or on-demand: Monitoring module and Drift Explainab
 
     Verify robustness of your solution.
 
-    [:octicons-arrow-right-24: More info](api/index.md)
+    [:octicons-arrow-right-24: More info](llm_security.md)
 
 -   :material-view-dashboard:{ .lg .middle } **Topic Modeling**
 
@@ -53,6 +53,6 @@ Modules can be always active or on-demand: Monitoring module and Drift Explainab
 
     Identify sub-domains in your data.
 
-    [:octicons-arrow-right-24: More info](api/examples.md)
+    [:octicons-arrow-right-24: More info](topic_modeling.md)
 
 </div>
