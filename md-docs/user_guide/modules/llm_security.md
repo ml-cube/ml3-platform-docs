@@ -28,7 +28,7 @@ The three main components analyzed by the framework are:
 
 The ML cube platform's LLM Security module perform an analysis consisting of three sequential steps, with each step assigning a class to a subset of samples and passing the unassigned samples to the next step, ensuring that each sample is assigned to exactly one class.
 
-The analysis steps performed are:
+The analysis steps are described in the following sections.
 
 ### Default analysis step
 
