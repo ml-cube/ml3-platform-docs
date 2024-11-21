@@ -20,17 +20,18 @@ A Task is described by a set of attributes specified during its creation.
 Some attributes are common for every Task, while others vary according to its type.
 Generic attributes are:
 
-| Attribute | Description |
-|--|--|
-| Name | Name of the Task, unique for the Project. |
-| Tags | Optional customizable list of tags. They are used to better describe the Task and to improve search. |
-| Task type | Artificial intelligence type of Task. Possible values are:<br><ul><li>[Regression](task.md#regression)</li><li>[Binary classification](task.md#classification)</li><li>[Multiclass classification](task.md#classification)</li><li>[Multilabel classification](task.md#classification)</li><li>[Retrieval Augmented Generation](task.md#retrieval-augmented-generation)</li><li>[Object Detection](task.md#object-detection)</li></ul>|
-| Data structure | Type of input data the Task uses. Possible values are:<br><ul><li>Tabular: standard table based data used in contexts like regression or classification.</li><li>Image: images in their different formats and channels.</li><li>Text: textual data expressed as strings. When data structure is Text, attribute *Text Language* is required.</li><li>Embedding: input data are arrays that could represent embedding either image or text data. This data structure is used when raw data are not shared with ML cube Platform.</li></ul> |
-|Optional target| Boolean value that specifies if the ground truth is always available or not. In some Tasks, the actual value is not present until explicit labeling is done. In this cases, the Task is marked as with optional target so that ML cube Platform works accordingly. |
-| Cost info | Optional information about costs that depend on Task Type. |
-| Text language | Which language is used in the Task when input data structure is text.|
-|Positive class| Required when Task Type is Binary Classification, it indicates the positive class to be predicted.|
-|Context separator| Available when Task Type is RAG, it specifies the string separator to split retrieved context into different chunks. |
+| Attribute         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+|-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Name              | Name of the Task, unique for the Project.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Tags              | Optional customizable list of tags. They are used to better describe the Task and to improve search.                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Task type         | Artificial intelligence type of Task. Possible values are:<br><ul><li>[Regression](task.md#regression)</li><li>[Binary classification](task.md#classification)</li><li>[Multiclass classification](task.md#classification)</li><li>[Multilabel classification](task.md#classification)</li><li>[Retrieval Augmented Generation](task.md#retrieval-augmented-generation)</li><li>[Object Detection](task.md#object-detection)</li></ul>                                                                                                    |
+| Data structure    | Type of input data the Task uses. Possible values are:<br><ul><li>Tabular: standard table based data used in contexts like regression or classification.</li><li>Image: images in their different formats and channels.</li><li>Text: textual data expressed as strings. When data structure is Text, attribute *Text Language* is required.</li><li>Embedding: input data are arrays that could represent embedding either image or text data. This data structure is used when raw data are not shared with ML cube Platform.</li></ul> |
+| Optional target   | Boolean value that specifies if the ground truth is always available or not. In some Tasks, the actual value is not present until explicit labeling is done. In this cases, the Task is marked as with optional target so that ML cube Platform works accordingly.                                                                                                                                                                                                                                                                        |
+| Cost info         | Optional information about costs that depend on Task Type.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Text language     | Which language is used in the Task when input data structure is text.                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Positive class    | Required when Task Type is Binary Classification, it indicates the positive class to be predicted.                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Context separator | Available when Task Type is RAG, it specifies the string separator to split retrieved context into different chunks.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Default answer    | Available when Task Type is RAG, it specifies the default answer to be used when no retrieved context is available.                                                                                                                                                                                                                                                                                                                                                                                                                       |
 
 !!! warning
     Some Task's attributes are immutable: type, data structure and optional target flag cannot be modified after the creation of the Task.
@@ -40,28 +41,28 @@ Generic attributes are:
 Most of ML cube Platform operations are done at Task level: monitoring, retraining, analytics and other features are specific to AI models and data that belong to a Task.
 Indeed, each Task Type has a set of ML cube Platform modules:
 
-| Module | Regression | Classification | RAG | Object Detection |
-| --------- | --------- | --------- | --------- | --------- |
-| Monitoring | :material-check: | :material-check: | :material-check: | :material-check: |
-| Explainability | :material-check: | :material-check: | :material-check: | :material-check: |
-| Retraining | :material-check: | :material-check: | :material-check: :material-information-outline:{title="Coming soon"}| :material-check: :material-information-outline:{title="Coming soon"}|
-| Topic Modeling | :material-check: :material-information-outline:{title="Only for Text data"} | :material-check: :material-information-outline:{title="Only for Text data"} | :material-check: | :material-close: |
-| RAG Evaluation | :material-close: | :material-close: | :material-check: | :material-close: |
-| LLM Security | :material-close: | :material-close: | :material-check: | :material-close: |
+| Module         | Regression                                                                  | Classification                                                              | RAG                                                                  | Object Detection                                                     |
+|----------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------|----------------------------------------------------------------------|----------------------------------------------------------------------|
+| Monitoring     | :material-check:                                                            | :material-check:                                                            | :material-check:                                                     | :material-check:                                                     |
+| Explainability | :material-check:                                                            | :material-check:                                                            | :material-check:                                                     | :material-check:                                                     |
+| Retraining     | :material-check:                                                            | :material-check:                                                            | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} |
+| Topic Modeling | :material-check: :material-information-outline:{title="Only for Text data"} | :material-check: :material-information-outline:{title="Only for Text data"} | :material-check:                                                     | :material-close:                                                     |
+| RAG Evaluation | :material-close:                                                            | :material-close:                                                            | :material-check:                                                     | :material-close:                                                     |
+| LLM Security   | :material-close:                                                            | :material-close:                                                            | :material-check:                                                     | :material-close:                                                     |
 
 !!! Tip
-    On the left side of the web app page the Task menu is present, with links to the above mentioned modules and Task settings.
+    On the left side of the web app page the Task menu is present, with links to the above-mentioned modules and Task settings.
 
 ## Task Type
 
 ML cube Platform supports several Task Types providing specific features for each of them.
 Not all Task Types are compatible with data structures, in the table below are shown which data structure is supported by which Task Type:
 
-|Task Type| Tabular | Image | Text | Embedding|
-| -- | -- | -- | -- | -- |
-| Regression | :material-check: | :material-check: | :material-check: | :material-check: |
-| Classification | :material-check: | :material-check: | :material-check: | :material-check: |
-| RAG | :material-close: | :material-close: | :material-check: | :material-check: |
+| Task Type        | Tabular          | Image            | Text             | Embedding        |
+|------------------|------------------|------------------|------------------|------------------|
+| Regression       | :material-check: | :material-check: | :material-check: | :material-check: |
+| Classification   | :material-check: | :material-check: | :material-check: | :material-check: |
+| RAG              | :material-close: | :material-close: | :material-check: | :material-check: |
 | Object Detection | :material-close: | :material-check: | :material-close: | :material-check: |
 
 In the following sections, you can find a description of each Task Type with its specific information.
@@ -132,23 +133,28 @@ where $N_{FP}^{k}$ and $N_{FN}^{k}$ are the number of false positives and false 
 Retrieval Augmented Generation is a particular AI task for Text data based on Large Language Models, in which they are used to generate responses of user query using a set of retrieved documents as context to provide a precise and more focused response.
 
 RAG Tasks, do not have a Target therefore, the attribute *optional target* is always set to True.
-Moreover, in this Task, the Prediction is a text as well and the input is composed of two entities:
+Moreover, in this Task, the Prediction is a text as well. While the input is composed of two entities:
 
 - User Input: the user query that the model needs to answer
 - Retrieved Context: the set of documents the retrieval engine selected to help the model
 
-RAG tasks has additional the attribute *context separator* which is a string used to separate different retrieved contexts into chunks. Context data is sent as a single string, however, in RAG settings multiple documents can be retrieved. In this case, context separator is used to distinguish them. It is optional since a single context can be provided.
+RAG Tasks have two additional attributes:
+- Context separator: which is a string used to separate different retrieved contexts into chunks. Context data is sent as a single string, however, in RAG settings multiple documents can be retrieved. In this case, context separator is used to distinguish them. It is optional since a single context can be provided.
 
-!!! example
-    Context separator: <<sep\>\>
+    !!! example
+        Context separator: <<sep\>\>
+        
+        Context data: The capital of Italy is Rome.<<sep\>\>Rome is the capital of Italy.<<sep\>\>Rome was the capital of Roman Empire.
     
-    Context data: The capital of Italy is Rome.<<sep\>\>Rome is the capital of Italy.<<sep\>\>Rome was the capital of Roman Empire.
+        Contexts:
+    
+            - The capital of Italy is Rome.
+            - Rome is the capital of Italy.
+            - Rome was the capital of Roman Empire.
+- Default answer: which is a string used when no retrieved context is available. It is optional since other way to handle this situation are available.
 
-    Contexts:
-
-        - The capital of Italy is Rome.
-        - Rome is the capital of Italy.
-        - Rome was the capital of Roman Empire.
+    !!! example
+        Default answer: "I am sorry, I cannot help you with that request."
 
 
 ### Object Detection
