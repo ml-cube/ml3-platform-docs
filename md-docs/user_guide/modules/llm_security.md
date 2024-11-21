@@ -1,43 +1,110 @@
 # LLM Security
 
-## What is LLM Security?
+Large Language Models (LLMs) are powerful human-like text generators. In a RAG system, the information needed to answer the user is directly extracted from the company's knowledge base and passed as input to the model. Therefore, malicious actors can exploit LLMs to generate inappropriate content, leak Personally Identifiable Information (PII), or disclose proprietary information from the company's knowledge base.
 
-Large Language Model (LLM) security refers to the strategies, practices, and technologies used to ensure that large language models operate safely, responsibly, and in ways that protect the company, its data, and users. 
+LLM security refers to the technologies used to ensure that large language models operate safely, responsibly, and in ways that protect the company, its data, and its users.
 
-This module can be used in all systems that incorporate an LLM as a building block. Therefore, it can also be used with a RAG system to protect all the data contained in documents that make up the company knowledge base. It provides an assessment of the system security, and offers useful insights to enhance it. 
+## LLM Security Module
+The ML cube Platform LLM Security module is available for [RAG Tasks](../task.md#retrieval-augmented-generation) and generates a security assessment for a given set of samples, producing a detailed report about the security of the LLMs used in the RAG system. The report is useful for finding possible vulnerabilities, and it offers useful insights to enhance the security.
 
-## Why do we need LLM Security?
+!!! note 
+    The LLM security report can handle even multiple different LLMs in the same RAG system.
 
-Large Language Models are powerful because they are trained, or source from large amount of textual data. As a result, they can process vast amounts of data to generate human-like text, answer questions, summarize information, and much more. However, this capability poses security risks. Malicious actors can exploit LLMs to generate harmful content, leak Personal Identifiable Information (PII), or disclose proprietary information. LLM security focuses on identifying and preventing these risks, ensuring that models are used responsibly and ethically. The main threats to the system are:
+The process involves analyzing a batch of data, consisting of user inputs, retrieved contexts, and model responses. Additionally, to enhance the analysis, the [LLMs specifications](../model.md#llm-specifications) can also be provided to enable a more accurate analysis of the Security Guidelines in the system prompt used.
 
-1. **Preventing Harmful Content**: LLMs are pre-trained on large datasets that contains also harmful and toxic information, and a model can inadvertently generate harmful content. Security measures help monitor and limit these outputs.
+<!---
+The three main components analyzed by the framework are:
 
-2. **Leakage of PII**:  When a LLM is deployed in an industrial settings, it often accesses some company-provided informarion (or it may be fine-tuned on it). Some documents in the knowledge base may contain PII. Security measures ensure that these models do not violates the privacy of individuals referenced in the dataset, preserving their privacy and adhering to regulatory standards like GDPR.
+| Component           | Description                                                                                                                         |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| User Input          | The query or question posed by the user.                                                                                            |
+| Response            | The generated answer or output provided by the model.                                                                               |
+| Security guidelines | The guidelines used in the system prompt to guide the LLM in generating safe answers that align with the rules set by the provider. |
+--->
+!!! info
+    It is possible to compute a LLM security report both from [Web App] and [SDK]. The computed report can be viewed in the Web App.
 
-3. **Disclosure of proprietary information**: Similarly, the knowledge base may contain sentive or proprietaty information that a company prefers to keep hidden from its employees. Security measures ensure that these models do not inadvertently expose private data.
+## Analysis steps
 
-## How does the MLCube Platform perform an analysis of the LLM security?
+The ML cube platform's LLM Security module perform an analysis consisting of three sequential steps, with each step assigning a class to a subset of samples and passing the unassigned samples to the next step, ensuring that each sample is assigned to exactly one class.
 
-The MLCube platform's LLM Security module involves analyzing a batch of data, composed of user inputs, retrieved contexts, and model responses, to assess both the security of the LLM when used as a building block in a RAG system and the safety of the conversation with the system. The analysis consists of three sequential steps, with each step assigning a class to a subset of samples and passing the unassigned samples to the next step, ensuring that each sample is assigned to exactly one class.
+The analysis steps performed are:
 
-### Analysis steps
+### Default analysis step
 
- The analysis steps performed are:
+The first step identifies all conversations where the model's response is a default answer (if any), filtering out them. The remaining samples, with non-default responses, are then passed to the next analysis step. Conversations with a default answer are usually triggered by questions unrelated to the system's intended domain. 
 
-1. **Default analysis step**: This first step is performed only when the RAG system uses a default answer for questions that retrieve no documents from the knowledge base. The analysis identifies all conversations where the model's response is a default answer, filtering out those with non-default responses. Samples with non-default answers are then passed to the next analysis step. Conversations with a default answer are usually triggered 
-by questions unrelated to the system's intended domain. Such conversations may also correspond to requests for harmful content.
+!!! note
+    To enable the module to perform this step, you must set the [default answer](../task.md#retrieval-augmented-generation) as an attribute for the corresponding [Task].
 
-1. **Defense analysis step**: This step is performed only if specifications for the LLM underlying the RAG system are provided. Its goal is to identify attacks on the system that have been successfully blocked and to determine the specific defense rule responsible for each blocked attack. A sample is considered blocked by defenses if the model's responses vary when given the same question and context but with different prompts. Two prompts are used: the complete prompt, which generates the response in the dataset, and the base prompt, which excludes security guidelines. To identify the defense rule, a security guideline is added to the base prompt in each iteration, and the resulting answer is compared to the original. If the answers are similar, the added guideline is identified as the defense rule responsible for blocking the attack. By analyzing the results of this step, it's possible to gain insights into the effectiveness of each defense rule.
+### Defense analysis step
+
+The goal of this analysis is to identify attacks on the system that have been successfully blocked by the LLM, and to determine the specific defense rule responsible for blocking each attack. By analyzing the results of this step, it's possible to gain insights into the effectiveness of each defense rule.
+<!---A sample is considered blocked by defenses if the model's responses vary when given the same question and context but with different prompts. Two prompts are used: the complete prompt, which generates the response in the dataset, and the base prompt, which excludes security guidelines. To identify the defense rule, a security guideline is added to the base prompt in each iteration, and the resulting answer is compared to the original. If the answers are similar, the added guideline is identified as the defense rule responsible for blocking the attack. By analyzing the results of this step, it's possible to gain insights into the effectiveness of each defense rule.
+--->
+
+<!---Inserire un'immagine con un esempio del risultato, preso dalla webapp, possibilmente usando uno stesso esempio del notebook che viene condiviso 
+<---> 
+
+!!! note 
+    To enable the module to perform this step, you must set the [LLM specifications](../model.md#llm-specifications).
+
+### Clustering analysis step
+
+This analysis aims to identify and group similar conversations within the data batch and flag any outliers. Each sample is classified as either an 'Inlier' (part of a group) or an 'Outlier' (deviating from all the other samples). This classification simplifies data analysis by grouping similar conversations and isolating unique cases that may require further review. 
+<!---Ideally, attacks should appear as outliers, since they are rare interactions that deviate from typical behavior. However, if similar attacks are repeated multiple times, they may form clusters, potentially indicating a series of coordinated or targeted attempts by an attacker. Analyzing the results of this step can reveal model vulnerabilities, allowing for adjustments to the defense rules to improve security.
+--->
+<!---Inserire un'immagine con un esempio del plot e/o exemplars, preso dalla webapp---> 
+
+## Classes
+
+As a result of these steps each sample of the provided set is assigned to one of the following class:
+
+| Class              | Description                                                                                                                                                    | 
+|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Missing            | This tag represents a sample that lacks essential information, e.g., the user input or the model response. Due to this deficit, the sample cannot be analyzed. | 
+| Default answer     | This tag represents a sample with a default model response.                                                                                                    | 
+| Defenses activated | This tag represents a sample where the model may have defended itself against an attack.                                                                       | 
+| Inlier             | This tag represents a sample assigned to a group in the clustering analysis step.                                                                              | 
+| Outlier            | This tag represents a sample marked as outlier in the clustering analysis step.                                                                                |
 
 
-1. **Clustering analysis step**: It's the final step, this analysis identifies clusters of similar conversations within the data batch and flags any outliers. Each sample is classified as either an 'Inlier' (part of a group) or an 'Outlier' (deviating from all clusters). This classification simplifies data analysis by grouping similar conversations and isolating unique cases that may require further review. Ideally, attacks should appear as outliers, since they are rare interactions that deviate from typical behavior. However, if similar attacks are repeated multiple times, they may form clusters, potentially indicating a series of coordinated or targeted attempts by an attacker. Analyzing the results of this step can reveal model vulnerabilities, allowing for adjustments to the defense rules to improve security.
+## Required data
 
-### Classes
+Below is a summary table of the input data needed for each analysis step:
 
-As a result of these steps each sample of the provided batch is assigned to one of the following class:
+| Metric              | User Input       | Context          | Response         | LLM specifications |
+|---------------------|------------------|------------------|------------------|--------------------|
+| Default analysis    | :material-check: |                  | :material-check: |                    |
+| Defense analysis    | :material-check: | :material-check: | :material-check: | :material-check:   |
+| Clustering analysis | :material-check: |                  | :material-check: |                    |
 
-- **Missing**:  This tag represents a sample that lacks essential information, such as the user input or the model output. Due to this deficit, the sample cannot be analyzed by the analysis.
-- **Default answer**: This tag represents a sample with a default model answer, if such an answer is used and provided by the system.
-- **Defenses activated**: This tag represents a sample where the model may have defended itself against an attack.
-- **Inlier**: This tag represents a sample assigned to a cluster in the clustering analysis step.
-- **Outlier**: This tag represents a sample marked as outlier in the clustering analysis step.
+The LLM security module performs the analysis steps for each sample based on the data availability.
+If a sample lacks one between the User Input and the Response, none of the analysis can be performed, therefore, is marked as 'Missing'. Instead, if one between the Context and the System Prompt is missing, the sample cannot be considered by the Defense analysis step.
+
+When requesting the evaluation, a **timestamp interval** must be provided to specify the time range of the data to be evaluated.
+
+??? code-block "SDK Example"
+
+    The following code demonstrates how to compute a rag evaluation report for a given timestamp interval.
+
+    ```python
+    # Computing the LLM security report
+    llm_security_job_id = client.compute_llm_security_report(
+        task_id=task_id,
+        report_name="llm_security_report_name",
+        from_timestamp=from_timestamp,
+        to_timestamp=to_timestamp,
+    )
+
+    # Waiting for the job to complete
+    client.wait_job_completion(job_id=llm_security_job_id)
+
+    # Getting the evaluation report id
+    reports = client.get_llm_security_reports(task_id=task_id)
+    report_id = reports[-1].id
+    ```
+
+[Task]: ../task.md
+[Web App]: https://app.platform.mlcube.com/
+[SDK]: ../../api/python/index.md
