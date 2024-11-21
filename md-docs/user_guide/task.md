@@ -50,7 +50,7 @@ Indeed, each Task Type has a set of ML cube Platform modules:
 | LLM Security | :material-close: | :material-close: | :material-check: | :material-close: |
 
 !!! Tip
-    On the left side of the web app page the Task menù is present, with links to the above mentioned modules and Task settings.
+    On the left side of the web app page the Task menu is present, with links to the above mentioned modules and Task settings.
 
 ## Task Type
 
@@ -140,9 +140,9 @@ Moreover, in this Task, the Prediction is a text as well and the input is compos
 RAG tasks has additional the attribute *context separator* which is a string used to separate different retrieved contexts into chunks. Context data is sent as a single string, however, in RAG settings multiple documents can be retrieved. In this case, context separator is used to distinguish them. It is optional since a single context can be provided.
 
 !!! example
-    Context separator: <<sep>>
+    Context separator: <<sep\>\>
     
-    Context data: The capital of Italy is Rome.<<sep>>Rome is the capital of Italy.<<sep>>Rome was the capital of Roman Empire.
+    Context data: The capital of Italy is Rome.<<sep\>\>Rome is the capital of Italy.<<sep\>\>Rome was the capital of Roman Empire.
 
     Contexts:
 

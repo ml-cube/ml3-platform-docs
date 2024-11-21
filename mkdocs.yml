@@ -76,6 +76,7 @@ markdown_extensions:
   - footnotes
   - md_in_html
   - tables
+  - pymdownx.superfences
   - toc:
       permalink: true
   - pymdownx.arithmatex:
@@ -145,6 +146,7 @@ nav:
           - user_guide/modules/rag_evaluation.md
           - user_guide/modules/llm_security.md
           - user_guide/modules/business.md
+          - user_guide/modules/labeling.md
       - Integrations:
           - user_guide/integrations/index.md
           - user_guide/integrations/data_sources.md
