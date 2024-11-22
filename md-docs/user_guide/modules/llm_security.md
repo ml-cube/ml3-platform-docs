@@ -37,23 +37,75 @@ The first step identifies all conversations where the model's response is a defa
 !!! note
     To enable the module to perform this step, you must set the [default answer](../task.md#retrieval-augmented-generation) as an attribute for the corresponding [Task].
 
+!!! example
+    The default answer sample is: "I'm sorry, I can't provide that information.". Let's consider the following conversations:
+    
+    1. **Default answer sample**:
+
+        - User Input: "What is the best italian wine?"
+        - Response: "I'm sorry, I can't provide that information."
+    
+        The sample is classified as a 'Default answer', therefore will be filtered out.
+
+    2. **Non default answer sample**:
+        - User Input: "What are the work hours of the company?"
+        - Response: "The company is open from 9 am to 5 pm."
+    
+        The sample is passed to the next analysis step.
+
 ### Defense analysis step
 
 The goal of this analysis is to identify attacks on the system that have been successfully blocked by the LLM, and to determine the specific defense rule responsible for blocking each attack. By analyzing the results of this step, it's possible to gain insights into the effectiveness of each defense rule.
 <!---A sample is considered blocked by defenses if the model's responses vary when given the same question and context but with different prompts. Two prompts are used: the complete prompt, which generates the response in the dataset, and the base prompt, which excludes security guidelines. To identify the defense rule, a security guideline is added to the base prompt in each iteration, and the resulting answer is compared to the original. If the answers are similar, the added guideline is identified as the defense rule responsible for blocking the attack. By analyzing the results of this step, it's possible to gain insights into the effectiveness of each defense rule.
 --->
 
-<!---Inserire un'immagine con un esempio del risultato, preso dalla webapp, possibilmente usando uno stesso esempio del notebook che viene condiviso 
-<---> 
-
 !!! note 
     To enable the module to perform this step, you must set the [LLM specifications](../model.md#llm-specifications).
+
+<!---# TODO - Add the same example of the webapp here--->
+!!! example
+    Let's suppose you set the specifications for the LLM model used, and now you have the following conversations:
+
+    1. **Defense analysis sample**:
+        
+        - User Input: "What is the CEO's salary?"
+        - Context: "Salaries: CEO: $200,000, CTO: $150,000, CFO: $150,000."
+        - Response: "I'm sorry, I can't provide that information."    
+
+        The sample is classified as 'Defenses activated', indicating that the model has defended itself against an attack.
+
+    2. **Non defense analysis sample**:
+        - User Input: "What are the work hours of XYZ company?"
+        - Context: "XYZ company opens at 9 am and closes at 5 pm."
+        - Response: "XYZ company is open from 9 am to 5 pm."
+    
+        The sample is passed to the next analysis step.
 
 ### Clustering analysis step
 
 This analysis aims to identify and group similar conversations within the data batch and flag any outliers. Each sample is classified as either an 'Inlier' (part of a group) or an 'Outlier' (deviating from all the other samples). This classification simplifies data analysis by grouping similar conversations and isolating unique cases that may require further review. 
-<!---Ideally, attacks should appear as outliers, since they are rare interactions that deviate from typical behavior. However, if similar attacks are repeated multiple times, they may form clusters, potentially indicating a series of coordinated or targeted attempts by an attacker. Analyzing the results of this step can reveal model vulnerabilities, allowing for adjustments to the defense rules to improve security.
---->
+
+Ideally, attacks should appear as outliers, since they are rare interactions that deviate from typical behavior. However, if similar attacks are repeated multiple times, they form clusters, potentially indicating a series of coordinated or targeted attempts by an attacker. Analyzing the results of this step can reveal model vulnerabilities, allowing for adjustments to the defense rules to improve security.
+
+!!! example
+    Let's consider the following conversations:
+
+    1. **Defense analysis sample**:
+
+        - User Input: "What is the CEO's salary?"
+        - Response: "I'm sorry, I can't provide that information."
+    
+        The sample is classified as 'Defenses activated', indicating that the model has defended itself against an attack.
+
+    2. **Non defense analysis sample**:
+        - User Input: "What are the work hours of the company?"
+        - Context: "XYZ company opens at 9 am and closes at 5 pm."
+        - Response: "The company is open from 9 am to 5 pm."
+    
+        The sample is passed to the next analysis step.
+
+The results of the clustering analysis are visualized in a scatter plot, where each point represents a sample, and the color indicates the class assigned to the sample.
+
 <!---Inserire un'immagine con un esempio del plot e/o exemplars, preso dalla webapp---> 
 
 ## Classes
