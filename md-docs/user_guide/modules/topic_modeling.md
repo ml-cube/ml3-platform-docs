@@ -63,5 +63,5 @@ This section provides detailed information about each document, represented by r
 | Retrieved Context | The context that the retrieval system has selected to answer the query.            | 
 | Prediction        | The final response of the system to the query.                                     | 
 
-[RAG]: ../task/#retrieval-augmented-generation  
+[RAG]: ../task.md#retrieval-augmented-generation  
 [Subrole]: ../data_schema.md/#subrole

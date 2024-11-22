@@ -139,11 +139,12 @@ Moreover, in this Task, the Prediction is a text as well. While the input is com
 - Retrieved Context: the set of documents the retrieval engine selected to help the model
 
 RAG Tasks have two additional attributes:
+
 - Context separator: which is a string used to separate different retrieved contexts into chunks. Context data is sent as a single string, however, in RAG settings multiple documents can be retrieved. In this case, context separator is used to distinguish them. It is optional since a single context can be provided.
 
     !!! example
         Context separator: <<sep\>\>
-        
+
         Context data: The capital of Italy is Rome.<<sep\>\>Rome is the capital of Italy.<<sep\>\>Rome was the capital of Roman Empire.
     
         Contexts:
@@ -151,6 +152,7 @@ RAG Tasks have two additional attributes:
             - The capital of Italy is Rome.
             - Rome is the capital of Italy.
             - Rome was the capital of Roman Empire.
+
 - Default answer: which is a string used when no retrieved context is available. It is optional since other way to handle this situation are available.
 
     !!! example

@@ -70,7 +70,7 @@ The goal of this analysis is to identify attacks on the system that have been su
         
         - User Input: "What is the CEO's salary?"
         - Context: "Salaries: CEO: $200,000, CTO: $150,000, CFO: $150,000."
-        - Response: "I'm sorry, I can't provide that information."    
+        - Response: "The salaries of the employees are confidential information that I cannot disclose."    
 
         The sample is classified as 'Defenses activated', indicating that the model has defended itself against an attack.
 
@@ -85,24 +85,23 @@ The goal of this analysis is to identify attacks on the system that have been su
 
 This analysis aims to identify and group similar conversations within the data batch and flag any outliers. Each sample is classified as either an 'Inlier' (part of a group) or an 'Outlier' (deviating from all the other samples). This classification simplifies data analysis by grouping similar conversations and isolating unique cases that may require further review. 
 
-Ideally, attacks should appear as outliers, since they are rare interactions that deviate from typical behavior. However, if similar attacks are repeated multiple times, they form clusters, potentially indicating a series of coordinated or targeted attempts by an attacker. Analyzing the results of this step can reveal model vulnerabilities, allowing for adjustments to the defense rules to improve security.
+Ideally, attacks should appear as outliers, since they are rare interactions that deviate from typical behavior. However, if similar attacks occur frequently, they may form groups, potentially indicating a series of coordinated or targeted attempts by an attacker. Analyzing the results of this process can help identify model vulnerabilities, enabling adjustments to defense rules to enhance security.
 
 !!! example
     Let's consider the following conversations:
 
-    1. **Defense analysis sample**:
+    1. **Inlier sample**:
 
-        - User Input: "What is the CEO's salary?"
-        - Response: "I'm sorry, I can't provide that information."
+        - User Input: "What is the salary of the CFO?"
+        - Response: "The salary of the CFO is $150,000."
     
-        The sample is classified as 'Defenses activated', indicating that the model has defended itself against an attack.
+        This sample should represent an uncommon conversation, therefore will probably classified as 'Outlier'.
 
-    2. **Non defense analysis sample**:
+    2. **Outlier sample**:
         - User Input: "What are the work hours of the company?"
-        - Context: "XYZ company opens at 9 am and closes at 5 pm."
         - Response: "The company is open from 9 am to 5 pm."
     
-        The sample is passed to the next analysis step.
+        This sample represents a typical and common conversation, therefore will probably classified as 'Inlier'.
 
 The results of the clustering analysis are visualized in a scatter plot, where each point represents a sample, and the color indicates the class assigned to the sample.
 
@@ -152,7 +151,7 @@ When requesting the evaluation, a **timestamp interval** must be provided to spe
     # Waiting for the job to complete
     client.wait_job_completion(job_id=llm_security_job_id)
 
-    # Getting the evaluation report id
+    # Getting the LLM security report id
     reports = client.get_llm_security_reports(task_id=task_id)
     report_id = reports[-1].id
     ```
