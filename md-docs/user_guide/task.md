@@ -46,9 +46,9 @@ Indeed, each Task Type has a set of ML cube Platform modules:
 | Monitoring     | :material-check:                                                            | :material-check:                                                            | :material-check:                                                     | :material-check:                                                     |
 | Explainability | :material-check:                                                            | :material-check:                                                            | :material-check:                                                     | :material-check:                                                     |
 | Retraining     | :material-check:                                                            | :material-check:                                                            | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} |
-| Topic Modeling | :material-check: :material-information-outline:{title="Only for Text data"} | :material-check: :material-information-outline:{title="Only for Text data"} | :material-check:                                                     | :material-close:                                                     |
-| RAG Evaluation | :material-close:                                                            | :material-close:                                                            | :material-check:                                                     | :material-close:                                                     |
-| LLM Security   | :material-close:                                                            | :material-close:                                                            | :material-check:                                                     | :material-close:                                                     |
+| Topic Modeling | :material-check: :material-information-outline:{title="Only for Text data"} | :material-check: :material-information-outline:{title="Only for Text data"} | :material-check:                                                     |                                                                      |
+| RAG Evaluation |                                                                             |                                                                             | :material-check:                                                     |                                                                      |
+| LLM Security   |                                                                             |                                                                             | :material-check:                                                     |                                                                      |
 
 !!! Tip
     On the left side of the web app page the Task menu is present, with links to the above-mentioned modules and Task settings.
@@ -62,8 +62,8 @@ Not all Task Types are compatible with data structures, in the table below are s
 |------------------|------------------|------------------|------------------|------------------|
 | Regression       | :material-check: | :material-check: | :material-check: | :material-check: |
 | Classification   | :material-check: | :material-check: | :material-check: | :material-check: |
-| RAG              | :material-close: | :material-close: | :material-check: | :material-check: |
-| Object Detection | :material-close: | :material-check: | :material-close: | :material-check: |
+| RAG              |                  |                  | :material-check: | :material-check: |
+| Object Detection |                  | :material-check: |                  | :material-check: |
 
 In the following sections, you can find a description of each Task Type with its specific information.
 
