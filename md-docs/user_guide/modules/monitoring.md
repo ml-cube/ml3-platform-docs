@@ -79,4 +79,4 @@ The detectors may be in three different states:
   according to what has been monitored by the detector.
 
 All the alarms generated during this process are shown in the application like **Detection Events** available in the Task homepage or in the Detection page.
-You can create automation rules based on those events to be notified on specific channels or start retraining, see [Detection automation rules](../detection_event_rules.md) for more details.
+You can create automation rules based on those events to be notified on specific channels or start retraining, see [Detection automation rules](../monitoring/detection_event_rules.md) for more details.

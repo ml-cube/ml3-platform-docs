@@ -64,8 +64,8 @@ plugins:
   - minify:
       minify_html: true
   - glightbox
-  - table-reader
   - macros
+  - table-reader
 
 # Extensions
 markdown_extensions:

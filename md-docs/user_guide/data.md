@@ -23,11 +23,11 @@ When you upload samples belonging to a Data Category, they must contain all the 
 
 The following table shows these relationships:
 
-| Data Category | ID | Time ID | Input | Input additional embedding | Target  | Target additional embedding | Prediction | Prediction additional embedding |
-| -- | -- | -- | -- | -- | -- | -- | -- | -- |
-| Input | :material-check: | :material-check: | :material-check: | :material-check: | :material-close: | :material-close: | :material-close: | :material-close: | :material-close: |
-| Target | :material-check: | :material-check: | :material-close: | :material-close: | :material-check: | :material-check: | :material-close: | :material-close: | :material-close: |
-| Prediction | :material-check: | :material-check: | :material-close: | :material-close: | :material-close: | :material-close: | :material-check: | :material-check: | :material-close: |
+| Data Category | ID               | Time ID          | Input            | Input additional embedding | Target           | Target additional embedding | Prediction       | Prediction additional embedding |
+|---------------|------------------|------------------|------------------|----------------------------|------------------|-----------------------------|------------------|---------------------------------|
+| Input         | :material-check: | :material-check: | :material-check: | :material-check:           |                  |                             |                  |                                 |  |
+| Target        | :material-check: | :material-check: |                  |                            | :material-check: | :material-check:            |                  |                                 |  |
+| Prediction    | :material-check: | :material-check: |                  |                            |                  |                             | :material-check: | :material-check:                |  |
 
 !!! note
     As you can see Column's Roles ID and Time Id are always required because are used by ML cube Platform to correctly link data units together.
