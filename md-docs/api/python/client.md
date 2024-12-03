@@ -317,7 +317,8 @@ Project ID                Name
    data_structure: DataStructure, cost_info: (TaskCostInfoUnion|None) = None,
    optional_target: bool = False, text_language: (TextLanguage|None) = None,
    positive_class: (str|int|bool|None) = None,
-   rag_contexts_separator: (str|None) = None
+   rag_contexts_separator: (str|None) = None, llm_default_answer: (str|None) = None,
+   semantic_segmentation_target_type: (SemanticSegTargetType|None) = None
 )
 ```
 
@@ -350,6 +351,7 @@ Create a task inside the project.
     it specifies the positive class of the target.
 * **rag_contexts_separator**  : Separator used to separate rag contexts
     from different sources. If missing then only one source exists.
+* **llm_default_answer**  : default answer for the LLM model
 
 
 **Returns**
@@ -521,6 +523,111 @@ Create a model inside the task.
 **Raises**
 
 `CreateModelException`
+
+### .create_llm_specs
+```python
+.create_llm_specs(
+   model_id: str, from_timestamp: list[float], to_timestamp: list[float],
+   llm: (str|None) = None, temperature: (float|None) = None, top_p: (float|None) = None,
+   top_k: (int|None) = None, max_tokens: (int|None) = 256, role: (str|None) = None,
+   task: (str|None) = None, behavior_guidelines: (list[str]|None) = None,
+   security_guidelines: (list[str]|None) = None
+)
+```
+
+---
+Add LLM specs for the LLM model.
+
+**Allowed Roles:**
+
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **from_timestamp**  : the timestamp from which the model is used
+* **to_timestamp**  : the timestamp to which the model is used
+* **model_id**  : the identifier of the LLM model
+* **llm**  : the name of the LLM model
+* **temperature**  : the temperature parameter of the LLM model
+* **top_p**  : the top_p parameter of the LLM model
+* **top_k**  : the top_k parameter of the LLM model
+* **max_tokens**  : the max_tokens parameter of the LLM model
+* **role**  : role section of the system prompt of the LLM model
+* **task**  : task section of the system prompt of the LLM model
+* **behavior_guidelines**  : behavior guidelines section of the system prompt of the LLM model
+* **security_guidelines**  : security guidelines section of the system prompt of the LLM model
+
+
+**Returns**
+
+* **llm_specs_id**  : `str` identifier of the llm specs created
+
+
+**Raises**
+
+`CreateLLMSpecsException`
+
+### .get_all_llm_specs
+```python
+.get_all_llm_specs(
+   model_id: str
+)
+```
+
+---
+Get all LLM specs for the LLM model.
+
+**Allowed Roles:**
+
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **model_id**  : the identifier of the LLM model
+
+
+**Returns**
+
+* **llm_specs_list**  : `list` of all the LLM specs of the LLM model
+
+
+**Raises**
+
+`GetAllLLMSpecsException`
+
+### .set_llm_specs
+```python
+.set_llm_specs(
+   model_id: str, llm_specs_id: str, starting_timestamp: float
+)
+```
+
+---
+Set a LLM specs for the LLM model.
+
+**Allowed Roles:**
+
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **model_id**  : the identifier of the LLM model
+* **llm_specs_id**  : the identifier of the LLM model specs
+* **starting_timestamp**  : the starting timestamp for the LLM specs specified
+
+
+**Raises**
+
+`SetLLMSpecsException`
 
 ### .get_models
 ```python
@@ -904,6 +1011,37 @@ Associate a data schema to a task.
 ### .get_data_schema
 ```python
 .get_data_schema(
+   task_id: str
+)
+```
+
+---
+Get task data schema
+
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : identifier of the task
+
+
+**Returns**
+
+* **data_schema**  : `DataSchema`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .get_data_schema_template
+```python
+.get_data_schema_template(
    task_id: str
 )
 ```
@@ -1570,12 +1708,15 @@ for a specific report id.
 ```python
 .get_monitoring_status(
    task_id: str, monitoring_target: MonitoringTarget,
-   monitoring_metric: (MonitoringMetric|None) = None
+   monitoring_metric: (MonitoringMetric|None) = None,
+   specification: (str|None) = None
 )
 ```
 
 ---
 Get the monitoring status of a monitoring target (or metric) in a task.
+A list is returned because some monitoring targets or metrics
+can have an additional field named specification.
 
 **Allowed Roles:**
 
@@ -1594,7 +1735,7 @@ Get the monitoring status of a monitoring target (or metric) in a task.
 
 **Returns**
 
-* **monitoring_quantity_status**  : `MonitoringQuantityStatus`
+`MonitoringQuantityStatus`
 
 
 **Raises**
@@ -2800,3 +2941,72 @@ Retrain a model via the configured retrain trigger.
 **Raises**
 
 `SDKClientException`
+
+### .compute_llm_security_report
+```python
+.compute_llm_security_report(
+   task_id: str, report_name: str, from_timestamp: float, to_timestamp: float
+)
+```
+
+---
+Compute the LLM Security report for a given task.
+
+This request starts an operation pipeline that is
+executed by ML cube Platform.
+Thus, the method returns the identifier of the job that you can
+monitor to know its status and proceed with the other work
+using the method `wait_job_completion(job_id)`
+
+**Allowed Roles:**
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the identifier of the task
+* **report_name**  : the name of the report
+* **from_timestamp**  : start timestamp of the samples to evaluate
+* **to_timestamp**  : end timestamp of the samples to evaluate
+
+
+**Returns**
+
+* **job_id**  : `str` identifier of the submitted job
+
+
+**Raises**
+
+ComputeLlmSecurityReportException
+
+### .get_llm_security_reports
+```python
+.get_llm_security_reports(
+   task_id: str
+)
+```
+
+---
+For a given task id, get the computed LLM Security reports.
+
+**Allowed Roles:**
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the identifier of the task
+
+
+**Returns**
+
+* **llm_sec_reports**  : list[TaskLlmSecReportItem]
+
+
+**Raises**
+
+GetLlmSecurityReportException

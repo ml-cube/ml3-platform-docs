@@ -61,6 +61,18 @@ AddTargetDataException
 ----
 
 
+## ComputeLlmSecurityReportException
+```python 
+ComputeLlmSecurityReportException()
+```
+
+
+---
+ComputeLlmSecurityReportException
+
+----
+
+
 ## ComputeRagEvaluationReportException
 ```python 
 ComputeRagEvaluationReportException()
@@ -133,6 +145,18 @@ CreateKPIEventRuleException
 ----
 
 
+## CreateLLMSpecsException
+```python 
+CreateLLMSpecsException()
+```
+
+
+---
+CreateLLMSpecsException
+
+----
+
+
 ## CreateModelException
 ```python 
 CreateModelException()
@@ -165,6 +189,30 @@ CreateTaskException()
 
 ---
 CreateTaskException
+
+----
+
+
+## GetAllLLMSpecsException
+```python 
+GetAllLLMSpecsException()
+```
+
+
+---
+GetAllLLMSpecsException
+
+----
+
+
+## GetLlmSecurityReportException
+```python 
+GetLlmSecurityReportException()
+```
+
+
+---
+GetLlmSecurityReportException
 
 ----
 
@@ -264,6 +312,18 @@ SDKClientException(
 
 ---
 Base class for client sdk exceptions
+
+----
+
+
+## SetLLMSpecsException
+```python 
+SetLLMSpecsException()
+```
+
+
+---
+SetLLMSpecsException
 
 ----
 
