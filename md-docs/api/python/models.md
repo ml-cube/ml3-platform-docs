@@ -320,6 +320,7 @@ An event created during the detection process.
 * **event_id**  : str
 * **event_type**  : DetectionEventType
 * **monitoring_target**  : MonitoringTarget
+* **monitoring_metric**  : MonitoringMetric | None
 * **severity_type**  : Optional[DetectionEventSeverity]
 * **insert_datetime**  : str
 * **sample_timestamp**  : float
@@ -328,6 +329,7 @@ An event created during the detection process.
 * **model_name**  : Optional[str]
 * **model_version**  : Optional[str]
 * **user_feedback**  : Optional[bool]
+* **specification**  : Optional[str]
 
 
 ----
@@ -611,6 +613,47 @@ KPI base model
 ----
 
 
+## LLMPrompt
+```python 
+LLMPrompt()
+```
+
+
+---
+Base model to define llm prompts
+
+
+**Attributes**
+
+* **role**  : str
+* **task**  : str
+* **behavior_guidelines**  : str
+* **security_guidelines**  : str
+
+
+----
+
+
+## LLMSpecs
+```python 
+LLMSpecs()
+```
+
+
+---
+Base model to define llm specs
+
+
+**Attributes**
+
+* **llm**  : str
+* **temperature**  : float
+* **prompt**  : LLMPrompt
+
+
+----
+
+
 ## LocalDataSource
 ```python 
 LocalDataSource()
@@ -654,6 +697,7 @@ Base model to define model item
 * **creation_datetime**  : Optional[datetime]
 * **retrain_trigger**  : Optional[RetrainTrigger]
 * **retraining_cost**  : float
+* **llm_specs**  : Optional[LLMSpecs]
 
 
 ----
@@ -1113,14 +1157,14 @@ Task model
 * **task_id**  : str
 * **name**  : str
 * **type**  : TaskType
-* **cost_info**  : TaskCostInfoUnion | None
+* **cost_info**  : TaskCostInfoUnion | None = None
 * **optional_target**  : bool
-* **monitoring_targets**  : list[str]
-* **monitoring_metrics**  : dict[str, list[str]] | None
-* **positive_class**  : str | int | bool | None
-* **text_language**  : TextLanguage | None
+* **monitoring_targets**  : list[MonitoringTarget]
+* **monitoring_metrics**  : (
+    None
+    | dict[MonitoringTarget, list[tuple[MonitoringMetric, str | None]]]
 * **monitoring_status**  : list[MonitoringQuantityStatus]
-
+) = None
 
 ----
 
@@ -1135,6 +1179,31 @@ TaskCostInfo()
 Base class for task cost info.
 It depends on TaskType because classification is different from
 regression in terms of business costs due to errors
+
+----
+
+
+## TaskLlmSecReportItem
+```python 
+TaskLlmSecReportItem()
+```
+
+
+---
+Task LLM security report item model.
+It contains the most important information of
+a LLM security report.
+
+
+**Attributes**
+
+* **id**  : str
+* **creation_date**  : datetime
+* **name**  : str
+* **status**  : JobStatus
+* **from_datetime**  : datetime
+* **to_datetime**  : datetime
+
 
 ----
 

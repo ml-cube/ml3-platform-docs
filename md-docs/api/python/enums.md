@@ -68,12 +68,20 @@ ColumnSubRole()
 Column subrole enum
 Describe the subrole of a column
 
-**Fields:**
+Subroles for ColumnRole.INPUT in RAG settings:
+
 - RAG_USER_INPUT
 - RAG_RETRIEVED_CONTEXT
+- RAG_SYS_PROMPT
+
+Subroles for ColumnRole.PREDICTION:
+
 - MODEL_PROBABILITY
-- OBJECT_DETECTION_LABEL_TARGET
-- OBJECT_DETECTION_LABEL_PREDICTION
+- OBJECT_LABEL_PREDICTION
+
+Subroles for ColumnRole.TARGET:
+
+- OBJECT_LABEL_TARGET
 
 ----
 
@@ -149,6 +157,7 @@ DetectionEventActionType()
 - TEAMS_NOTIFICATION
 - MQTT_NOTIFICATION
 - RETRAIN
+- NEW_PLOT_CONFIGURATION
 
 ----
 
@@ -319,17 +328,26 @@ MonitoringMetric()
 
 
 ---
-**Fields:**
-
+Tabular:
 - FEATURE
-- TEXT_TOXICITY
-- TEXT_EMOTION
-- TEXT_SENTIMENT
-- MODEL_PERPLEXITY
-- IMAGE_BRIGHTNESS
-- IMAGE_CONTRAST
-- BBOXES_QUANTITY
-- BBOXES_AREA
+
+---
+Text:
+    - TEXT_TOXICITY
+    - TEXT_EMOTION
+    - TEXT_SENTIMENT
+    - TEXT_LENGTH
+
+Model probabilistic output:
+    - MODEL_PERPLEXITY
+    - MODEL_ENTROPY
+
+Image:
+    - IMAGE_BRIGHTNESS
+    - IMAGE_CONTRAST
+
+Object detection and semantic segmentation:
+    - OBJECT_TYPES_COUNT: total number of identified object types
 
 ----
 
@@ -403,6 +421,22 @@ Enumeration of the possible retrain triggers
 - AWS_EVENT_BRIDGE
 - GCP_PUBSUB
 - AZURE_EVENT_GRID
+
+----
+
+
+## SemanticSegTargetType
+```python 
+SemanticSegTargetType()
+```
+
+
+---
+Format of the target and prediction for the semantic segmentation
+task.
+
+POLYGON: each identified object is represented by the vertices of
+the polygon
 
 ----
 
@@ -489,6 +523,7 @@ TaskType()
 - CLASSIFICATION_MULTILABEL
 - RAG
 - OBJECT_DETECTION
+- SEMANTIC_SEGMENTATION
 
 ----
 

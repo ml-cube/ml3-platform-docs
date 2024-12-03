@@ -1,5 +1,5 @@
 Role,DELETE_COMPANY,CHANGE_COMPANY_OWNER,MANAGE_COMPANY_ADMIN,MANAGE_COMPANY_USER,CHANGE_COMPANY_USER_ROLE,UPDATE_COMPANY_INFORMATION,READ_COMPANY,CREATE_PROJECT
 COMPANY_OWNER,:material-check:,:material-check:,:material-check:,:material-check:,:material-check:,:material-check:,:material-check:,:material-check:
-COMPANY_ADMIN,:material-close:,:material-close:,:material-close:,:material-check:,:material-check:,:material-check:,:material-check:,:material-check:
-COMPANY_USER,:material-close:,:material-close:,:material-close:,:material-close:,:material-close:,:material-close:,:material-check:,:material-close:
-COMPANY_NONE,:material-close:,:material-close:,:material-close:,:material-close:,:material-close:,:material-close:,:material-close:,:material-close:
+COMPANY_ADMIN," "," "," ",:material-check:,:material-check:,:material-check:,:material-check:,:material-check:
+COMPANY_USER," "," "," "," "," "," ",:material-check:," "
+COMPANY_NONE," "," "," "," "," "," "," "," "

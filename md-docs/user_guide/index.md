@@ -19,7 +19,6 @@ Users has assigned a specific **Role** that defines their privileges and what th
 
 [User Roles]: rbac.md
 
-
 ## Project
 
 Your work on ML cube Platform is organized through **Projects**, **Task** and **Models**.
@@ -45,21 +44,21 @@ To be more precise, a **Task** is an AI Problem with a dataset composed of input
 
 !!! tip "Delta Energy inc"
 
-    In out example company, the Fault Detection Task has as input features the PV modules and weather data and the target is the presence of a fault. 
-    The Task has two Models: logistic regression and random forest. 
+    In out example company, the Fault Detection Task has as input features the PV modules and weather data and the target is the presence of a fault.
+    The Task has two Models: logistic regression and random forest.
     Both models use the same data and predict the same target but are different in the techniques used to perform the estimation.
 
 A **Task** is specified by several attributes, the most important are:
 
 - `type`: regression, classification, object detection ...
 - `data structure`: tabular data, image data, ...
-- `optional target`: if the target is not always available. This happen when input samples are labeled and the most part of production data do not have a label
+- `optional target`: if the target is not always available. This happens when input samples are labeled and the most part of production data do not have a label
 - `data schema`: specifies the inputs and the target of the task, see [Data Schema](data_schema.md) section for more details
 - `cost info`: information about the economic costs of the error on the target
 
 !!! tip "Delta Energy inc"
 
-    The Task of Fault Detection has clear costs due to false positives or false negatives. 
+    The Task of Fault Detection has clear costs due to false positives or false negatives.
     Every time a fault is not detected the false negative cost is proportional to the power reduction.
     While, false positives determine costs for the maintenance team that will go on the field for nothing.
 
@@ -67,7 +66,7 @@ A **Task** is specified by several attributes, the most important are:
 
 The last entity is the **Model** that is the actual AI model that predicts the target.
 A **Model** has a Version that defines the training data used to train it.
-All model's data will be uploaded specifying the model version in order to track each prediction with the right model instance. 
+All model's data will be uploaded specifying the model version in order to track each prediction with the right model instance.
 The model version is updated whenever a new training of the model is done.
 
 A **Model** has the following attributes:
@@ -80,44 +79,44 @@ A **Model** has the following attributes:
 
 !!! note
 
-    It's worth nothing to note that in ML cube Platform you do not actually need to upload the model on the application. 
-    We just need to know its training data and its predictions for the production data. 
+    It's worth nothing to note that in ML cube Platform you do not actually need to upload the model on the application.
+    We just need to know its training data and its predictions for the production data.
     In this way, ML cube Platform is considered as model agnostic.
 
 Now that you have clear the basic concepts we invite you to explore the other ML cube Platform pages:
 
 <div class="grid cards" markdown>
 
--   :simple-hive_blockchain:{ .lg .middle } **Modules**
+- :simple-hive_blockchain:{ .lg .middle } **Modules**
 
-    ---
+  ***
 
-    Explore available features in ML cube Platform
+  Explore available features in ML cube Platform
 
-    [:octicons-arrow-right-24: More info](modules/index.md)
+  [:octicons-arrow-right-24: More info](modules/index.md)
 
--   :material-connection:{ .lg .middle } **Integrations**
+- :material-connection:{ .lg .middle } **Integrations**
 
-    ---
+  ***
 
-    We are part of MLOps ecosystem and natively integrated with other solutions.
+  We are part of MLOps ecosystem and natively integrated with other solutions.
 
-    [:octicons-arrow-right-24: More info](integrations/index.md)
+  [:octicons-arrow-right-24: More info](integrations/index.md)
 
--   :material-flash-auto:{ .lg .middle } **Automation rules**
+- :material-flash-auto:{ .lg .middle } **Automation rules**
 
-    ---
+  ***
 
-    Discover how to setup automation rules to increase your reactivity.
+  Discover how to setup automation rules to increase your reactivity.
 
-    [:octicons-arrow-right-24: More info](detection_event_rules.md)
+    [:octicons-arrow-right-24: More info](monitoring/detection_event_rules.md)
 
--   :material-lock:{ .lg .middle } **Roles and access**
+- :material-lock:{ .lg .middle } **Roles and access**
 
-    ---
+  ***
 
-    Get more info about RBAC inside ML cube Platform
+  Get more info about RBAC inside ML cube Platform
 
-    [:octicons-arrow-right-24: More info](rbac.md)
+  [:octicons-arrow-right-24: More info](rbac.md)
 
 </div>

@@ -1,8 +1,8 @@
 Role,DELETE_PROJECT,MANAGE_PROJECT_ADMIN,UPDATE_PROJECT_INFORMATION,MANAGE_PROJECT_USER,CHANGE_PROJECT_USER_ROLE,WORK_ON_PROJECT,READ_PROJECT
 COMPANY_OWNER,:material-check:,:material-check:,:material-check:,:material-check:,:material-check:,:material-check:,:material-check:
 COMPANY_ADMIN,:material-check:,:material-check:,:material-check:,:material-check:,:material-check:,:material-check:,:material-check:
-COMPANY_USER,:material-close:,:material-close:,:material-close:,:material-close:,:material-close:,:material-close:,:material-close:
-COMPANY_NONE,:material-close:,:material-close:,:material-close:,:material-close:,:material-close:,:material-close:,:material-close:
-PROJECT_ADMIN,:material-close:,:material-close:,:material-check:,:material-check:,:material-check:,:material-check:,:material-check:
-PROJECT_USER,:material-close:,:material-close:,:material-close:,:material-close:,:material-close:,:material-check:,:material-check:
-PROJECT_VIEW,:material-close:,:material-close:,:material-close:,:material-close:,:material-close:,:material-close:,:material-check:
+COMPANY_USER," "," "," "," "," "," "," "
+COMPANY_NONE," "," "," "," "," "," "," "
+PROJECT_ADMIN," "," ",:material-check:,:material-check:,:material-check:,:material-check:,:material-check:
+PROJECT_USER," "," "," "," "," ",:material-check:,:material-check:
+PROJECT_VIEW," "," "," "," "," "," ",:material-check:

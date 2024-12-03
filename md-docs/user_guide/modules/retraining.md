@@ -1,27 +1,43 @@
 # Retraining
-A Data drift determines a drop in the model's performance that starts providing bad estimation or predictions.
-In Artificial Intelligence, Data plays a crucial role and usually, choosing the best data has higher impact in the resulting Model quality with respect to increasing the model complexity.
 
-ML cube Platform with its **Retraining Tool Module** provides you the best retraining dataset to use when updating the Model after a drift reducing the reaction time after the detection.
-Even if, the data has changed you can extract useful information from the past.
-ML cube Platform leverages all the available data belonging to the three categories: historical, reference and production, computing an Importance Score to every data sample you have.
-These Importance Scores will be used during the training phase of your model as weights in the loss function.
+The Retraining module of ML cube Platform plays a fundamental role in dealing with data drifts and should be used as consequence of drift detection alarms.
+Indeed, usually, a data drift determines a drop in the model's predictive capacity that starts providing bad predictions and therefore, degrading its performance.
+As soon as a data drift has been detected, action must be taken to avoid excessive performance degradation and thus business issues.
 
-A **Retraining Report** is generated whenever you request it or as a consequence of a [Detection automation rules](../detection_event_rules.md).
-It contains several information and aspects that let you to decide if it is the right time to retrain your model.
-It's sections are:
+Before entering in the details about the retraining module, it is important to describe what happen after the model is in production.
+In fact, the model artifact deployed in production does not last forever but further versions will be generated using newly fresh data that will be up to date with the last data distribution.
+The model update with retraining can be done on temporal basis or as soon as a data drift is detected.
+
+<figure markdown>
+  ![Image title](../../imgs/ai_model_lifecycle.png){ width="900" }
+  <figcaption>AI model lifecycle.</figcaption>
+</figure>
+
+## Retraining dataset
+
+The main outcome of the Retraining module is the _retraining dataset_ that you should use to retrain your AI model adapting it to the new discovered data distributions.
+The dataset computation is based on _transfer learning_ techniques and leverages all the uploaded data to maximize the available information.
+In fact, after a drift has been detected, production data belonging to the new data distribution could be not sufficient for good model training.
+Hence, even if previous data come from another distribution, they can be used for retraining if properly transformed.
+
+The retraining dataset can have two formats:
+
+- __Sample weights:__
+    each sample uploaded in ML cube Platform is assigned a weight that can be used as sample weight in a weighted loss function.
+    The higher the weight, the greater the importance of the sample for the new retraining.
+- __Data samples:__
+    a list of sample ids (using data schema column object with role ID) is provided indicating which data form the retraining dataset.
+    This format can be used when the training procedure does not support weighted loss or when a fixed size retraining dataset is preferred.
+    Note that samples ids can appear more than once, this could happen when a sample is particular importante for the new retraining.
+
+The retraining report contains additional indicators and information that helps you to better understand the provided retraining dataset:
 
 - Performance view
 - Cost view
 - Dataset info
-- Data importance
-
-Retraining report is computed for each model you have in the Task.
-You can generate a retraining report whenever there are new data, moreover, if you added a [Retrain trigger](../integrations/retrain_triggers.md) to the model you can automatically execute the trigger.
 
 ## Performance view
 
-Before retraining your model you should know how it is performing.
 Performance view provides performance interval for three key moments:
 
 - Last Concept: the performance the model has before the drift
@@ -44,10 +60,3 @@ Information about the last training dataset and the proposed one:
 - Effective sample size: quantifies the amount of information conveyed by our suggestion. It represents the hypothetical number of independent observations in a sample that would provide the same information as the computed suggestion. As the magnitude of the drift increases, this value decreases because less information from the past can be reused.
 - Last reference: the number of samples used in the last reference data.
 - Whole data: the percentage of data considered in providing the suggestion relative to the total available data.
-
-## Data importance
-
-Retraining dataset we propose is computed by computing importance weights for each sample uploaded in ML cube Platform.
-This section shows an heatmap to provide a view of the weights distribution.
-When you download the retraining report we provide you a list of pairs `customer id` - `importance weight`.
-In case of the suggestion type for the model is `resampled dataset` then instead of the importance weights we provide you the number of time you should consider that specific sample.
