@@ -24,7 +24,7 @@ Generic attributes are:
 |-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Name              | Name of the Task, unique for the Project.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | Tags              | Optional customizable list of tags. They are used to better describe the Task and to improve search.                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| Task type         | Artificial intelligence type of Task. Possible values are:<br><ul><li>[Regression](task.md#regression)</li><li>[Binary classification](task.md#classification)</li><li>[Multiclass classification](task.md#classification)</li><li>[Multilabel classification](task.md#classification)</li><li>[Retrieval Augmented Generation](task.md#retrieval-augmented-generation)</li><li>[Object Detection](task.md#object-detection)</li></ul>                                                                                                    |
+| Task type         | Artificial intelligence type of Task. Possible values are:<br><ul><li>[Regression](task.md#regression)</li><li>[Binary classification](task.md#classification)</li><li>[Multiclass classification](task.md#classification)</li><li>[Multilabel classification](task.md#classification)</li><li>[Retrieval Augmented Generation](task.md#retrieval-augmented-generation)</li><li>[Object Detection](task.md#object-detection)</li><li>[Semantic Segmentation](task.md#semantic-segmentation)</li></ul>                                                                                                    |
 | Data structure    | Type of input data the Task uses. Possible values are:<br><ul><li>Tabular: standard table based data used in contexts like regression or classification.</li><li>Image: images in their different formats and channels.</li><li>Text: textual data expressed as strings. When data structure is Text, attribute *Text Language* is required.</li><li>Embedding: input data are arrays that could represent embedding either image or text data. This data structure is used when raw data are not shared with ML cube Platform.</li></ul> |
 | Optional target   | Boolean value that specifies if the ground truth is always available or not. In some Tasks, the actual value is not present until explicit labeling is done. In this cases, the Task is marked as with optional target so that ML cube Platform works accordingly.                                                                                                                                                                                                                                                                        |
 | Cost info         | Optional information about costs that depend on Task Type.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
@@ -32,6 +32,8 @@ Generic attributes are:
 | Positive class    | Required when Task Type is Binary Classification, it indicates the positive class to be predicted.                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | Context separator | Available when Task Type is RAG, it specifies the string separator to split retrieved context into different chunks.                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | Default answer    | Available when Task Type is RAG, it specifies the default answer to be used when no retrieved context is available.                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Target Type | Available when Task Type is Semantic Segmentation, it specifies how target and predictions are specified in this task. For now, the only available option is Polygon. See Semantic Segmentation details for more information. |
+
 
 !!! warning
     Some Task's attributes are immutable: type, data structure and optional target flag cannot be modified after the creation of the Task.
@@ -41,14 +43,14 @@ Generic attributes are:
 Most of ML cube Platform operations are done at Task level: monitoring, retraining, analytics and other features are specific to AI models and data that belong to a Task.
 Indeed, each Task Type has a set of ML cube Platform modules:
 
-| Module         | Regression                                                                  | Classification                                                              | RAG                                                                  | Object Detection                                                     |
-|----------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------|----------------------------------------------------------------------|----------------------------------------------------------------------|
-| Monitoring     | :material-check:                                                            | :material-check:                                                            | :material-check:                                                     | :material-check:                                                     |
-| Explainability | :material-check:                                                            | :material-check:                                                            | :material-check:                                                     | :material-check:                                                     |
-| Retraining     | :material-check:                                                            | :material-check:                                                            | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} |
-| Topic Modeling | :material-check: :material-information-outline:{title="Only for Text data"} | :material-check: :material-information-outline:{title="Only for Text data"} | :material-check:                                                     |                                                                      |
-| RAG Evaluation |                                                                             |                                                                             | :material-check:                                                     |                                                                      |
-| LLM Security   |                                                                             |                                                                             | :material-check:                                                     |                                                                      |
+| Module | Regression | Classification | RAG | Object Detection | Semantic Segmentation |
+|-----|-----|-----|-----|-----|-----|
+| Monitoring | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: |
+| Explainability | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: |
+| Retraining     | :material-check: | :material-check: | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} |
+| Topic Modeling | :material-check: :material-information-outline:{title="Only for Text data"} | :material-check: :material-information-outline:{title="Only for Text data"} | :material-check: | |
+| RAG Evaluation | | | :material-check:  | |
+| LLM Security | | | :material-check: | |
 
 !!! Tip
     On the left side of the web app page the Task menu is present, with links to the above-mentioned modules and Task settings.
@@ -64,6 +66,7 @@ Not all Task Types are compatible with data structures, in the table below are s
 | Classification   | :material-check: | :material-check: | :material-check: | :material-check: |
 | RAG              |                  |                  | :material-check: | :material-check: |
 | Object Detection |                  | :material-check: |                  | :material-check: |
+| Semantic Segmentation |                  | :material-check: |                  | :material-check: |
 
 In the following sections, you can find a description of each Task Type with its specific information.
 
@@ -162,7 +165,13 @@ RAG Tasks have two additional attributes:
 ### Object Detection
 
 Object Detection task processes images and provides as output a list of bounding boxes with associated label indicating the type of identified entity.
-Therefore, target is a list of four elements tuples indicating the vertex of the box and a string label for the entity type.
+Therefore, target is a list of four elements tuples indicating the x_min, x_max, y_min and y_max of the box and a string label for the entity type.
+
+### Semantic Segmentation
+
+Semanric segmentation task processes images and provides as output a list of entities identified in the image with label indicating the type.
+The target can assume different forms, the Task attribute _Target Type_ is used to specify it.
+When target type is Polygon, the entity is represented as a list of verices with x,y coordinates that defines the vertices of the polygon.
 
 [Model]: model.md
 [Data schema]: data_schema.md
