@@ -345,6 +345,10 @@ Model probabilistic output:
 Image:
     - IMAGE_BRIGHTNESS
     - IMAGE_CONTRAST
+    - IMAGE_FOCUS
+    - IMAGE_COLOR_VARIATION_RED
+    - IMAGE_COLOR_VARIATION_GREEN
+    - IMAGE_COLOR_VARIATION_BLUE
 
 Object detection and semantic segmentation:
     - OBJECT_TYPES_COUNT: total number of identified object types
