@@ -60,26 +60,34 @@ These are the entities currently available:
   <figcaption style="width: 100%; text-align: center;">Example of a drift score plot with detection events of increasing severity displayed.</figcaption>
 </figure>
 
-- **`Clustering counts`**:
-it's a histogram plot that shows the distributions of reference and production samples across clusters created over reference data.
-In particular, a clustering algorithm is run over reference data and then production data are assigned to the identified clusters.
-This plot allows understand the nature of the drift, indeed, two main cases can happen:
+- **`Clusters Count`**: it's an histogram plot that shows the distribution of reference and production samples across clusters created over reference data. It is obtained by fitting a clustering algorithm over the reference data and then assigning production data to these identified clusters. This plot can help understanding the nature of the drift by distinguishing between two main scenarios:
 
-    1. Internal dynamic change: if all production data are assigned to the same reference clusters then the drift reflects a change in the internal dynamics of the same distribution, for instance, it narrows to specific sub-domains.
-    2. Distribution shift: if most of production data are labeled as noise then a distribution shift occurred. In this case production data do not belong to the reference distribution.
+    1. `Internal dynamic change`: if all production data align with the reference clusters, with no point labeled as outlier, then the drift is likely reflecting a change in the internal dynamics of the same distribution. For instance, production data may concentrate within specific sub-domains of the reference distribution.
+    2. `Distribution shift`: if most production data points are labeled as noise, which means that the clusters found defined on reference data are not able to capture the production data, then an actual distribution shift has likely occurred.
 
-- **`Clustering scatter`**:
-it's a scatter plot showing in a 2-dimension space the reference clusters and how the production data are assigned to them.
-This plot should be seen with the previous one since, they show how production data are mapped to reference one.
-Each color in the graph represents a cluster, squared points represent reference samples, while, crosses represent the production ones.
+<figure markdown style="width: 100%">
+  ![Drift score](../../imgs/monitoring/drift-explainability/cluster-count.svg)
+  <figcaption style="width: 100%; text-align: center;">Example of a cluster count plot. In this case most production data are assigned to the reference clusters, but with different proportions, which suggests that the drift is likely due to an internal reorganization within the same distribution.</figcaption>
+</figure>
 
-- **`Clustering heatmap`**:
-it's a heat map plot showing the difference between reference and production data.
-Along with the clustering over reference data, another clustering is executed over production data only.
-It is important to notice that the clusters found by analyzing reference data do not necessarily map 1 to 1 with the ones found by analyzing production data.
-Those two clustering outputs are then compared in this heatmap, given a cell at row R and column C, the intensity indicates how many production samples are assigned to reference cluster R and production cluster C.
-When the data distribution did not shift then, the expected output is a chess like heatmap in which each production cluster matches with a reference cluster.
-When the data distribution shifted then, the expected output is that most of production data are assigned to the noise row of reference while belong to a specific production cluster.
+- **`Clustering scatter`**: it's a scatter plot showing reference and production data in a 2 dimensional space. The color of the points represents the cluster they belong to, while the shape distinguishes between reference and production data. The clusters shown in this plot are the ones identified over the reference data (also shown in the `Clusters Count` plot). This plot can help understanding how the production data are mapped to the reference data, and how the clusters are distributed in the 2D space.
+
+<figure markdown style="width: 100%">
+  ![Drift score](../../imgs/monitoring/drift-explainability/cluster-scatter-plot.svg)
+  <figcaption style="width: 100%; text-align: center;">Example of a clustering scatter plot.</figcaption>
+</figure>
+
+- **`Clustering heatmap`**: it's a heatmap which aims at showing the difference between reference and production data.
+Along with the clustering over reference data, another clustering is executed, this time over production data only.
+It is important to notice that the production clusters found by analyzing reference data do not necessarily map 1 to 1 with the ones found by analyzing production data.
+Those two clustering outputs are then compared in this heatmap. Given a cell at row R and column C, the intensity indicates how many production samples are assigned to reference cluster R and production cluster C.
+When the data distribution did not shift, the expected output is a chess-like heatmap, in which each production cluster matches with a reference cluster.
+When the data distribution shifted, the expected output is that most of production data are assigned to the noise row of the reference cluster, while belonging to specific production clusters.
+
+<figure markdown style="width: 100%">
+  ![Drift score](../../imgs/monitoring/drift-explainability/cluster-heatmap.svg)
+  <figcaption style="width: 100%; text-align: center;">Example of a clustering heatmap. It looks like there is a direct mapping between reference and production clusters, which suggests that the drift is likely not due to a distribution shift.</figcaption>
+</figure>
 
 [Monitoring]: index.md
 [Detection Events]: detection_event.md

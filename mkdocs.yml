@@ -150,7 +150,7 @@ nav:
       - Integrations:
           - user_guide/integrations/index.md
           - user_guide/integrations/data_sources.md
-          - user_guide/integrations/retrain_triggers.md
+          - user_guide/integrations/retrain_trigger.md
   - API:
       - api/index.md
       - Examples: api/examples.md
