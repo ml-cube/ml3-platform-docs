@@ -1,0 +1,92 @@
+{
+	"columns": [
+		{
+			"name": "id",
+			"data_type": "string",
+			"role": "id",
+			"is_nullable": false,
+			"predicted_target": null,
+			"possible_values": null,
+			"model_id": null,
+			"model_name": null,
+			"subrole": null,
+			"dims": null,
+			"classes_names": null,
+			"image_mode": null
+		},
+		{
+			"name": "time_id",
+			"data_type": "float",
+			"role": "time_id",
+			"is_nullable": false,
+			"predicted_target": null,
+			"possible_values": null,
+			"model_id": null,
+			"model_name": null,
+			"subrole": null,
+			"dims": null,
+			"classes_names": null,
+			"image_mode": null
+		},
+		{
+			"name": "input_1",
+			"data_type": "string",
+			"role": "input",
+			"is_nullable": false,
+			"predicted_target": null,
+			"possible_values": null,
+			"model_id": null,
+			"model_name": null,
+			"subrole": "user_input",
+			"dims": null,
+			"classes_names": null,
+			"image_mode": null
+		},
+		{
+			"name": "retrieved_context_1",
+			"data_type": "string",
+			"role": "input",
+			"is_nullable": false,
+			"predicted_target": null,
+			"possible_values": null,
+			"model_id": null,
+			"model_name": null,
+			"subrole": "retrieved_context",
+			"dims": null,
+			"classes_names": null,
+			"image_mode": null
+		},
+		{
+			"name": "input_additional_embedding_1_1",
+			"data_type": "array_1",
+			"role": "input_additional_embedding",
+			"is_nullable": false,
+			"predicted_target": null,
+			"possible_values": null,
+			"model_id": null,
+			"model_name": null,
+			"subrole": "user_input",
+			"dims": [
+				1
+			],
+			"classes_names": null,
+			"image_mode": null
+		},
+		{
+			"name": "input_additional_embedding_2_1",
+			"data_type": "array_1",
+			"role": "input_additional_embedding",
+			"is_nullable": false,
+			"predicted_target": null,
+			"possible_values": null,
+			"model_id": null,
+			"model_name": null,
+			"subrole": "retrieved_context",
+			"dims": [
+				1
+			],
+			"classes_names": null,
+			"image_mode": null
+		}
+	]
+}

@@ -60,6 +60,27 @@ These are the entities currently available:
   <figcaption style="width: 100%; text-align: center;">Example of a drift score plot with detection events of increasing severity displayed.</figcaption>
 </figure>
 
+- **`Clustering counts`**:
+it's a histogram plot that shows the distributions of reference and production samples across clusters created over reference data.
+In particular, a clustering algorithm is run over reference data and then production data are assigned to the identified clusters.
+This plot allows understand the nature of the drift, indeed, two main cases can happen:
+
+    1. Internal dynamic change: if all production data are assigned to the same reference clusters then the drift reflects a change in the internal dynamics of the same distribution, for instance, it narrows to specific sub-domains.
+    2. Distribution shift: if most of production data are labeled as noise then a distribution shift occurred. In this case production data do not belong to the reference distribution.
+
+- **`Clustering scatter`**:
+it's a scatter plot showing in a 2-dimension space the reference clusters and how the production data are assigned to them.
+This plot should be seen with the previous one since, they show how production data are mapped to reference one.
+Each color in the graph represents a cluster, squared points represent reference samples, while, crosses represent the production ones.
+
+- **`Clustering heatmap`**:
+it's a heat map plot showing the difference between reference and production data.
+Along with the clustering over reference data, another clustering is executed over production data only.
+It is important to notice that the clusters found by analyzing reference data do not necessarily map 1 to 1 with the ones found by analyzing production data.
+Those two clustering outputs are then compared in this heatmap, given a cell at row R and column C, the intensity indicates how many production samples are assigned to reference cluster R and production cluster C.
+When the data distribution did not shift then, the expected output is a chess like heatmap in which each production cluster matches with a reference cluster.
+When the data distribution shifted then, the expected output is that most of production data are assigned to the noise row of reference while belong to a specific production cluster.
+
 [Monitoring]: index.md
 [Detection Events]: detection_event.md
 [Task]: ../task.md
