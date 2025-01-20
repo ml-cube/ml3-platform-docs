@@ -54,13 +54,24 @@ In any case, the presence of a Data Category in a Data Batch depends on the cont
 In the next section we explain what is meant by the _Historical_, _Reference_ and _Production_ data.
 
 !!! info
-    You can see your uploaded data batches in its own page.
+    You can see your uploaded data batches in its own page in the web app.
     With information about the origin of data, the data categories it contains and what monitoring has been done.
 
 <figure markdown>
   ![Image title](../imgs/data_batches_examples.png)
   <figcaption>Examples of two valid and two invalid data batches.</figcaption>
 </figure>
+
+When uploading images on the platform, you also need to provide a mapping file that links the image filename to the sample ID and its timestamp. Likewise sample IDs, filenames must be unique across all the images uploaded for a task.
+
+!!! example
+    An example of a mapping file for images could be:
+    ``` csv
+    sample_id,time_id,file_name
+    abc123,1234,image_1.png
+    ```
+
+    Notice that we require the column with the file name to be named `file_name`.
 
 ## Data contexts
 
@@ -78,7 +89,7 @@ For that reason, the ML cube Platform defines two data contexts: _historical_ an
 
 <figure markdown>
   ![Image title](../imgs/data_contexts.png){ width="900" }
-  <figcaption>Different data batches and they data context.</figcaption>
+  <figcaption>Different data batches and their data context.</figcaption>
 </figure>
 
 ### Historical
@@ -96,6 +107,13 @@ Data categories that a batch of historical data contains depend on the Task Type
 The reason why it is not possible to upload the model's predictions in historical data of supervised tasks is that they may contain the training bias of the model.
 On the other hand, in RAG tasks there is no target or training dataset.
 
+!!! warning
+    There is only one limitation to upload historical data: the __production boundary__.
+    Model data reference defines a rigid boundary separating historical and production data.
+    This boundary is defined as the last sample timestamp of the reference data.
+    After the model data reference is defined, it is no longer possible to upload historical data that are more recent than that date.
+    Indeed, data with sample timestamps higher than the production boundary are considered production data and no longer historical.
+
 ??? code-block "SDK Example"
 
     You can upload historical data as follow:
@@ -110,20 +128,17 @@ On the other hand, in RAG tasks there is no target or training dataset.
 
 #### Reference
 
-As mentioned before, to historical data belong to both training and old data, but it is important distinguish them.
 The [Monitoring] module requires the definition of a Reference dataset representing training, validation and test data.
-The reference data is initially loaded as historical data and then marked as reference data by providing the timestamp interval.
+As mentioned before, historical data belong to both training and old data, but it is important distinguish them.
+Therefore, the reference data is initially loaded as historical data and then marked as reference data by providing the timestamp interval.
 
-It is worth mentioning that also RAG Tasks can have reference data even if they do not have a proper training dataset.
+To provide sufficient statistical reliability, reference data must include at least 300 samples. This requirement also applies to the reference of each [Segment], if the task involves any.
+
+It is worth mentioning that also RAG Tasks can have reference data, even if they do not have a proper training dataset.
 Indeed, reference data are used by the Monitoring module to initialize drift detection algorithms, therefore, the reference data definition is a mandatory step to enable this feature.
 For RAG Tasks, reference data can be used to indicate the type of data expected in production.
 
-!!! warning
-    There is only one limitation to upload historical data: the __production boundary__.
-    Model data reference defines a rigid boundary separating historical and production data.
-    This boundary is defined as the last sample timestamp of the reference data.
-    After the model data reference is defined, it is no longer possible to upload historical data that are more recent than that date.
-    Indeed, data with sample timestamps higher than the production boundary are considered production data and no longer historical.
+
 
 ??? code-block "SDK Example"
 
@@ -242,3 +257,5 @@ To have more information about how to actually upload data we suggest to read th
 [Data schema]: data_schema.md
 [Monitoring]: modules/monitoring.md
 [Data Sources]: integrations/data_sources.md
+[Segment]: segment.md
+"""
