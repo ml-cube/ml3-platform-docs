@@ -1,11 +1,16 @@
 
 # Segment
 
-A Segment is a subset of the population, created according to a specific set of rules. A [Task] can include several Segments, each defined by its own rule and monitored in parallel alongside the whole population. The objective of a Segment is to allow the analysis of specific groups of data, whose variations might go unnoticed if only the whole population is monitored.
+A Segment is a subset of the data distribution that identifies a sub-domain inside the data.
+It is defined by a set of rules over data dimensions and metadata.
+A [Task] can include several Segments and there are no constrains about how they are specified.
+Indeed, two Segments can have some intersections in the data space.
 
+When Segments are specified for a [Task], monitoring is performed both on the whole data, called _all population_, and for each Segment.
+The objective of a Segment is to allow the analysis of specific groups of data, whose variations might go unnoticed if only the whole population is monitored.
 
-Segments, similarly to the [Data schema], must be defined before sending any data to the Platform. They must to be created all at once, as they can't be modified upon creation. Additionally, their definition needs to happen
-after the creation of the Data Schema, as the rules for the Segment are based on the columns defined there. 
+Segments, similarly to the [Data schema], must be defined before sending any data to the Platform.
+They must to be created all at once, as they can't be modified upon creation. Additionally, their definition needs to happen after the creation of the Data Schema, as the rules for the Segment are based on the columns defined there. 
 
 
 ## Segment Structure
@@ -21,14 +26,15 @@ Segments can be created both through the Web App and the SDK.
     
 ## Segment Rules
 
-A rule is a condition that a sample must satisfy to be part of a Segment. Each Segment can have multiple roles, which are applied in AND between them.
+A rule is a condition over a single data dimension that a specific sample must match to be considered part of the Segment.
+Each Segment has from one to several rules, which are applied in AND between them.
 A rule is defined by the following fields:
 
 | Field  | Description |
 | --------- | ------- |
 | Column name | The name of the column in the Data Schema that the rule is applied to. A rule can be applied only on columns of role INPUT, TARGET and METADATA|
 | Operator | The operator defining the rule. It can be either `IN` or `OUT`  |
-| Values | This field can have 2 possible meaning, according to the data type of the column of the rule: <br><ul><li>The data type is float: values is a list of intervals that defines the ranges over which the operator is applied. The values defining the interval are always included in the interval.</li><li>The data type is categorical or string: values is a list containing the exact values over which the operator is applied</li></ul> |
+| Values | This field can have two possible meaning, according to the data type of the column specified in the rule: <br><ul><li>The data type is float: Values is a series of ranges [a, b] that define the numeric intervals over which the operator is applied. The range is closed, meaning that the extremes are always considered in it. When operator is `IN`, the ranges are in OR, whereas, when the operator is `OUT` they are in AND.</li><li>The data type is categorical or string: Values is a list which elements must match the content of the column. When operator is `IN`, the column value must be one of the specified elements, while, when operator is `OUT` it must not be one of them. </li></ul> |
 
 ## Examples
 
@@ -76,7 +82,7 @@ This segment would include the samples with `Sample ID` equal to `id_0`, `id_1` 
             )
     ```
 
-- A Segment that includes all samples where the value of the column `X_0` is between greater or equal than 13 and the value of the column `X_1` is strictly less than 24:
+- A Segment that includes all samples where the value of the column `X_0` is greater or equal than 13 and the value of the column `X_1` is strictly less than 24:
   
 | Field  | Value | 
 | --------- | ------- |
@@ -103,7 +109,7 @@ This segment would include the sample with `Sample ID` equal to `id_3`.
                                 NumericSegmentRule(
                                     column_name='X_1',
                                     operator=SegmentOperator.IN,
-                                    values=[SegmentRuleNumericRange(end_value=22)]
+                                    values=[SegmentRuleNumericRange(end_value=23)]
                                 )
                             ]
                     )
@@ -137,7 +143,7 @@ This segment would include the samples with `Sample ID` equal to `id_0` and `id_
                                     operator=SegmentOperator.IN,
                                     values=[SegmentRuleNumericRange(end_value=10), SegmentRuleNumericRange(start_value=14)]
                                 ),
-                                NumericSegmentRule(
+                                CategoricalSegmentRule(
                                     column_name='Metadata_1',
                                     operator=SegmentOperator.IN,
                                     values=['A1', 'A3']
@@ -168,11 +174,16 @@ This segment would include the samples with `Sample ID` equal to `id_2` and `id_
                     Segment(name=f'Segment 3',
                             rules=[
                                 NumericSegmentRule(
+                                    column_name='X_1',
+                                    operator=SegmentOperator.OUT,
+                                    values=[SegmentRuleNumericRange(end_value=21), SegmentRuleNumericRange(start_value=23)]
+                                ),
+                                CategoricalSegmentRule(
                                     column_name='y_0',
                                     operator=SegmentOperator.IN,
-                                    values=[SegmentRuleNumericRange(end_value=10), SegmentRuleNumericRange(start_value=14)]
+                                    values=['class_0']
                                 ),
-                                NumericSegmentRule(
+                                CategoricalSegmentRule(
                                     column_name='Metadata_1',
                                     operator=SegmentOperator.IN,
                                     values=['A1']
