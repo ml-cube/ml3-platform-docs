@@ -16,6 +16,7 @@ Rules are specific to a task and are characterized by the following attributes:
 | Monitoring Metric    | The [Monitoring Metric](index.md#monitoring-metrics) whose event should trigger the rule.                                                                              |
 | Model name           | The name of the model to which the rule applies. This is only required when the monitoring target is related to a model (such as `ERROR` or `PREDICTION`).             |
 | Actions              | A list of actions to be executed sequentially when the rule is triggered.                                                                                              |
+| Segment ID           | It refers to the ID of the segment where the rule is set.                                                                                                              |
 
 ## Detection Event Actions
 Three types of actions are currently supported: notification, plot configuration and retrain.
