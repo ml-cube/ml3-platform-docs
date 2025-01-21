@@ -128,8 +128,10 @@ nav:
       - user_guide/task.md
       - user_guide/model.md
       - user_guide/data_schema.md
+      - user_guide/segment.md
       - user_guide/data.md
       - user_guide/rbac.md
+
 
       - Modules:
           - user_guide/modules/index.md
