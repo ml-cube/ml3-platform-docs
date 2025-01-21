@@ -17,7 +17,7 @@ and the distribution of the data it is operating on to identify significant chan
 
 ## How does the ML cube Platform perform Monitoring?
 
-The ML cube platform performs monitoring by employing statistical techniques to compare a certain reference (for instance, data used for training or the 
+The ML cube Platform performs monitoring by employing statistical techniques to compare a certain reference (for instance, data used for training or the 
 performance of a model on the test set) to incoming production data. 
 
 These statistical techniques, also known as _monitoring algorithms_, are tailored to the type of data
@@ -34,7 +34,7 @@ on the data used by the model) will
 be initialized on the specified reference. Of course, you should provide to the 
 Platform the data you want to use as a reference before setting the reference itself. This can be done through the SDK as well.
 
-After setting the reference, you can send production data to the platform, still using the SDK. This data will be analyzed by the monitoring algorithms
+After setting the reference, you can send production data to the Platform, still using the SDK. This data will be analyzed by the monitoring algorithms
 and, if a significant difference is detected, an alarm will be raised, in the form of a [Detection Event]. 
 You can explore more about detection events and how you can set up automatic actions upon their reception in the Detection Event 
 and the [Detection Event Rule] sections respectively.
@@ -51,7 +51,7 @@ related to each other and to the entities of the Task.
   <figcaption> Monitoring Targets and Metrics overview</figcaption>
 </figure>
 
-Monitoring Targets and Metrics are defined by the ML cube platform based on the Task attributes, such as the Task Type and the Data Structure, 
+Monitoring Targets and Metrics are defined by the ML cube Platform based on the Task attributes, such as the Task Type and the Data Structure, 
 and their monitoring is automatically enabled upon the Task creation. The idea underlying defining many entities to monitor, 
 rather than monitoring only the model error, is to provide a comprehensive view of the model's
 performance and the data distribution, easing the identification of the root causes of a drift and thus facilitating the corrective actions.
@@ -59,10 +59,10 @@ performance and the data distribution, easing the identification of the root cau
 
 #### Monitoring Targets
 
-A Monitoring Target is a relevant entity involved in a Task. They represent the main quantities monitored by the platform, those whose
+A Monitoring Target is a relevant entity involved in a Task. They represent the main quantities monitored by the Platform, those whose
 variation can have a significant impact on the AI task success. 
 
-The ML cube platform supports the following monitoring targets:
+The ML cube Platform supports the following Monitoring Targets:
 
 
 | Monitoring Target              | Description                                                                                                                                                      | 
@@ -79,7 +79,7 @@ The ML cube platform supports the following monitoring targets:
 
 As mentioned, some targets are available only for specific Task types. The following table shows all the available monitoring targets in relation with the Task Type. 
 While some targets were specifically designed for a certain Task Type, others are more general and can be used in different contexts. 
-Nonetheless, the platform might not support yet all possible combinations. The table will be updated as new targets are added to the product.
+Nonetheless, the Platform might not support yet all possible combinations. The table will be updated as new targets are added to the product.
 
 | **Monitoring Target**          |  **REGRESSION**  | **CLASSIFICATION BINARY** | **CLASSIFICATION MULTICLASS** | **CLASSIFICATION MULTILABEL** | **OBJECT DETECTION** | **SEMANTIC SEGMENTATION** |     **RAG**      |
 |--------------------------------|:----------------:|:-------------------------:|:-----------------------------:|:-----------------------------:|:--------------------:|:--------------------:|:----------------:|
@@ -98,14 +98,14 @@ Nonetheless, the platform might not support yet all possible combinations. The t
 A Monitoring Metric is a generic quantity that can be computed on a Monitoring Target. They enable the monitoring of specific
 aspects of an entity, which might help in identifying the root cause of a drift, as well as defining the corrective actions to be taken.
 
-For certain Monitoring Metrics, the platform includes a specification field that provides additional details about the metric. 
-This feature is currently available only for Object Detection and Semantic Segmentation tasks.
-For example, in the Object Detection task, the AVERAGE AREA PER OBJECT TYPE metric is not computed once for the entire task but is calculated separately for each possible object type. 
-The specification field indicates which object type a particular metric refers to, meaning there will be a distinct AVERAGE AREA PER OBJECT TYPE metric for each output label associated with the task.
+For certain Monitoring Metrics, the Platform includes a specification field that provides additional details about the Monitoring Metric. 
+This feature is currently available only for Object Detection and Semantic Segmentation Tasks.
+For example, in the Object Detection Task, the AVERAGE AREA PER OBJECT TYPE Monitoring Metric is not computed once for the entire Task but is calculated separately for each possible object type. 
+The specification field indicates which object type a particular Monitoring Metric refers to, meaning there will be a distinct AVERAGE AREA PER OBJECT TYPE Monitoring Metric for each output label associated with the Task.
 
 The following table displays the Monitoring Metrics supported, along with their Monitoring Target and the conditions
 under which they are actually computed and monitored. The possible values that each metric can assume are also provided.
-Eventually, it is shown whether for each metric the specification is available and how it works.
+Eventually, it is shown whether for each Monitoring Metric the specification is available and how it works.
 This table is subject to changes, as new metrics will be added in the future.
 
 |    **Monitoring Metric**     | Description                                                                                                                                                                                             |              **Monitoring Target**               |                              **Conditions**                               | **Possible values**                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Specification                    |
