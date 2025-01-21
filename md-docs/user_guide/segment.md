@@ -14,8 +14,8 @@ The Segment structure is very simple, as it only requires the definition of two 
 
 | Field  | Description | 
 | --------- | ------- |
-| Name | The name of the Segment. It is used to display information related to the segment in the Web App |
-| Rules | A list of rules defining the subset of the population. These rules are applied in AND between them, which means that a sample belongs to the Segment if all the conditions expressed by the rules are satisfied. To prevent possible conflicts, the rules of a segments need to be applied on different columns.  |
+| Name | The name of the Segment. It is used to display information related to the segment in the Web App. |
+| Rules | A list of rules defining the subset of the population. These rules are applied in AND between them, which means that a sample belongs to the Segment if all the conditions expressed by the rules are satisfied. To prevent possible conflicts, there can't be two rules in a segment defined over the same column.  |
 
 Segments can be created both through the Web App and the SDK.
     

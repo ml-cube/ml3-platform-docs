@@ -30,7 +30,7 @@ These are the entities currently available:
  and the production datasets. Variations in a feature's values might suggest that its contribution to the model's predictions 
  has changed over time. This entity is available only for tasks with tabular data.
 
-<figure markdown>
+<figure markdown style="width:100%">
   ![Feature Importance](../../imgs/monitoring/drift-explainability/fi.svg)
   <figcaption>Example of a feature importance plot.</figcaption>
 </figure>
@@ -40,7 +40,7 @@ These are the entities currently available:
  The values represent how strongly a given feature helps to distinguish the datasets, with higher values representing stronger 
  separating power. This entity is available only for tasks with tabular data.
 
-<figure markdown>
+<figure markdown style="width:100%">
   ![Variable discriminative power](../../imgs/monitoring/drift-explainability/concept-fi.svg)
   <figcaption>Example of a variable discriminative power plot.</figcaption>
 </figure>
