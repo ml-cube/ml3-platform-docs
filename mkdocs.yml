@@ -128,8 +128,10 @@ nav:
       - user_guide/task.md
       - user_guide/model.md
       - user_guide/data_schema.md
+      - user_guide/segment.md
       - user_guide/data.md
       - user_guide/rbac.md
+
 
       - Modules:
           - user_guide/modules/index.md
@@ -150,7 +152,7 @@ nav:
       - Integrations:
           - user_guide/integrations/index.md
           - user_guide/integrations/data_sources.md
-          - user_guide/integrations/retrain_triggers.md
+          - user_guide/integrations/retrain_trigger.md
   - API:
       - api/index.md
       - Examples: api/examples.md

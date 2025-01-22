@@ -1,0 +1,83 @@
+{
+	"columns": [
+		{
+			"name": "id",
+			"data_type": "string",
+			"role": "id",
+			"is_nullable": false,
+			"predicted_target": null,
+			"possible_values": null,
+			"model_id": null,
+			"model_name": null,
+			"subrole": null,
+			"dims": null,
+			"classes_names": null,
+			"image_mode": null
+		},
+		{
+			"name": "time_id",
+			"data_type": "float",
+			"role": "time_id",
+			"is_nullable": false,
+			"predicted_target": null,
+			"possible_values": null,
+			"model_id": null,
+			"model_name": null,
+			"subrole": null,
+			"dims": null,
+			"classes_names": null,
+			"image_mode": null
+		},
+		{
+			"name": "input",
+			"data_type": "array_3",
+			"role": "input",
+			"is_nullable": false,
+			"predicted_target": null,
+			"possible_values": null,
+			"model_id": null,
+			"model_name": null,
+			"subrole": null,
+			"dims": [
+				300,
+				300,
+				3
+			],
+			"classes_names": null,
+			"image_mode": "rgb"
+		},
+		{
+			"name": "target",
+			"data_type": "categorical",
+			"role": "target",
+			"is_nullable": false,
+			"predicted_target": null,
+			"possible_values": [
+				"negative_class",
+				"p"
+			],
+			"model_id": null,
+			"model_name": null,
+			"subrole": null,
+			"dims": null,
+			"classes_names": null,
+			"image_mode": null
+		},
+		{
+			"name": "input_additional_embedding",
+			"data_type": "array_1",
+			"role": "input_additional_embedding",
+			"is_nullable": false,
+			"predicted_target": null,
+			"possible_values": null,
+			"model_id": null,
+			"model_name": null,
+			"subrole": null,
+			"dims": [
+				1
+			],
+			"classes_names": null,
+			"image_mode": null
+		}
+	]
+}

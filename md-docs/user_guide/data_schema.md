@@ -36,6 +36,7 @@ User defined roles are:
 |--|--|--|--|
 |ID|String| Unique identifier of the sample. It is used during data validation to avoid duplicates of data and to communicate information about data with you without sending the actual data| It must be always present when sending data to ML cube Platform. |
 | Time ID | Float | Timestamp of the sample expressed in seconds (for that reason it is a Float). It is used to temporally order samples maintaining coherence in the analysis of ML cube Platform.|It must be always present when sending data to ML cube Platform. |
+|Metadata | Float, Categorical and String | Represents additional data that are not used as input by the algorithm but that provide contextual information for each sample. For instance, a metadata column can represents the country code | It is optional since it depends on your choice to upload additional information in ML cube Platform |
 | Input | Any available Data Type | Represents input data like a single feature for Tabular tasks or image in Image tasks or text in Text tasks | According to Task Type the number of Input Column object varies from 1 to illimitate. See Section [Data schema templates](data_schema.md#data-schema-templates)|
 | Target | Any available Data Type. It must be coherent with Task Type | Represents the true value of the sample in supervised tasks.| It is mandatory for supervised tasks. |
 | Input additional embedding | Array 1 | Embedding vector of the Input Column. It is allowed only then Data Structure of Task is Image or Text. When this Column object is present, ML cube Platform uses it as numerical representation of the data, otherwise, it uses an internal embedding algorithm. | It is optional since it depends on your choice to share with ML cube Platform this type of data.|
@@ -79,6 +80,28 @@ Here the list of constraints about Data Types for each Role:
 
 {{ read_excel('../tables/data schema validation.xlsx', engine='openpyxl', sheet_name='types') }}
 
+
+## Data schema templates
+
+- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_binary_embedding.json">classification binary embedding</a>
+- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_binary_image.json">classification binary image</a>
+- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_binary_tabular.json">classification binary tabular</a>
+- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_binary_text.json">classification binary text</a>
+- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multiclass_embedding.json">classification multiclass embedding</a>
+- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multiclass_image.json">classification multiclass image</a>
+- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multiclass_tabular.json">classification multiclass tabular</a>
+- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multiclass_text.json">classification multiclass text</a>
+- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multilabel_embedding.json">classification multilabel embedding</a>
+- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multilabel_image.json">classification multilabel image</a>
+- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multilabel_tabular.json">classification multilabel tabular</a>
+- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multilabel_text.json">classification multilabel text</a>
+- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/object_detection.json">object detection</a>
+- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/rag.json">rag</a>
+- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/regression_embedding.json">regression embedding</a>
+- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/regression_image.json">regression image</a>
+- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/regression_tabular.json">regression tabular</a>
+- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/regression_text.json">regression text</a>
+- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/semantic_segmentation.json">semantic segmentation</a>
 
 [Task]: task.md
 [Model]: model.md
