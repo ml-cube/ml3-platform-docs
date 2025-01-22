@@ -3,8 +3,8 @@
 
 A Segment is a subset of the data distribution that identifies a sub-domain inside the data.
 It is defined by a set of rules over data dimensions and metadata.
-A [Task] can include several Segments and there are no constrains about how they are specified.
-Indeed, two Segments can have some intersections in the data space.
+A [Task] can include several Segments. There are no constraints about how they are specified: they can be disjoint, overlapping, or even nested.
+In other words, a sample can belong to all the Segments, none of them, or just some of them.
 
 When Segments are specified for a [Task], monitoring is performed both on the whole data, called _all population_, and for each Segment.
 The objective of a Segment is to allow the analysis of specific groups of data, whose variations might go unnoticed if only the whole population is monitored.
@@ -20,7 +20,7 @@ The Segment structure is very simple, as it only requires the definition of two 
 | Field  | Description | 
 | --------- | ------- |
 | Name | The name of the Segment. It is used to display information related to the segment in the Web App. |
-| Rules | A list of rules defining the subset of the population. These rules are applied in AND between them, which means that a sample belongs to the Segment if all the conditions expressed by the rules are satisfied. To prevent possible conflicts, there can't be two rules in a segment defined over the same column.  |
+| Rules | A list of rules defining the subset of the population. These rules are applied in AND between them, which means that a sample belongs to the Segment if all the conditions expressed by the rules are satisfied. To prevent potential conflicts, it is not possible to define two rules over the same column.  |
 
 Segments can be created both through the Web App and the SDK.
     
@@ -32,9 +32,9 @@ A rule is defined by the following fields:
 
 | Field  | Description |
 | --------- | ------- |
-| Column name | The name of the column in the Data Schema that the rule is applied to. A rule can be applied only on columns of role INPUT, TARGET and METADATA|
-| Operator | The operator defining the rule. It can be either `IN` or `OUT`  |
-| Values | This field can have two possible meaning, according to the data type of the column specified in the rule: <br><ul><li>The data type is float: Values is a series of ranges [a, b] that define the numeric intervals over which the operator is applied. The range is closed, meaning that the extremes are always considered in it. When operator is `IN`, the ranges are in OR, whereas, when the operator is `OUT` they are in AND.</li><li>The data type is categorical or string: Values is a list which elements must match the content of the column. When operator is `IN`, the column value must be one of the specified elements, while, when operator is `OUT` it must not be one of them. </li></ul> |
+| Column name | The name of the column in the Data Schema that the rule is applied to. A rule can be applied only on columns of role `INPUT`, `TARGET` and `METADATA`|
+| Operator | The operator defining the rule. It can be either `IN`, meaning that the element matches the criteria, or `OUT`, indicating it does not satisfy the criteria.  |
+| Values | This field can have two possible meaning, according to the data type of the column specified in the rule: <br><ul><li>The data type is float: Values is a series of ranges [a, b] that define the numeric intervals over which the operator is applied. The range is closed, meaning that the extremes are always included. When operator is `IN`, the ranges are in OR, whereas, when the operator is `OUT` they are in AND. It is possible to set an open extreme by not specifying it (At least one of the extremes needs to be specified.) </li><li>The data type is categorical or string: Values is a list which elements must match the content of the column. When operator is `IN`, the column value must be one of the specified elements, while, when operator is `OUT` it must not be one of them. </li></ul> |
 
 ## Examples
 
