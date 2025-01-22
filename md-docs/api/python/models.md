@@ -172,6 +172,36 @@ Binary classification cost info is expressed in two terms:
 ----
 
 
+## CategoricalSegmentRule
+```python 
+CategoricalSegmentRule()
+```
+
+
+---
+Rule for a segment over categorical values. It contains a list of
+values that are considered in `OR` logic to define the rule.
+See `SegmentRule` for additional details.
+
+
+**Attributes**
+
+* **values**  : list[str | int]
+
+
+
+**Methods:**
+
+
+### .get_supported_data_types
+```python
+.get_supported_data_types()
+```
+
+
+----
+
+
 ## ColumnInfo
 ```python 
 ColumnInfo()
@@ -267,6 +297,69 @@ Generic data model that contains all information about a data
 ----
 
 
+## DataBatch
+```python 
+DataBatch()
+```
+
+
+---
+A Data Batch represents a portion of data that is sent to the
+ML cube Platform.
+
+
+**Attributes**
+
+* **index**  : int
+    The index of the data batch, assigned in the order of creation
+* **creation_date**  : datetime
+    The creation date of the data batch
+* **first_sample_date**  : datetime
+    The date of the first sample in the data batch
+* **last_sample_date**  : datetime
+    The date of the last sample in the data batch
+* **storing_data_type**  : StoringDataType
+    The origin of the data batch
+* **inputs**  : bool
+    Whether the data batch contains inputs
+* **metadata**  : bool
+    Whether the data batch contains metadata
+* **target**  : bool
+    Whether the data batch contains the target
+* **predictions**  : list[str]
+    The list of models for which the data batch contains predictions
+* **monitoring_flags**  : list[DataBatchMonitoringFlag]
+    The list of monitoring flags referring to the whole population
+* **segmented_monitoring_flags**  : list[SegmentedMonitoringFlags]
+    The list of monitoring flags for each segment
+
+
+----
+
+
+## DataBatchMonitoringFlag
+```python 
+DataBatchMonitoringFlag()
+```
+
+
+---
+Model that stores the monitoring status
+of a monitoring target, used in the context
+of a data batch.
+
+
+**Attributes**
+
+* **monitoring_target**  : MonitoringTarget
+* **status**  : MonitoringStatus | None
+    The status of the monitoring target. If None, it means
+    that the monitoring target was not monitored.
+
+
+----
+
+
 ## DataSchema
 ```python 
 DataSchema()
@@ -330,6 +423,7 @@ An event created during the detection process.
 * **model_version**  : Optional[str]
 * **user_feedback**  : Optional[bool]
 * **specification**  : Optional[str]
+* **segment_id**  : Optional[str]
 
 
 ----
@@ -376,6 +470,7 @@ a series of actions.
 * **detection_event_type**  : DetectionEventType
 * **monitoring_target**  : MonitoringTarget
 * **actions**  : List[DetectionEventAction]
+* **segment_id**  : Optional[str]
 
 
 ----
@@ -719,6 +814,7 @@ of a monitoring quantity (target or metric)
 * **monitoring_target**  : MonitoringTarget
 * **status**  : MonitoringStatus
 * **monitoring_metric**  : MonitoringMetric | None
+* **segment_id**  : str | None
 
 
 ----
@@ -767,6 +863,36 @@ MultilabelClassificationTaskCostInfo()
 ---
 Multilabel classification cost info is expressed in terms of
 false positive and false negative costs for each class
+
+----
+
+
+## NumericSegmentRule
+```python 
+NumericSegmentRule()
+```
+
+
+---
+Rule for a segment over numeric values. It contains a list of ranges
+that are considered in `OR` logic to define the rule.
+See `SegmentRule` for additional details.
+
+
+**Attributes**
+
+* **values**  : list[SegmentRuleNumericRange]
+
+
+
+**Methods:**
+
+
+### .get_supported_data_types
+```python
+.get_supported_data_types()
+```
+
 
 ----
 
@@ -1025,6 +1151,101 @@ you need to set up the trust policy on AWS.
 ---
 Generates a JSON trust policy that you can copy into the IAM
 role on AWS.
+
+----
+
+
+## Segment
+```python 
+Segment()
+```
+
+
+---
+A Segment is a partition of the data, defined by a set of rules that
+are applied to the DataSchema. Each rule of the segment is applied in `AND`,
+whereas the values of each rule are applied in `OR`.
+
+
+**Attributes**
+
+* **segment_id**  : str
+* **name**  : str
+* **rules**  : list[SerializeAsAny[NumericSegmentRule | CategoricalSegmentRule]]
+
+
+----
+
+
+## SegmentRule
+```python 
+SegmentRule()
+```
+
+
+---
+A segment is composed by a set of rules that are applied over
+the fields of the `DataSchema`. Each rule is applied in `AND` logic
+with the other rules, and supports an `operator` that can either be:
+    the value of the field must be in the list of values.
+    the value of the field must not be in the list of values.
+
+**Attributes**
+
+* **column_name**  : str
+* **operator**  : SegmentOperator
+
+
+
+**Methods:**
+
+
+### .get_supported_data_types
+```python
+.get_supported_data_types()
+```
+
+---
+Get the supported data types for the rule
+
+----
+
+
+## SegmentRuleNumericRange
+```python 
+SegmentRuleNumericRange()
+```
+
+
+---
+Numeric range for a single element of values in a NumericSegmentRule
+
+
+**Attributes**
+
+* **start_value**  : float | None
+* **end_value**  : float | None
+
+
+----
+
+
+## SegmentedMonitoringFlags
+```python 
+SegmentedMonitoringFlags()
+```
+
+
+---
+Model containing the monitoring flags of
+a given segment, identified by its id.
+
+
+**Attributes**
+
+* **segment_id**  : str
+* **flags**  : list[DataBatchMonitoringFlag]
+
 
 ----
 

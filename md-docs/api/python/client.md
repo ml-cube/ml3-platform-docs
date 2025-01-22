@@ -1113,7 +1113,7 @@ Show data schema of associated with a task
 ### .add_historical_data
 ```python
 .add_historical_data(
-   task_id: str, inputs: Data, target: (Data|None) = None,
+   task_id: str, inputs: Data, metadata: (Data|None) = None, target: (Data|None) = None,
    predictions: (list[tuple[str, Data]]|None) = None
 )
 ```
@@ -1138,6 +1138,8 @@ using the method `wait_job_completion(job_id)`
 
 * **task_id**  : the identifier of the task
 * **inputs**  : data object that contain input data source.
+    It can be None if you upload other kinds of data
+* **metadata**  : data object that contain metadata data source.
     It can be None if you upload other kinds of data
 * **target**  : data object that contains target data.
     It can be None if you upload other kinds of data
@@ -1245,8 +1247,8 @@ to_timestamp
 ### .add_production_data
 ```python
 .add_production_data(
-   task_id: str, inputs: (Data|None) = None, target: (Data|None) = None,
-   predictions: (list[tuple[str, Data]]|None) = None
+   task_id: str, inputs: (Data|None) = None, metadata: (Data|None) = None,
+   target: (Data|None) = None, predictions: (list[tuple[str, Data]]|None) = None
 )
 ```
 
@@ -1270,6 +1272,8 @@ using the method `wait_job_completion(job_id)`
 
 * **task_id**  : the identifier of the task
 * **inputs**  : data object that contain input data source.
+    It can be None if you upload other kinds of data
+* **metadata**  : data object that contain metadata data source.
     It can be None if you upload other kinds of data
 * **target**  : data object that contains target data.
     It can be None if you upload other kinds of data
@@ -1709,7 +1713,7 @@ for a specific report id.
 .get_monitoring_status(
    task_id: str, monitoring_target: MonitoringTarget,
    monitoring_metric: (MonitoringMetric|None) = None,
-   specification: (str|None) = None
+   specification: (str|None) = None, segment_id: (str|None) = None
 )
 ```
 
@@ -1731,6 +1735,8 @@ can have an additional field named specification.
 * **monitoring_target**  : the type of monitoring target to get the status
 * **monitoring_metric**  : the type of monitoring metric to get the status
     If ``None``, only the monitoring target is considered
+* **segment_id**  : the identifier of the segment. None if referring to the whole
+    population
 
 
 **Returns**
@@ -1963,7 +1969,8 @@ Get a detection event rule by id.
    name: str, task_id: str, severity: (DetectionEventSeverity|None),
    detection_event_type: DetectionEventType, monitoring_target: MonitoringTarget,
    actions: list[DetectionEventAction],
-   monitoring_metric: (MonitoringMetric|None) = None, model_name: (str|None) = None
+   monitoring_metric: (MonitoringMetric|None) = None, model_name: (str|None) = None,
+   segment_id: (str|None) = None
 )
 ```
 
@@ -1996,6 +2003,9 @@ Create a detection event rule.
     severity is matched.
 * **actions**  : the list of actions to execute, in order,
     when the conditions of the rule are matched.
+* **segment_id**  : the segment id on which the event should take
+    place to trigger the rule. If None, the rule will
+    be triggered on events related to the whole population
 
 
 **Returns**
@@ -3010,3 +3020,64 @@ For a given task id, get the computed LLM Security reports.
 **Raises**
 
 GetLlmSecurityReportException
+
+### .get_all_task_segments
+```python
+.get_all_task_segments(
+   task_id: str
+)
+```
+
+---
+Get all segments for the given task.
+
+
+**Args**
+
+* **task_id**  : The task id.
+
+
+**Returns**
+
+A list of Segment objects
+
+### .create_task_segments
+```python
+.create_task_segments(
+   task_id: str, segments: list[Segment]
+)
+```
+
+---
+Create segments for the given task.
+
+
+**Args**
+
+* **task_id**  : The task id.
+* **segments**  : A list of Segment objects.
+
+
+**Returns**
+
+The ids of the created segments.
+
+### .get_data_batch_list
+```python
+.get_data_batch_list(
+   task_id: str
+)
+```
+
+---
+Get all data batches for the given task.
+
+
+**Args**
+
+* **task_id**  : The task id.
+
+
+**Returns**
+
+A list of DataBatch objects

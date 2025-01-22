@@ -44,6 +44,7 @@ Describe the role of a column
 **Fields:**
 - INPUT
 - INPUT_MASK
+- METADATA
 - PREDICTION
 - TARGET
 - ERROR
@@ -274,14 +275,15 @@ JobStatus()
 
 
 ---
-**Fields:**
+Enum containing all the job's status that a client can see
+
+ **Fields:**
 
 - IDLE
 - STARTING
 - RUNNING
 - COMPLETED
 - ERROR
-- ROLLBACK_COMPLETE
 
 ----
 
@@ -425,6 +427,21 @@ Enumeration of the possible retrain triggers
 - AWS_EVENT_BRIDGE
 - GCP_PUBSUB
 - AZURE_EVENT_GRID
+
+----
+
+
+## SegmentOperator
+```python 
+SegmentOperator()
+```
+
+
+---
+Segment operator for segmentation rules.
+**Fields:**
+- IN: the given rule is verified if the field is in the list of values
+- OUT: the given rule is verified if the field is not in the list of values
 
 ----
 
