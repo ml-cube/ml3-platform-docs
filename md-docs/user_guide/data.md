@@ -255,7 +255,7 @@ To have more information about how to actually upload data we suggest to read th
 
 [Task]: task.md
 [Data schema]: data_schema.md
-[Monitoring]: modules/monitoring.md
+[Monitoring]: monitoring/index.md
 [Data Sources]: integrations/data_sources.md
 [Segment]: segment.md
 """
