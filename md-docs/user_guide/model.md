@@ -127,7 +127,7 @@ The available options are:
 | Accuracy          | Classification tasks       |
 | RMSE              | Regression tasks           |
 | R2                | Regression tasks           |
-| Average Precision | For Object Detection tasks |
+| Average Precision | Object Detection tasks |
 
 RAG tasks have no metric, as in that case the model is an LLM for which classic definitions of metrics are not applicable.
 
