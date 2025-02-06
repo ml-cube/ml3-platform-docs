@@ -9,8 +9,8 @@ In other words, a sample can belong to all the Segments, none of them, or just s
 When Segments are specified for a [Task], monitoring is performed both on the whole data, called _all population_, and for each Segment.
 The objective of a Segment is to allow the analysis of specific groups of data, whose variations might go unnoticed if only the whole population is monitored.
 
-Segments, similarly to the [Data schema], must be defined before sending any data to the Platform.
-They must to be created all at once, as they can't be modified upon creation. Additionally, their definition needs to happen after the creation of the Data Schema, as the rules for the Segment are based on the columns defined there. 
+Segments, similarly to the [Data Schema] and the [Model], must be defined before sending any data to the Platform.
+They must be created all at once, as they can't be modified upon creation. Additionally, their definition needs to happen after the creation of the Data Schema, as the rules of the Segment are based on the columns defined there, and also after the creation of the Model.
 
 
 ## Segment Structure
@@ -195,4 +195,6 @@ This segment would include the samples with `Sample ID` equal to `id_2` and `id_
     ```
 
 [Task]: task.md
-[Data schema]: data_schema.md
+[Data Schema]: data_schema.md
+[Model]: model.md
+"""
