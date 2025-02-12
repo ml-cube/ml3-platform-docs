@@ -7,35 +7,11 @@ Below, you will find a guide that will help you create the credentials and confi
     ![Amazon Web Services](../../imgs/aws.svg){: style="height:50px;width:50px"}
 
     The ML cube Platform can assume an **IAM Role** on your AWS Account, that can be used to authorize actions on specific resources.
-    To create this, log into your AWS account and open the AWS console. Here, go to the **IAM** service, navigate to the **Roles** section and create a new role. When asked, select the **Custom trust policy** option and paste the following json:
-
-    ```json
-    {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Sid": "Statement1",
-                "Effect": "Allow",
-                "Principal": {
-                    "AWS": "arn:aws:iam::883313729965:root"
-                },
-                "Action": "sts:AssumeRole",
-                "Condition": {
-                    "StringEquals": {
-                        "sts:ExternalId": "<EXTERNAL_ID>"
-                    }
-                }
-            }
-        ]
-    }
-    ```
-
-    `883313729965` is the ID of the AWS Account used by the ML cube Platform. It is important that this value is not changed. We will populate the value of `<EXTERNAL_ID>` in a later step. Give your role a name and save it.
-
-    Now, you will need to create the credentials through the ML cube Platform SDK or the web application.
+    
+    You will need to create the credentials through the ML cube Platform SDK or the web application.
 
     !!! example
-        The following code will create a set of AWS credentials from the IAM Role we just created.
+        The following code will create a set of AWS credentials for an IAM Role called `YOUR_ROLE_NAME` (change this as desired).
 
         ```py
         aws_creds = client.create_aws_integration_credentials(
@@ -45,12 +21,10 @@ Below, you will find a guide that will help you create the credentials and confi
             role_arn='arn:aws:iam::{{YOUR_AWS_ACCOUNT_ID}}:role/{{YOUR_ROLE_NAME}}',
         )
 
-        trust_policy = aws_creds.generate_trust_policy()
-        print(trust_policy)
+        print(aws_creds.trust_policy)
         ```
 
-    You can call the `generate_trust_policy` function on the created credentials to obtain the **trust policy**.
-    Edit your IAM Role and change the **trust policy** to the one you just obtained.
+    Now, log into your AWS account and open the AWS console. Here, go to the **IAM** service, navigate to the **Roles** section and create a new role. It is important to set the **trust policy** to the one you just obtained.
 
     Right now, your **IAM Role** grants no permissions. Please refer to the next sections that will explain how to set up **IAM Policies** for S3, Event Bridge and so on.
 

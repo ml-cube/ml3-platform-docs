@@ -353,7 +353,7 @@ Image:
     - IMAGE_COLOR_VARIATION_BLUE
 
 Object detection and semantic segmentation:
-    - OBJECT_TYPES_COUNT: total number of identified object types
+    - TRACKING_OBJECT_POSITION: polar coordinates of farther object from the center of the image
 
 ----
 

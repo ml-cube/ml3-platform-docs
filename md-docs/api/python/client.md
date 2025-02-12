@@ -2725,8 +2725,8 @@ set as default.
 
 ---
 Create credentials to integrate with AWS. Returns an object
-that contains the external_id you will need to configure in
-your trust policy.
+that contains the trust policy that you need to set on the
+IAM role on AWS.
 
 **Allowed Roles:**
 
