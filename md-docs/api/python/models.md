@@ -1125,8 +1125,8 @@ SecretAWSCredentials()
 
 
 ---
-AWS integration credentials, that also include the external_id
-you need to set up the trust policy on AWS.
+AWS integration credentials, that also include the trust policy that
+you need to set on the IAM role on AWS.
 
 
 **Attributes**
@@ -1136,21 +1136,9 @@ you need to set up the trust policy on AWS.
 * **default**  : bool
 * **type**  : ExternalIntegration
 * **role_arn**  : The ARN of the IAM role that should be assumed
-* **external_id**  : Secret key used to assume the IAM role via STS
+* **trust_policy**  : The trust policy that should be set on the
+    IAM role on AWS
 
-
-
-**Methods:**
-
-
-### .generate_trust_policy
-```python
-.generate_trust_policy()
-```
-
----
-Generates a JSON trust policy that you can copy into the IAM
-role on AWS.
 
 ----
 
