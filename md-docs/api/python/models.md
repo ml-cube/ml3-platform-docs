@@ -224,7 +224,8 @@ Column base model
 * **dims**  : Optional[tuple[int]] = None
     it is mandatory when data_type is Array
 * **tol**  : Optional[int] = 0
-    Indicates the pixel tolerance for image size.
+    Tolerance for ImageData width and height.
+    Images can be loaded with size (w ± tol, h ± tol) pixels
 * **classes_names**  : Optional[list[str]] = None
     it is mandatory when the column is the target
     in multilabel classification tasks
