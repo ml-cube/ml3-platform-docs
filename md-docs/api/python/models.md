@@ -223,6 +223,8 @@ Column base model
 * **model_id**  : Optional[str] = None
 * **dims**  : Optional[tuple[int]] = None
     it is mandatory when data_type is Array
+* **tol**  : Optional[int] = 0
+    Indicates the pixel tolerance for image size.
 * **classes_names**  : Optional[list[str]] = None
     it is mandatory when the column is the target
     in multilabel classification tasks
