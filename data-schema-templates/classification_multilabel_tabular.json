@@ -11,6 +11,7 @@
 			"model_name": null,
 			"subrole": null,
 			"dims": null,
+			"tol": 0,
 			"classes_names": null,
 			"image_mode": null
 		},
@@ -25,6 +26,7 @@
 			"model_name": null,
 			"subrole": null,
 			"dims": null,
+			"tol": 0,
 			"classes_names": null,
 			"image_mode": null
 		},
@@ -39,6 +41,7 @@
 			"model_name": null,
 			"subrole": null,
 			"dims": null,
+			"tol": 0,
 			"classes_names": null,
 			"image_mode": null
 		},
@@ -56,6 +59,7 @@
 			"model_name": null,
 			"subrole": null,
 			"dims": null,
+			"tol": 0,
 			"classes_names": null,
 			"image_mode": null
 		},
@@ -75,6 +79,7 @@
 			"dims": [
 				3
 			],
+			"tol": 0,
 			"classes_names": [
 				"class name_1",
 				"class name_2",
