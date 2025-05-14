@@ -130,7 +130,7 @@ On the other hand, in RAG tasks there is no target or training dataset.
 
 The [Monitoring] module requires the definition of a Reference dataset representing training, validation and test data.
 As mentioned before, historical data belong to both training and old data, but it is important distinguish them.
-Therefore, the reference data is initially loaded as historical data and then marked as reference data by providing the timestamp interval.
+Therefore, the reference data is initially loaded as historical data and then marked as reference data by providing the timestamp interval. This interval is defined as one or more [from timestamp, to timestamp] tuples. It serves also as default interval being applied to any [Segment] without a specific time range. Optionally, segment-specific intervals can be provided, also as lists of [from timestamp, to timestamp] tuples.
 
 To provide sufficient statistical reliability, reference data must include at least 300 samples. This requirement also applies to the reference of each [Segment], if the task involves any.
 
@@ -142,15 +142,41 @@ For RAG Tasks, reference data can be used to indicate the type of data expected 
 
 ??? code-block "SDK Example"
 
-    You can set reference data as follow:
+    You can set the default reference data as follow:
 
     ``` py
     job_id = client.set_model_reference(
         model_id=model_id,
-        from_timestamp=from_timestamp,
-        to_timestamp=to_timestamp,
+        default_reference=ReferenceInfo(
+                time_intervals=[(from_timestamp, to_timestamp)]
+            ),
     )
     ```
+
+    In case you want to set multiple default intervals:
+
+    ``` py
+    job_id = client.set_model_reference(
+        model_id=model_id,
+        default_reference=ReferenceInfo(
+                time_intervals=[(from_timestamp_1, to_timestamp_1), (from_timestamp_2, to_timestamp_2)]
+            ),
+    )
+    ```
+
+    If you want to set also segment-specific reference intervals:
+
+    ``` py
+    job_id = client.set_model_reference(
+        model_id=model_id,
+        default_reference=ReferenceInfo(
+                time_intervals=[(from_timestamp, to_timestamp)]
+            ),
+        segment_references=[ReferenceInfo(time_intervals=[(from_timestamp_segment_1, to_timestamp_segment_1)], segment_id=segment_id_1),
+                            ReferenceInfo(time_intervals=[(from_timestamp_segment_2, to_timestamp_segment_2)], segment_id=segment_id_2)]
+    )
+    ```
+    Segment intervals can also include multiple (from, to) tuples.
 
 ### Production
 

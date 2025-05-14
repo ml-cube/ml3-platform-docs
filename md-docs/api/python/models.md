@@ -919,6 +919,30 @@ Project model
 ----
 
 
+## ReferenceInfo
+```python 
+ReferenceInfo()
+```
+
+
+---
+Reference info
+
+
+**Attributes**
+
+* **time_intervals**  : list[tuple[float, float]]
+    List of time intervals used as model reference with tuples
+    containing the start and end time of the intervals
+    Can be the default time intervals or segment specific ones
+* **segment_id**  : str | None
+    Segment id associated to the model reference considered, None if the
+    reference is for the whole population (default)
+
+
+----
+
+
 ## RegressionTaskCostInfo
 ```python 
 RegressionTaskCostInfo()
