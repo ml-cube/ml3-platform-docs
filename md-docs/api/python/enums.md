@@ -31,6 +31,38 @@ Base class for all enums in the ML3 Platform SDK
 ----
 
 
+## BooleanLicenceFeature
+```python 
+BooleanLicenceFeature()
+```
+
+
+---
+Boolean licence feature
+
+**Fields:**
+- EXPLAINABILITY
+    Whether the company has access to explainability reports
+- MONITORING
+    Whether the company has monitoring feature enabled
+- MONITORING_METRICS
+    Whether the company has monitoring metrics feature enabled
+- SEGMENTED_MONITORING
+    Whether the company has segmented monitoring feature enabled
+- RETRAINING
+    Whether the company has retraining feature enabled
+- TOPIC_ANALYSIS
+    Whether the company has topic analysis feature enabled
+- RAG_EVALUATION
+    Whether the company has RAG evaluation feature enabled
+- LLM_SECURITY
+    Whether the company has LLM security feature enabled
+- BUSINESS
+    Whether the company has business feature enabled
+
+----
+
+
 ## ColumnRole
 ```python 
 ColumnRole()
@@ -348,12 +380,12 @@ Image:
     - IMAGE_BRIGHTNESS
     - IMAGE_CONTRAST
     - IMAGE_FOCUS
-    - IMAGE_COLOR_VARIATION_RED
-    - IMAGE_COLOR_VARIATION_GREEN
-    - IMAGE_COLOR_VARIATION_BLUE
+    - IMAGE_BLUR
+    - IMAGE_COLOR_VARIATION
+    - IMAGE_COLOR_CONTRAST
 
 Object detection and semantic segmentation:
-    - TRACKING_OBJECT_POSITION: polar coordinates of farther object from the center of the image
+        (position wrt Cartesian axis with origin in the center of the image)
 
 ----
 
@@ -393,6 +425,27 @@ MonitoringTarget()
 - USER_INPUT_RETRIEVED_CONTEXT
 - USER_INPUT_MODEL_OUTPUT
 - MODEL_OUTPUT_RETRIEVED_CONTEXT
+
+----
+
+
+## NumericLicenceFeature
+```python 
+NumericLicenceFeature()
+```
+
+
+---
+Numeric licence feature
+
+**Fields:**
+- MAX_TASKS
+    Maximum number of tasks that the company can have
+- MAX_USERS
+    Maximum number of users that the company can have
+- DAILY_DATA_BATCH_UPLOAD
+    Maximum number of data batches that the company can upload
+    in a day. Only considers production data batches.
 
 ----
 

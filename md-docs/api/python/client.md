@@ -4,7 +4,7 @@
 ## ML3PlatformClient
 ```python 
 ML3PlatformClient(
-   url: str, api_key: str, timeout: int = 60
+   url: str, api_key: str, timeout: int = 180
 )
 ```
 
@@ -943,8 +943,8 @@ reference of this new model with set_reference request.
 ### .update_model_version_from_time_range
 ```python
 .update_model_version_from_time_range(
-   model_id: str, new_model_version: str, from_timestamp: float,
-   to_timestamp: float
+   model_id: str, new_model_version: str, default_reference: ReferenceInfo,
+   segment_references: (list[ReferenceInfo]|None) = None
 )
 ```
 
@@ -969,8 +969,8 @@ using the method `wait_job_completion(job_id)`
 
 * **model_id**  : the identifier of the model
 * **new_model_version**  : the new version of the model
-from_timestamp
-to_timestamp
+* **default_reference**  : the list of time intervals used as default reference
+* **segment_references**  : list of segment specific time intervals used as reference for the segments
 
 
 **Raises**
@@ -1207,7 +1207,8 @@ using the method `wait_job_completion(job_id)`
 ### .set_model_reference
 ```python
 .set_model_reference(
-   model_id: str, from_timestamp: float, to_timestamp: float
+   model_id: str, default_reference: ReferenceInfo,
+   segment_references: (list[ReferenceInfo]|None) = None
 )
 ```
 
@@ -1231,8 +1232,10 @@ using the method `wait_job_completion(job_id)`
 **Args**
 
 * **model_id**  : the identifier of the model
-from_timestamp
-to_timestamp
+* **default_reference**  : the list of time intervals used as default reference, they are combined with OR operator
+* **segment_references**  : a dictionary containing for each specified segments constraints on the time intervals,
+    they are combined with OR operator among themselves and with AND operator with the time intervals.
+
 
 
 **Returns**
