@@ -4,7 +4,7 @@
 ## ML3PlatformClient
 ```python 
 ML3PlatformClient(
-   url: str, api_key: str, timeout: int = 60
+   url: str, api_key: str, timeout: int = 180
 )
 ```
 

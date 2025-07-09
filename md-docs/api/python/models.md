@@ -870,6 +870,30 @@ false positive and false negative costs for each class
 ----
 
 
+## NumericLicenceFeatureInfo
+```python 
+NumericLicenceFeatureInfo()
+```
+
+
+---
+Numeric Licence feature info model
+
+
+**Attributes**
+
+* **feature**  : NumericLicenceFeature
+    Current numeric feature
+* **max_value**  : int | None
+    Maximum value of the feature. If None, no limit is set
+* **used_value**  : int
+    Used value of the feature. If max_value is None,
+    this value defaults to 0
+
+
+----
+
+
 ## NumericSegmentRule
 ```python 
 NumericSegmentRule()
@@ -1293,8 +1317,7 @@ SubscriptionPlanInfo()
 
 ---
 Data model for a subscription plan
-Permission limit set to None means no limit is set
-Expiration date set to None means no expiration is set
+
 Product key data are set only if a product key is associated to the
 subscription plan
 
@@ -1303,14 +1326,14 @@ subscription plan
 
 * **subscription_id**  : str
 * **type**  : SubscriptionType
-* **max_tasks**  : int | None
-* **max_users**  : int | None
-* **monitoring**  : bool
-* **explainability**  : bool
-* **retraining**  : bool
+* **boolean_licence_features**  : list[BooleanLicenceFeature]
+    Features which are either enabled or disabled
+* **numeric_licence_features**  : list[NumericLicenceFeatureInfo]]
+    Features associated with a usage limit
 * **is_active**  : bool
 * **start_date**  : date
 * **expiration_date**  : date | None
+    If set to None, no expiration is set
 * **product_key**  : str | None
 * **product_key_status**  : ProductKeyStatus | None
 
