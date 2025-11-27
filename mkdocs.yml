@@ -144,6 +144,7 @@ nav:
               - user_guide/monitoring/drift_explainability.md
 
           - user_guide/modules/retraining.md
+          - user_guide/modules/data_explorer.md
           - user_guide/modules/topic_modeling.md
           - user_guide/modules/rag_evaluation.md
           - user_guide/modules/llm_security.md
