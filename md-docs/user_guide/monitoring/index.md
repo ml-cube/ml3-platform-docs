@@ -151,13 +151,13 @@ $$
 where $I_{max}$ and $I_{min}$ are the maximum and minimum intensities of the gray scaled image.
 In ML cube Platform we use a more slightly different version of this formula where instead of the minimum and maximum, 10-th and 90-th percentiles are used.
 
-- **Histogram Spread:** is the ration between the quartile distance to the range of the histogram and the range of intensities.
+- **Histogram Spread:** is the ratio between the quartile distance to the range of the histogram and the range of intensities.
 The third and first quartiles are the histogram bins at which the cumulative histogram has 75% and 25% of maximum value:
 $$
 \frac{q_3 -q_1}{I_{max} + I_{min}}
 $$
 
-- **Histogram Flatness:** is the ration of the geometric mean to the arithmetic mean of the histogram counts:
+- **Histogram Flatness:** is the ratio of the geometric mean to the arithmetic mean of the histogram counts:
 
 $$
 \frac{\sqrt[n]{\prod_{i}^{n} x_i} }{\frac{1}{n}\sum_{i}^n x_i}
