@@ -143,6 +143,7 @@ nav:
               - user_guide/monitoring/detection_event_rules.md
               - user_guide/monitoring/drift_explainability.md
 
+          - user_guide/modules/dynamic_clustering.md
           - user_guide/modules/retraining.md
           - user_guide/modules/data_explorer.md
           - user_guide/modules/topic_modeling.md
