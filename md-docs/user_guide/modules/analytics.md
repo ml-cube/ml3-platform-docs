@@ -40,6 +40,7 @@ In addition, this section introduces the concept of *graph configurations*. A co
 </figure>
 
 Graph configurations can also be created automatically based on two types of events:
+
 - when a model reference is set
 - when a data partition is detected by an internal monitoring algorithm
 
