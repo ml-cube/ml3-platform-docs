@@ -1,6 +1,9 @@
 # Analytics
 
-The Analytics section provides a set of tools and visualizations to help users explore data, visualize model performance and track drift scores over time. It is currently organized into three distinct sections, accessible through the tabs at the top of the page: *Timeseries*, *Plots* and *Representation*.
+The Analytics section provides a set of tools and visualizations to help users explore data, visualize model performance and track drift scores over time. It is currently organized into three distinct sections, accessible through the tabs at the top of the page: 
+- *Timeseries*: plots showing entities values over time.
+- *Plots*: data distributions using univariate and bivariate plots.
+- *Representation*: high-dimensional data projected into 2D space.
 
 !!! note
     The Analytics section is a legacy module that is currently being redesigned with a new interface.
