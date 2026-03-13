@@ -290,3 +290,17 @@ Below, you will find a guide that will help you create the credentials and confi
 
     az role assignment create --assignee $SERVICE_PRINCIPAL_APP_ID --role "EventGrid Data Sender" --scope /subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.EventGrid/topics/$TOPIC_ID
     ```
+
+## GenAI Integration
+
+=== "GCP Vertex AI"
+    ![Google Cloud Platform](../../imgs/google_vertexai.svg){: style="height:50px;width:50px"}
+    
+    Log into your GCP account, select the correct project and open the **Cloud Shell**. You can find the button to open it in the upper-right corner of the page. Now we will enter some commands that will grant the required permissions to the service account you previously created. A description of each command is provided to help you understand its purpose.
+    ```bash
+    # Change these according to your project
+    export GCP_PROJECT=my-project
+
+    # Grants the Vertex AI User role to the previously created service account, allowing it to use all resources in Vertex AI
+    gcloud projects add-iam-policy-binding $GCP_PROJECT --member=serviceAccount:ml3PlatformServiceAccount@$GCP_PROJECT.iam.gserviceaccount.com --role=roles/aiplatform.user
+    ```
