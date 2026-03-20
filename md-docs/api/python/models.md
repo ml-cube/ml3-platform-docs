@@ -225,7 +225,7 @@ Column base model
     it is mandatory when data_type is Array
 * **tol**  : Optional[int | None] = 0
     Tolerance for ImageData width and height.
-    Images can be loaded with size (w ± tol, h ± tol) pixels
+    Images can be loaded with size (w Â± tol, h Â± tol) pixels
 * **classes_names**  : Optional[list[str]] = None
     it is mandatory when the column is the target
     in multilabel classification tasks
@@ -471,9 +471,10 @@ a series of actions.
 * **model_name**  : Optional[str]
 * **severity**  : DetectionEventSeverity
 * **detection_event_type**  : DetectionEventType
-* **monitoring_target**  : MonitoringTarget
-* **actions**  : List[DetectionEventAction]
-* **segment_id**  : Optional[str]
+* **monitoring_targets**  : list[MonitoringTarget]
+* **monitoring_metrics**  : dict[MonitoringTarget, list[MonitoringMetric]]
+* **actions**  : list[DetectionEventAction]
+* **segment_ids**  : list[str | None]
 
 
 ----
@@ -723,10 +724,10 @@ Base model to define llm prompts
 
 **Attributes**
 
-* **role**  : str
-* **task**  : str
-* **behavior_guidelines**  : str
-* **security_guidelines**  : str
+* **role**  : str | None
+* **task**  : str | None
+* **behavior_guidelines**  : list[str]
+* **security_guidelines**  : list[str]
 
 
 ----
@@ -1044,25 +1045,6 @@ ResampledDatasetSuggestion base model
 * **suggestion_type**  : SuggestionType
 * **sample_ids**  : List[str]
 * **sample_counts**  : List[int]
-
-
-----
-
-
-## RetrainAction
-```python 
-RetrainAction()
-```
-
-
----
-Base Model for Retrain Action
-
-
-**Attributes**
-
-* **type**  : DetectionEventActionType.RETRAIN
-* **model_name**  : str
 
 
 ----
