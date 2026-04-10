@@ -527,9 +527,10 @@ Create a model inside the task.
 ### .create_llm_specs
 ```python
 .create_llm_specs(
-   model_id: str, from_timestamp: list[float], to_timestamp: list[float],
-   llm: (str|None) = None, temperature: (float|None) = None, top_p: (float|None) = None,
-   top_k: (int|None) = None, max_tokens: (int|None) = 256, role: (str|None) = None,
+   model_id: str, name: str, llm: (str|None) = None,
+   temperature: (float|None) = None, top_p: (float|None) = None,
+   max_tokens: (int|None) = 256, thinking_effort: (str|None) = None,
+   thinking_budget: (int|None) = None, role: (str|None) = None,
    task: (str|None) = None, behavior_guidelines: (list[str]|None) = None,
    security_guidelines: (list[str]|None) = None
 )
@@ -547,14 +548,20 @@ Add LLM specs for the LLM model.
 
 **Args**
 
-* **from_timestamp**  : the timestamp from which the model is used
-* **to_timestamp**  : the timestamp to which the model is used
 * **model_id**  : the identifier of the LLM model
-* **llm**  : the name of the LLM model
+* **name**  : unique user-defined name for the LLM spec. This name
+    is used to associate production samples to the spec that
+    generated them, via the `llm_spec_name` metadata column.
+    Must be unique per model.
+* **llm**  : the name of the LLM model in the format `provider/model_name`
+    (e.g. `openai/gpt-4o`)
 * **temperature**  : the temperature parameter of the LLM model
 * **top_p**  : the top_p parameter of the LLM model
-* **top_k**  : the top_k parameter of the LLM model
 * **max_tokens**  : the max_tokens parameter of the LLM model
+* **thinking_effort**  : the level of reasoning effort for compatible
+    models (e.g. `low`, `medium`, `high`)
+* **thinking_budget**  : the maximum number of tokens allocated for
+    the model's internal thinking process
 * **role**  : role section of the system prompt of the LLM model
 * **task**  : task section of the system prompt of the LLM model
 * **behavior_guidelines**  : behavior guidelines section of the system prompt of the LLM model
@@ -600,34 +607,6 @@ Get all LLM specs for the LLM model.
 **Raises**
 
 `GetAllLLMSpecsException`
-
-### .set_llm_specs
-```python
-.set_llm_specs(
-   model_id: str, llm_specs_id: str, starting_timestamp: float
-)
-```
-
----
-Set a LLM specs for the LLM model.
-
-**Allowed Roles:**
-
-- At least `PROJECT_EDIT` for that project
-- `COMPANY_OWNER`
-- `COMPANY_ADMIN`
-
-
-**Args**
-
-* **model_id**  : the identifier of the LLM model
-* **llm_specs_id**  : the identifier of the LLM model specs
-* **starting_timestamp**  : the starting timestamp for the LLM specs specified
-
-
-**Raises**
-
-`SetLLMSpecsException`
 
 ### .get_models
 ```python

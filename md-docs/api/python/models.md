@@ -736,18 +736,24 @@ Base model to define llm prompts
 ```python 
 LLMSpecs()
 ```
-
-
 ---
-Base model to define llm specs
-
+Base model to define LLM specs.
 
 **Attributes**
 
-* **llm**  : str
-* **temperature**  : float
-* **prompt**  : LLMPrompt
-
+* **name**  : str — user-defined name for the LLM spec, unique per model.
+    Used to associate production samples to the spec that generated them
+    via the `llm_spec_name` metadata column.
+* **llm**  : str | None — the LLM model name in the format `provider/model_name`
+    (e.g. `openai/gpt-4o`)
+* **temperature**  : float | None — the temperature parameter of the LLM model
+* **top_p**  : float | None — the top_p parameter of the LLM model
+* **max_tokens**  : int | None — the maximum number of tokens the model can generate
+* **thinking_effort**  : str | None — level of reasoning effort for compatible
+    models (e.g. `low`, `medium`, `high`)
+* **thinking_budget**  : int | None — maximum number of tokens allocated for
+    the model's internal thinking process
+* **prompt**  : LLMPrompt — the prompt configuration for the LLM model
 
 ----
 

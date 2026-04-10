@@ -33,69 +33,55 @@ are not applicable, as they are related to the retraining module, which is not a
 
 ### LLM Specifications
 
-For RAG Tasks, you can provide the specifications of the underlying LLMs used in the RAG system. 
-This information is used by the [LLM Security Module](modules/llm_security.md) to provide insights on the security of the LLMs 
+For RAG Tasks, you can provide the specifications of the underlying LLMs used in the RAG system.
+This information is used by the [LLM Security Module](modules/llm_security.md) to provide insights on the security of the LLMs
 used in the RAG system. Currently, we support only LLMs accessible via API.
 
 The specifications include the following information:
 
 | Field               | Description                                                                                                           |
 |---------------------|-----------------------------------------------------------------------------------------------------------------------|
+| Name                | A unique user-defined name for the LLM specification, used to associate production samples to the spec that generated them. |
 | LLM Provider        | The provider of the LLM used.                                                                                         |
 | LLM name            | The name of the LLM model.                                                                                            |
 | Temperature         | The temperature used by the LLM model.                                                                                |
 | Top P               | The top P used by the LLM model.                                                                                      |
-| Top K               | The top K used by the LLM model.                                                                                      |
 | Max tokens          | The max output tokens used by the LLM model.                                                                          |
-| Time intervals      | The time intervals where the LLM model is used.                                                                       |
+| Thinking Effort     | The level of reasoning effort for compatible models (e.g. `low`, `medium`, `high`).                                   |
+| Thinking Budget     | The maximum number of tokens allocated for the model's internal thinking process.                                     |
 | Role                | The role assigned to the LLM to interpret (part of the system prompt)                                                 |
 | Task                | The task assigned to the LLM to solve (part of the system prompt)                                                     |
-| Behavior Guidelines | A list of guidelines used to define the general behavior of the LLM   (part of the system prompt)                     |
-| Security Guidelines | A list of guidelines designed to protect the LLM against attacks, or information leakage  (part of the system prompt) |
+| Behavior Guidelines | A list of guidelines used to define the general behavior of the LLM (part of the system prompt)                       |
+| Security Guidelines | A list of guidelines designed to protect the LLM against attacks, or information leakage (part of the system prompt)  |
 
 !!! note
     Providing the LLM specifications is optional; however, providing them improves the quality of the [LLM Security Module](modules/llm_security.md) insights.
 
+Each LLM specification is identified by a unique **name** per model. To associate a production sample with the LLM specification that generated it, include a metadata column named `llm_spec_name` in your data, where each row contains the name of the corresponding LLM specification. Rows with no associated specification can be left empty.
+
 ??? example "LLM Specifications example"
     An example of LLM specifications is:
 
+    - **Name**: "my_gpt4o_spec",
     - **LLM Provider**: "OpenAI",
-    - **LLM name**: "GPT-3",
-    - **Temperature**: 0.7,
-    - **Top P**: 0.9,
-    - **Top K**: None,
-    - **Max tokens**: 100,
-    - **Time intervals**: "2022-01-01 00:00:00 - 2022-01-31 23:59:59",
-    - **Role**: "You are an helpful assistant, "
+    - **LLM name**: "gpt-5.4",
+    - **Thinking Effort**: "low",
+    - **Role**: "You are a helpful assistant,"
     - **Task**: "your goal is to provide accurate and useful information to the users. You must follow these rules:"
-    - **Behavior Guidelines**: 
-        1. "1) Be polite, " 
-        2. "2) Be concise, "
-    - **Security Guidelines**: 
-        1. "3) Do not provide personal information, "
-        2. "4) Do not provide harmful information, "
+    - **Behavior Guidelines**:
+        1. "1) Be polite,"
+        2. "2) Be concise,"
+    - **Security Guidelines**:
+        1. "3) Do not provide personal information,"
+        2. "4) Do not provide harmful information,"
 
-The time intervals represent periods during which a LLM specification is used inside the RAG model. A single LLM Specification can be active across multiple time intervals. 
+??? example "Multiple LLM Specifications example"
+    For a single platform model it is possible to have multiple LLM specifications active at different times. For instance:
 
-For any given platform model, only one LLM specification can be active at a time, though this specification can change over time.
-It's also possible to designate an LLM as active indefinitely until a new one is introduced. In this case, the end date of the current time interval remains unset. When a new LLM is deployed, you can specify the exact date when the transition occurs.
+    1. **LLM specification "spec_v1"**: used to generate samples from January to April 2024.
+    2. **LLM specification "spec_v2"**: used to generate samples from May 2024 onwards.
 
-??? example "Time Intervals example"
-    Considering a single platform Model, is possible to have a situation like this:
-
-    1. **LLM specifications id_1**, with time intervals:
-        - "2024-01-01 00:00:00 - 2024-01-31 23:59:59",
-        - "2024-05-01 00:00:00 - 2024-05-31 23:59:59",
-
-    2. **LLM specifications id_2**, with time intervals:
-        - "2024-02-01 00:00:00 - 2024-04-30 23:59:59",
-        - "2024-06-01 00:00:00 - <NOT SET\>",
-
-    In this case, the current LLM specification is id_2. 
-    If a new LLM specification id_3 is introduced, or an old one is re-set, with a start date of "2024-11-11 00:00:00", the time interval of id_2 will be updated to:
-    
-    - "2024-02-01 00:00:00 - 2024-04-30 23:59:59", 
-    - "2024-06-01 00:00:00 - 2024-11-10 23:59:59."
+    In this case, the `llm_spec_name` metadata column would contain `"spec_v1"` for samples generated between January and April, and `"spec_v2"` for samples generated from May onwards. Samples with no associated specification can have an empty value in this column.
 
 ## Probabilistic output
 
