@@ -59,8 +59,13 @@ Some tasks can have different data entities for the same Role, the Column object
 | RAG User Input | INPUT | String | In RAG Tasks it is the user query submitted to the system. |
 | RAG Retrieved Context | INPUT | String | In RAG Tasks it is the retrieved contexts (separated with the Task attribute *context separator*) that the retrieval system has selected to answer the query.|
 | Model probability | PREDICTION | Depends on Task Type:<br><ul><li>RAG: Array 1</li><li>Classification Binary: Float</li><li>Classification Multiclass: Array 1</li><li>Classification Multilabel: Array 1</li><li>Semantic Segmentation: Array 3</li></ul> | It is automatically created by ML cube Platform when the created Model has the flag additional probabilistic output set as True. The name has fixed template: <MODEL_NAME\>_probability\@<MODEL_VERSION\>.| 
-| Object prediction label| PREDICTION | Array 1 | It is automatically created when Task Type is Object detection or Semantic Segmentation. It is an array with length equal to the number of predicted bounding boxes where each element contains the class label assigned to the bounding box. The name has a fixed template: <MODEL_NAME\>_predicted_labels\@<MODEL_VERSION\>.|
-| Object target label| TARGET | Array 1 | It is mandatory when Task Type is Object detection or Semantic Segmentation. It is an array with length equal to the number of actual bounding boxes where each element contains the class label assigned to the bounding box. |
+| Object prediction label | PREDICTION | Array 1 | It is automatically created when Task Type is Object Detection, Semantic Segmentation, or OCR (`with_labels` mode). It is an array with length equal to the number of predicted entities (bounding boxes for Object Detection and OCR, segmented regions for Semantic Segmentation), where each element contains the class label assigned to the corresponding entity. The name has a fixed template: <MODEL_NAME\>_predicted_labels\@<MODEL_VERSION\>. |
+| Object target label | TARGET | Array 1 | It is mandatory when Task Type is Object Detection, Semantic Segmentation, or OCR (`with_labels` mode). It is an array with length equal to the number of ground truth entities (bounding boxes for Object Detection and OCR, annotated regions for Semantic Segmentation), where each element contains the class label assigned to the corresponding entity. |
+| Object prediction text | PREDICTION | Array 1 | It is used when Task Type is OCR (`with_labels` mode). It contains the extracted text associated with each detected text region. The name has a fixed template: <MODEL_NAME\>_predicted_text\@<MODEL_VERSION\>. |
+| Object target text | TARGET | Array 1 | It is used when Task Type is OCR (`with_labels` mode). It contains the ground truth text associated with each annotated text region. |
+| Seasonality | INPUT | Float | It is used in Timeseries Tasks to represent seasonal components of the signal |
+| Trend | INPUT | Float | It is used in Timeseries Tasks to represent the long-term trend component of the signal. |
+| Regressor | INPUT | Float | It is used in Timeseries Tasks to represent external explanatory variables that influence the target but are not part of the temporal signal itself. |
 
 ## Data schema constraints
 
@@ -69,18 +74,17 @@ For instance, image binary classification tasks requires only one input column o
 
 !!! note
     Object Detection and Semantic Segmentation have specific constraints about the _dims_ attribute of the TARGET and PREDICTION columns:
-    
+
     - Object Detection [-1, 4]: the first is for identified objects, the second is for bounding box specification: x_min, x_max, y_min, y_max
     - Semantic Segmentation [-1, -1, 2]: the first is for identified objects, the second is for polygon vertices, the third is for vertices coordinates x, y
 
 Here the list of constraints about quantities for each Role:
 
-{{ read_excel('../tables/data schema validation.xlsx', engine='openpyxl', sheet_name='qts') }}
+{% include "tables/data_schema_validation_quantities.md" %}
 
 Here the list of constraints about Data Types for each Role:
 
-{{ read_excel('../tables/data schema validation.xlsx', engine='openpyxl', sheet_name='types') }}
-
+{% include "tables/data_schema_validation_dtypes.md" %}
 
 ## Data schema templates
 

@@ -67,12 +67,12 @@ Not all Task Types are compatible with data structures, in the table below are s
 |------------------|------------------|------------------|------------------|------------------|
 | Regression       | :material-check: | :material-check: | :material-check: | :material-check: |
 | Classification   | :material-check: | :material-check: | :material-check: | :material-check: |
-| RAG              |                  |                  | :material-check: | :material-check: |
-| Object Detection |                  | :material-check: |                  | :material-check: |
-| Semantic Segmentation |             | :material-check: |                  | :material-check: |
+| RAG              |                  |                  | :material-check: |                  |
+| Object Detection |                  | :material-check: |                  |                  |
+| Semantic Segmentation |             | :material-check: |                  |                  |
 | Timeseries       | :material-check: |                  |                  |                  |
 | Clustering       | :material-check: | :material-check: | :material-check: | :material-check: |
-| OCR              |                  | :material-check: |                  | :material-check: |
+| OCR              |                  | :material-check: |                  |                  |
 
 In the following sections, you can find a description of each Task Type with its specific information.
 
