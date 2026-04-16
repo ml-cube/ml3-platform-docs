@@ -101,11 +101,13 @@ Historical data can be uploaded in ML cube Platform anytime through different da
 
 Data categories that a batch of historical data contains depend on the Task Type, here is the summary:
 
-- Supervised tasks like regression, classification and object detection requires Input and Target
+- Supervised tasks like regression, classification and object detection requires Input, Target and optionally Prediction
+- Timeseries task only requires Target
 - Retrieval Augmented Generation task requires Inputs and Predictions
 
-The reason why it is not possible to upload the model's predictions in historical data of supervised tasks is that they may contain the training bias of the model.
-On the other hand, in RAG tasks there is no target or training dataset.
+Notice that also model predictions can be included in the historical data of supervised tasks, since each historical entry must explicitly specify whether it belongs to the **training, validation, or test** split. In particular, predictions associated with the test set can be safely stored, as they are generated on unseen data and therefore do not introduce training bias.
+
+In contrast, RAG tasks do not define a target variable or a training dataset, so this distinction between training, validation, and test does not apply.
 
 !!! warning
     There is only one limitation to upload historical data: the __production boundary__.
@@ -121,6 +123,7 @@ On the other hand, in RAG tasks there is no target or training dataset.
     ``` py
     job_id = client.add_historical_data(
         task_id=task_id,
+        data_batch_type=DataBatchType.TRAINING
         inputs=inputs_data,
         target=target_data,
     )
