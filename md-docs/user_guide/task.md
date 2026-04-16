@@ -24,16 +24,18 @@ Generic attributes are:
 |-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Name              | Name of the Task, unique for the Project.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | Tags              | Optional customizable list of tags. They are used to better describe the Task and to improve search.                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| Task type         | Artificial intelligence type of Task. Possible values are:<br><ul><li>[Regression](task.md#regression)</li><li>[Binary classification](task.md#classification)</li><li>[Multiclass classification](task.md#classification)</li><li>[Multilabel classification](task.md#classification)</li><li>[Retrieval Augmented Generation](task.md#retrieval-augmented-generation)</li><li>[Object Detection](task.md#object-detection)</li><li>[Semantic Segmentation](task.md#semantic-segmentation)</li></ul>                                                                                                    |
+| Task type         | Artificial intelligence type of Task. Possible values are:<br><ul><li>[Regression](task.md#regression)</li><li>[Binary classification](task.md#classification)</li><li>[Multiclass classification](task.md#classification)</li><li>[Multilabel classification](task.md#classification)</li><li>[Retrieval Augmented Generation](task.md#retrieval-augmented-generation)</li><li>[Object Detection](task.md#object-detection)</li><li>[Semantic Segmentation](task.md#semantic-segmentation)</li><li>[Timeseries](task.md#timeseries)</li><li>[Clustering](task.md#clustering)</li><li>[OCR](task.md#ocr-Optical-Character-Recognition)</li></ul>                                                                                                    |
 | Data structure    | Type of input data the Task uses. Possible values are:<br><ul><li>Tabular: standard table based data used in contexts like regression or classification.</li><li>Image: images in their different formats and channels.</li><li>Text: textual data expressed as strings. When data structure is Text, attribute *Text Language* is required.</li><li>Embedding: input data are arrays that could represent embedding either image or text data. This data structure is used when raw data are not shared with ML cube Platform.</li></ul> |
 | Optional target   | Boolean value that specifies if the ground truth is always available or not. In some Tasks, the actual value is not present until explicit labeling is done. In this cases, the Task is marked as with optional target so that ML cube Platform works accordingly.                                                                                                                                                                                                                                                                        |
 | Cost info         | Optional information about costs that depend on Task Type.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | Text language     | Which language is used in the Task when input data structure is text.                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | Positive class    | Required when Task Type is Binary Classification, it indicates the positive class to be predicted.                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | Context separator | Available when Task Type is RAG, it specifies the string separator to split retrieved context into different chunks.                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| Default answer    | Available when Task Type is RAG, it specifies the default answer to be used when no retrieved context is available.                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Default answer    | Available when Task Type is RAG, it specifies the default answer to be used when no retrieved context is available. |
 | Target Type | Available when Task Type is Semantic Segmentation, it specifies how target and predictions are specified in this task. For now, the only available option is Polygon. See Semantic Segmentation details for more information. |
-
+| Multi-turn | Available for RAG and AI Agents tasks. Specifies whether the task operates in a conversational (chat) setting with multiple turns or a single-turn interaction. |
+| Timeseries frequency | Available for Timeseries tasks. Defines the frequency of the time series data (e.g., hourly, daily, monthly) and is used to correctly interpret temporal spacing between observations. |
+| OCR mode | Defines the OCR operating mode: either plain text extraction or structured extraction with bounding boxes and text regions. |
 
 !!! warning
     Some Task's attributes are immutable: type, data structure and optional target flag cannot be modified after the creation of the Task.
@@ -43,14 +45,15 @@ Generic attributes are:
 Most of ML cube Platform operations are done at Task level: monitoring, retraining, analytics and other features are specific to AI models and data that belong to a Task.
 Indeed, each Task Type has a set of ML cube Platform modules:
 
-| Module | Regression | Classification | RAG | Object Detection | Semantic Segmentation |
-|-----|-----|-----|-----|-----|-----|
-| Monitoring | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: |
-| Explainability | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: |
-| Retraining     | :material-check: | :material-check: | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} |
-| Topic Modeling | :material-check: :material-information-outline:{title="Only for Text data"} | :material-check: :material-information-outline:{title="Only for Text data"} | :material-check: | |
-| RAG Evaluation | | | :material-check:  | |
-| LLM Security | | | :material-check: | |
+| Module | Regression | Classification | RAG | Object Detection | Semantic Segmentation | Timeseries | Clustering | OCR |
+|-----|-----|-----|-----|-----|-----|-----|-----|-----|
+| Monitoring | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: |
+| Explainability | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: |
+| Retraining | :material-check: | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} |
+| Dynamic Clustering | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: | | :material-check: | :material-check: |
+| Topic Modeling | :material-check: :material-information-outline:{title="Only for Text data"} | :material-check: :material-information-outline:{title="Only for Text data"} | :material-check: | | | | | |
+| RAG Evaluation | | | :material-check: | | | | | |
+| LLM Security | | | :material-check: | | | | | |
 
 !!! Tip
     On the left side of the web app page the Task menu is present, with links to the above-mentioned modules and Task settings.
@@ -66,7 +69,10 @@ Not all Task Types are compatible with data structures, in the table below are s
 | Classification   | :material-check: | :material-check: | :material-check: | :material-check: |
 | RAG              |                  |                  | :material-check: | :material-check: |
 | Object Detection |                  | :material-check: |                  | :material-check: |
-| Semantic Segmentation |                  | :material-check: |                  | :material-check: |
+| Semantic Segmentation |             | :material-check: |                  | :material-check: |
+| Timeseries       | :material-check: |                  |                  |                  |
+| Clustering       | :material-check: | :material-check: | :material-check: | :material-check: |
+| OCR              |                  | :material-check: |                  | :material-check: |
 
 In the following sections, you can find a description of each Task Type with its specific information.
 
@@ -75,17 +81,17 @@ In the following sections, you can find a description of each Task Type with its
 Supervised regression Task with continuous target.
 
 #### Cost information
+
 Cost information is expressed by two proportional coefficients $c_{o}$ and $c_{u}$:
 
 - $c_{o}$ is the cost of overestimating the target value, i.e., when $\hat{y} > y$
 - $c_{u}$ is the cost of underestimating the target value. i.e., when $\hat{y} < y$
 
-Given a data batch, the mean cost $\bar{C}$ is expressed as 
+Given a data batch, the mean cost $\bar{C}$ is expressed as
 $$
 \bar{C} = \frac{\sum_{i | \delta_i < 0} |\delta_i| \times c_{o} + \sum_{i | \delta_i > 0} \delta_i \times c_{u}}{N}
 $$
 where $\delta_i = y_i - \hat{y}_i$ is the different between the target and the estimated value.
-
 
 ### Classification
 
@@ -97,39 +103,41 @@ Classification Tasks divides in:
 - **Multilabel:** when the target is an array indicating which of the possible categories are present. In this case, each element can be either 0 or 1, and more than one element of the array can be 1.
 
 #### Cost information
+
 Cost information differs from each of the three classification types, however, the concept is similar.
 A cost is associated to every misclassification possibility:
 
 - **Binary:**
-    - $c_{FP}$ is the cost of classifying a negative sample as positive
-    - $c_{FN}$ is the cost of classifying a positive sample as negative
+  - $c_{FP}$ is the cost of classifying a negative sample as positive
+  - $c_{FN}$ is the cost of classifying a positive sample as negative
 
-    Given a data batch, the mean cost $\bar{C}$ is expressed as 
+    Given a data batch, the mean cost $\bar{C}$ is expressed as
+
 $$
 \bar{C} = \frac{N_{FP} \times c_{FP} + N_{FN} \times c_{FN}}{N}
 $$
 where $N_{FP}$ and $N_{FN}$ are the number of false positives and false negatives respectively.
 
 - **Multiclass:**
-    - $c_{k}$ is the cost of misclassifying a sample, whose actual class is $k$, with another class
+  - $c_{k}$ is the cost of misclassifying a sample, whose actual class is $k$, with another class
 
-    Given a data batch, the mean cost $\bar{C}$ is expressed as 
+    Given a data batch, the mean cost $\bar{C}$ is expressed as
+
 $$
 \bar{C} = \frac{\sum_{k} N_{k} \times c_{k} }{N}
 $$
 where $N_{k}$ is the number of misclassified samples of class $k$.
 
-
 - **Multilabel:**
-    - $c_{FP}^{k}$ is the cost of classifying a sample as class $k$ when the actual class $k$ is not present
-    - $c_{FN}^{k}$ is the cost of not classifying a sample as class $k$ when the actual class $k$ is present
+  - $c_{FP}^{k}$ is the cost of classifying a sample as class $k$ when the actual class $k$ is not present
+  - $c_{FN}^{k}$ is the cost of not classifying a sample as class $k$ when the actual class $k$ is present
 
-    Given a data batch, the mean cost $\bar{C}$ is expressed as 
+    Given a data batch, the mean cost $\bar{C}$ is expressed as
+
 $$
 \bar{C} = \frac{\sum_{k} N_{FP}^{k} \times c_{FP}^{k} + N_{FN}^{k} \times c_{FN}^{k}}{N}
 $$
 where $N_{FP}^{k}$ and $N_{FN}^{k}$ are the number of false positives and false negatives of class $k$ respectively
-
 
 ### Retrieval Augmented Generation
 
@@ -161,17 +169,60 @@ RAG Tasks have two additional attributes:
     !!! example
         Default answer: "I am sorry, I cannot help you with that request."
 
-
 ### Object Detection
 
-Object Detection task processes images and provides as output a list of bounding boxes with associated label indicating the type of identified entity.
-Therefore, target is a list of four elements tuples indicating the x_min, x_max, y_min and y_max of the box and a string label for the entity type.
+Object Detection is a computer vision task that processes images to identify and localize objects within them. The model returns both the type of each detected object and its spatial location in the image.
+
+The output is a list of bounding boxes, where each bounding box is associated with a label representing the detected object class. Each bounding box is defined by four coordinates ($x_{min}, y_{min}, x_{max}, y_{max}$) that describe the position and size of the detected object.
+
+The target for this task is a list of annotated objects, where each annotation includes a bounding box and a corresponding class label. This structure allows the model to learn both what is present in the image and where it is located.
+
+Object Detection is commonly used in applications such as autonomous driving, surveillance systems, industrial inspection, and general visual recognition tasks.
 
 ### Semantic Segmentation
 
-Semanric segmentation task processes images and provides as output a list of entities identified in the image with label indicating the type.
-The target can assume different forms, the Task attribute _Target Type_ is used to specify it.
-When target type is Polygon, the entity is represented as a list of verices with x,y coordinates that defines the vertices of the polygon.
+Semantic Segmentation is a computer vision task that assigns a class label to each object or region in an image, providing a more detailed understanding compared to object detection.
+
+The model produces a set of labeled regions that describe the different entities present in the image. Unlike object detection, which uses bounding boxes, semantic segmentation focuses on pixel-precise or region-based shapes.
+
+The target format can vary depending on the configuration, and is defined by the Task attribute *Target Type*. When the target type is Polygon, each entity is represented as a list of ordered (x, y) coordinates that define the vertices of a polygon outlining the object.
+
+Semantic Segmentation is widely used in applications such as medical imaging, autonomous systems, satellite imagery analysis, and scene understanding.
+
+### Timeseries
+
+Timeseries is a machine learning task used to analyze data that is indexed over time, where **observations are collected sequentially** and temporal order is important.
+
+The goal of a timeseries task can vary depending on the use case. It may involve forecasting future values, detecting anomalies, or learning temporal patterns from historical data.
+
+Unlike standard tabular problems, timeseries data must **preserve ordering**, and past observations are typically used to predict or analyze future behavior.
+
+The output of a timeseries model depends on the specific configuration and use case. It can range from a single predicted value, to a sequence of future values, or to anomaly scores indicating unusual behavior over time.
+
+Timeseries tasks are commonly used in domains such as demand forecasting, financial analysis, monitoring systems, and predictive maintenance.
+
+### Clustering
+
+Clustering is an **unsupervised machine learning task** used to group similar data points together without predefined labels. The model learns patterns directly from the data and organizes samples into clusters based on similarity.
+
+Unlike supervised tasks, clustering does not require a ground truth target during training. However, in many real-world scenarios, target labels may become available later and can be used to evaluate how meaningful the discovered clusters are.
+
+The output of a clustering model is typically a cluster assignment for each input sample. This can be represented either as a simple cluster index (e.g. 0, 1, 2, …) or, in some cases, as a probability distribution over all possible clusters indicating the likelihood of belonging to each one.
+
+Clustering is commonly used for exploratory analysis, such as customer segmentation, anomaly detection, or discovering hidden structures in data.
+
+### OCR (Optical Character Recognition)
+
+OCR is a computer vision task that extracts text from images and converts it into machine-readable form.
+
+Depending on the configuration, OCR can operate in two modes:
+
+- **Plain text mode:** the model returns the extracted text as a single string
+- **With labels mode:** the model returns both the extracted text and structured information about each detected text region, including its position in the image
+
+This flexibility allows OCR to be used both for simple text extraction tasks and for more structured document understanding problems.
+
+OCR is widely used in document digitization, automated data entry, and extracting information from scanned documents or photos.
 
 [Model]: model.md
 [Data schema]: data_schema.md
