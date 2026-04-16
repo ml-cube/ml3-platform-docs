@@ -55,4 +55,20 @@ Modules can be always active or on-demand: Monitoring module and Drift Explainab
 
     [:octicons-arrow-right-24: More info](topic_modeling.md)
 
+-   :material-share-variant-outline:{ .lg .middle } **Dynamic Clustering**
+
+    ---
+
+    Track how clusters evolve as your data changes.
+
+    [:octicons-arrow-right-24: More info](dynamic_clustering.md)
+
+-   :material-image-search:{ .lg .middle } **Data Explorer**
+
+    ---
+
+    Explore and inspect your dataset interactively.
+
+    [:octicons-arrow-right-24: More info](data_explorer.md)
+
 </div>
