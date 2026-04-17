@@ -47,7 +47,7 @@ but they differ in their nature. The figure below provides an overview of how Mo
 related to each other and to the entities of the Task.
 
 <figure markdown style="width: 100%">
-  ![Monitoring Overview](../../imgs/monitoring/overview.svg)
+  ![Monitoring Overview](../../imgs/monitoring/overview.png)
   <figcaption> Monitoring Targets and Metrics overview</figcaption>
 </figure>
 
@@ -65,33 +65,37 @@ variation can have a significant impact on the AI task success.
 The ML cube Platform supports the following Monitoring Targets:
 
 
-| Monitoring Target              | Description                                                                                                                                                      | 
+| Monitoring Target              | Description                                                                                                                                                      |
 |--------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| INPUT                          | the input distribution, $P(X)$.                                                                                                                                  | 
-| CONCEPT                        | the joint distribution of input and target, $P(X, Y)$.                                                                                                           | 
-| PREDICTION                     | the prediction of the model, $P(\hat{Y})$.                                                                                                                       | 
-| INPUT PREDICTION               | the joint distribution of input and prediction, $P(X, \hat{Y})$.                                                                                                 | 
-| ERROR                          | the error of the model, whose computation depends on the task type.                                                                                              | 
+| INPUT                          | the input distribution, $P(X)$.                                                                                                                                  |
+| CONCEPT                        | the joint distribution of input and target, $P(X, Y)$.                                                                                                           |
+| PREDICTION                     | the prediction of the model, $P(\hat{Y})$.                                                                                                                       |
+| INPUT PREDICTION               | the joint distribution of input and prediction, $P(X, \hat{Y})$.                                                                                                 |
+| ERROR                          | the error of the model, whose computation depends on the task type.                                                                                              |
 | USER INPUT                     | the input provided by the user, usually in the form of a query. This target is only available in tasks of type RAG.                                              |
 | USER INPUT RETRIEVED CONTEXT   | the similarity between the user input and the context retrieved by the RAG system. This target is only available in tasks of type RAG.                           |
 | USER INPUT MODEL OUTPUT        | the similarity between the user input and the response of the Large Language Model. This target is only available in tasks of type RAG.                          |
 | MODEL OUTPUT RETRIEVED CONTEXT | the similarity between the response of the Large Language Model and the context retrieved by the RAG system. This target is only available in tasks of type RAG. |
+| CHARACTER ERROR RATE (CER)     | the normalized edit distance at the character level between the OCR output and the ground truth text (insertions, deletions, substitutions). Applicable only to OCR tasks. |
+| WORD ERROR RATE (WER)          | the normalized edit distance at the word level between the OCR output and the ground truth text. Useful for evaluating readability and semantic accuracy in OCR tasks. |
 
 As mentioned, some targets are available only for specific Task types. The following table shows all the available monitoring targets in relation with the Task Type. 
 While some targets were specifically designed for a certain Task Type, others are more general and can be used in different contexts. 
 Nonetheless, the Platform might not support yet all possible combinations. The table will be updated as new targets are added to the product.
 
-| **Monitoring Target**          |  **REGRESSION**  | **CLASSIFICATION BINARY** | **CLASSIFICATION MULTICLASS** | **CLASSIFICATION MULTILABEL** | **OBJECT DETECTION** | **SEMANTIC SEGMENTATION** |     **RAG**      |
-|--------------------------------|:----------------:|:-------------------------:|:-----------------------------:|:-----------------------------:|:--------------------:|:--------------------:|:----------------:|
-| INPUT                          | :material-check: |     :material-check:      |       :material-check:        |       :material-check:        |   :material-check:   |   :material-check:   |                  |
-| CONCEPT                        | :material-check: |     :material-check:      |       :material-check:        |       :material-check:        |                      |                      |                  |
-| PREDICTION                     | :material-check: |     :material-check:      |       :material-check:        |                               |                      |                      |                  |
-| INPUT PREDICTION               | :material-check: |     :material-check:      |       :material-check:        |                               |                      |                      |                  |
-| ERROR                          | :material-check: |     :material-check:      |       :material-check:        |       :material-check:        |                      |                      |                  |
-| USER INPUT                     |                  |                           |                               |                               |                      |                      | :material-check: |
-| USER INPUT RETRIEVED CONTEXT   |                  |                           |                               |                               |                      |                      | :material-check: |
-| USER INPUT MODEL OUTPUT        |                  |                           |                               |                               |                      |                      | :material-check: |
-| MODEL OUTPUT RETRIEVED CONTEXT |                  |                           |                               |                               |                      |                      | :material-check: |
+| **Monitoring Target**          | **REGRESSION** | **CLASSIFICATION BINARY** | **CLASSIFICATION MULTICLASS** | **CLASSIFICATION MULTILABEL** | **OBJECT DETECTION** | **SEMANTIC SEGMENTATION** | **RAG** | **TIME SERIES** | **CLUSTERING** | **OCR** |
+|--------------------------------|:--------------:|:-------------------------:|:-----------------------------:|:-----------------------------:|:--------------------:|:-------------------------:|:-------:|:---------------:|:--------------:|:-------:|
+| INPUT                          | :material-check: | :material-check:          | :material-check:              | :material-check:              | :material-check:     | :material-check:          |         |                 | :material-check: | :material-check: |
+| CONCEPT                        | :material-check: | :material-check:          | :material-check:              | :material-check:              |                      |                           |         |                 |                |         |
+| PREDICTION                     | :material-check: | :material-check:          | :material-check:              |                               |                      |                           |         |                 | :material-check: |         |
+| INPUT PREDICTION               | :material-check: | :material-check:          | :material-check:              |                               |                      |                           |         |                 | :material-check: |         |
+| ERROR                          | :material-check: | :material-check:          | :material-check:              | :material-check:              |                      |                           |         | :material-check: |                |         |
+| USER INPUT                     |                |                           |                               |                               |                      |                           | :material-check: |                 |                |         |
+| USER INPUT RETRIEVED CONTEXT   |                |                           |                               |                               |                      |                           | :material-check: |                 |                |         |
+| USER INPUT MODEL OUTPUT        |                |                           |                               |                               |                      |                           | :material-check: |                 |                |         |
+| MODEL OUTPUT RETRIEVED CONTEXT |                |                           |                               |                               |                      |                           | :material-check: |                 |                |         |
+| CHARACTER ERROR RATE (CER)     |                |                           |                               |                               |                      |                           |         |                 |                | :material-check: |
+| WORD ERROR RATE (WER)          |                |                           |                               |                               |                      |                           |         |                 |                | :material-check: |
 
 #### Monitoring Metrics
 
@@ -116,22 +120,24 @@ This table is subject to changes, as new metrics will be added in the future.
 | TEXT SENTIMENT | The sentiment of the text | INPUT, USER INPUT | When the data structure is text | If the Task text language is Italian, one between these: _POSITIVE_, _NEGATIVE_. Otherwise, one between these: _negative_, _neutral_, _positive_ | |
 | TEXT LENGTH | The length of the text | INPUT, USER INPUT, RETRIEVED CONTEXT, PREDICTION | When the data structure is text | An integer value in the range of [0, inf] | |
 | MODEL PERPLEXITY | A measure of the uncertainty of an LLM when predicting the next words | PREDICTION | When the task type is RAG | A floating point value. | |
-| IMAGE BRIGHTNESS | The brightness of the image measured as the average value of the pixel intensities in the gray scaled image. | INPUT | When the data structure is image | A floating point value. in the range of [0, 255]. Where 0 means totally dark image, while 255 totally white image. | |
-| IMAGE CONTRAST | The contrast of the image computed on the gray scaled image. There methods to compute it are: Root Mean Square, Michelson, Histogram Spread and Histogram Flatness. | INPUT | When the data structure is image | A floating point value, the range depends on the method used to compute the metric, you can find more information below on the page. | Method to extract contrast. |
-| IMAGE FOCUS | The focus of the image computed as laplacian of the gray scaled image. | INPUT | When the data structure is image | A floating point value [0, inf]. The higher is the value the higher is the definition of the image (i.e., high focus) | |
-| IMAGE BLUR | The blur level of the image computed from the gray scaled image. | INPUT | When the data structure is image | A floating point value with range [0, 1]. 0 for no blur (highly defined image) and 1 for maximal blur. | |
-| IMAGE COLOR CONTRAST RED | The contrast of the image computed on the red channel image. There methods to compute it are: Root Mean Square, Michelson, Histogram Spread and Histogram Flatness. | INPUT | When the data structure is image | A floating point value, the range depends on the method used to compute the metric, you can find more information below on the page. | Method to extract contrast. |
-| IMAGE COLOR CONTRAST GREEN | The contrast of the image computed on the green channel image. There methods to compute it are: Root Mean Square, Michelson, Histogram Spread and Histogram Flatness. | INPUT | When the data structure is image | A floating point value, the range depends on the method used to compute the metric, you can find more information below on the page. | Method to extract contrast. |
-| IMAGE COLOR CONTRAST BLUE | The contrast of the image computed on the blue channel image. There methods to compute it are: Root Mean Square, Michelson, Histogram Spread and Histogram Flatness. | INPUT | When the data structure is image | A floating point value, the range depends on the method used to compute the metric, you can find more information below on the page. | Method to extract contrast. |
-| IMAGE COLOR VARIATION RED | The color variation of the red channel of the image | INPUT | When the data structure is image and the image mode is either RGB or RGBA | A one dimension floating point array. | |
-| IMAGE COLOR VARIATION GREEN | The color variation of the green channel of the image | INPUT | When the data structure is image and the image mode is either RGB or RGBA | A one dimension floating point array. | |
-| IMAGE COLOR VARIATION BLUE | The color variation of the blue channel of the image | INPUT | When the data structure is image and the image mode is either RGB or RGBA | A one dimension floating point array. | |
-| AVERAGE AREA PER OBJECT TYPE | Average area of identified objects of the same type. If a sample does not have labels of that type then this metric is missing. | PREDICTION | When Task Type is Object Detection or Semantic Segmentation | A floating point value. | One metric for each output label |
-| QUANTITY PER OBJECT TYPE | Number of identified objects for each type in the image. | PREDICTION | When Task Type is Object Detection or Semantic Segmentation | A one dimension integer array. | One metric for each output label |
-| TOTAL OBJECTS | Total number of identified objects independently from the object type. | PREDICTION | When Task Type is Object Detection or Semantic Segmentation | An integer value. | |
-| OBJECT TYPES COUNT | Number of different object types identified in the image. It differs from the other because it only counts the number of different labels and not the number of objects per labels or objects in total. | PREDICTION | When Task Type is Object Detection or Semantic Segmentation | An integer value. | |
-| TRACKING OBJECT POSITION | Polars coordinates of the farthest polygon between the center of the image. It is an array with three elements: distance, cos-angle and sin-angle. | PREDICTION | When Task Type is Object Detection or Semantic Segmentation | An one dimensional array. | |
-| MODEL ENTROPY | Uncertainty of the model predicting objects in the images | PREDICTION PROBABILITY | When Task Type is Object Detection or Semantic Segmentation | |
+| MODEL ENTROPY | Computes the entropy of the Gaussian predictive distribution of the model | PREDICTION PROBABILITY | When the model outputs a probabilistic (Gaussian) prediction | A floating point value. | |
+| MODEL IMAGE ENTROPY | Uncertainty of the model predicting objects in the images | PREDICTION PROBABILITY | When Task Type is Object Detection or Semantic Segmentation | A floating point value. | |
+| LOG LIKELIHOOD | Computes the log-likelihood of the Gaussian predictive distribution of the model | ERROR | When the model outputs a probabilistic (Gaussian) prediction | A floating point value. | |
+| IMAGE BRIGHTNESS | The brightness of the image measured as the average value of the pixel intensities in the gray scaled image | INPUT | When the data structure is image | A floating point value in the range [0, 255], where 0 is completely dark and 255 completely white | |
+| IMAGE CONTRAST | The contrast of the image computed on the gray scaled image using methods such as RMS, Michelson, Histogram Spread or Histogram Flatness | INPUT | When the data structure is image | A floating point value, range depends on the method used | Method to extract contrast |
+| IMAGE FOCUS | The focus of the image computed as the Laplacian of the gray scaled image | INPUT | When the data structure is image | A floating point value in [0, inf]; higher means sharper image | |
+| IMAGE BLUR | The blur level of the image computed from the gray scaled image | INPUT | When the data structure is image | A floating point value in [0, 1], where 0 is sharp and 1 is fully blurred | |
+| IMAGE COLOR CONTRAST RED | Contrast computed on the red channel | INPUT | When the data structure is image | A floating point value, range depends on method | Method to extract contrast |
+| IMAGE COLOR CONTRAST GREEN | Contrast computed on the green channel | INPUT | When the data structure is image | A floating point value, range depends on method | Method to extract contrast |
+| IMAGE COLOR CONTRAST BLUE | Contrast computed on the blue channel | INPUT | When the data structure is image | A floating point value, range depends on method | Method to extract contrast |
+| IMAGE COLOR VARIATION RED | Color variation of the red channel | INPUT | When the data structure is image and mode is RGB/RGBA | A one-dimensional floating point array | |
+| IMAGE COLOR VARIATION GREEN | Color variation of the green channel | INPUT | When the data structure is image and mode is RGB/RGBA | A one-dimensional floating point array | |
+| IMAGE COLOR VARIATION BLUE | Color variation of the blue channel | INPUT | When the data structure is image and mode is RGB/RGBA | A one-dimensional floating point array | |
+| AVERAGE AREA PER OBJECT TYPE | Average area of identified objects of the same type; missing if no objects of that type are present | PREDICTION | When Task Type is Object Detection or Semantic Segmentation | A floating point value | One metric per output label |
+| QUANTITY PER OBJECT TYPE | Number of identified objects per type | PREDICTION | When Task Type is Object Detection or Semantic Segmentation | A one-dimensional integer array | One metric per output label |
+| TOTAL OBJECTS | Total number of identified objects | PREDICTION | When Task Type is Object Detection or Semantic Segmentation | An integer value | |
+| OBJECT TYPES COUNT | Number of different object types identified | PREDICTION | When Task Type is Object Detection or Semantic Segmentation | An integer value | |
+| TRACKING OBJECT POSITION | Polar coordinates (distance, cos-angle, sin-angle) of the farthest object from the image center | PREDICTION | When Task Type is Object Detection or Semantic Segmentation | A one-dimensional array | |
 
 ##### Contrast Methods
 
