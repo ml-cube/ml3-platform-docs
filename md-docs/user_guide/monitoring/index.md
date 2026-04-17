@@ -252,20 +252,19 @@ All the entities being monitored are associated with a status, which can be one 
 The following state diagram illustrates the possible transitions between the statuses, as well as the events that trigger them.
 
 ```mermaid
-stateDiagram-v2
-    
-    [*] --> OK : Initial State
-    
-    OK --> WARNING : Warning On
-    WARNING --> OK : Set new reference 
-    WARNING --> OK : Warning Off
-    
-    
-    WARNING --> DRIFT : Drift On
-    DRIFT --> WARNING : Drift Off
-    
-    DRIFT --> OK : Set new reference
-    DRIFT --> OK : Drift Off
+flowchart TD
+    OK((OK))
+    WARNING((WARNING))
+    DRIFT((DRIFT))
+
+    OK -->|Warning On| WARNING
+    OK -->|Drift On| DRIFT
+
+    WARNING -->|Reset / Warning Off| OK
+    DRIFT -->|Reset / Drift Off| OK
+
+    WARNING -->|Drift On| DRIFT
+    DRIFT -->|Drift Off| WARNING
 ```
 
 
