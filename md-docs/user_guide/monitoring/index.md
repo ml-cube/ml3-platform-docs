@@ -170,6 +170,74 @@ $$
 $$
 for low contrast images this metric is lower than for high contrast images.
 
+### Monitoring Evaluation Metrics
+
+While Monitoring Targets and Monitoring Metrics track distributional aspects of data and model outputs, **Monitoring Evaluation Metrics** measure the actual predictive performance of a model on production data. These are computed whenever ground truth labels become available for production samples, allowing the platform to continuously assess whether a model's accuracy has degraded over time.
+
+The evaluation is straightforward: for each time window in which labeled production data is available, the platform computes the configured evaluation metric and compares the result against a threshold. If the value crosses that threshold, a [Detection Event] is raised, signaling a potential degradation in model quality.
+
+The evaluation metrics available depend on the Task Type. The following subsections describe the metrics supported for each relevant task type.
+
+#### Classification
+
+The following evaluation metrics are available for Binary and Multiclass Classification tasks:
+
+| Evaluation Metric | Description | Possible values |
+|---|---|---|
+| ACCURACY | Fraction of correctly classified samples over the total | A floating point value in $[0, 1]$ |
+| BALANCED ACCURACY | Average recall over all classes, accounting for class imbalance | A floating point value in $[0, 1]$ |
+| PRECISION | Fraction of true positives over predicted positives | A floating point value in $[0, 1]$ |
+| RECALL | Fraction of true positives over actual positives | A floating point value in $[0, 1]$ |
+| F1 | Harmonic mean of Precision and Recall | A floating point value in $[0, 1]$ |
+| ROC AUC | Area under the Receiver Operating Characteristic curve | A floating point value in $[0, 1]$ |
+| PR AUC | Area under the Precision-Recall curve | A floating point value in $[0, 1]$ |
+| LOG LOSS | Negative log-likelihood of the predicted probabilities | A floating point value in $[0, \infty]$; lower is better |
+| FPR AT TPR | False Positive Rate at a fixed True Positive Rate level | A floating point value in $[0, 1]$ |
+
+For Multilabel Classification, the supported evaluation metrics are:
+
+- Accuracy  
+- Precision  
+- Recall  
+- F1 score  
+
+These metrics are computed using **macro-averaging across labels**, where each label is evaluated independently and the final score is obtained by taking the unweighted mean over all labels.
+
+The **Accuracy** metric in this context corresponds to **subset accuracy**, meaning a prediction is considered correct only if all labels for a given sample match exactly.
+
+#### Regression
+
+The following evaluation metrics are available for Regression tasks:
+
+| Evaluation Metric | Description | Possible values |
+|---|---|---|
+| RMSE | Root Mean Square Error between predictions and ground truth | A floating point value in $[0, \infty]$; lower is better |
+| MAE | Mean Absolute Error between predictions and ground truth | A floating point value in $[0, \infty]$; lower is better |
+| MAPE | Mean Absolute Percentage Error, expressed as a fraction | A floating point value in $[0, \infty]$; lower is better |
+| R SQUARED | Coefficient of determination; proportion of variance explained by the model | A floating point value, typically in $(−\infty, 1]$; higher is better |
+
+<!--
+
+#### Clustering
+
+The following evaluation metrics are available for Clustering tasks:
+
+| Evaluation Metric | Description | Requires ground truth labels | Possible values |
+|---|---|---|---|
+| ADJUSTED RAND INDEX | Measures similarity between predicted clusters and ground truth assignments, corrected for chance | Yes | A floating point value in $[−1, 1]$; higher is better |
+| V MEASURE | Harmonic mean of homogeneity and completeness of the clustering | Yes | A floating point value in $[0, 1]$ |
+| NMI | Normalized Mutual Information between predicted and true cluster assignments | Yes | A floating point value in $[0, 1]$ |
+| SILHOUETTE | Measures how well each sample fits its assigned cluster relative to neighboring clusters | No | A floating point value in $[−1, 1]$; higher is better |
+| CALINSKI HARABASZ | Ratio of between-cluster dispersion to within-cluster dispersion | No | A floating point value in $[0, \infty]$; higher is better |
+
+Note that some clustering metrics (Silhouette and Calinski-Harabasz) do not require ground truth labels and can therefore be computed continuously on production data, while label-dependent metrics (Adjusted Rand Index, V Measure, NMI) are only computed when ground truth cluster assignments are available.  -->
+
+#### Threshold-based evaluation
+
+For all task types, performance evaluation works by comparing the computed metric value against a user-defined threshold. If the metric crosses this threshold — either falling below it for quality metrics like Accuracy or exceeding it for error metrics like RMSE — a [Detection Event] is raised, signaling that model performance has degraded to a level requiring attention.
+
+<!-- The threshold can be configured via the SDK when setting up or updating a model's monitoring configuration. Setting a meaningful threshold is important: a threshold that is too strict will trigger false alarms, while one that is too lenient may fail to catch meaningful regressions. -->
+
 ### Monitoring Status
 
 All the entities being monitored are associated with a status, which can be one of the following:
