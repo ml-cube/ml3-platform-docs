@@ -224,5 +224,21 @@ This flexibility allows OCR to be used both for simple text extraction tasks and
 
 OCR is widely used in document digitization, automated data entry, and extracting information from scanned documents or photos.
 
+## Beta Tasks - Coming Soon
+
+ML cube Platform is continuously evolving, and new Task Types are being introduced to cover additional machine learning use cases. The following Tasks are currently in development and will be available in future releases:
+
+### Anomaly Detection
+
+Anomaly Detection is a task aimed at identifying unusual or rare patterns in data that deviate from expected behavior. It is commonly used in applications such as fraud detection, system monitoring, and quality control. Models typically assign an anomaly score to each sample, indicating how much it differs from the norm.
+
+### Optimization
+
+Optimization Tasks focus on finding the best possible configuration or decision under a set of constraints and objectives. These tasks are often used in scenarios such as resource allocation, scheduling, or parameter tuning. The goal is to maximize or minimize a target objective while satisfying given conditions.
+
+### AI Agents
+
+AI Agents are autonomous or semi-autonomous systems designed to interact with environments, tools, or users to achieve specific goals. Unlike traditional models that produce a single prediction, AI Agents can perform multi-step reasoning, execute actions, and adapt their behavior based on feedback or observations. They are particularly suited for complex workflows that require planning, tool usage, and iterative decision-making.
+
 [Model]: model.md
 [Data schema]: data_schema.md
