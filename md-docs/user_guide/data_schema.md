@@ -88,25 +88,14 @@ Here the list of constraints about Data Types for each Role:
 
 ## Data schema templates
 
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_binary_embedding.json">classification binary embedding</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_binary_image.json">classification binary image</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_binary_tabular.json">classification binary tabular</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_binary_text.json">classification binary text</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multiclass_embedding.json">classification multiclass embedding</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multiclass_image.json">classification multiclass image</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multiclass_tabular.json">classification multiclass tabular</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multiclass_text.json">classification multiclass text</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multilabel_embedding.json">classification multilabel embedding</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multilabel_image.json">classification multilabel image</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multilabel_tabular.json">classification multilabel tabular</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multilabel_text.json">classification multilabel text</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/object_detection.json">object detection</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/rag.json">rag</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/regression_embedding.json">regression embedding</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/regression_image.json">regression image</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/regression_tabular.json">regression tabular</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/regression_text.json">regression text</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/semantic_segmentation.json">semantic segmentation</a>
-
+| Task | Variants |
+|------|---------|
+| **Classification (binary)** | [embedding](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_binary_embedding.json) - [image](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_binary_image.json) - [tabular](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_binary_tabular.json) - [text](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_binary_text.json) |
+| **Classification (multiclass)** | [embedding](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multiclass_embedding.json) - [image](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multiclass_image.json) - [tabular](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multiclass_tabular.json) - [text](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multiclass_text.json) |
+| **Classification (multilabel)** | [embedding](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multilabel_embedding.json) - [image](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multilabel_image.json) - [tabular](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multilabel_tabular.json) - [text](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multilabel_text.json) |
+| **Clustering** | [embedding](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/clustering_embedding.json) - [image](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/clustering_image.json) - [tabular](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/clustering_tabular.json) - [text](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/clustering_text.json) |
+| **Regression** | [embedding](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/regression_embedding.json) - [image](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/regression_image.json) - [tabular](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/regression_tabular.json) - [text](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/regression_text.json) |
+| **Other** | [object detection](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/object_detection.json) - [semantic segmentation](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/semantic_segmentation.json) - [ocr](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/ocr.json) - [rag](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/rag.json) - [timeseries](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/timeseries.json) |
+  
 [Task]: task.md
 [Model]: model.md
