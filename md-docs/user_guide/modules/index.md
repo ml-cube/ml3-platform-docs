@@ -69,6 +69,6 @@ Modules can be always active or on-demand: Monitoring module and Drift Explainab
 
     Explore and inspect your dataset interactively.
 
-    [:octicons-arrow-right-24: More info](data_explorer.md)
+    [:octicons-arrow-right-24: More info](../data_explorer/index.md)
 
 </div>

@@ -26,7 +26,7 @@ These entities can take the form of tables, plots, or textual explanations.
 Observed and analyzed together, they should provide a comprehensive understanding of the drift and its underlying causes.
 These are the entities currently available:
 
-- **`Data Explorer`**: provides a side-by-side qualitative view of samples from both the reference dataset and the production data. It allows you to visually inspect differences between nominal data and data under drift, helping you build intuition about the nature and impact of the change. Additionally, you can click on “Open in Data Explorer” to navigate to the [dedicated page](../modules/data_explorer.md), where the appropriate time filters are automatically applied for both reference and production data, enabling a more in-depth analysis.
+- **`Data Explorer`**: provides a side-by-side qualitative view of samples from both the reference dataset and the production data. It allows you to visually inspect differences between nominal data and data under drift, helping you build intuition about the nature and impact of the change. Additionally, you can click on “Open in Data Explorer” to navigate to the [dedicated page](../data_explorer/index.md), where the appropriate time filters are automatically applied for both reference and production data, enabling a more in-depth analysis.
 
 <figure markdown style="width:100%">
   ![Data Explorer](../../imgs/monitoring/drift-explainability/data_explorer_in_de_report.png)
