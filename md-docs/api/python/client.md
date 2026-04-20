@@ -318,7 +318,8 @@ Project ID                Name
    optional_target: bool = False, text_language: (TextLanguage|None) = None,
    positive_class: (str|int|bool|None) = None,
    rag_contexts_separator: (str|None) = None, llm_default_answer: (str|None) = None,
-   semantic_segmentation_target_type: (SemanticSegTargetType|None) = None
+   semantic_segmentation_target_type: (SemanticSegTargetType|None) = None,
+   ocr_mode: (OcrMode|None) = None, timeseries_frequency: (str|None) = None
 )
 ```
 
@@ -352,6 +353,7 @@ Create a task inside the project.
 * **rag_contexts_separator**  : Separator used to separate rag contexts
     from different sources. If missing then only one source exists.
 * **llm_default_answer**  : default answer for the LLM model
+* **timeseries_frequency**  : in timeseries tasks it represents the frequency of data
 
 
 **Returns**
@@ -1113,7 +1115,8 @@ Show data schema of associated with a task
 ### .add_historical_data
 ```python
 .add_historical_data(
-   task_id: str, inputs: Data, metadata: (Data|None) = None, target: (Data|None) = None,
+   task_id: str, data_batch_type: DataBatchType, inputs: (Data|None) = None,
+   metadata: (Data|None) = None, target: (Data|None) = None,
    predictions: (list[tuple[str, Data]]|None) = None
 )
 ```
@@ -1137,6 +1140,7 @@ using the method `wait_job_completion(job_id)`
 **Args**
 
 * **task_id**  : the identifier of the task
+* **data_batch_type**  : the nature of the data batch: TRAINING, VALIDATION or TEST
 * **inputs**  : data object that contain input data source.
     It can be None if you upload other kinds of data
 * **metadata**  : data object that contain metadata data source.
@@ -1947,7 +1951,7 @@ Get a detection event rule by id.
 ```
 
 ---
-Get a detection event rule by id.
+Add user feedback to a detection event.
 
 **Allowed Roles:**
 
@@ -1974,7 +1978,9 @@ Get a detection event rule by id.
    severity: (DetectionEventSeverity|None) = None,
    monitoring_targets: (list[MonitoringTarget]|None) = None,
    monitoring_metrics: (dict[MonitoringTarget,
-   list[MonitoringMetric]]|None) = None, segment_ids: (list[str|None]|None) = None
+   list[MonitoringMetric]]|None) = None,
+   monitoring_evaluation_metrics: (list[MonitoringEvaluationMetric]|None) = None,
+   segment_ids: (list[str|None]|None) = None
 )
 ```
 
@@ -2016,6 +2022,8 @@ at https://ml-cube.github.io/ml3-platform-docs/user_guide/monitoring/detection_e
     this rule should respond to. None means ANY value.
 * **monitoring_metrics**  : monitoring metrics for each target
     that this rule should respond to. None means ANY value.
+* **monitoring_evaluation_metrics**  : monitoring evaluation metrics
+    at batch level. None means ANY value.
 * **severity**  : the level of severity of the detection event
     that this rule should respond to. Must be provided for
     DRIFT_ON event types. It is intended as
@@ -2085,7 +2093,9 @@ client.create_detection_event_rule(
    severity: (DetectionEventSeverity|None) = None,
    monitoring_targets: (list[MonitoringTarget]|None) = None,
    monitoring_metrics: (dict[MonitoringTarget,
-   list[MonitoringMetric]]|None) = None, segment_ids: (list[str|None]|None) = None
+   list[MonitoringMetric]]|None) = None,
+   monitoring_evaluation_metrics: (list[MonitoringEvaluationMetric]|None) = None,
+   segment_ids: (list[str|None]|None) = None
 )
 ```
 
@@ -2108,6 +2118,8 @@ Update a detection event rule.
     this rule should respond to. None means ANY value.
 * **monitoring_metrics**  : monitoring metrics for each target
     that this rule should respond to. None means ANY value.
+* **monitoring_evaluation_metrics**  : monitoring evaluation metrics
+    at batch level. None means ANY value.
 * **severity**  : the level of severity of the detection event
     that this rule should respond to. Must be provided for
     DRIFT_ON event types. It is intended as
@@ -2862,7 +2874,8 @@ Create credentials to integrate with AWS-compatible services.
 ### .create_gcp_integration_credentials
 ```python
 .create_gcp_integration_credentials(
-   name: str, default: bool, project_id: str, service_account_info_json: str
+   name: str, default: bool, project_id: str, service_account_info_json: str,
+   scopes: (list[str]|None)
 )
 ```
 
@@ -2928,6 +2941,189 @@ Create credentials to integrate with Azure.
 **Returns**
 
 * **credentials**  : `AzureCredentials`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .create_google_genai_integration_credentials
+```python
+.create_google_genai_integration_credentials(
+   name: str, default: bool, project_id: str, api_key: str
+)
+```
+
+---
+Create credentials to access Google GenAI service.
+
+**Allowed Roles:**
+
+- At least `UPDATE_PROJECT_INFORMATION` for the project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **name**  : a simple name to identify this set of credentials
+* **default**  : whether to use these credentials by default when
+    using a Google GenAI integration
+* **project_id**  : the project in which these credentials will
+    be configured
+* **api_key**  : the subscription key
+
+
+**Returns**
+
+* **credentials**  : `GoogleGenAICredentials`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .create_google_vertexai_integration_credentials
+```python
+.create_google_vertexai_integration_credentials(
+   name: str, default: bool, project_id: str, api_key: str
+)
+```
+
+---
+Create credentials to access Google VertexAI service.
+
+**Allowed Roles:**
+
+- At least `UPDATE_PROJECT_INFORMATION` for the project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **name**  : a simple name to identify this set of credentials
+* **default**  : whether to use these credentials by default when
+    using a Google VertexAI integration
+* **project_id**  : the project in which these credentials will
+    be configured
+* **api_key**  : The subscription key of the service
+
+
+**Returns**
+
+* **credentials**  : `GoogleVertexAICredentials`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .create_azure_openai_integration_credentials
+```python
+.create_azure_openai_integration_credentials(
+   name: str, default: bool, project_id: str, api_version: str, endpoint: str,
+   api_key: str
+)
+```
+
+---
+Create credentials to access Azure OpenAI services.
+
+**Allowed Roles:**
+
+- At least `UPDATE_PROJECT_INFORMATION` for the project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **name**  : a simple name to identify this set of credentials
+* **default**  : whether to use these credentials by default when
+    using a Azure OpenAI integration
+* **project_id**  : the project in which these credentials will
+    be configured
+* **api_version**  : The version of the Azure OpenAI API to use
+* **endpoint**  : The endpoint URL for the Azure OpenAI service
+* **api_key**  : The subscription key of the service
+
+
+**Returns**
+
+* **credentials**  : `AzureOpenAICredentials`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .create_openai_integration_credentials
+```python
+.create_openai_integration_credentials(
+   name: str, default: bool, project_id: str, api_key: str
+)
+```
+
+---
+Create credentials to access OpenAI services.
+
+**Allowed Roles:**
+
+- At least `UPDATE_PROJECT_INFORMATION` for the project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **name**  : a simple name to identify this set of credentials
+* **default**  : whether to use these credentials by default when
+    using a OpenAI integration
+* **project_id**  : the project in which these credentials will
+    be configured
+* **api_key**  : The subscription key of the service
+
+
+**Returns**
+
+* **credentials**  : `OpenAICredentials`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .create_anthropic_integration_credentials
+```python
+.create_anthropic_integration_credentials(
+   name: str, default: bool, project_id: str, api_key: str
+)
+```
+
+---
+Create credentials to access Anthropic services.
+
+**Allowed Roles:**
+
+- At least `UPDATE_PROJECT_INFORMATION` for the project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **name**  : a simple name to identify this set of credentials
+* **default**  : whether to use these credentials by default when
+    using a Anthropic integration
+* **project_id**  : the project in which these credentials will
+    be configured
+* **api_key**  : The subscription key of the service
+
+
+**Returns**
+
+* **credentials**  : `AnthropicCredentials`
 
 
 **Raises**
@@ -3145,3 +3341,23 @@ Get all data batches for the given task.
 **Returns**
 
 A list of DataBatch objects
+
+### .delete_task
+```python
+.delete_task(
+   task_id: str
+)
+```
+
+---
+Delete a task from the project.
+
+
+**Args**
+
+* **task_id**  : the identifier of the task to delete
+
+
+**Raises**
+
+SDKClientException
