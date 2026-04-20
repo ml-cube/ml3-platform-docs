@@ -1,10 +1,10 @@
 # Company and Subscriptions
 
-A Company is the fundamental organizational entity inside ML cube Platform.
+A **Company** is the fundamental organizational entity inside ML cube Platform.
 Users belong to a single Company and billing, licenses, and projects are all managed and created inside a Company.
 
-The Company has an Owner with maximum privileges including billing administration.
-The owner can create new User accounts inside the Company assigning specific [roles] at the company and project level.
+The Company has an **Owner** with maximum privileges including billing administration.
+The owner can create new **User** accounts inside the Company assigning specific [roles] at the company and project level.
 
 The information required that describe the Company are:
 
@@ -17,7 +17,7 @@ The Company is created by ML cube team during the onboarding, then, during first
 ## Subscriptions
 
 A Subscription is the payment arrangement where a Company pays a periodical fee to access ML cube Platform services.
-A Subscription has a *start* and an *expiration* date and contains the *modules* and *quotas* the Company can handle.
+A Subscription has a **start** and an **expiration** date and contains the **modules** and **quotas** the Company can handle.
 
 === "Quotas"
 
@@ -25,14 +25,21 @@ A Subscription has a *start* and an *expiration* date and contains the *modules*
     | ----------- | ------------------------------------ |
     | Users       | Maximum number of Users per Company|
     | Tasks       | Maximum number of Tasks per Company excluding those in demo projects|
+    | Data Batch Upload       | Maximum number of production data batch uploads allowed per day|
 
 === "Modules"
 
-    | Modules      | Description                          |
-    | ----------- | ------------------------------------ |
-    | Monitoring       | Data drift monitoring and detection for several targets and metrics. Alerts are raised when drifts are detected allowing automated the response.  |
-    | Retraining       | Generation of retraining datasets to update AI models according to identified data drifts. Dataset is based on data distributions and leverages all the past available data. |
-    | Explainability       | Explainability of detected drifts to better understand what happened and how to tackle it. |
+    | Module | Description |
+    | :--- | :--- |
+    | **Monitoring** | Data drift monitoring and detection for several targets. Alerts are raised when drifts are detected, allowing for automated responses. |
+    | **Monitoring Metrics** | Detection and tracking of data drift specifically for monitoring metrics. |
+    | **Segmented Monitoring** | Granular analysis and monitoring of specific data subsets or populations. |
+    | **Retraining** | Generation of retraining datasets to update AI models based on identified data drifts and historical distributions. |
+    | **Explainability** | Insights into detected drifts to support root cause analysis and mitigation strategies. |
+    | **Topic Analysis** | Discovery and analysis of latent themes and semantic patterns within unstructured data. |
+    | **RAG Evaluation** | Specialized evaluation frameworks and benchmarks for Retrieval-Augmented Generation pipelines. |
+    | **LLM Security** | Protection, auditing, and threat detection for Large Language Model interactions. |
+    | **Business** | High-level performance tracking, primarily focused on KPI monitoring and business alignment. |
 
 
 Moreover, there are two types of subscriptions depending on where ML cube Platform is used:
