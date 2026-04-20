@@ -10,7 +10,7 @@ You can navigate to the Data Explorer from your task's menu.
 
 The Data Explorer is composed of multiple complementary sections, each designed to support a different aspect of data analysis:
 
-- **Data Views**: explore individual samples through tabular or gallery-based visualizations, enabling detailed inspection of data points and their associated metadata, predictions, and drift information.
+- **Explore Data**: explore individual samples through tabular or gallery-based visualizations, enabling detailed inspection of data points and their associated metadata, predictions, and drift information.
 
 - **Dashboards**: analyze data distributions and relationships through interactive visualizations, including univariate, bivariate, and time series plots, built on top of configurable data groups.
 

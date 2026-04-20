@@ -74,5 +74,20 @@ Monitor clustering quality metrics:
     - Useful for comparing different clustering approaches
     - For a detailed explanation, refer to [this link](https://en.wikipedia.org/wiki/Davies%E2%80%93Bouldin_index).
 
+## Analyze transition
 
-![DB Score](../../imgs/dynamic_clustering/db_score.png)
+The **Analyze Transition** view allows you to shift focus from a single clustering snapshot to the **changes occurring between two iterations**. Instead of analyzing clusters in isolation, this mode helps you understand how the clustering structure evolves.
+
+When this mode is activated, the interface is split into two side-by-side panels, each representing a different iteration. This layout enables direct comparison and highlights how clusters and samples move from one state to another.
+
+While the History-Graph now allow you to select the transition, all the visualization components available in the standard view (embedding scatter plot and cluster cards) are duplicated across both panels to ensure a consistent comparison experience.
+
+### What you can explore
+
+- **Side-by-side comparison**: View two iterations simultaneously to easily spot structural differences in clusters.
+- **Cluster transitions**: Identify how clusters evolve between iterations, including merges, splits, appearances, and disappearances.
+- **Change focus**: Quickly pinpoint which clusters underwent the most significant transformations.
+
+By focusing on transitions rather than static states, you gain a deeper understanding of the dynamics behind the dynamic clustering results.
+
+![DB Score](../../imgs/dynamic_clustering/analyze_transition.png)
