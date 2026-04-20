@@ -1,6 +1,6 @@
 # Drift Explainability
 
-[Monitoring]  is a crucial aspect of the machine learning lifecycle, as it enables tracking the model's performance and its data over time,
+[Monitoring] is a crucial aspect of the machine learning lifecycle, as it enables tracking the model's performance and its data over time,
 ensuring the model continues to function as expected. However, monitoring only is not enough when it comes to the adaptation phase.
 
 In order to make the right decisions, you need to understand what were the main factors that led to the drift in the first place, so that
@@ -26,6 +26,13 @@ These entities can take the form of tables, plots, or textual explanations.
 Observed and analyzed together, they should provide a comprehensive understanding of the drift and its underlying causes.
 These are the entities currently available:
 
+- **`Data Explorer`**: provides a side-by-side qualitative view of samples from both the reference dataset and the production data. It allows you to visually inspect differences between nominal data and data under drift, helping you build intuition about the nature and impact of the change. Additionally, you can click on “Open in Data Explorer” to navigate to the [dedicated page](../modules/data_explorer.md), where the appropriate time filters are automatically applied for both reference and production data, enabling a more in-depth analysis.
+
+<figure markdown style="width:100%">
+  ![Data Explorer](../../imgs/monitoring/drift-explainability/data_explorer_in_de_report.png)
+  <figcaption>Example of data explorer visualization.</figcaption>
+</figure>
+
 - **`Feature Importance`**: it's a barplot that illustrates how the significance of each feature differs between the reference 
  and the production datasets. Variations in a feature's values might suggest that its contribution to the model's predictions 
  has changed over time. This entity is available only for tasks with tabular data.
@@ -43,21 +50,6 @@ These are the entities currently available:
 <figure markdown style="width:100%">
   ![Variable discriminative power](../../imgs/monitoring/drift-explainability/concept-fi.svg)
   <figcaption>Example of a variable discriminative power plot.</figcaption>
-</figure>
-
-- **`Drift Score`**: it's a line plot that shows the evolution of the drift score over time. The drift score is a 
-  measure of the statistical distance between a sliding window of the production data and the reference data. It also shows the threshold,
-  which is the value that the drift score must exceed to raise a drift alarm, and all the [Detection Events] that were triggered in
-  the time frame of the report. This plot helps in understanding how the drift evolved over time and the moments in which the difference
-  between the two datasets was higher. Notice that some postprocessing is applied on the events to account for the functioning of the drift detection algorithms. 
-  Specifically,
-  we shift back the drift on events by a certain offset, aiming to point at the precise time when the drift actually started. As a result,
-  drift on events might be shown before the threshold is exceeded. This explainability entity is available for all tasks.
-
-
-<figure markdown style="width: 100%">
-  ![Drift score](../../imgs/monitoring/drift-explainability/score.svg)
-  <figcaption style="width: 100%; text-align: center;">Example of a drift score plot with detection events of increasing severity displayed.</figcaption>
 </figure>
 
 - **`Clusters Count`**: it's an histogram plot that shows the distribution of reference and production samples across clusters created over reference data. It is obtained by fitting a clustering algorithm over the reference data and then assigning production data to these identified clusters. This plot can help understanding the nature of the drift by distinguishing between two main scenarios:
@@ -87,6 +79,22 @@ When the data distribution shifted, the expected output is that most of producti
 <figure markdown style="width: 100%">
   ![Drift score](../../imgs/monitoring/drift-explainability/cluster-heatmap.svg)
   <figcaption style="width: 100%; text-align: center;">Example of a clustering heatmap. It looks like there is a direct mapping between reference and production clusters, which suggests that the drift is likely not due to a distribution shift.</figcaption>
+</figure>
+
+- **`Drift Score`**: it's a line plot that shows the evolution of the drift score over time. The drift score is a measure of the statistical distance between a sliding window of the production data and the reference data. It also shows the threshold, which is the value that the drift score must exceed to raise a drift alarm, and all the [Detection Events] that were triggered in the time frame of the report. This plot helps in understanding how the drift evolved over time and the moments in which the difference between the two datasets was higher. Notice that some postprocessing is applied on the events to account for the functioning of the drift detection algorithms. 
+Specifically, we shift back the drift on events by a certain offset, aiming to point at the precise time when the drift actually started. As a result, drift on events might be shown before the threshold is exceeded. This explainability entity is available for all tasks.
+
+<figure markdown style="width: 100%">
+  ![Drift score](../../imgs/monitoring/drift-explainability/score.svg)
+  <figcaption style="width: 100%; text-align: center;">Example of a drift score plot with detection events of increasing severity displayed.</figcaption>
+</figure>
+
+- **`Dynamic Clustering`**: provides a comparative view of clustering structures between the reference data and the production data under drift. The component displays two side-by-side panels: the reference clustering (single snapshot) and the production clustering, where multiple iterations are shown to highlight how clusters evolve over time. This allows you to visually assess structural changes in the data distribution, such as the emergence, disappearance, or reorganization of clusters. By clicking on “Iteration Details”, you can further explore each iteration through cluster cards, which include representative samples and quality indicators, as well as advanced statistics like silhouette score and Davies–Bouldin index to quantitatively evaluate clustering behavior.
+Additionally, you can click to “Open in Dynamic Clustering” to navigate to the [dedicated page](../modules/dynamic_clustering.md), where the corresponding temporal filters are automatically applied for a more in-depth analysis.
+
+<figure markdown style="width:100%">
+  ![Dynamic Clustering](../../imgs/monitoring/drift-explainability/dynamic_clustering_in_de_report.png)
+  <figcaption>Example of dynamic clustering visualization.</figcaption>
 </figure>
 
 [Monitoring]: index.md
