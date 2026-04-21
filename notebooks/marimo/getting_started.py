@@ -308,17 +308,17 @@ def _(mo):
 
 
 @app.cell
-def _(API_KEY, ML3PlatformClient, URL):
-    ml3_client = ML3PlatformClient(api_key=API_KEY, url=URL)
-    return (ml3_client,)
-
-
-@app.cell
 def _(dotenv, os):
     dotenv.load_dotenv()
     API_KEY = os.environ['MLCUBE_PLATFORM_API_KEY']
     URL = os.environ.get('MLCUBE_PLATFORM_URL', "https://api.platform.mlcube.com")
     return API_KEY, URL
+
+
+@app.cell
+def _(API_KEY, ML3PlatformClient, URL):
+    ml3_client = ML3PlatformClient(api_key=API_KEY, url=URL)
+    return (ml3_client,)
 
 
 @app.cell(hide_code=True)
