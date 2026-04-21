@@ -17,11 +17,12 @@ dependencies = [
     "mkdocs-macros-plugin",
     "openpyxl",
     "pandas",
+    "python-dotenv>=1.2.1",
 ]
 
 [dependency-groups]
 dev = [
-    "ml3-platform-sdk==0.0.22",
+    "ml3-platform-sdk @ file://${PROJECT_ROOT}/../ml3-platform-sdk",
     "polars>=0.19.3",
     "scikit-learn",
     "torch>=2.7.0",
@@ -34,4 +35,5 @@ dev = [
     "requests",
     "jupyter",
     "ipykernel",
+    "marimo>=0.17.6",
 ]
