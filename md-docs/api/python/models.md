@@ -499,6 +499,7 @@ An event created during the detection process.
 * **monitoring_target**  : MonitoringTarget | None
 * **monitoring_metric**  : MonitoringMetric | None
 * **severity_type**  : Optional[DetectionEventSeverity]
+* **monitoring_evaluation_metric**  : MonitoringEvaluationMetric | None
 * **insert_datetime**  : str
 * **sample_timestamp**  : float
 * **sample_customer_id**  : str
@@ -554,6 +555,7 @@ a series of actions.
 * **detection_event_type**  : DetectionEventType
 * **monitoring_targets**  : list[MonitoringTarget]
 * **monitoring_metrics**  : dict[MonitoringTarget, list[MonitoringMetric]]
+* **monitoring_evaluation_metrics**  : list[MonitoringEvaluationMetric]
 * **actions**  : list[DetectionEventAction]
 * **segment_ids**  : list[str | None]
 
@@ -1552,6 +1554,7 @@ Task model
 * **monitoring_metrics**  : (
     None
     | dict[MonitoringTarget, list[tuple[MonitoringMetric, str | None]]]
+* **monitoring_evaluation_metrics**  : list[MonitoringEvaluationMetric]
 * **monitoring_status**  : list[MonitoringQuantityStatus]
 ) = None
 

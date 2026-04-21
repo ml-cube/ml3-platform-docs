@@ -3361,3 +3361,23 @@ Delete a task from the project.
 **Raises**
 
 SDKClientException
+
+### .set_evaluation_metric_threshold
+```python
+.set_evaluation_metric_threshold(
+   task_id: str, thresholds: list[tuple[str, float]]
+)
+```
+
+---
+Set evaluation metric monitoring thresholds to define when raise a drift alert
+
+### .get_evaluation_monitoring_metrics
+```python
+.get_evaluation_monitoring_metrics(
+   task_id: str
+)
+```
+
+---
+Returns the list of evaluation monitoring metrics in the task
