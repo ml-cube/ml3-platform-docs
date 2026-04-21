@@ -46,10 +46,10 @@ Most of ML cube Platform operations are done at Task level: monitoring, retraini
 Indeed, each Task Type has a set of ML cube Platform modules:
 
 | Module | Regression | Classification | RAG | Object Detection | Semantic Segmentation | Timeseries | Clustering | OCR |
-|-----|-----|-----|-----|-----|-----|-----|-----|-----|
+|-----|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
 | Monitoring | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: |
 | Explainability | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: |
-| Retraining | :material-check: | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} |
+| Retraining | :material-check: | :material-check: |  | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} | :material-check: :material-information-outline:{title="Coming soon"} | :material-check:  | :material-check: :material-information-outline:{title="Coming soon"} |
 | Dynamic Clustering | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: | | :material-check: | :material-check: |
 | Topic Modeling | :material-check: :material-information-outline:{title="Only for Text data"} | :material-check: :material-information-outline:{title="Only for Text data"} | :material-check: | | | | | |
 | RAG Evaluation | | | :material-check: | | | | | |
@@ -173,7 +173,7 @@ RAG Tasks have two additional attributes:
 
 Object Detection is a computer vision task that processes images to **identify and localize objects** within them. The model returns both the type of each detected object and its spatial location in the image.
 
-The output is a list of *bounding boxes*, where each bounding box is associated with a label representing the detected object class. Each bounding box is defined by four coordinates ($x_{min}, y_{min}, x_{max}, y_{max}$) that describe the position and size of the detected object.
+The output is a list of *bounding boxes*, where each bounding box is associated with a label representing the detected object class. Each bounding box is defined by four coordinates ($x_{min}, x_{max}, y_{min}, y_{max}$) that describe the position and size of the detected object.
 
 The target for this task is a list of annotated objects, where each annotation includes a bounding box and a corresponding class label. This structure allows the model to learn both what is present in the image and where it is located.
 
@@ -224,7 +224,7 @@ This flexibility allows OCR to be used both for simple text extraction tasks and
 
 OCR is widely used in document digitization, automated data entry, and extracting information from scanned documents or photos.
 
-## Beta Tasks - Coming Soon
+## Coming Soon
 
 ML cube Platform is continuously evolving, and new Task Types are being introduced to cover additional machine learning use cases. The following Tasks are currently in development and will be available in future releases:
 

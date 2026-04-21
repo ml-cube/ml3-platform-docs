@@ -31,15 +31,15 @@ A Subscription has a **start** and an **expiration** date and contains the **mod
 
     | Module | Description |
     | :--- | :--- |
-    | **Monitoring** | Data drift monitoring and detection for several targets. Alerts are raised when drifts are detected, allowing for automated responses. |
-    | **Monitoring Metrics** | Detection and tracking of data drift specifically for monitoring metrics. |
-    | **Segmented Monitoring** | Granular analysis and monitoring of specific data subsets or populations. |
-    | **Retraining** | Generation of retraining datasets to update AI models based on identified data drifts and historical distributions. |
-    | **Explainability** | Insights into detected drifts to support root cause analysis and mitigation strategies. |
-    | **Topic Analysis** | Discovery and analysis of latent themes and semantic patterns within unstructured data. |
-    | **RAG Evaluation** | Specialized evaluation frameworks and benchmarks for Retrieval-Augmented Generation pipelines. |
-    | **LLM Security** | Protection, auditing, and threat detection for Large Language Model interactions. |
-    | **Business** | High-level performance tracking, primarily focused on KPI monitoring and business alignment. |
+    | *Monitoring* | Data drift monitoring and detection for several targets and raw data. Alerts are raised when drifts are detected, allowing for automated responses. |
+    | *Monitoring Metrics* | Extension of monitoring module with extracted metrics from raw data. |
+    | *Segmented Monitoring* | Granular analysis and monitoring of specific data subsets or populations. |
+    | *Retraining* | Generation of retraining datasets to update AI models based on identified data drifts and historical distributions. |
+    | *Explainability* | Insights into detected drifts to support root cause analysis and mitigation strategies. |
+    | *Topic Analysis* | Discovery and analysis of latent themes and semantic patterns within unstructured data. |
+    | *RAG Evaluation* | Specialized evaluation frameworks and benchmarks for Retrieval-Augmented Generation pipelines. |
+    | *LLM Security* | Protection, auditing, and threat detection for Large Language Model interactions. |
+    | *Business* | High-level performance tracking, primarily focused on KPI monitoring and business alignment. |
 
 
 Moreover, there are two types of subscriptions depending on where ML cube Platform is used:

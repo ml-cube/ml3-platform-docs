@@ -1939,7 +1939,7 @@ dev = [
 
 [[package]]
 name = "ml3-platform-sdk"
-version = "0.2.1"
+version = "0.2.2a1"
 source = { directory = "../ml3-platform-sdk" }
 dependencies = [
     { name = "pydantic" },
