@@ -1,6 +1,6 @@
 #!/bin/sh
 branch=$(git rev-parse --symbolic --abbrev-ref HEAD)
-if [ "main" == "$branch" ]; then
+if [ "main" = "$branch" ]; then
     make build-docs
     make export-notebooks
 fi
