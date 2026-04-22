@@ -44,13 +44,13 @@
 
     | Task Type | Data Structure | ID | TIME ID | INPUT | METADATA | TARGET | INPUT ADDITIONAL EMBEDDING | TARGET ADDITIONAL EMBEDDING | OBJECT LABEL TARGET | OBJECT TEXT TARGET | USER INPUT | RETRIEVED CONTEXT | SEASONALITY | TREND | REGRESSOR |
     |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-    | Object Detection | Image | STRING | FLOAT | ARRAY_3 | FLOAT, CATEGORY, STRING | ARRAY_2 | ARRAY_1 | ARRAY_1 | - | - | - | - | - | - | - |
+    | Object Detection | Image | STRING | FLOAT | ARRAY_3 | FLOAT, CATEGORY, STRING | ARRAY_2 | ARRAY_1 | - | ARRAY_1 | - | - | - | - | - | - |
 
 === "Semantic Segmentation"
 
     | Task Type | Data Structure | ID | TIME ID | INPUT | METADATA | TARGET | INPUT ADDITIONAL EMBEDDING | TARGET ADDITIONAL EMBEDDING | OBJECT LABEL TARGET | OBJECT TEXT TARGET | USER INPUT | RETRIEVED CONTEXT | SEASONALITY | TREND | REGRESSOR |
     |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-    | Semantic Segmentation | Image | STRING | FLOAT | ARRAY_3 | FLOAT, CATEGORY, STRING | ARRAY_3 | ARRAY_1 | ARRAY_1 | - | - | - | - | - | - | - |
+    | Semantic Segmentation | Image | STRING | FLOAT | ARRAY_3 | FLOAT, CATEGORY, STRING | ARRAY_3 | ARRAY_1 | - |ARRAY_1 | - | - | - | - | - | - |
 
 === "Timeseries"
 
@@ -62,7 +62,7 @@
 
     | Task Type | Data Structure | ID | TIME ID | INPUT | METADATA | TARGET | INPUT ADDITIONAL EMBEDDING | TARGET ADDITIONAL EMBEDDING | OBJECT LABEL TARGET | OBJECT TEXT TARGET | USER INPUT | RETRIEVED CONTEXT | SEASONALITY | TREND | REGRESSOR |
     |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-    | Clustering | Tabular | STRING | FLOAT | FLOAT, CATEGORY | FLOAT, CATEGORY, STRING | - | - | - | - | - | - | - | - | - | - |
+    | Clustering | Tabular | STRING | FLOAT | FLOAT, CATEGORY | FLOAT, CATEGORY, STRING | STRING | - | - | - | - | - | - | - | - | - |
     | Clustering | Embedding | STRING | FLOAT | ARRAY_1 | FLOAT, CATEGORY, STRING | STRING | - | - | - | - | - | - | - | - | - |
     | Clustering | Image | STRING | FLOAT | ARRAY_3 | FLOAT, CATEGORY, STRING | STRING | ARRAY_1 | - | - | - | - | - | - | - | - |
     | Clustering | Text | STRING | FLOAT | STRING | FLOAT, CATEGORY, STRING | STRING | ARRAY_1 | - | - | - | - | - | - | - | - |
