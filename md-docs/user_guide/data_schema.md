@@ -8,6 +8,8 @@ Data schema contains all the information about the data in the [Task], it is cre
 A Data schema is composed of a list of objects named _Column_ that represent each data entity in the Task.
 The number and type of Column objects depend on the task type and task data structure.
 
+## Column attributes
+
 A Column object has some mandatory attributes and others that depends on its role or data type:
 
 | Attribute  | Description | Mandatory | 
@@ -19,9 +21,9 @@ A Column object has some mandatory attributes and others that depends on its rol
 | Is Nullable | If the entity allows missing values. | Mandatory |
 | Dims | List with the number of elements each dimension of the array has. The value -1 indicates that that dimension can have an arbitrary number of elements. | Required when Data Type is Array |
 | Tolerance | Specifies the tolerance for image data, defining the acceptable pixel variation in image size. <ul><li>Tol=0: Strict matching, only images of the exact specified size are accepted.</li><li>Tol > 0: Allows a size variation of up to ±Tol pixels in each dimension. For example, if the expected size is (100, 100) and Tol = 5, images between (95, 95) and (105, 105) are accepted.</li><li>Tol=none: Fully flexible, images of any size are allowed.</li></ul> | Required when Column Role is Input and Data Structure is Image. |
-| Possible values | List of values the categorical variable can assume. They can be either strings or numbers. When Task Type is Classification Multilabel and Role is Target, possibile values must be \[0, 1\] indicating the presence or not of that class. | Mandatory when Column Data Type is Categorical |
+| Possible values | List of values the categorical variable can assume. They can be either strings or numbers. When Task Type is Classification Multilabel and Role is Target, possibile values must be \[0, 1\] indicating the presence or not of that class. | Required when Column Data Type is Categorical |
 | Classes Names | Names of the classes in the Task. The length of this list must match the length of the Dims of the array. | Required when Column Role is Target and Task Type is Classification Multilabel.|
-|Image Mode| Type of image, it can be RGB, RGBA, GRAYSCALE. It also determines the Data Type, which is Array 3 for RBG and RGBA and Array 2 for GRAYSCALE. | Required when Column Role is Input and Data Structure is Image.|
+|Image Mode| Type of image, it can be RGB, RGBA, GRAYSCALE. It also determines the Data Type, which is Array 3 for RGB and RGBA and Array 2 for GRAYSCALE. | Required when Column Role is Input and Data Structure is Image.|
 
 
 ## Role
