@@ -46,6 +46,27 @@ AWS integration credentials.
 ----
 
 
+## AWSEventBridgeNotificationAction
+```python 
+AWSEventBridgeNotificationAction()
+```
+
+
+---
+Base Model for AWS EventBridge Notification Action
+
+
+**Attributes**
+
+* **type**  : DetectionEventActionType.AWS_EVENT_BRIDGE_NOTIFICATION
+* **credentials_id**  : str | None
+* **aws_region_name**  : str
+* **event_bus_name**  : str
+
+
+----
+
+
 ## AWSEventBridgeRetrainTrigger
 ```python 
 AWSEventBridgeRetrainTrigger()
@@ -60,6 +81,24 @@ type
 credentials_id
 aws_region_name
 event_bus_name
+
+----
+
+
+## AnthropicCredentials
+```python 
+AnthropicCredentials()
+```
+
+
+---
+Anthropic integration credentials.
+
+
+**Attributes**
+
+* **partial_api_key**  : The api key (obfuscated) of the service
+
 
 ----
 
@@ -141,6 +180,26 @@ Azure integration credentials.
 ----
 
 
+## AzureEventGridNotificationAction
+```python 
+AzureEventGridNotificationAction()
+```
+
+
+---
+Base Model for Azure EventGrid Notification Action
+
+
+**Attributes**
+
+* **type**  : DetectionEventActionType.AZURE_EVENT_GRID_NOTIFICATION
+* **credentials_id**  : str | None
+* **topic_endpoint**  : str
+
+
+----
+
+
 ## AzureEventGridRetrainTrigger
 ```python 
 AzureEventGridRetrainTrigger()
@@ -154,6 +213,26 @@ Fields:
 type
 credentials_id
 topic_endpoint
+
+----
+
+
+## AzureOpenAICredentials
+```python 
+AzureOpenAICredentials()
+```
+
+
+---
+Azure OpenAI integration credentials.
+
+
+**Attributes**
+
+* **api_version**  : The version of the Azure OpenAI API to use
+* **endpoint**  : The endpoint URL for the Azure OpenAI service
+* **partial_api_key**  : The api key (obfuscated) of the service
+
 
 ----
 
@@ -236,6 +315,8 @@ Column base model
 * **image_mode**  : Optional[ImageMode] = None
     Indicates the mode of the image. It must be provided
     when the data type is an image
+* **timeseries_mode**  : Optional[TimeseriesMode] = None
+    Indicates how the column is used by the timeseries model
 
 
 ----
@@ -415,9 +496,10 @@ An event created during the detection process.
 
 * **event_id**  : str
 * **event_type**  : DetectionEventType
-* **monitoring_target**  : MonitoringTarget
+* **monitoring_target**  : MonitoringTarget | None
 * **monitoring_metric**  : MonitoringMetric | None
 * **severity_type**  : Optional[DetectionEventSeverity]
+* **monitoring_evaluation_metric**  : MonitoringEvaluationMetric | None
 * **insert_datetime**  : str
 * **sample_timestamp**  : float
 * **sample_customer_id**  : str
@@ -473,6 +555,7 @@ a series of actions.
 * **detection_event_type**  : DetectionEventType
 * **monitoring_targets**  : list[MonitoringTarget]
 * **monitoring_metrics**  : dict[MonitoringTarget, list[MonitoringMetric]]
+* **monitoring_evaluation_metrics**  : list[MonitoringEvaluationMetric]
 * **actions**  : list[DetectionEventAction]
 * **segment_ids**  : list[str | None]
 
@@ -562,6 +645,26 @@ GCP integration credentials.
 ----
 
 
+## GCPPubSubNotificationAction
+```python 
+GCPPubSubNotificationAction()
+```
+
+
+---
+Base Model for GCP PubSub Notification Action
+
+
+**Attributes**
+
+* **type**  : DetectionEventActionType.GCP_PUBSUB_NOTIFICATION
+* **credentials_id**  : str | None
+* **topic_name**  : str
+
+
+----
+
+
 ## GCPPubSubRetrainTrigger
 ```python 
 GCPPubSubRetrainTrigger()
@@ -614,6 +717,36 @@ A source that identifies a file in a GCS bucket.
 .get_source_type()
 ```
 
+
+----
+
+
+## GoogleGenAICredentials
+```python 
+GoogleGenAICredentials()
+```
+
+
+---
+Google GenAI integration credentials.
+
+
+**Attributes**
+
+* **partial_api_key**  : The api key (obfuscated) of the service
+
+
+----
+
+
+## GoogleVertexAICredentials
+```python 
+GoogleVertexAICredentials()
+```
+
+
+---
+Credentials needed to authenticate to Google VertexAI
 
 ----
 
@@ -839,7 +972,6 @@ Base Model for Mqtt Notification Action
 * **type**  : DetectionEventActionType.MQTT_NOTIFICATION
 * **connection_string**  : str
 * **topic**  : str
-* **payload**  : str
 
 
 ----
@@ -920,6 +1052,24 @@ See `SegmentRule` for additional details.
 ```python
 .get_supported_data_types()
 ```
+
+
+----
+
+
+## OpenAICredentials
+```python 
+OpenAICredentials()
+```
+
+
+---
+OpenAI integration credentials.
+
+
+**Attributes**
+
+* **partial_api_key**  : The api key (obfuscated) of the service
 
 
 ----
@@ -1404,6 +1554,7 @@ Task model
 * **monitoring_metrics**  : (
     None
     | dict[MonitoringTarget, list[tuple[MonitoringMetric, str | None]]]
+* **monitoring_evaluation_metrics**  : list[MonitoringEvaluationMetric]
 * **monitoring_status**  : list[MonitoringQuantityStatus]
 ) = None
 
