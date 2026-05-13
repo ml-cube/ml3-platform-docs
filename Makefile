@@ -12,3 +12,11 @@ build-docs:
 
 serve-docs:
 	uv run mkdocs serve
+
+export-notebooks:
+	@for file in notebooks/marimo/*.py; do \
+        if [ -f "$$file" ]; then \
+            basename=$$(basename "$$file" .py); \
+            uv run marimo export ipynb "$$file" -o notebooks/jupyter/"$$basename".ipynb; \
+        fi; \
+    done

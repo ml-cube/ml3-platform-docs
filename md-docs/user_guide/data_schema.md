@@ -8,6 +8,8 @@ Data schema contains all the information about the data in the [Task], it is cre
 A Data schema is composed of a list of objects named _Column_ that represent each data entity in the Task.
 The number and type of Column objects depend on the task type and task data structure.
 
+## Column attributes
+
 A Column object has some mandatory attributes and others that depends on its role or data type:
 
 | Attribute  | Description | Mandatory | 
@@ -19,9 +21,9 @@ A Column object has some mandatory attributes and others that depends on its rol
 | Is Nullable | If the entity allows missing values. | Mandatory |
 | Dims | List with the number of elements each dimension of the array has. The value -1 indicates that that dimension can have an arbitrary number of elements. | Required when Data Type is Array |
 | Tolerance | Specifies the tolerance for image data, defining the acceptable pixel variation in image size. <ul><li>Tol=0: Strict matching, only images of the exact specified size are accepted.</li><li>Tol > 0: Allows a size variation of up to ±Tol pixels in each dimension. For example, if the expected size is (100, 100) and Tol = 5, images between (95, 95) and (105, 105) are accepted.</li><li>Tol=none: Fully flexible, images of any size are allowed.</li></ul> | Required when Column Role is Input and Data Structure is Image. |
-| Possible values | List of values the categorical variable can assume. They can be either strings or numbers. When Task Type is Classification Multilabel and Role is Target, possibile values must be \[0, 1\] indicating the presence or not of that class. | Mandatory when Column Data Type is Categorical |
+| Possible values | List of values the categorical variable can assume. They can be either strings or numbers. When Task Type is Classification Multilabel and Role is Target, possibile values must be \[0, 1\] indicating the presence or not of that class. | Required when Column Data Type is Categorical |
 | Classes Names | Names of the classes in the Task. The length of this list must match the length of the Dims of the array. | Required when Column Role is Target and Task Type is Classification Multilabel.|
-|Image Mode| Type of image, it can be RGB, RGBA, GRAYSCALE. It also determines the Data Type, which is Array 3 for RBG and RGBA and Array 2 for GRAYSCALE. | Required when Column Role is Input and Data Structure is Image.|
+|Image Mode| Type of image, it can be RGB, RGBA, GRAYSCALE. It also determines the Data Type, which is Array 3 for RGB and RGBA and Array 2 for GRAYSCALE. | Required when Column Role is Input and Data Structure is Image.|
 
 
 ## Role
@@ -59,8 +61,13 @@ Some tasks can have different data entities for the same Role, the Column object
 | RAG User Input | INPUT | String | In RAG Tasks it is the user query submitted to the system. |
 | RAG Retrieved Context | INPUT | String | In RAG Tasks it is the retrieved contexts (separated with the Task attribute *context separator*) that the retrieval system has selected to answer the query.|
 | Model probability | PREDICTION | Depends on Task Type:<br><ul><li>RAG: Array 1</li><li>Classification Binary: Float</li><li>Classification Multiclass: Array 1</li><li>Classification Multilabel: Array 1</li><li>Semantic Segmentation: Array 3</li></ul> | It is automatically created by ML cube Platform when the created Model has the flag additional probabilistic output set as True. The name has fixed template: <MODEL_NAME\>_probability\@<MODEL_VERSION\>.| 
-| Object prediction label| PREDICTION | Array 1 | It is automatically created when Task Type is Object detection or Semantic Segmentation. It is an array with length equal to the number of predicted bounding boxes where each element contains the class label assigned to the bounding box. The name has a fixed template: <MODEL_NAME\>_predicted_labels\@<MODEL_VERSION\>.|
-| Object target label| TARGET | Array 1 | It is mandatory when Task Type is Object detection or Semantic Segmentation. It is an array with length equal to the number of actual bounding boxes where each element contains the class label assigned to the bounding box. |
+| Object prediction label | PREDICTION | Array 1 | It is automatically created when Task Type is Object Detection, Semantic Segmentation, or OCR (`with_labels` mode). It is an array with length equal to the number of predicted entities (bounding boxes for Object Detection and OCR, segmented regions for Semantic Segmentation), where each element contains the class label assigned to the corresponding entity. The name has a fixed template: <MODEL_NAME\>_predicted_labels\@<MODEL_VERSION\>. |
+| Object target label | TARGET | Array 1 | It is mandatory when Task Type is Object Detection, Semantic Segmentation, or OCR (`with_labels` mode). It is an array with length equal to the number of ground truth entities (bounding boxes for Object Detection and OCR, annotated regions for Semantic Segmentation), where each element contains the class label assigned to the corresponding entity. |
+| Object prediction text | PREDICTION | Array 1 | It is used when Task Type is OCR (`with_labels` mode). It contains the extracted text associated with each detected text region. The name has a fixed template: <MODEL_NAME\>_predicted_text\@<MODEL_VERSION\>. |
+| Object target text | TARGET | Array 1 | It is used when Task Type is OCR (`with_labels` mode). It contains the ground truth text associated with each annotated text region. |
+| Seasonality | INPUT | Float | It is used in Timeseries Tasks to represent seasonal components of the signal |
+| Trend | INPUT | Float | It is used in Timeseries Tasks to represent the long-term trend component of the signal. |
+| Regressor | INPUT | Float | It is used in Timeseries Tasks to represent external explanatory variables that influence the target but are not part of the temporal signal itself. |
 
 ## Data schema constraints
 
@@ -69,40 +76,28 @@ For instance, image binary classification tasks requires only one input column o
 
 !!! note
     Object Detection and Semantic Segmentation have specific constraints about the _dims_ attribute of the TARGET and PREDICTION columns:
-    
+
     - Object Detection [-1, 4]: the first is for identified objects, the second is for bounding box specification: x_min, x_max, y_min, y_max
     - Semantic Segmentation [-1, -1, 2]: the first is for identified objects, the second is for polygon vertices, the third is for vertices coordinates x, y
 
 Here the list of constraints about quantities for each Role:
 
-{{ read_excel('../tables/data schema validation.xlsx', engine='openpyxl', sheet_name='qts') }}
+{% include "tables/data_schema_validation_quantities.md" %}
 
 Here the list of constraints about Data Types for each Role:
 
-{{ read_excel('../tables/data schema validation.xlsx', engine='openpyxl', sheet_name='types') }}
-
+{% include "tables/data_schema_validation_dtypes.md" %}
 
 ## Data schema templates
 
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_binary_embedding.json">classification binary embedding</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_binary_image.json">classification binary image</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_binary_tabular.json">classification binary tabular</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_binary_text.json">classification binary text</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multiclass_embedding.json">classification multiclass embedding</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multiclass_image.json">classification multiclass image</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multiclass_tabular.json">classification multiclass tabular</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multiclass_text.json">classification multiclass text</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multilabel_embedding.json">classification multilabel embedding</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multilabel_image.json">classification multilabel image</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multilabel_tabular.json">classification multilabel tabular</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multilabel_text.json">classification multilabel text</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/object_detection.json">object detection</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/rag.json">rag</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/regression_embedding.json">regression embedding</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/regression_image.json">regression image</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/regression_tabular.json">regression tabular</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/regression_text.json">regression text</a>
-- <a id="raw-url" href="https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/semantic_segmentation.json">semantic segmentation</a>
-
+| Task | Variants |
+|------|---------|
+| **Classification (binary)** | [embedding](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_binary_embedding.json) - [image](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_binary_image.json) - [tabular](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_binary_tabular.json) - [text](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_binary_text.json) |
+| **Classification (multiclass)** | [embedding](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multiclass_embedding.json) - [image](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multiclass_image.json) - [tabular](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multiclass_tabular.json) - [text](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multiclass_text.json) |
+| **Classification (multilabel)** | [embedding](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multilabel_embedding.json) - [image](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multilabel_image.json) - [tabular](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multilabel_tabular.json) - [text](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/classification_multilabel_text.json) |
+| **Clustering** | [embedding](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/clustering_embedding.json) - [image](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/clustering_image.json) - [tabular](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/clustering_tabular.json) - [text](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/clustering_text.json) |
+| **Regression** | [embedding](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/regression_embedding.json) - [image](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/regression_image.json) - [tabular](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/regression_tabular.json) - [text](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/regression_text.json) |
+| **Other** | [object detection](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/object_detection.json) - [semantic segmentation](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/semantic_segmentation.json) - [ocr](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/ocr.json) - [rag](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/rag.json) - [timeseries](https://github.com/ml-cube/ml3-platform-docs/blob/main/data-schema-templates/timeseries.json) |
+  
 [Task]: task.md
 [Model]: model.md

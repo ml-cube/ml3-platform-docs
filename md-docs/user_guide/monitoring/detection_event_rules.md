@@ -76,18 +76,18 @@ Finally, you can choose which actions to take when all the conditions are met:
 
 Rules are specific to a task and are characterized by the following attributes:
 
-| Attribute            | Description                                                                                                                                                            | 
-|----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Name                 | A descriptive label of the rule.                                                                                                                                       |
-| Detection Event Type | The type of event that triggers the rule.                                                                                                                              |
-| Severity             | The severity of the event that triggers the rule. It is only applicable to drift events. If not specified, the rule will be triggered by drift events of any severity. |
-| Monitoring Target    | The [Monitoring Target](index.md#monitoring-targets) whose event should trigger the rule.                                                                              |
-| Monitoring Metric    | The [Monitoring Metric](index.md#monitoring-metrics) whose event should trigger the rule.                                                                              |
-| Specification        | The specification of the Monitoring Metric being monitored, if existing.       
-| Model name           | The name of the model to which the rule applies. This is only required when the monitoring target is related to a model (such as `ERROR` or `PREDICTION`).             |
-| Actions              | A list of actions to be executed sequentially when the rule is triggered.                                                                                              |
-| Segment ID           | It refers to the ID of the Segment where the rule is set.                                                                                                              |
-                                                     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+| Attribute                 | Description                                                                                                                                                            | 
+|---------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Name                      | A descriptive label of the rule.                                                                                                                                       |
+| Detection Event Type      | The type of event that triggers the rule.                                                                                                                              |
+| Severity                  | The severity of the event that triggers the rule. It is only applicable to drift events. If not specified, the rule will be triggered by drift events of any severity. |
+| Monitoring Target         | The [Monitoring Target](index.md#monitoring-targets) whose event should trigger the rule.                                                                              |
+| Monitoring Metric         | The [Monitoring Metric](index.md#monitoring-metrics) whose event should trigger the rule.                                                                              |
+| Specification             | The specification of the Monitoring Metric being monitored, if existing.                                                                                              |
+| Monitoring Evaluation Metric | The [Evaluation Metric](index.md#monitoring-evaluation-metrics) whose event should trigger the rule.                                                         |
+| Model name                | The name of the model to which the rule applies. This is only required when the monitoring target is related to a model (such as `ERROR` or `PREDICTION`).             |
+| Actions                   | A list of actions to be executed sequentially when the rule is triggered.                                                                                              |
+| Segment ID                | It refers to the ID of the Segment where the rule is set.                                                                                                              |
 
 ## Detection Event Actions
 Three types of actions are currently supported: notification, plot configuration and retrain.

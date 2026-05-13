@@ -145,7 +145,11 @@ nav:
 
           - user_guide/modules/dynamic_clustering.md
           - user_guide/modules/retraining.md
-          - user_guide/modules/data_explorer.md
+          - Data Explorer:
+            - user_guide/data_explorer/index.md
+            - user_guide/data_explorer/explore_data.md
+            - user_guide/data_explorer/dashboards.md
+
           - user_guide/modules/analytics.md
           - user_guide/modules/topic_modeling.md
           - user_guide/modules/rag_evaluation.md

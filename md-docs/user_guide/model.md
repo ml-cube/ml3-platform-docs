@@ -6,7 +6,9 @@ performs inference.
 For more information about reference and production data see the [Data] page.
 
 A Model is uniquely associated with a [Task], and it can be created both through the WebApp and the Python SDK. 
-Currently, we support only one model per Task.
+
+!!! info
+    Currently, we support only one model per Task.
 
 A Model is defined by a name and a version. The version is updated whenever the model is retrained, allowing to 
 track the latest version of the model and the data used for its training. When predictions are uploaded to the platform,

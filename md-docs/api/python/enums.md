@@ -98,23 +98,30 @@ ColumnSubRole()
 
 
 ---
-Column subrole enum
-Describe the subrole of a column
+This enum describes the subrole
+of a column in the data schema
+For instance, it's used in RAG tasks to
+distinguish between user input and
+retrieved context
 
 Subroles for ColumnRole.INPUT in RAG settings:
-
 - RAG_USER_INPUT
 - RAG_RETRIEVED_CONTEXT
 - RAG_SYS_PROMPT
 
-Subroles for ColumnRole.PREDICTION:
+Subroles for ColumnRole.INPUT in TIMESERIES settings:
+- SEASONALITY
+- TREND
+- REGRESSOR
 
+Subroles for ColumnRole.PREDICTION:
 - MODEL_PROBABILITY
 - OBJECT_LABEL_PREDICTION
+- OBJECT_TEXT_PREDICTION
 
 Subroles for ColumnRole.TARGET:
-
 - OBJECT_LABEL_TARGET
+- OBJECT_TEXT_TARGET
 
 ----
 
@@ -131,6 +138,25 @@ Currency of to use for the Task
 **Fields:**
 - EURO
 - DOLLAR
+
+----
+
+
+## DataBatchType
+```python 
+DataBatchType()
+```
+
+
+---
+Defines the type of the uploaded data batch.
+
+**Fields:**
+
+TRAINING
+VALIDATION
+TEST
+PRODUCTION
 
 ----
 
@@ -191,6 +217,9 @@ DetectionEventActionType()
 - MQTT_NOTIFICATION
 - RETRAIN
 - NEW_PLOT_CONFIGURATION
+- AWS_EVENT_BRIDGE_NOTIFICATION
+- GCP_PUBSUB_NOTIFICATION
+- AZURE_EVENT_GRID_NOTIFICATION
 
 ----
 
@@ -242,6 +271,11 @@ An integration with a 3rd party service provider
 - GCP
 - AZURE
 - AWS_COMPATIBLE
+- GOOGLE_GENAI
+- GOOGLE_VERTEXAI
+- OPENAI
+- AZURE_OPENAI
+- ANTHROPIC
 
 ----
 
@@ -355,6 +389,60 @@ Name of the model metrics that is associated with the model
 ----
 
 
+## MonitoringEvaluationMetric
+```python 
+MonitoringEvaluationMetric()
+```
+
+
+---
+Metric computed at batch level and without referring to a task.
+
+Differently from MonitoringMetric, that are extractions from quantities
+(MonitoringTarget) for each sample, the MonitoringEvaluationMetrics are computed
+for a set of data and not for the single sample.
+
+Each task type has a list of metrics.
+
+BINARY_CLASSIFICATION, MULTICLASS_CLASSIFICATION, MULTILABEL_CLASSIFICATION
+
+- Accuracy
+- Precision
+- Recall
+- F1-score
+- ROC-AUC (requires model probability)
+- PR-AUC (requires model probability)
+- LogLoss (requires model probability)
+- Balanced Accuracy
+
+REGRESSION
+
+- MAE
+- RMSE
+- R square
+
+CLUSTERING
+
+- Silhouette score
+- Calinski-Harabasz Index
+- Adjusted Rand Index (requires ground truth)
+- NMI / V-measure (requires ground truth)
+
+ANOMALY DETECTION
+
+- ROC-AUC (requires model probability)
+- PR-AUC (requires model probability)
+- FPR @ TPR (requires model probability)
+
+TIMESERIES
+
+- MAE
+- RMSE
+- MAPE
+
+----
+
+
 ## MonitoringMetric
 ```python 
 MonitoringMetric()
@@ -375,6 +463,10 @@ Text:
 Model probabilistic output:
     - MODEL_PERPLEXITY
     - MODEL_ENTROPY
+    - MODEL_IMAGE_ENTROPY
+
+Error:
+    - LOG_LIKELIHOOD: likelihood of target sample for distribution induced by the model
 
 Image:
     - IMAGE_BRIGHTNESS
@@ -425,6 +517,8 @@ MonitoringTarget()
 - USER_INPUT_RETRIEVED_CONTEXT
 - USER_INPUT_MODEL_OUTPUT
 - MODEL_OUTPUT_RETRIEVED_CONTEXT
+- CHARACTER_ERROR_RATE
+- WORD_ERROR_RATE
 
 ----
 
@@ -446,6 +540,22 @@ Numeric licence feature
 - DAILY_DATA_BATCH_UPLOAD
     Maximum number of data batches that the company can upload
     in a day. Only considers production data batches.
+
+----
+
+
+## OcrMode
+```python 
+OcrMode()
+```
+
+
+---
+Ocr mode enumeration
+
+**Fields:**
+- PLAIN_TEXT
+- WITH_LABELS
 
 ----
 
@@ -598,6 +708,7 @@ TaskType()
 - RAG
 - OBJECT_DETECTION
 - SEMANTIC_SEGMENTATION
+- CLUSTERING
 
 ----
 
@@ -615,6 +726,18 @@ Enumeration of text language used in nlp tasks.
 - ITALIAN
 - ENGLISH
 - MULTILANGUAGE
+
+----
+
+
+## TimeseriesMode
+```python 
+TimeseriesMode()
+```
+
+
+---
+Define how regressors, seasonality or trend are used in the timeseries.
 
 ----
 
