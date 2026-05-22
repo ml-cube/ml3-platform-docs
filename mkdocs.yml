@@ -142,6 +142,7 @@ nav:
               - user_guide/monitoring/detection_event.md
               - user_guide/monitoring/detection_event_rules.md
               - user_guide/monitoring/drift_explainability.md
+              - user_guide/monitoring/patchcore.md
 
           - user_guide/modules/dynamic_clustering.md
           - user_guide/modules/retraining.md

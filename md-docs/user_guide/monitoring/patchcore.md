@@ -99,7 +99,7 @@ a **novelty heatmap** that highlights which regions contributed most to the nove
 
 ### Patch Embeddings
 
-Instead of representing the whole image with a single vector, PatchCore works at the **patch level** — each
+Instead of representing the whole image with a single vector, PatchCore works at the **patch level**.Each
 spatial region of the image gets its own embedding. This allows the system to localise novel regions rather
 than just classify the whole image as normal or novel.
 
