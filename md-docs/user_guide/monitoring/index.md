@@ -237,6 +237,41 @@ Note that some clustering metrics (Silhouette and Calinski-Harabasz) do not requ
 For all task types, performance evaluation works by comparing the computed metric value against a user-defined threshold. If the metric crosses this threshold — either falling below it for quality metrics like Accuracy or exceeding it for error metrics like RMSE — a [Detection Event] is raised, signaling that model performance has degraded to a level requiring attention.
 
 <!-- The threshold can be configured via the SDK when setting up or updating a model's monitoring configuration. Setting a meaningful threshold is important: a threshold that is too strict will trigger false alarms, while one that is too lenient may fail to catch meaningful regressions. -->
+### Novelty Detection
+
+#### Overview
+
+Novelty Detection is an unsupervised technique that learns exclusively from normal data during training. Rather than recognizing predefined anomaly classes, the system builds a representation of what normal looks like. At inference, each new sample is compared against this representation and assigned a novelty score.
+
+- **Low score** : the sample is consistent with normal data.
+- **High score** : the sample deviates from normal patterns.
+
+If the score exceeds a configured threshold, the sample is flagged as a novelty.
+
+This approach requires no labeled anomaly samples, making it well suited for real-world scenarios where unusual cases are rare, unknown, or difficult to collect.
+
+#### Visualization and Localization
+
+When a novelty is detected, the system generates visual explanations to pinpoint the source of the deviation. The form of the explanation depends on the data type:
+
+- **Images** : spatial heatmap highlighting the anomalous region.
+- **Text** : token or word-level highlighting.
+- **Tabular  data** : per-column contribution scores.
+
+These explanations help users understand what drove the novelty score, and simplify both debugging and monitoring workflows.
+
+<figure markdown style="width: 100%">
+  ![Novelty Detection heatmap](../../imgs/monitoring/novelty.png)
+  <figcaption>Novelty heatmap — red regions indicate the areas that deviate most from the learned normal samples.</figcaption>
+</figure>
+
+#### Monitoring
+
+The Platform continuously monitors novelty-related signals during inference to detect unexpected behavior in production environments.
+
+The main monitored signal is:
+
+**Novelty Percentage** : when this value exceeds the configured alert threshold, a Detection Event is raised.
 
 ### Monitoring Status
 
