@@ -255,8 +255,7 @@ This approach requires no labeled anomaly samples, making it well suited for rea
 When a novelty is detected, the system generates visual explanations to pinpoint the source of the deviation. The form of the explanation depends on the data type:
 
 - **Images** : spatial heatmap highlighting the anomalous region.
-- **Text** : token or word-level highlighting.
-- **Tabular  data** : per-column contribution scores.
+- **Text and tabular modalities**: are currently under development and will be integrated in a future release.
 
 These explanations help users understand what drove the novelty score, and simplify both debugging and monitoring workflows.
 
