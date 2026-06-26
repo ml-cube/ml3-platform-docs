@@ -1,0 +1,90 @@
+{
+	"columns": [
+		{
+			"name": "id",
+			"dataType": "string",
+			"role": "id",
+			"isNullable": false,
+			"predictedTarget": null,
+			"possibleValues": null,
+			"modelId": null,
+			"modelName": null,
+			"subrole": null,
+			"dims": null,
+			"tol": 0,
+			"classesNames": null,
+			"imageMode": null,
+			"timeseriesMode": null
+		},
+		{
+			"name": "time_id",
+			"dataType": "float",
+			"role": "time_id",
+			"isNullable": false,
+			"predictedTarget": null,
+			"possibleValues": null,
+			"modelId": null,
+			"modelName": null,
+			"subrole": null,
+			"dims": null,
+			"tol": 0,
+			"classesNames": null,
+			"imageMode": null,
+			"timeseriesMode": null
+		},
+		{
+			"name": "input",
+			"dataType": "array_3",
+			"role": "input",
+			"isNullable": false,
+			"predictedTarget": null,
+			"possibleValues": null,
+			"modelId": null,
+			"modelName": null,
+			"subrole": null,
+			"dims": [
+				300,
+				300,
+				3
+			],
+			"tol": 50,
+			"classesNames": null,
+			"imageMode": "rgb",
+			"timeseriesMode": null
+		},
+		{
+			"name": "input_additional_embedding",
+			"dataType": "array_1",
+			"role": "input_additional_embedding",
+			"isNullable": false,
+			"predictedTarget": null,
+			"possibleValues": null,
+			"modelId": null,
+			"modelName": null,
+			"subrole": null,
+			"dims": [
+				128
+			],
+			"tol": 0,
+			"classesNames": null,
+			"imageMode": null,
+			"timeseriesMode": null
+		},
+		{
+			"name": "target",
+			"dataType": "string",
+			"role": "target",
+			"isNullable": false,
+			"predictedTarget": null,
+			"possibleValues": null,
+			"modelId": null,
+			"modelName": null,
+			"subrole": null,
+			"dims": null,
+			"tol": 0,
+			"classesNames": null,
+			"imageMode": null,
+			"timeseriesMode": null
+		}
+	]
+}
