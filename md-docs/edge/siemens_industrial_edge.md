@@ -2,7 +2,7 @@
 
 [Siemens Industrial Edge](https://www.siemens.com/industrial-edge) is an edge computing platform aimed at improving factory operations by bringing data processing and software management directly to the shop floor. It integrates hardware, software and connectivity solutions from both Siemens and its partners, enabling scalable and secure industrial workflows.
 
-The **AI Inference Server** is one of the core applications in the Industrial Edge ecosystem. It hosts and runs AI models locally on the edge device, producing predictions from raw input data like images. By running inference on the edge, it avoids the latency and bandwidth costs of sending data to the cloud.
+The [AI Inference Server](https://www.dex.siemens.com/edge/build-your-solution/ai-inference-server-dk?cclcl=en_EN) is one of the core applications in the Industrial Edge ecosystem. It hosts and runs AI models locally on the edge device, producing predictions from raw input data like images. By running inference on the edge, it avoids the latency and bandwidth costs of sending data to the cloud.
 
 ML cube Platform works in tandem with Siemens AI Inference Server and other applications in the Industrial Edge ecosystem. It receives data from the same acquisition channels that AI Inference Server uses, it receives predictions from it and provides outputs on the desired destination.
 
