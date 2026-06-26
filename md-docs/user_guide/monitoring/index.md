@@ -245,8 +245,6 @@ Novelty Detection is an unsupervised technique that builds a representation of n
 
 > __How scores work:__ a low score means the sample is consistent with normal data; a high score means it deviates from learned patterns. If the score exceeds a configured threshold, the sample is flagged as a novelty.
 
-This approach requires no labeled anomaly samples, making it well suited for real-world scenarios where unusual cases are rare, unknown, or difficult to collect.
-
 #### Visualization and Localization
 
 When a novelty is detected, the system generates visual explanations to pinpoint the source of the deviation. The form of the explanation depends on the data type:
