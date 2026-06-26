@@ -241,12 +241,9 @@ For all task types, performance evaluation works by comparing the computed metri
 
 #### Overview
 
-Novelty Detection is an unsupervised technique that learns exclusively from normal data during training. Rather than recognizing predefined anomaly classes, the system builds a representation of what normal looks like. At inference, each new sample is compared against this representation and assigned a novelty score.
+Novelty Detection is an unsupervised technique that builds a representation of normal behavior using only normal data — no labeled anomalies are required. In the Platform, a Novelty Detector is fitted on a reference dataset, which defines what "normal" looks like for the use case. At inference time, each new sample is compared against this reference and assigned a __novelty score__ reflecting how much it deviates from normal.
 
-- **Low score** : the sample is consistent with normal data.
-- **High score** : the sample deviates from normal patterns.
-
-If the score exceeds a configured threshold, the sample is flagged as a novelty.
+> __How scores work:__ a low score means the sample is consistent with normal data; a high score means it deviates from learned patterns. If the score exceeds a configured threshold, the sample is flagged as a novelty.
 
 This approach requires no labeled anomaly samples, making it well suited for real-world scenarios where unusual cases are rare, unknown, or difficult to collect.
 
@@ -254,23 +251,27 @@ This approach requires no labeled anomaly samples, making it well suited for rea
 
 When a novelty is detected, the system generates visual explanations to pinpoint the source of the deviation. The form of the explanation depends on the data type:
 
-- **Images** : spatial heatmap highlighting the anomalous region.
-- **Text and tabular modalities**: are currently under development and will be integrated in a future release.
+- __Images__ : spatial heatmap highlighting the anomalous region.
+- __Text and tabular modalities__: are currently under development and will be integrated in a future release.
 
 These explanations help users understand what drove the novelty score, and simplify both debugging and monitoring workflows.
 
 <figure markdown style="width: 100%">
-  ![Novelty Detection heatmap](../../imgs/monitoring/novelty.png)
-  <figcaption>Novelty heatmap — red regions indicate the areas that deviate most from the learned normal samples.</figcaption>
+  ![Novelty Detection heatmap](../../imgs/monitoring/novelty_heatmap_packages.png)
+  <figcaption>Novelty heatmap for a package image containing an artificial light flash. Since the reference data included only normally lit packages, the flash is correctly identified as anomalous — highlighted in white/red</figcaption>
 </figure>
 
-#### Monitoring
+#### Monitoring novelties
 
-The Platform continuously monitors novelty-related signals during inference to detect unexpected behavior in production environments.
+The Platform continuously monitors novelty-related signals during inference to detect unexpected behavior in production environments. Tracking these signals over time adds an important dimension to the monitoring picture: even if standard targets like _INPUT_ or _PREDICTION_ show no significant drift, a rising novelty rate can be an early indicator that the data is changing in ways that aggregate statistics do not yet capture.
 
-The main monitored signal is:
+The monitored signals are:
 
-**Novelty Percentage** : when this value exceeds the configured alert threshold, a Detection Event is raised.
+- __Novelty Percentage__ — the percentage of samples in a production batch flagged as novelties. If this percentage exceeds a user-configured threshold, a Detection Event is raised. This is the primary actionable signal: a sudden spike may indicate a new type of input entering the system, while a gradual increase may point to a slow environmental change.
+
+- __Novelty Class__ — each sample receives a binary label indicating whether it is a novelty or not. The Platform monitors the distribution of these labels over time, in the same way it monitors other targets and metrics. Shifts in this distribution can reveal systematic changes in the proportion of anomalous inputs reaching the model.
+
+- __Novelty Score__ — the raw score produced by the underlying model for each sample, reflecting how much it deviates from the learned normal. The Platform monitors the distribution of these scores over time, in the same way it monitors other targets and metrics. A gradual shift in score distribution can surface early warning signs of data change even before the Novelty Percentage threshold is crossed.
 
 ### Monitoring Status
 
