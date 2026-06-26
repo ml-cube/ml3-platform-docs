@@ -1,6 +1,6 @@
 # Siemens Industrial Edge 
 
-[Siemens Industrial Edge](https://www.siemens.com/industrial-edge) is a platform by Siemens that brings cloud-like computing capabilities directly to the shop floor, enabling local data processing, AI inference, and application deployment on edge devices close to the source of data production.
+[Siemens Industrial Edge](https://www.siemens.com/industrial-edge) is an edge computing platform aimed at improving factory operations by bringing data processing and software management directly to the shop floor. It integrates hardware, software and connectivity solutions from both Siemens and its partners, enabling scalable and secure industrial workflows.
 
 The **AI Inference Server** is one of the core applications in the Industrial Edge ecosystem. It hosts and runs AI models locally on the edge device, producing predictions from raw input data like images. By running inference on the edge, it avoids the latency and bandwidth costs of sending data to the cloud.
 
