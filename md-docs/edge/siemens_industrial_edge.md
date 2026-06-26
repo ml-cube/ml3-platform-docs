@@ -76,6 +76,8 @@ Input payloads of MQTT need to be properly configured before sending them to ML 
 A JSON configuration file containing all the information about data connectors and monitored tasks is required to install and use the ML cube Platform.
 The ML cube Platform uses this configuration file to create all the internal entities and set up the application to acquire data and start monitoring.
 
+You can see an example [Here](https://github.com/ml-cube/ml3-platform-docs/blob/main/edge-config/example_config.json).
+
 #### License and Product Key
 
 The ML cube Platform works with Siemens licence system, so the application is ready to use after the installation is completed.
