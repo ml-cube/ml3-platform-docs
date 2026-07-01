@@ -315,19 +315,6 @@ Base class for client sdk exceptions
 
 ----
 
-
-## SetLLMSpecsException
-```python 
-SetLLMSpecsException()
-```
-
-
----
-SetLLMSpecsException
-
-----
-
-
 ## SetModelReferenceException
 ```python 
 SetModelReferenceException()

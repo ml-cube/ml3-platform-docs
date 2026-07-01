@@ -60,7 +60,7 @@ The goal of this analysis is to identify attacks on the system that have been su
 --->
 
 !!! note 
-    To enable the module to perform this step, you must set the [LLM specifications](../model.md#llm-specifications).
+    To enable the module to perform this step, you must set the [LLM specifications](../model.md#llm-specifications) and ensure that the `llm_spec_name` metadata column is populated for the samples you want to analyze, so that each sample can be associated with the correct specification.
 
 <!---# TODO - Add the same example of the webapp here--->
 !!! example
