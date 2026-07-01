@@ -60,6 +60,16 @@ Dive in to explore everything ML cube Platform has to offer, and feel free to re
 
     [:octicons-arrow-right-24: More info](api/index.md)
 
+-   :material-factory:{ .lg .middle } **Siemens Industrial Edge**
+
+    ---
+
+    Want to know more about the Siemens Industrial Edge integration?
+
+    Check the Industrial Edge page.
+
+    [:octicons-arrow-right-24: More info](edge/siemens_industrial_edge.md)
+
 -  :simple-jupyter:{ .lg .middle } **Notebook Examples**
 
     ---
