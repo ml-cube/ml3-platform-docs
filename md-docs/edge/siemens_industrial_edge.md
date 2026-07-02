@@ -4,22 +4,9 @@
 
 The [AI Inference Server](https://www.dex.siemens.com/edge/build-your-solution/ai-inference-server-dk?cclcl=en_EN) is one of the core applications in the Industrial Edge ecosystem. It hosts and runs AI models locally on the edge device, producing predictions from raw input data like images. By running inference on the edge, it avoids the latency and bandwidth costs of sending data to the cloud.
 
-ML cube Platform works in tandem with Siemens AI Inference Server and other applications in the Industrial Edge ecosystem. It receives data from the same acquisition channels that AI Inference Server uses, it receives predictions from it and provides outputs on the desired destination.
+[ML cube Platform](https://www.siemens.com/en-us/products/ml-cube-platform/) works in tandem with Siemens AI Inference Server and other applications in the Industrial Edge ecosystem. It receives data from the same acquisition channels that AI Inference Server uses, it receives predictions from it and provides outputs on the desired destination.
 
 ## Technical Integration Details
-
-### Cloud Control Plane
-
-ML cube Platform Control Plane is on the private cloud of ML cube and is used to validate the Product Key of the Edge installation. Hence, during the installation an internet connection is required to correctly validate the Product Key to enable the Edge product.
-Note: a special testing Product Key is provided for testing the product. 
-
-### Edge Version
-
-ML cube Platform is containerized and compatible with Kubernetes and Docker Compose.
-We developed a version specific to Siemens Industrial Edge that uses Docker Compose and provides monitoring functionality directly on Edge.
-This version has been created with Industrial Edge Publisher and its creation and deployment are already fully automatized through CI/CD Pipelines that uses iectl.
-
-#### Usage
 
 The base flow of ML cube Platform can be divided into three steps:
 
@@ -62,6 +49,9 @@ When data drift occurs then a notification message is sent to the notification c
 </figure>
 
 The content of `val` field is an object that contains the drift information.
+
+##### Input
+
 Input payloads of MQTT need to be properly configured before sending them to ML cube Platform. Flow Creator can be used to manipulate raw data before sending them to MQTT. Here the expected payloads:
 
 | Message | Fields |
