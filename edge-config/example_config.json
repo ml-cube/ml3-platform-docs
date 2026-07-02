@@ -1,0 +1,70 @@
+{
+    "notification_mqtt_info": {
+        "connection_string": "tcp://user:password@ie-databus:1883",
+        "data_point_name": "notification"
+    },
+    "new_task_mqtt_info": {
+        "connection_string": "tcp://user:password@ie-databus:1883",
+        "topic": "ie/ml3-platform/my-task/new-task"
+    },
+    "task_info_list": [
+        {
+            "task_name": "my-task",
+            "task_type": "object_detection",
+            "data_structure": "image",
+            "input_message_info": {
+                "message_protocol": "zmq",
+                "topic": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                "connection_string": "tcp://ie-vision-connector-pipeline-executor:5555"
+            },
+            "prediction_message_info": {
+                "message_protocol": "mqtt",
+                "topic": "ie/ml3-platform/task/my-task/predictions",
+                "connection_string": "tcp://user:password@ie-databus:1883"
+            },
+            "reset_message_info": {
+                "message_protocol": "mqtt",
+                "topic": "ie/ml3-platform/task/my-task/reset",
+                "connection_string": "tcp://user:password@ie-databus:1883"
+            },
+            "data_schema_info": {
+                "input_info": [
+                    {
+                        "name": "image",
+                        "data_type": "array_3",
+                        "dims": [
+                            224,
+                            224,
+                            3
+                        ],
+                        "image_mode": "rgb",
+                        "tol": null
+                    }
+                ],
+                "prediction_dtype": "array_2",
+                "prediction_dims": [
+                    -1,
+                    4
+                ],
+                "prediction_possible_values": [
+                    "cat",
+                    "dog"
+                ]
+            },
+            "model_version": "v0",
+            "with_probabilistic_output": false
+        }
+    ],
+    "message_purge_interval": 10,
+    "messages_max_age_before_purge": 15,
+    "image_dims": [
+        640,
+        480
+    ],
+    "rotation_angle": 0,
+    "time_between_complete_sample": null,
+    "time_between_input_sample": null,
+    "min_batch_size": 10,
+    "max_batch_size": 50,
+    "processing_interval": 30
+}
