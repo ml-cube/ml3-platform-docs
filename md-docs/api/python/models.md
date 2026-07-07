@@ -362,6 +362,58 @@ base model for company user
 ----
 
 
+## ConfiguredEvaluationMetric
+```python 
+ConfiguredEvaluationMetric()
+```
+
+
+---
+Configured evaluation metric used by the monitoring config API.
+
+The same transport shape is used both in read responses and update
+requests.
+
+----
+
+
+## ConfiguredGenericMonitoringDimension
+```python 
+ConfiguredGenericMonitoringDimension()
+```
+
+
+---
+Generic monitoring dimension configuration returned by the monitoring
+config API and reused in the setup payload.
+
+----
+
+
+## ConfiguredMonitoredDimensionSegment
+```python 
+ConfiguredMonitoredDimensionSegment()
+```
+
+
+---
+Monitoring segment configuration returned by the monitoring config API.
+
+----
+
+
+## ConfiguredMonitoredDimensionTarget
+```python 
+ConfiguredMonitoredDimensionTarget()
+```
+
+
+---
+Monitoring target configuration returned by the monitoring config API.
+
+----
+
+
 ## Data
 ```python 
 Data()
@@ -556,6 +608,7 @@ a series of actions.
 * **monitoring_targets**  : list[MonitoringTarget]
 * **monitoring_metrics**  : dict[MonitoringTarget, list[MonitoringMetric]]
 * **monitoring_evaluation_metrics**  : list[MonitoringEvaluationMetric]
+* **generic_monitoring_dimensions**  : list[GenericMonitoringDimension]
 * **actions**  : list[DetectionEventAction]
 * **segment_ids**  : list[str | None]
 
@@ -721,6 +774,18 @@ A source that identifies a file in a GCS bucket.
 ----
 
 
+## GenericMonitoringDimensionOption
+```python 
+GenericMonitoringDimensionOption()
+```
+
+
+---
+Generic monitoring dimension available for configuration.
+
+----
+
+
 ## GoogleGenAICredentials
 ```python 
 GoogleGenAICredentials()
@@ -878,9 +943,18 @@ Base model to define llm specs
 
 **Attributes**
 
-* **llm**  : str
-* **temperature**  : float
-* **prompt**  : LLMPrompt
+* **name**  : str, user-defined name for the llm specs
+* **llm**  : str, it indicates the name of the LLM to be used
+* **temperature**  : float | None, it indicates the temperature used to
+    generate the responses.
+* **top_p**  : float | None, the model considers the results of the tokens with
+    top_p probability mass. So 0.1 means only the tokens comprising
+    the top 10% probability mass are considered.
+* **max_tokens**  : int | None, it indicates the maximum number tokens that the
+    model can generate, thus limiting the length of the response.
+* **thinking_effort**  : str | None, it indicates the effort level for the model's thinking process.
+* **thinking_budget**  : int | None, it indicates the budget allocated for the model's thinking process.
+* **prompt**  : LLMPrompt, it defines the prompt structure including role, task, behavior and security guidelines.
 
 
 ----
@@ -929,8 +1003,91 @@ Base model to define model item
 * **creation_datetime**  : Optional[datetime]
 * **retrain_trigger**  : Optional[RetrainTrigger]
 * **retraining_cost**  : float
-* **llm_specs**  : Optional[LLMSpecs]
 
+
+----
+
+
+## MonitoredDimensionMetricOption
+```python 
+MonitoredDimensionMetricOption()
+```
+
+
+---
+Monitoring metric configuration returned by the monitoring config API.
+
+----
+
+
+## MonitoredDimensionSegmentSelection
+```python 
+MonitoredDimensionSegmentSelection()
+```
+
+
+---
+Segment selection used in the initial setup payload.
+
+----
+
+
+## MonitoredDimensionTargetOption
+```python 
+MonitoredDimensionTargetOption()
+```
+
+
+---
+Monitoring target available for configuration.
+
+----
+
+
+## MonitoredDimensionTargetSelection
+```python 
+MonitoredDimensionTargetSelection()
+```
+
+
+---
+Monitoring target selection used in the initial setup payload.
+
+----
+
+
+## MonitoringConfig
+```python 
+MonitoringConfig()
+```
+
+
+---
+Monitoring configuration for a task.
+
+----
+
+
+## MonitoringConfigCatalog
+```python 
+MonitoringConfigCatalog()
+```
+
+
+---
+Catalog of monitoring quantities available for a task.
+
+----
+
+
+## MonitoringEvaluationMetricOption
+```python 
+MonitoringEvaluationMetricOption()
+```
+
+
+---
+Evaluation metric available for monitoring configuration.
 
 ----
 
@@ -953,6 +1110,18 @@ of a monitoring quantity (target or metric)
 * **monitoring_metric**  : MonitoringMetric | None
 * **segment_id**  : str | None
 
+
+----
+
+
+## MonitoringThresholdConfiguration
+```python 
+MonitoringThresholdConfiguration()
+```
+
+
+---
+Threshold input metadata for a catalog item.
 
 ----
 
@@ -1421,6 +1590,18 @@ a given segment, identified by its id.
 ----
 
 
+## SetupMonitoringConfig
+```python 
+SetupMonitoringConfig()
+```
+
+
+---
+Initial setup payload for the monitoring config API.
+
+----
+
+
 ## SlackNotificationAction
 ```python 
 SlackNotificationAction()
@@ -1550,13 +1731,8 @@ Task model
 * **type**  : TaskType
 * **cost_info**  : TaskCostInfoUnion | None = None
 * **optional_target**  : bool
-* **monitoring_targets**  : list[MonitoringTarget]
-* **monitoring_metrics**  : (
-    None
-    | dict[MonitoringTarget, list[tuple[MonitoringMetric, str | None]]]
-* **monitoring_evaluation_metrics**  : list[MonitoringEvaluationMetric]
 * **monitoring_status**  : list[MonitoringQuantityStatus]
-) = None
+
 
 ----
 
@@ -1700,3 +1876,18 @@ Text data model for nlp tasks.
 * **source**  : DataSource
 * **embedding_source**  : DataSource | None
 
+
+----
+
+
+## UpdateMonitoringConfig
+```python 
+UpdateMonitoringConfig()
+```
+
+
+---
+Threshold-update payload for the monitoring config API.
+
+The configured evaluation-metric and generic-dimension sets must match
+what was chosen during the initial setup.

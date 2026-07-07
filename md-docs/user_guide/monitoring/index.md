@@ -237,6 +237,39 @@ Note that some clustering metrics (Silhouette and Calinski-Harabasz) do not requ
 For all task types, performance evaluation works by comparing the computed metric value against a user-defined threshold. If the metric crosses this threshold — either falling below it for quality metrics like Accuracy or exceeding it for error metrics like RMSE — a [Detection Event] is raised, signaling that model performance has degraded to a level requiring attention.
 
 <!-- The threshold can be configured via the SDK when setting up or updating a model's monitoring configuration. Setting a meaningful threshold is important: a threshold that is too strict will trigger false alarms, while one that is too lenient may fail to catch meaningful regressions. -->
+### Novelty Detection
+
+#### Overview
+
+Novelty Detection is an unsupervised technique that builds a representation of normal behavior using only normal data — no labeled anomalies are required. In the Platform, a Novelty Detector is fitted on a reference dataset, which defines what "normal" looks like for the use case. At inference time, each new sample is compared against this reference and assigned a __novelty score__ reflecting how much it deviates from normal.
+
+> __How scores work:__ a low score means the sample is consistent with normal data; a high score means it deviates from learned patterns. If the score exceeds a configured threshold, the sample is flagged as a novelty.
+
+#### Visualization and Localization
+
+When a novelty is detected, the system generates visual explanations to pinpoint the source of the deviation. The form of the explanation depends on the data type:
+
+- __Images__ : spatial heatmap highlighting the anomalous region.
+- __Text and tabular modalities__: are currently under development and will be integrated in a future release.
+
+These explanations help users understand what drove the novelty score, and simplify both debugging and monitoring workflows.
+
+<figure markdown style="width: 100%">
+  ![Novelty Detection heatmap](../../imgs/monitoring/novelty_heatmap_packages.png)
+  <figcaption>Novelty heatmap for a package image containing an artificial light flash. Since the reference data included only normally lit packages, the flash is correctly identified as anomalous — highlighted in white/red</figcaption>
+</figure>
+
+#### Monitoring novelties
+
+The Platform continuously monitors novelty-related signals during inference to detect unexpected behavior in production environments. Tracking these signals over time adds an important dimension to the monitoring picture: even if standard targets like _INPUT_ or _PREDICTION_ show no significant drift, a rising novelty rate can be an early indicator that the data is changing in ways that aggregate statistics do not yet capture.
+
+The monitored signals are:
+
+- __Novelty Percentage__ — the percentage of samples in a production batch flagged as novelties. If this percentage exceeds a user-configured threshold, a Detection Event is raised. This is the primary actionable signal: a sudden spike may indicate a new type of input entering the system, while a gradual increase may point to a slow environmental change.
+
+- __Novelty Class__ — each sample receives a binary label indicating whether it is a novelty or not. The Platform monitors the distribution of these labels over time, in the same way it monitors other targets and metrics. Shifts in this distribution can reveal systematic changes in the proportion of anomalous inputs reaching the model.
+
+- __Novelty Score__ — the raw score produced by the underlying model for each sample, reflecting how much it deviates from the learned normal. The Platform monitors the distribution of these scores over time, in the same way it monitors other targets and metrics. A gradual shift in score distribution can surface early warning signs of data change even before the Novelty Percentage threshold is crossed.
 
 ### Monitoring Status
 

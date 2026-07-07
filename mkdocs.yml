@@ -170,4 +170,5 @@ nav:
           - Enums: api/python/enums.md
   - Examples: api/examples.md
   - Web App: https://app.platform.mlcube.com/
+  - Siemens Industrial Edge: edge/siemens_industrial_edge.md
   - Support: https://support.platform.mlcube.com/en/customer/login
