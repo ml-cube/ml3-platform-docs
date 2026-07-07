@@ -302,6 +302,18 @@ JobWaitTimeoutException
 ----
 
 
+## MonitoringConfigNotFoundException
+```python 
+MonitoringConfigNotFoundException()
+```
+
+
+---
+MonitoringConfigNotFoundException
+
+----
+
+
 ## SDKClientException
 ```python 
 SDKClientException(
@@ -314,6 +326,7 @@ SDKClientException(
 Base class for client sdk exceptions
 
 ----
+
 
 ## SetModelReferenceException
 ```python 

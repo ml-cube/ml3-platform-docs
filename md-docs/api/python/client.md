@@ -319,7 +319,8 @@ Project ID                Name
    positive_class: (str|int|bool|None) = None,
    rag_contexts_separator: (str|None) = None, llm_default_answer: (str|None) = None,
    semantic_segmentation_target_type: (SemanticSegTargetType|None) = None,
-   ocr_mode: (OcrMode|None) = None, timeseries_frequency: (str|None) = None
+   ocr_mode: (OcrMode|None) = None, timeseries_frequency: (str|None) = None,
+   multi_turn: (bool|None) = None
 )
 ```
 
@@ -354,6 +355,7 @@ Create a task inside the project.
     from different sources. If missing then only one source exists.
 * **llm_default_answer**  : default answer for the LLM model
 * **timeseries_frequency**  : in timeseries tasks it represents the frequency of data
+* **multi_turn**  : when True, RAG task expects session and turn metadata
 
 
 **Returns**
@@ -529,11 +531,11 @@ Create a model inside the task.
 ### .create_llm_specs
 ```python
 .create_llm_specs(
-   model_id: str, name: str, llm: (str|None) = None,
-   temperature: (float|None) = None, top_p: (float|None) = None,
-   max_tokens: (int|None) = 256, thinking_effort: (str|None) = None,
-   thinking_budget: (int|None) = None, role: (str|None) = None,
-   task: (str|None) = None, behavior_guidelines: (list[str]|None) = None,
+   model_id: str, name: str, llm: (str|None) = None, temperature: (float|None) = None,
+   top_p: (float|None) = None, thinking_effort: (str|None) = None,
+   thinking_budget: (int|None) = None, max_tokens: (int|None) = 256,
+   role: (str|None) = None, task: (str|None) = None,
+   behavior_guidelines: (list[str]|None) = None,
    security_guidelines: (list[str]|None) = None
 )
 ```
@@ -551,19 +553,14 @@ Add LLM specs for the LLM model.
 **Args**
 
 * **model_id**  : the identifier of the LLM model
-* **name**  : unique user-defined name for the LLM spec. This name
-    is used to associate production samples to the spec that
-    generated them, via the `llm_spec_name` metadata column.
-    Must be unique per model.
-* **llm**  : the name of the LLM model in the format `provider/model_name`
-    (e.g. `openai/gpt-4o`)
+* **llm**  : the name of the LLM model
+* **name**  : the user defined name of the llm spec
 * **temperature**  : the temperature parameter of the LLM model
 * **top_p**  : the top_p parameter of the LLM model
 * **max_tokens**  : the max_tokens parameter of the LLM model
-* **thinking_effort**  : the level of reasoning effort for compatible
-    models (e.g. `low`, `medium`, `high`)
-* **thinking_budget**  : the maximum number of tokens allocated for
-    the model's internal thinking process
+* **thinking**  : enables thinking/reasoning for compatible models.
+* **thinking_effort**  : level of reasoning effort (e.g. 'low', 'medium', ...).
+* **thinking_budget**  : maximum tokens allocated for the thinking process.
 * **role**  : role section of the system prompt of the LLM model
 * **task**  : task section of the system prompt of the LLM model
 * **behavior_guidelines**  : behavior guidelines section of the system prompt of the LLM model
@@ -1734,6 +1731,80 @@ can have an additional field named specification.
 
 `SDKClientException`
 
+### .get_monitoring_config_catalog
+```python
+.get_monitoring_config_catalog(
+   task_id: str
+)
+```
+
+---
+Get the monitoring catalog available for a task.
+
+The catalog describes which monitored dimensions, evaluation metrics,
+generic monitoring dimensions, and threshold metadata can be used when
+setting up the task monitoring configuration.
+
+**Allowed Roles:**
+
+- At least `READ_PROJECT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the task identifier
+
+
+**Returns**
+
+* **catalog**  : `MonitoringConfigCatalog`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .get_monitoring_config
+```python
+.get_monitoring_config(
+   task_id: str
+)
+```
+
+---
+Get the monitoring configuration currently persisted for a task.
+
+This SDK surface mirrors the backend transport exactly:
+
+- the response uses snake_case fields
+- `monitored_dimensions` is read-only in the current API
+- `MONITORING_CONFIG_NOT_FOUND` means the task exists but has not
+  been configured yet
+
+**Allowed Roles:**
+
+- At least `READ_PROJECT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the task identifier
+
+
+**Returns**
+
+* **config**  : `MonitoringConfig`
+
+
+**Raises**
+
+`MonitoringConfigNotFoundException`
+`SDKClientException`
+
 ### .get_jobs
 ```python
 .get_jobs(
@@ -1959,6 +2030,7 @@ Add user feedback to a detection event.
    monitoring_metrics: (dict[MonitoringTarget,
    list[MonitoringMetric]]|None) = None,
    monitoring_evaluation_metrics: (list[MonitoringEvaluationMetric]|None) = None,
+   generic_monitoring_dimensions: (list[GenericMonitoringDimension]|None) = None,
    segment_ids: (list[str|None]|None) = None
 )
 ```
@@ -2003,6 +2075,8 @@ at https://ml-cube.github.io/ml3-platform-docs/user_guide/monitoring/detection_e
     that this rule should respond to. None means ANY value.
 * **monitoring_evaluation_metrics**  : monitoring evaluation metrics
     at batch level. None means ANY value.
+* **generic_monitoring_dimensions**  : generic monitoring dimensions that
+    are not covered by the other fields.
 * **severity**  : the level of severity of the detection event
     that this rule should respond to. Must be provided for
     DRIFT_ON event types. It is intended as
@@ -2074,6 +2148,7 @@ client.create_detection_event_rule(
    monitoring_metrics: (dict[MonitoringTarget,
    list[MonitoringMetric]]|None) = None,
    monitoring_evaluation_metrics: (list[MonitoringEvaluationMetric]|None) = None,
+   generic_monitoring_dimensions: (list[GenericMonitoringDimension]|None) = None,
    segment_ids: (list[str|None]|None) = None
 )
 ```
@@ -3341,15 +3416,78 @@ Delete a task from the project.
 
 SDKClientException
 
-### .set_evaluation_metric_threshold
+### .update_monitoring_config
 ```python
-.set_evaluation_metric_threshold(
-   task_id: str, thresholds: list[tuple[str, float]]
+.update_monitoring_config(
+   task_id: str, request: UpdateMonitoringConfig
 )
 ```
 
 ---
-Set evaluation metric monitoring thresholds to define when raise a drift alert
+Update the thresholds of the monitoring quantities already configured
+for a task monitoring config.
+
+Current backend semantics:
+
+- only the thresholds inside `evaluation_metrics` and
+  `generic_monitoring_dimensions` can be updated
+- the submitted lists must reference exactly the evaluation metrics
+  and generic dimensions already configured during the initial setup
+- persisted `monitored_dimensions` are preserved
+- the monitoring config must already exist
+
+**Allowed Roles:**
+
+- At least `WORK_ON_PROJECT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the task identifier
+* **request**  : monitoring config update payload
+
+
+**Raises**
+
+`SDKClientException`
+
+### .setup_monitoring_config
+```python
+.setup_monitoring_config(
+   task_id: str, request: SetupMonitoringConfig
+)
+```
+
+---
+Create the initial monitoring config for a task.
+
+Current backend semantics:
+
+- requires a data schema for the task
+- accepts `monitored_dimensions`, `evaluation_metrics`, and
+  `generic_monitoring_dimensions`
+- works only when no monitoring config exists yet
+- once a config exists, later edits should use
+  `update_monitoring_config`
+
+**Allowed Roles:**
+
+- At least `WORK_ON_PROJECT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the task identifier
+* **request**  : initial monitoring config setup payload
+
+
+**Raises**
+
+`SDKClientException`
 
 ### .get_evaluation_monitoring_metrics
 ```python
@@ -3360,3 +3498,13 @@ Set evaluation metric monitoring thresholds to define when raise a drift alert
 
 ---
 Returns the list of evaluation monitoring metrics in the task
+
+### .get_generic_monitoring_dimensions
+```python
+.get_generic_monitoring_dimensions(
+   task_id: str
+)
+```
+
+---
+Returns the list of generic monitoring dimensions in the task

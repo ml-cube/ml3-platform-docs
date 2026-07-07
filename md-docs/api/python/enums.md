@@ -123,6 +123,10 @@ Subroles for ColumnRole.TARGET:
 - OBJECT_LABEL_TARGET
 - OBJECT_TEXT_TARGET
 
+Subroles for ColumnRole.METADATA in RAG settings:
+- RAG_SESSION_ID
+- RAG_TURN_ID
+
 ----
 
 
@@ -194,6 +198,7 @@ Describe data type of input
 - FLOAT
 - STRING
 - CATEGORICAL
+- INTEGER
 - ARRAY_1
 - ARRAY_2
 - ARRAY_3
@@ -317,6 +322,18 @@ Type of folder
 ----
 
 
+## GenericMonitoringDimension
+```python 
+GenericMonitoringDimension()
+```
+
+
+---
+Generic monitoring dimensions that wraps all the other signals that can be monitored
+
+----
+
+
 ## ImageMode
 ```python 
 ImageMode()
@@ -367,6 +384,19 @@ KPIStatus()
 - OK
 - WARNING
 - DRIFT
+
+----
+
+
+## LLMProvider
+```python 
+LLMProvider()
+```
+
+
+---
+Enumerator of the providers of LLMs we can use to generate
+text both for RAG and LLM.
 
 ----
 
@@ -726,6 +756,26 @@ Enumeration of text language used in nlp tasks.
 - ITALIAN
 - ENGLISH
 - MULTILANGUAGE
+
+----
+
+
+## ThresholdValueType
+```python 
+ThresholdValueType()
+```
+
+
+---
+Supported threshold input types for monitoring thresholds.
+
+**Fields:**
+- INT
+    An integer threshold
+- FLOAT
+    A floating point threshold
+- PERCENTAGE
+    A percentage threshold (0-100)
 
 ----
 
