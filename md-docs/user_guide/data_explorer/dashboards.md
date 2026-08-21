@@ -32,7 +32,7 @@ A data group contains:
 - **Color**: the color assigned to the group in every plot and legend.
 - **Date range and time**: an optional time interval used to narrow the samples.
 - **Batch index**: the non-negative batch number to analyze. This field is
-  required.
+  required for groups that you create
 - **Segments**: optional task segments used to narrow the group further. This
   field is available only when the task has segments.
 - **Tags**: labels used to organize and find data groups. Tags do not change the
@@ -77,6 +77,9 @@ to narrow the list.
 - Select the edit icon to change its name, filters, color, or tags, and then
   select **Save**.
 - Select the delete icon to permanently delete the group.
+
+Platform-created groups are read-only, so their edit and delete actions are not
+available. You can still select the color dot to change their color.
 
 Changing a group's batch, time interval, or segments changes the data displayed
 for that group in every dashboard. Changing its color or name also changes its
@@ -244,6 +247,11 @@ While viewing a dashboard, you can:
 - Use the **Layout** control to preview the saved layout, titles only, quarter
   width, half width, or one full column.
 
+For a platform-created dashboard, viewing controls such as fullscreen and
+temporarily hiding or showing a group remain available, but its saved
+configuration cannot be changed. Clone the dashboard when you need an editable
+version.
+
 <figure markdown>
   ![Open dashboard](../../imgs/data-explorer-dashboard/open-dashboard.png)
   <figcaption>Opened dashboard</figcaption>
@@ -303,8 +311,20 @@ You can also select **Edit dashboard** from the open dashboard page.
 
 Depending on the task and platform setup, dashboards and data groups may be
 created automatically when reference or production data becomes available. They
-appear in the same lists as user-created items and can be used as starting points
-for new dashboards.
+appear in the same lists as user-created items and are identified as
+platform-created items.
+
+Platform-created dashboards are read-only. You cannot edit their name, tags,
+plots, layout, selected data groups, or plot order, and you cannot delete them.
+You can view them and select **Duplicate dashboard** or **Clone** to create an
+independent, editable dashboard.
+
+Platform-created data groups are also read-only. You cannot change their name,
+filters, batch index, segments, or tags, and you cannot delete them. Their color
+is the only editable property, so you can keep plot legends distinguishable.
+
+The `pre-compiled` tag is reserved for platform-created dashboards and groups.
+It cannot be added to dashboards or groups that you create or edit.
 
 ## Troubleshooting
 
