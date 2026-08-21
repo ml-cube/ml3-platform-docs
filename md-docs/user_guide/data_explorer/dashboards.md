@@ -13,9 +13,11 @@ compare, for example, a reference batch with a production batch.
 Open a task, select **Data Explorer**, and then select the **Dashboards** tab to
 manage dashboards and data groups for that task.
 
-> **Screenshot placeholder — Dashboards tab:** Capture the dashboard list with
-> the **Create dashboard** and **Data groups** buttons visible. Include the name,
-> last update, tags, number of groups, and action columns.
+<figure markdown>
+  ![Dashboard home](../../imgs/data-explorer-dashboard/dashboard-home.png)
+  <figcaption>Dashboard tab in data explorer page.</figcaption>
+</figure>
+
 
 ## Data groups
 
@@ -57,9 +59,10 @@ color, every dashboard that uses it reflects that change.
 The end of the time interval cannot be earlier than its start. If the form cannot
 be submitted, check the name, batch index, and time interval first.
 
-> **Screenshot placeholder — New group:** Capture the **New group** dialog with
-> the Name, Color, Date range, Start time, End time, Batch index, Segments, Tags,
-> and **Create** button visible.
+<figure markdown>
+  ![New group](../../imgs/data-explorer-dashboard/new-group.png)
+  <figcaption>Create new data group</figcaption>
+</figure>
 
 You can also create a group from the last step of the dashboard wizard. The new
 group is automatically selected for the dashboard when the dashboard limit has
@@ -127,9 +130,10 @@ Depending on the task, the available templates can include:
 
 Not every template is available for every task.
 
-> **Screenshot placeholder — Starting point:** Capture the **Create dashboard**
-> dialog showing **From scratch**, **From existing**, and **From template**, plus
-> an example Template selection.
+<figure markdown>
+  ![New dashboard starting point](../../imgs/data-explorer-dashboard/new-dashboard-start.png)
+  <figcaption>Different starting point to create a dashboard</figcaption>
+</figure>
 
 ## Create a dashboard
 
@@ -168,9 +172,10 @@ The wizard identifies variables that are incompatible with a selected plot type.
 It adds only compatible plots. Review the plot list on the right, remove unwanted
 plots, and select **Next**.
 
-> **Screenshot placeholder — Plots step:** Capture the dashboard wizard with a
-> variable category expanded, several variables selected, the compatible batch
-> plot actions, the scatter-axis selectors, and the resulting plot list.
+<figure markdown>
+  ![New dashboard variables selection](../../imgs/data-explorer-dashboard/new-dashboard-variables.png)
+  <figcaption>Variable and plot selection</figcaption>
+</figure>
 
 ### Step 2: Arrange the layout
 
@@ -196,10 +201,15 @@ display plot data until at least one group is added.
 
 Review the selection and select **Create**.
 
-> **Screenshot placeholder — Layout and data groups:** Add two captures: one of
-> the **Layout** step showing reordered Quarter, Half, and Full plot cards, and
-> one of the **Data groups** step showing selected groups and the configured
-> maximum.
+<figure markdown>
+  ![New dashboard layout definition](../../imgs/data-explorer-dashboard/new-dashboard-layout.png)
+  <figcaption>Definition of the layout of the dashboard</figcaption>
+</figure>
+
+<figure markdown>
+  ![New dashboard groups selection](../../imgs/data-explorer-dashboard/new-dashboard-group-selection.png)
+  <figcaption>Selection of groups for a dashboard</figcaption>
+</figure>
 
 ## Plot types
 
@@ -234,9 +244,10 @@ While viewing a dashboard, you can:
 - Use the **Layout** control to preview the saved layout, titles only, quarter
   width, half width, or one full column.
 
-> **Screenshot placeholder — Open dashboard:** Capture an open dashboard with
-> the Layout control, **Edit dashboard**, **Data groups**, plot tune and
-> fullscreen icons, a visible group legend, and the **Unsaved changes** bar.
+<figure markdown>
+  ![Open dashboard](../../imgs/data-explorer-dashboard/open-dashboard.png)
+  <figcaption>Opened dashboard</figcaption>
+</figure>
 
 ### Temporary controls and saved changes
 
@@ -263,6 +274,11 @@ configuration.
 Changes made directly to a data group, including its name, color, filters, and
 tags, apply to the shared group and are not part of the dashboard's unsaved-change
 bar.
+
+<figure markdown>
+  ![Tempo modified dashboard](../../imgs/data-explorer-dashboard/dashboard-update.png)
+  <figcaption>Dashboard with a temporary change not yet saved</figcaption>
+</figure>
 
 ## Edit, duplicate, or delete a dashboard
 
