@@ -3,10 +3,6 @@
         "connection_string": "tcp://user:password@ie-databus:1883",
         "data_point_name": "notification"
     },
-    "new_task_mqtt_info": {
-        "connection_string": "tcp://user:password@ie-databus:1883",
-        "topic": "ie/ml3-platform/my-task/new-task"
-    },
     "task_info_list": [
         {
             "task_name": "my-task",

@@ -1,129 +1,346 @@
 # Dashboards
 
-The Dashboards section of the Data Explorer provides a set of visualizations designed to help you understand the statistical properties and evolution of your data.
+Dashboards turn task data into reusable visual comparisons. A dashboard combines:
 
-It enables exploratory analysis through univariate, bivariate, and time series plots, offering insights into feature distributions, relationships, and trends over time.
+- **Data groups**, which define the subsets of samples to compare.
+- **Plots**, which define the variables and visualizations used for the comparison.
+- **A layout**, which defines the order and width of the plots.
 
-<figure markdown="span" style="display: inline-block; text-align: center; width: 100%;">
-  ![Dashboard List](../../imgs/data_explorer/dashboard_list.png)
+Every data group selected in a dashboard is applied to every compatible plot. The
+group name and color are used consistently in the plot legends, making it easy to
+compare, for example, a reference batch with a production batch.
+
+Open a task, select **Data Explorer**, and then select the **Dashboards** tab to
+manage dashboards and data groups for that task.
+
+<figure markdown>
+  ![Dashboard home](../../imgs/data-explorer-dashboard/dashboard-home.png)
+  <figcaption>Dashboard tab in data explorer page.</figcaption>
 </figure>
 
-## Entities
 
-Dashboard visualizations are built around different types of entities, representing the various components of your ML pipeline:
+## Data groups
 
-- **Input**: model input features
-- **Target**: ground truth labels
-- **Prediction**: model outputs
-- **Metric**: metrics computed on other entities
-- **Performance**: aggregated performance indicators
+A data group is a reusable definition of a subset of the task data. It does not
+copy samples. Instead, it describes which samples should be loaded whenever the
+group is used in a dashboard.
 
-These entities define what is being visualized in each plot and allow you to analyze both data and model behavior.
+A data group contains:
 
-## Data Groups
+- **Name**: a unique, recognizable name within the task, such as
+  `Reference`, `Production batch 12`, or `Segment A`.
+- **Color**: the color assigned to the group in every plot and legend.
+- **Date range and time**: an optional time interval used to narrow the samples.
+- **Batch index**: the non-negative batch number to analyze. This field is
+  required for groups that you create
+- **Segments**: optional task segments used to narrow the group further. This
+  field is available only when the task has segments.
+- **Tags**: labels used to organize and find data groups. Tags do not change the
+  samples included in the group.
 
-Dashboards operate on **data groups**, which represent subsets of data defined through filtering conditions. They provide a structured way to isolate, organize, and compare different portions of a dataset within the same visualization (e.g., reference vs production batches).
+The batch, time interval, and segments together determine the samples represented
+by the group. If no time interval or segment is set, that filter is not applied.
 
-A data group is defined using three filtering dimensions:
+Data groups belong to the task, not to one dashboard. The same group can therefore
+be selected in several dashboards. If you later change its filters, name, or
+color, every dashboard that uses it reflects that change.
 
-- **Time range**: selects data within a specific temporal window, enabling analysis of behavior over a defined period.
-- **Batch index**: filters data based on processing batches, useful for comparing complete data batches.
-- **Segments**: partitions data into logical or categorical subsets defined by the user.
+### Create a data group
 
-Each data group also carries metadata used for visualization and identification:
+1. Open **Data Explorer > Dashboards**.
+2. Select **Data groups**.
+3. Select **New group**.
+4. Enter a unique **Name** and choose a **Color**.
+5. Enter the required **Batch index**.
+6. Optionally choose a **Date range**, **Start time**, **End time**, one or more
+   **Segments**, and **Tags**.
+7. Select **Create**.
 
-- A **name**, which uniquely identifies the group within the dashboard and improves readability in plots.
-- A **color**, used consistently across all visualizations to visually distinguish groups.
-- A set of **tags**, which provide flexible labels for custom grouping, filtering, and organization across the dashboard.
+The end of the time interval cannot be earlier than its start. If the form cannot
+be submitted, check the name, batch index, and time interval first.
 
-Together, these components allow data groups to act as a unified abstraction for comparing different slices of data in a consistent and interpretable way.
-
-## Plot Types
-
-Dashboards support three main types of plots:
-
-### Univariate Plots
-
-Visualize a single entity:
-
-- **Histogram**: shows the **frequency distribution** of a single variable by grouping values into bins.  
-It helps identify the overall shape of the distribution (normal, skewed, etc.) and concentration of values.
-
-<figure markdown="span" style="display: inline-block; text-align: center; width: 100%;">
-  ![histogram](../../imgs/data_explorer/histogram.png)
+<figure markdown>
+  ![New group](../../imgs/data-explorer-dashboard/new-group.png)
+  <figcaption>Create new data group</figcaption>
 </figure>
 
-- **Density Plot**: is a **smoothed version of a histogram** that estimates the probability distribution of a variable.  
-It is useful for, understanding distribution shape without binning effects, comparing multiple distributions smoothly and detecting skewness or multimodality.
+You can also create a group from the last step of the dashboard wizard. The new
+group is automatically selected for the dashboard when the dashboard limit has
+not already been reached.
 
-<figure markdown="span" style="display: inline-block; text-align: center; width: 100%;">
-  ![density](../../imgs/data_explorer/density.png)
-</figure>
+### Find and change a data group
 
-- **BoxPlot**: summarizes a distribution using **quartiles and outliers**. 
-It shows, median (central value), interquartile range (IQR), potential outliers and overall spread and asymmetry
-It is particularly useful for quick comparison between groups.
+Open **Data groups** from the Dashboards tab. Use **Search by name** and **Tags**
+to narrow the list.
 
-<figure markdown="span" style="display: inline-block; text-align: center; width: 100%;">
-  ![boxplot](../../imgs/data_explorer/boxplot.png)
-</figure>
+- Select the color dot to change only the group's color.
+- Select the edit icon to change its name, filters, color, or tags, and then
+  select **Save**.
+- Select the delete icon to permanently delete the group.
 
-### Bivariate Plots
+Platform-created groups are read-only, so their edit and delete actions are not
+available. You can still select the color dot to change their color.
 
-Visualize relationships between two entities:
-
-- **2D scatter plot**: displays individual data points in a coordinate system using two variables (x and y). It helps to, visualize relationships or correlations, identify clusters or group structures, detect trends, nonlinear patterns, and outliers.
-
-<figure markdown="span" style="display: inline-block; text-align: center; width: 100%;">
-  ![2dscatter](../../imgs/data_explorer/scatter.png)
-</figure>
-
-### Time Series Plots
-
-Time series plots show how a variable evolves over time.
-
-They are used to, track trends and seasonality, detect sudden changes or anomalies, monitor drift in systems or metrics over time and analyze temporal patterns and stability.
-
-<figure markdown="span" style="display: inline-block; text-align: center; width: 100%;">
-  ![timeseries](../../imgs/data_explorer/timeseries.png)
-</figure>
-
-## Dashboard Structure
-
-A dashboard is composed of:
-
-- A set of **plots**, each configured with:
-
-    - Plot type (univariate, bivariate, time series)
-    - Associated entities
-    - Visualization settings (e.g., expanded state)
-
-- A set of **data groups**, which are applied across all plots
-
-The interaction between plots and data groups is key:
-
-- Each plot is computed **for every data group**
-- Data groups are visually distinguished (e.g., by color)
-- This enables direct comparison of distributions and metrics across different subsets of data
-
-## Automatic Configuration
-
-Dashboards are automatically generated and configured by the platform:
-
-- A new dashboard is created whenever a new reference is set
-- Data groups are automatically created for:
-    - each new reference
-    - each new production data batch uploaded
-- The set of plots is selected based on:
-    - Task type
-    - Data structure (tabular, image, text)
-
-This ensures that relevant visualizations are available without manual setup.
+Changing a group's batch, time interval, or segments changes the data displayed
+for that group in every dashboard. Changing its color or name also changes its
+appearance everywhere it is used.
 
 !!! warning
-    At the moment, dashboards are **fully precomputed and automatically managed** by the platform:
+    Deleting a data group is irreversible. The group is removed from every
+    dashboard that uses it. The dashboards, their plots, and the task's source
+    samples are not deleted, but an affected dashboard can be left with no
+    selected data groups.
 
-    - Data groups cannot be manually created or modified (except for the color)
-    - Dashboards are generated only during reference updates
+## Dashboards
 
-    This first version ensures consistency and ease of use, while future iterations may introduce more flexibility and user-defined configurations.
+A dashboard is a saved analysis view for one task. It contains a name, an ordered
+set of plots, a saved width for each plot, and a selection of data groups.
+
+The same plot configuration is evaluated for each selected group. For example, a
+dashboard with a histogram of `age` and the groups `Reference` and `Production`
+shows both distributions in the same plot using the groups' assigned colors.
+
+The dashboard list can be searched by name and filtered by available tags. You
+can also choose a sort field and ascending or descending order. Select a row to
+open that dashboard.
+
+### Templates and other starting points
+
+When you create a dashboard, choose one of three starting points:
+
+- **From scratch** starts with no plots or selected data groups.
+- **From existing** copies the plots, layout, and data-group selection of another
+  dashboard. Use this when you want a variation without changing the original.
+- **From template** starts with a curated set of plots for a common analysis.
+
+A template is a task-aware preset, not a saved dashboard. The platform only shows
+templates that can produce meaningful plots for the variables available in the
+current task. A template does not select data groups for you. You can add, remove,
+reorder, and reconfigure its proposed plots before creating the dashboard.
+
+After creation, the dashboard is independent: changing it does not change the
+template, source dashboard, or any other dashboard.
+
+Depending on the task, the available templates can include:
+
+| Template | Intended use |
+| --- | --- |
+| **Batch overview** | Review input data, monitoring metrics, and target distributions. |
+| **Performance** | Review evaluation metrics, targets, predictions, and sample-level performance. |
+| **Input metrics** | Compare distributions of available sample-level monitoring metrics. |
+| **Error investigation** | Investigate evaluation metrics, targets, predictions, and sample-level errors. |
+| **Monitoring view** | Follow drift, novelty, and sample-level performance over time. |
+
+Not every template is available for every task.
+
+<figure markdown>
+  ![New dashboard starting point](../../imgs/data-explorer-dashboard/new-dashboard-start.png)
+  <figcaption>Different starting point to create a dashboard</figcaption>
+</figure>
+
+## Create a dashboard
+
+1. Open **Data Explorer > Dashboards**.
+2. Select **Create dashboard**.
+3. Choose a starting point. If needed, select the source dashboard or template.
+4. Select **Continue**.
+5. Complete the **Plots**, **Layout**, and **Data groups** steps described below.
+6. Select **Create**.
+
+Dashboard names must be unique within the task. The wizard shows the current
+maximum numbers of plots and data groups. These limits can vary by platform
+configuration, so use the values displayed in the wizard.
+
+### Step 1: Choose variables and plots
+
+Enter a **Dashboard name**, then choose the variables to visualize.
+
+Variables are grouped into the categories available for the task, such as
+features, targets, predictions, metrics, drift scores, performance, and metadata.
+Use **Filter by name** or **Data type** to find variables, or select an entire
+category.
+
+After selecting variables, use a plot action to create plots in batch:
+
+- **Histogram**, **Density**, and **Boxplot** are available for numeric variables.
+- **Frequency** is available for categorical variables.
+- **Timeseries** is available for numeric and categorical variables.
+- **Scatter** compares two different numeric variables.
+
+For scatter plots, select one or more **X dimensions** and **Y dimensions**. The
+wizard can create all valid X/Y combinations. Review the resulting count before
+adding them so that you do not exceed the plot limit.
+
+The wizard identifies variables that are incompatible with a selected plot type.
+It adds only compatible plots. Review the plot list on the right, remove unwanted
+plots, and select **Next**.
+
+<figure markdown>
+  ![New dashboard variables selection](../../imgs/data-explorer-dashboard/new-dashboard-variables.png)
+  <figcaption>Variable and plot selection</figcaption>
+</figure>
+
+### Step 2: Arrange the layout
+
+Drag plot cards by their handles to set the saved order. Set each plot to one of
+the following widths:
+
+- **Quarter**: one quarter of the available row.
+- **Half**: one half of the available row.
+- **Full**: the full row.
+
+Use **Set all to** to apply one width to every plot, then adjust individual plots
+if needed. Select **Next** when the order and widths are correct.
+
+### Step 3: Choose data groups
+
+Select the data groups whose series should appear in the dashboard. Search by
+name or tags when the list is long. You can select up to the maximum shown by the
+wizard.
+
+If the group you need does not exist, select **New group**, create it, and return
+to the selection. A dashboard may also be created with no data groups; it will not
+display plot data until at least one group is added.
+
+Review the selection and select **Create**.
+
+<figure markdown>
+  ![New dashboard layout definition](../../imgs/data-explorer-dashboard/new-dashboard-layout.png)
+  <figcaption>Definition of the layout of the dashboard</figcaption>
+</figure>
+
+<figure markdown>
+  ![New dashboard groups selection](../../imgs/data-explorer-dashboard/new-dashboard-group-selection.png)
+  <figcaption>Selection of groups for a dashboard</figcaption>
+</figure>
+
+## Plot types
+
+| Plot | Use it to |
+| --- | --- |
+| **Histogram** | Compare the binned distribution and concentration of numeric values. |
+| **Density** | Compare smoothed numeric distributions and identify skew or multiple peaks. |
+| **Boxplot** | Compare medians, spread, quartiles, and potential outliers. |
+| **Frequency** | Compare counts or frequencies for categorical values. |
+| **Scatter** | Inspect the relationship between two numeric variables and identify clusters, trends, or outliers. |
+| **Timeseries** | Follow numeric or categorical values in timestamp or sample order. |
+
+The same group color is used in every plot. The legend below each plot identifies
+the groups currently displayed.
+
+## View and interact with a dashboard
+
+Select a dashboard row to open it. The page shows its tags, creation date, last
+update, number of plots, and number of visible data groups.
+
+While viewing a dashboard, you can:
+
+- Select the fullscreen icon to enlarge a plot.
+- Use **Data groups** to add or remove groups from the dashboard.
+- Use the eye icon on a selected group to hide or show it temporarily.
+- Change a group's color or edit its definition from the Data groups panel.
+- Drag plots to change their saved order.
+- Select the tune icon on a plot to choose a compatible plot type or variable.
+- For a scatter plot, choose both the X and Y variables.
+- For a time-series plot, select **Use Samples as X Axis** to switch between
+  timestamp order and sample index.
+- Use the **Layout** control to preview the saved layout, titles only, quarter
+  width, half width, or one full column.
+
+For a platform-created dashboard, viewing controls such as fullscreen and
+temporarily hiding or showing a group remain available, but its saved
+configuration cannot be changed. Clone the dashboard when you need an editable
+version.
+
+<figure markdown>
+  ![Open dashboard](../../imgs/data-explorer-dashboard/open-dashboard.png)
+  <figcaption>Opened dashboard</figcaption>
+</figure>
+
+### Temporary controls and saved changes
+
+Some controls help you inspect a dashboard without changing its saved
+configuration:
+
+- Hiding or showing a group is temporary.
+- Opening a plot in fullscreen is temporary.
+- Selecting a **Layout** quick view is temporary. **Default** returns to the
+  widths saved for the dashboard.
+
+Other actions change the dashboard configuration:
+
+- Adding or removing a selected data group.
+- Reordering plots.
+- Changing a plot type or variable.
+- Changing the X or Y variable of a scatter plot.
+- Switching a time-series plot between timestamp and sample index.
+
+After one of these changes, an **Unsaved changes** bar appears. Select **Save
+configuration** to keep the changes or **Revert** to return to the last saved
+configuration.
+
+Changes made directly to a data group, including its name, color, filters, and
+tags, apply to the shared group and are not part of the dashboard's unsaved-change
+bar.
+
+<figure markdown>
+  ![Tempo modified dashboard](../../imgs/data-explorer-dashboard/dashboard-update.png)
+  <figcaption>Dashboard with a temporary change not yet saved</figcaption>
+</figure>
+
+## Edit, duplicate, or delete a dashboard
+
+The action icons on each dashboard row provide the following operations:
+
+- **Edit dashboard** opens the three-step wizard with the current dashboard
+  configuration. Change its name, plots, layout, or data groups, and select
+  **Save** on the final step.
+- **Duplicate dashboard** starts a new dashboard from the selected dashboard's
+  configuration. Give the copy a unique name and modify it without affecting the
+  original.
+- **Delete dashboard** permanently removes the dashboard after confirmation.
+
+You can also select **Edit dashboard** from the open dashboard page.
+
+!!! warning
+    Deleting a dashboard is irreversible. Its plot configurations are deleted
+    with it. Shared data groups and the task's source samples are not deleted and
+    remain available to other dashboards.
+
+## Platform-created dashboards and groups
+
+Depending on the task and platform setup, dashboards and data groups may be
+created automatically when reference or production data becomes available. They
+appear in the same lists as user-created items and are identified as
+platform-created items.
+
+Platform-created dashboards are read-only. You cannot edit their name, tags,
+plots, layout, selected data groups, or plot order, and you cannot delete them.
+You can view them and select **Duplicate dashboard** or **Clone** to create an
+independent, editable dashboard.
+
+Platform-created data groups are also read-only. You cannot change their name,
+filters, batch index, segments, or tags, and you cannot delete them. Their color
+is the only editable property, so you can keep plot legends distinguishable.
+
+The `pre-compiled` tag is reserved for platform-created dashboards and groups.
+It cannot be added to dashboards or groups that you create or edit.
+
+## Troubleshooting
+
+- **No variables are available**: confirm that the task has data and that its
+  schema exposes variables supported by Data Explorer.
+- **A plot action is unavailable**: select a compatible data type. Distribution
+  and scatter plots require numeric variables, while frequency plots require
+  categorical variables.
+- **The wizard cannot continue**: enter a non-empty, unique dashboard name and
+  remove plots until the displayed limit is satisfied.
+- **No data is visible**: confirm that at least one data group is selected and
+  visible, then check that its batch, time interval, and segments match existing
+  samples.
+- **A group remains queued or fails to load**: wait for the current group to
+  finish loading, or select the retry icon shown on the group card.
+- **A plot change fails to refresh**: select **Retry** in the plot editor.
+- **You changed the dashboard by mistake**: select **Revert** before saving. If
+  the change was made to a shared data group, edit that group again to restore its
+  previous definition.

@@ -68,6 +68,75 @@ The ML cube Platform uses this configuration file to create all the internal ent
 
 You can see an example [Here](https://github.com/ml-cube/ml3-platform-docs/blob/main/edge-config/example_config.json).
 
+In the following paragraph the description of the fields in the config file.
+
+##### Config file
+
+| **Field name**                | **Data type**        | **Description**                                                                                                                                                                         |
+| ----------------------------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| notification_mqtt_info        | NotificationMqttInfo | Connection string and topic name used for alerting.                                                                                                                                     |
+| task_info_list                | list[TaskInfo]       | List of tasks to monitor with ML cube Platform                                                                                                                                          |
+| processing_interval           | int                  | Interval in seconds between two data uploads.                                                                                                                                           |
+| min_batch_size                | int                  | Minimum number of data inside a batch to be uploaded. If data to be uploaded are lower than this value then the upload is skipped.                                                      |
+| max_batch_size                | int                  | Maximum number of data inside a batch to be uploaded. If data to be uploaded are higher than this value the subsampling is done before uploading.                                       |
+| messages_purge_interval       | int                  | Interval in seconds before run data cleaning routine. This is used to avoid storing unmatched data that will never be uploaded.                                                         |
+| messages_max_age_before_purge | int                  | Time in seconds of maximum allowed age. If a prediction or input data is older than this value it is dropped. This is used to avoid storing unmatched data that will never be uploaded. |
+| image_dims                    | [int, int] \| null   | Image dimensions to use for image resizing before uploading. Note that resizing is done before rotation. If null then no resizing is done.                                              |
+| rotation_angle                | int \| null          | Rotation angle in degrees – anticlockwise for rotation before uploading. Note that resizing is done before rotation. If null then no rotation is done.                                  |
+
+##### Notification MQTT Info
+
+| **Field name**    | **Data type** | **Description**                                                                   |
+| ----------------- | ------------- | --------------------------------------------------------------------------------- |
+| connection_string | string        | Connection string used for alerting. Format tcp://[username:password@]host[:port] |
+| data_point_name   | string        | Data point used to build the topic name                                           |
+
+##### Task Info
+
+| **Field name**            | **Data type**            | **Description**                                                                            |
+| ------------------------- | ------------------------ | ------------------------------------------------------------------------------------------ |
+| task_name                 | string                   | Name of the task to monitor                                                                |
+| task_type                 | string                   | Type of the task to monitor, refer to the documentation for the possible values.           |
+| data_structure            | string                   | Data structure of the task to monitor, refer to the documentation for the possible values. |
+| timeseries_frequency      | string \| null           | Frequency of the timeseries to monitor, refer to the documentation for formatting.         |
+| data_schema_info          | DataSchemaInfo           | Definition of the data that will be uploaded.                                              |
+| model_version             | string                   | Version of the model to be monitored.                                                      |
+| with_probabilistic_output | boolean                  | If the model provides additional probabilistic output.                                     |
+| positive_class            | string \| int \| boolean | For binary classification tasks the value of the positive class.                           |
+| input_message_info        | MessageInfo              | Information to read input samples from IED.                                                |
+| reset_message_info        | MessageInfo              | Information to read reset message from IED.                                                |
+| prediction_message_info   | MessageInfo              | Information to read prediction samples from IED.                                           |
+
+##### Data Schema Info
+
+| **Field name**             | **Data type**                       | **Description**                                                              |
+| -------------------------- | ----------------------------------- | ---------------------------------------------------------------------------- |
+| input_info                 | List[DataSchemaInputInfo]           | List that specifies the model inputs.                                        |
+| embedding_dim              | int \| null                         | If the model provides input embedding it represents the dimension of it.     |
+| prediction_dtype           | string                              | Data type of the prediction, refer to the documentation for possible values. |
+| prediction_possible_values | List[string \| int \| bool] \| null | If target is categorical it contains the possible values.                    |
+
+##### Data Schema Input Info
+
+| **Field name**  | **Data type**                       | **Description**                                                                                               |
+| --------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| name            | string                              | Name of the input variable                                                                                    |
+| subrole         | string \| null                      | For timeseries tasks it represents the role of the input, refer to the documentation for the possible values. |
+| data_type       | string                              | Data type of the variable, refer to the documentation for possible values.                                    |
+| possible_values | List[string \| int \| bool] \| None | If the variable is categorical it is the list of possible values.                                             |
+| dims            | List[int]                           | If the input is an array (also an image) it represents the dimensions.                                        |
+| tol             | int \| null                         | If an image is the difference with respect the dims for width and height to accept the input image.           |
+| image_mode      | string                              | The type of the image: RGB, Grey, …                                                                           |
+| timeseries_mode | string \| null                      | If the taks is timeseries it is how the variable is used in it (additive or multiplicative).                  |
+
+##### Message Info
+
+| **Field name**    | **Data type** | **Description**   |
+| ----------------- | ------------- | ----------------- |
+| message_protocol  | string        | If ZQM or MQTT    |
+| connection_string | string        | Connection string |
+| topic             | string        | Topic to register |
+
 #### License and Product Key
 
 The ML cube Platform works with Siemens licence system, so the application is ready to use after the installation is completed.
