@@ -38,6 +38,7 @@ A Subscription has a **start** and an **expiration** date and contains the **mod
     | *Explainability* | Insights into detected drifts to support root cause analysis and mitigation strategies. |
     | *Topic Analysis* | Discovery and analysis of latent themes and semantic patterns within unstructured data. |
     | *RAG Evaluation* | Specialized evaluation frameworks and benchmarks for Retrieval-Augmented Generation pipelines. |
+    | *Multi-Turn Analysis* | Evaluation of conversational RAG sessions, including core ideas, references, topic shifts and conciseness. |
     | *LLM Security* | Protection, auditing, and threat detection for Large Language Model interactions. |
     | *Business* | High-level performance tracking, primarily focused on KPI monitoring and business alignment. |
 
