@@ -120,6 +120,16 @@ This table is subject to changes, as new metrics will be added in the future.
 | TEXT SENTIMENT | The sentiment of the text | INPUT, USER INPUT | When the data structure is text | If the Task text language is Italian, one between these: _POSITIVE_, _NEGATIVE_. Otherwise, one between these: _negative_, _neutral_, _positive_ | |
 | TEXT LENGTH | The length of the text | INPUT, USER INPUT, RETRIEVED CONTEXT, PREDICTION | When the data structure is text | An integer value in the range of $[0, \infty]$ | |
 | MODEL PERPLEXITY | A measure of the uncertainty of an LLM when predicting the next words | PREDICTION | When the task type is RAG | A floating point value. | |
+| TEXT MULTI TURN INFORMATION | Coverage of informational core ideas in a conversational turn | PREDICTION | When the Task is a multi-turn RAG Task | A floating point value in $[0, 100]$ | |
+| TEXT MULTI TURN INSTRUCTION | Coverage of instructional core ideas in a conversational turn | PREDICTION | When the Task is a multi-turn RAG Task | A floating point value in $[0, 100]$ | |
+| TEXT MULTI TURN OVERALL | Overall coverage of the core ideas in a conversational turn | PREDICTION | When the Task is a multi-turn RAG Task | A floating point value in $[0, 100]$ | |
+| TEXT MULTI TURN IN CONTEXT | Coverage of core ideas that can be answered from the retrieved context | PREDICTION | When the Task is a multi-turn RAG Task | A floating point value in $[0, 100]$ | |
+| TEXT MULTI TURN OUT OF CONTEXT | Coverage of core ideas that are not grounded in the retrieved context | PREDICTION | When the Task is a multi-turn RAG Task | A floating point value in $[0, 100]$ | |
+| TEXT MULTI TURN STRUCTURAL CONSTRAINT | Coverage of format or structure constraints in the user message | PREDICTION | When the Task is a multi-turn RAG Task | A floating point value in $[0, 100]$ | |
+| TEXT MULTI TURN POSITIONAL BIAS | Whether earlier or later core ideas in the message are answered better | PREDICTION | When the Task is a multi-turn RAG Task | A floating point value in $[0, 100]$ | |
+| TEXT MULTI TURN CONCISENESS | How close the response length is to a concise summary of itself | PREDICTION | When the Task is a multi-turn RAG Task | A floating point value in $[0, 100]$ | |
+| TEXT MULTI TURN REFERENCE RESOLUTION | How well the response resolves references to earlier turns | PREDICTION | When the Task is a multi-turn RAG Task | A floating point value in $[0, 100]$ | |
+| TEXT MULTI TURN TOPIC SHIFT | How well the response follows a detected topic change | PREDICTION | When the Task is a multi-turn RAG Task | A floating point value in $[0, 100]$ | |
 | MODEL ENTROPY | Computes the entropy of the Gaussian predictive distribution of the model | PREDICTION PROBABILITY | When the model outputs a probabilistic (Gaussian) prediction | A floating point value. | |
 | MODEL IMAGE ENTROPY | Uncertainty of the model predicting objects in the images | PREDICTION PROBABILITY | When Task Type is Object Detection or Semantic Segmentation | A floating point value. | |
 | LOG LIKELIHOOD | Computes the log-likelihood of the Gaussian predictive distribution of the model | ERROR | When the model outputs a probabilistic (Gaussian) prediction | A floating point value. | |
