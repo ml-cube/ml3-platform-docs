@@ -53,6 +53,7 @@ Indeed, each Task Type has a set of ML cube Platform modules:
 | Dynamic Clustering | :material-check: | :material-check: | :material-check: | :material-check: | :material-check: | | :material-check: | :material-check: |
 | Topic Modeling | :material-check: :material-information-outline:{title="Only for Text data"} | :material-check: :material-information-outline:{title="Only for Text data"} | :material-check: | | | | | |
 | RAG Evaluation | | | :material-check: | | | | | |
+| Multi-Turn Analysis | | | :material-check: :material-information-outline:{title="When the Multi-turn attribute is enabled"} | | | | | |
 | LLM Security | | | :material-check: | | | | | |
 
 !!! Tip
@@ -168,6 +169,8 @@ RAG Tasks have two additional attributes:
 
     !!! example
         Default answer: "I am sorry, I cannot help you with that request."
+
+When the Task is used in a chat setting, enable the **Multi-turn** attribute and send `session_id` / `turn_id` metadata with every sample. The [Multi-Turn Analysis](modules/multi_turn.md) module then evaluates each conversation as a session.
 
 ### Object Detection
 

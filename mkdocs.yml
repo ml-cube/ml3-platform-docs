@@ -151,6 +151,7 @@ nav:
 
           - user_guide/modules/topic_modeling.md
           - user_guide/modules/rag_evaluation.md
+          - user_guide/modules/multi_turn.md
           - user_guide/modules/llm_security.md
           - user_guide/modules/business.md
           - user_guide/modules/labeling.md
