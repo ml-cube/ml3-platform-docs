@@ -343,7 +343,7 @@ Create a task inside the project.
 * **data_structure**  : type of data in the task
 * **cost_info**  : optional argument that specify the cost
     information of the task
-* **optional_target**  : True if the target value in not always
+* **optional_target**  : True if the target value is not always
     available. This changes the behaviour and the detection
     phase of ML cube Platform that will analyse production
     data without considering the actual target
