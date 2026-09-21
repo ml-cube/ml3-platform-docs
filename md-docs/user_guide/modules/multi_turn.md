@@ -90,9 +90,18 @@ A [data schema template](https://github.com/ml-cube/ml3-platform-docs/blob/main/
 
 Configure the multi-turn [monitoring metrics](../monitoring/index.md#monitoring-metrics) on the Task so that sessions are evaluated as data is uploaded. Each of those metrics uses an explicit threshold.
 
-## Sessions overview
+Open a multi-turn RAG Task and select **Multi-Turn Analysis**. The page has two tabs:
 
-Open a multi-turn RAG Task and select **Multi-Turn Analysis**. The page lists evaluated sessions as cards.
+| Tab | Description |
+| --- | ----------- |
+| Explore Sessions | Browse evaluated sessions individually as cards and drill down into a single session. |
+| Reports | Bundle a chosen set of sessions into a named report with an aggregated summary. |
+
+An **All sessions** button, next to the tabs, opens a drawer listing every session of the Task, evaluated or not, with a search by session ID. Use it to look up the session IDs needed for a report.
+
+## Explore Sessions
+
+The **Explore Sessions** tab lists evaluated sessions as cards.
 
 <figure markdown="span" style="display: inline-block; text-align: center; width: 100%;">
   ![Multi-Turn Analysis sessions overview](../../imgs/multi_turn/sessions_overview.png)
@@ -265,6 +274,75 @@ The bottom of the turn panel summarises length, aggregate scores and correlation
 | Positional bias | Turn-level bias score from 0 to 100, derived from the partial correlation of score vs position given importance. |
 
 When the three pairwise correlations form a valid triangle, they are drawn as a graph. Otherwise the values are shown as a table.
+
+## Reports
+
+The **Reports** tab bundles a chosen set of sessions into a named report with an aggregated summary. A report guarantees that every session included in it is evaluated for the Task's applicable multi-turn monitoring metrics.
+
+### Generating a report
+
+Click **New report**, give it a unique name, and add one or more session IDs (use the **All sessions** drawer to look them up). Creating the report starts a job that evaluates any session that is not yet evaluated.
+
+<figure markdown="span" style="display: inline-block; text-align: center; width: 100%;">
+  ![New multi-turn report modal](../../imgs/multi_turn/new_report_modal.png)
+  <figcaption>Naming a report and selecting its sessions.</figcaption>
+</figure>
+
+The **Reports** tab lists every report created for the Task:
+
+| Column | Description |
+| ------ | ----------- |
+| Name | The report name. |
+| Id | Report identifier, with a copy-to-clipboard action. |
+| Created | Creation date of the report. |
+| Sessions | Number of sessions included in the report. |
+| Status | Job status: pending, completed or error. Pending reports can be refreshed manually. |
+
+??? code-block "SDK Example"
+
+    Compute a multi-turn report for a set of sessions and wait for it to complete.
+
+    ```python
+    # Computing the multi-turn report
+    multi_turn_report_job_id = client.compute_multi_turn_report(
+        task_id=task_id,
+        report_name="multi_turn_report_name",
+        session_ids=["session_1", "session_2", "session_3"],
+    )
+
+    # Waiting for the job to complete
+    client.wait_job_completion(job_id=multi_turn_report_job_id)
+
+    # Getting the report
+    reports = client.get_multi_turn_reports(task_id=task_id)
+    report = reports[-1]
+    ```
+
+### Report summary
+
+Click a completed report to open its summary.
+
+A compact stats row averages, across the evaluated sessions of the report: total turns analyzed, core ideas, instructions, information and references per message, average topic shifts and positional bias. When any session in the report drifted on a monitoring metric, a **Drifting metrics** row counts how many sessions drifted per metric.
+
+The **Rank sessions by** dropdown selects which metric drives the **Best session** and **Worst session** highlight cards. Click a card to open that session's [analysis](#session-analysis).
+
+Two gauge groups show the report-wide average of the [response quality](#response-quality) and [strategy coverage](#strategy-coverage) metrics, one gauge per metric.
+
+<figure markdown="span" style="display: inline-block; text-align: center; width: 100%;">
+  ![Report summary average gauges](../../imgs/multi_turn/report_summary.png)
+  <figcaption>Compact stats and session highlights; response quality and strategy coverage, averaged across the report's sessions.</figcaption>
+</figure>
+
+Below the gauges, a session selector chooses which sessions are plotted as radar charts, one polygon per session, on the same response quality and strategy coverage metrics. Click a session in the legend to show or hide its polygon.
+
+<figure markdown="span" style="display: inline-block; text-align: center; width: 100%;">
+  ![Report summary per-session radar charts](../../imgs/multi_turn/report_summary_radar.png)
+  <figcaption>Response quality and strategy coverage, per session, plotted as radar charts.</figcaption>
+</figure>
+
+### Sessions details
+
+The bottom of the report page lists the report's sessions as cards, using the same layout as [Explore Sessions](#explore-sessions). Click a card to open its [session analysis](#session-analysis) and [turn details](#turn-details) inline.
 
 ## Monitoring metrics
 
