@@ -125,8 +125,8 @@ Use the filter bar to narrow the list:
 Click a session card to open its analysis. Session-level scores are averages over the evaluated turns of that conversation.
 
 <figure markdown="span" style="display: inline-block; text-align: center; width: 100%;">
-  ![Session composition, quality, strategy and positional bias](../../imgs/multi_turn/session_overview_metrics.png)
-  <figcaption>Session-level composition, response quality, strategy coverage and positional bias.</figcaption>
+  ![Session composition, response quality and strategy coverage](../../imgs/multi_turn/session_overview_metrics.png)
+  <figcaption>Session-level composition, response quality and strategy coverage.</figcaption>
 </figure>
 
 ### Message composition
@@ -150,6 +150,7 @@ Quality bars are percentages from 0 to 100. Higher is better: green is high, yel
 | Information coverage | How well the response addresses informational core ideas, weighted by importance. | `TEXT_MULTI_TURN_INFORMATION` |
 | Overall coverage | Importance-weighted coverage across all core ideas. | `TEXT_MULTI_TURN_OVERALL` |
 | Conciseness | How close the response length is to a concise summary of itself. A long, redundant answer scores lower than a compact one. | `TEXT_MULTI_TURN_CONCISENESS` |
+| Positional bias | How little the position of a core idea in the user message affects how well it is answered. Higher means less bias. | `TEXT_MULTI_TURN_POSITIONAL_BIAS` |
 
 ### Strategy coverage
 
@@ -160,16 +161,6 @@ Each core idea can be tagged with one or more response strategies. Session bars 
 | In context | The core idea can be answered from the retrieved context. | `TEXT_MULTI_TURN_IN_CONTEXT` |
 | Out of context | The core idea is not grounded in the retrieved context. | `TEXT_MULTI_TURN_OUT_OF_CONTEXT` |
 | Structural constraint | The core idea imposes a format or structure (for example "reply with one capital word"). | `TEXT_MULTI_TURN_STRUCTURAL_CONSTRAINT` |
-
-### Positional bias
-
-The session **positional bias** gauge ranges from **-1** to **+1**. It is the mean correlation between core-idea **evaluation score** and **position** in the user message:
-
-- Values near **0** mean the model treats early and late ideas similarly.
-- **Positive** values mean later ideas in the message are answered better.
-- **Negative** values mean earlier ideas are answered better.
-
-This is the session view of the `TEXT_MULTI_TURN_POSITIONAL_BIAS` monitoring metric.
 
 ### Coverage across turns
 
@@ -262,7 +253,7 @@ The bottom of the turn panel summarises length, aggregate scores and correlation
 | Eval score vs importance | Whether important ideas are also the ones answered well. |
 | Eval score vs position | Whether later (or earlier) ideas in the message are answered better. |
 | Importance vs position | Whether important ideas appear later (or earlier) in the message. |
-| Positional bias | Turn-level bias score from 0 to 100, derived from the partial correlation of score vs position given importance. |
+| Positional bias | How little the position of ideas in the message affects how well they are answered. Higher means less bias. |
 
 When the three pairwise correlations form a valid triangle, they are drawn as a graph. Otherwise the values are shown as a table.
 
