@@ -126,7 +126,7 @@ This table is subject to changes, as new metrics will be added in the future.
 | TEXT MULTI TURN IN CONTEXT | Coverage of core ideas that can be answered from the retrieved context | PREDICTION | When the Task is a multi-turn RAG Task | A floating point value in $[0, 100]$ | |
 | TEXT MULTI TURN OUT OF CONTEXT | Coverage of core ideas that are not grounded in the retrieved context | PREDICTION | When the Task is a multi-turn RAG Task | A floating point value in $[0, 100]$ | |
 | TEXT MULTI TURN STRUCTURAL CONSTRAINT | Coverage of format or structure constraints in the user message | PREDICTION | When the Task is a multi-turn RAG Task | A floating point value in $[0, 100]$ | |
-| TEXT MULTI TURN POSITIONAL BIAS | Whether earlier or later core ideas in the message are answered better | PREDICTION | When the Task is a multi-turn RAG Task | A floating point value in $[0, 100]$ | |
+| TEXT MULTI TURN POSITIONAL BIAS | How little position in the user message affects the evaluation score. Higher means less bias | PREDICTION | When the Task is a multi-turn RAG Task | A floating point value in $[0, 100]$ | |
 | TEXT MULTI TURN CONCISENESS | How close the response length is to a concise summary of itself | PREDICTION | When the Task is a multi-turn RAG Task | A floating point value in $[0, 100]$ | |
 | TEXT MULTI TURN REFERENCE RESOLUTION | How well the response resolves references to earlier turns | PREDICTION | When the Task is a multi-turn RAG Task | A floating point value in $[0, 100]$ | |
 | TEXT MULTI TURN TOPIC SHIFT | How well the response follows a detected topic change | PREDICTION | When the Task is a multi-turn RAG Task | A floating point value in $[0, 100]$ | |
