@@ -3004,7 +3004,7 @@ Create credentials to integrate with Azure.
 ### .create_google_genai_integration_credentials
 ```python
 .create_google_genai_integration_credentials(
-   name: str, default: bool, project_id: str, api_key: str
+   name: str, default: bool, priority: int, project_id: str, api_key: str
 )
 ```
 
@@ -3023,6 +3023,7 @@ Create credentials to access Google GenAI service.
 * **name**  : a simple name to identify this set of credentials
 * **default**  : whether to use these credentials by default when
     using a Google GenAI integration
+* **priority**  : order of these credentials, an integer of 1 or higher
 * **project_id**  : the project in which these credentials will
     be configured
 * **api_key**  : the subscription key
@@ -3040,7 +3041,7 @@ Create credentials to access Google GenAI service.
 ### .create_google_vertexai_integration_credentials
 ```python
 .create_google_vertexai_integration_credentials(
-   name: str, default: bool, project_id: str, api_key: str
+   name: str, default: bool, priority: int, project_id: str, api_key: str
 )
 ```
 
@@ -3059,6 +3060,7 @@ Create credentials to access Google VertexAI service.
 * **name**  : a simple name to identify this set of credentials
 * **default**  : whether to use these credentials by default when
     using a Google VertexAI integration
+* **priority**  : order of these credentials, an integer of 1 or higher
 * **project_id**  : the project in which these credentials will
     be configured
 * **api_key**  : The subscription key of the service
@@ -3076,8 +3078,8 @@ Create credentials to access Google VertexAI service.
 ### .create_azure_openai_integration_credentials
 ```python
 .create_azure_openai_integration_credentials(
-   name: str, default: bool, project_id: str, api_version: str, endpoint: str,
-   api_key: str
+   name: str, default: bool, priority: int, project_id: str, api_version: str,
+   endpoint: str, api_key: str
 )
 ```
 
@@ -3096,6 +3098,7 @@ Create credentials to access Azure OpenAI services.
 * **name**  : a simple name to identify this set of credentials
 * **default**  : whether to use these credentials by default when
     using a Azure OpenAI integration
+* **priority**  : order of these credentials, an integer of 1 or higher
 * **project_id**  : the project in which these credentials will
     be configured
 * **api_version**  : The version of the Azure OpenAI API to use
@@ -3115,12 +3118,13 @@ Create credentials to access Azure OpenAI services.
 ### .create_openai_integration_credentials
 ```python
 .create_openai_integration_credentials(
-   name: str, default: bool, project_id: str, api_key: str
+   name: str, default: bool, priority: int, project_id: str, api_key: str,
+   provider: (LLMProvider|None) = None, base_url: (str|None) = None
 )
 ```
 
 ---
-Create credentials to access OpenAI services.
+Create credentials to access OpenAI or an OpenAI-compatible API.
 
 **Allowed Roles:**
 
@@ -3134,9 +3138,15 @@ Create credentials to access OpenAI services.
 * **name**  : a simple name to identify this set of credentials
 * **default**  : whether to use these credentials by default when
     using a OpenAI integration
+* **priority**  : order of these credentials, an integer of 1 or higher
 * **project_id**  : the project in which these credentials will
     be configured
 * **api_key**  : The subscription key of the service
+* **provider**  : LLM provider. When unset, OpenAI is stored.
+* **base_url**  : Base URL for that host. When unset, blank, or equal
+    to the selected provider's official URL, that official URL
+    is stored. A URL that belongs to another provider is
+    rejected. Any other URL is stored.
 
 
 **Returns**
@@ -3151,7 +3161,7 @@ Create credentials to access OpenAI services.
 ### .create_anthropic_integration_credentials
 ```python
 .create_anthropic_integration_credentials(
-   name: str, default: bool, project_id: str, api_key: str
+   name: str, default: bool, priority: int, project_id: str, api_key: str
 )
 ```
 
@@ -3170,6 +3180,7 @@ Create credentials to access Anthropic services.
 * **name**  : a simple name to identify this set of credentials
 * **default**  : whether to use these credentials by default when
     using a Anthropic integration
+* **priority**  : order of these credentials, an integer of 1 or higher
 * **project_id**  : the project in which these credentials will
     be configured
 * **api_key**  : The subscription key of the service
@@ -3335,6 +3346,80 @@ For a given task id, get the computed LLM Security reports.
 
 GetLlmSecurityReportException
 
+### .compute_multi_turn_report
+```python
+.compute_multi_turn_report(
+   task_id: str, report_name: str, session_ids: list[str]
+)
+```
+
+---
+Compute the multi-turn report for a given task.
+
+This method guarantees that every session in `session_ids` is
+evaluated for the task's configured multi-turn metrics (or the
+full multi-turn metric catalog if none is configured): sessions
+already evaluated are reused as-is, the rest are evaluated now.
+
+This request starts an operation pipeline that is
+executed by ML cube Platform.
+Thus, the method returns the identifier of the job that you can
+monitor to know its status and proceed with the other work
+using the method `wait_job_completion(job_id)`
+
+**Allowed Roles:**
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the identifier of the task
+* **report_name**  : the name of the report
+* **session_ids**  : the identifiers of the multi-turn sessions to
+    evaluate
+
+
+**Returns**
+
+* **job_id**  : `str` identifier of the submitted job
+
+
+**Raises**
+
+ComputeMultiTurnReportException
+
+### .get_multi_turn_reports
+```python
+.get_multi_turn_reports(
+   task_id: str
+)
+```
+
+---
+For a given task id, get the computed multi-turn reports.
+
+**Allowed Roles:**
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the identifier of the task
+
+
+**Returns**
+
+* **multi_turn_reports**  : list[TaskMultiTurnReportItem]
+
+
+**Raises**
+
+GetMultiTurnReportException
+
 ### .get_all_task_segments
 ```python
 .get_all_task_segments(
@@ -3429,11 +3514,16 @@ for a task monitoring config.
 
 Current backend semantics:
 
-- only the thresholds inside `evaluation_metrics` and
-  `generic_monitoring_dimensions` can be updated
-- the submitted lists must reference exactly the evaluation metrics
-  and generic dimensions already configured during the initial setup
-- persisted `monitored_dimensions` are preserved
+- only thresholds can be updated: for `evaluation_metrics` and
+  `generic_monitoring_dimensions`, and for `monitoring_metrics`
+  entries inside `monitored_dimensions` that accept a threshold
+  (e.g. `MonitoringMetric.TEXT_MULTI_TURN_*`)
+- the submitted `evaluation_metrics`/`generic_monitoring_dimensions`
+  lists must reference exactly the evaluation metrics and generic
+  dimensions already configured during the initial setup
+- each entry in `monitoring_metrics` must reference an
+  already-configured `(segment, target, metric)` triple; metrics
+  cannot be added, removed, or replaced this way
 - the monitoring config must already exist
 
 **Allowed Roles:**
