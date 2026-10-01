@@ -398,6 +398,34 @@ LLMProvider()
 Enumerator of the providers of LLMs we can use to generate
 text both for RAG and LLM.
 
+**Fields:**
+
+- OPENAI
+Official OpenAI API models.
+---
+- OPENROUTER
+    OpenAI-compatible OpenRouter host.
+- AZURE_OPENAI
+    Azure-hosted OpenAI models.
+- ANTHROPIC
+    Anthropic Claude models.
+- GOOGLE
+    Google GenAI models.
+- GOOGLE_VERTEXAI
+    Google Vertex AI models.
+
+
+**Methods:**
+
+
+### .openai_compatible_providers
+```python
+.openai_compatible_providers()
+```
+
+---
+OpenAI-compatible hosts mapped to their official base URL.
+
 ----
 
 
@@ -489,6 +517,16 @@ Text:
     - TEXT_EMOTION
     - TEXT_SENTIMENT
     - TEXT_LENGTH
+    - TEXT_MULTI_TURN_INFORMATION
+    - TEXT_MULTI_TURN_INSTRUCTION
+    - TEXT_MULTI_TURN_OVERALL
+    - TEXT_MULTI_TURN_IN_CONTEXT
+    - TEXT_MULTI_TURN_OUT_OF_CONTEXT
+    - TEXT_MULTI_TURN_STRUCTURAL_CONSTRAINT
+    - TEXT_MULTI_TURN_POSITIONAL_BIAS
+    - TEXT_MULTI_TURN_CONCISENESS
+    - TEXT_MULTI_TURN_REFERENCE_RESOLUTION
+    - TEXT_MULTI_TURN_TOPIC_SHIFT
 
 Model probabilistic output:
     - MODEL_PERPLEXITY
@@ -549,6 +587,7 @@ MonitoringTarget()
 - MODEL_OUTPUT_RETRIEVED_CONTEXT
 - CHARACTER_ERROR_RATE
 - WORD_ERROR_RATE
+- TURN
 
 ----
 
