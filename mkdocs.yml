@@ -129,6 +129,7 @@ nav:
       - user_guide/data_schema.md
       - user_guide/segment.md
       - user_guide/data.md
+      - user_guide/llm_usage.md
       - user_guide/rbac.md
 
 
