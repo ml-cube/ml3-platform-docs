@@ -129,6 +129,7 @@ nav:
       - user_guide/data_schema.md
       - user_guide/segment.md
       - user_guide/data.md
+      - user_guide/llm_usage.md
       - user_guide/rbac.md
 
 
@@ -152,6 +153,7 @@ nav:
           - user_guide/modules/exports.md
           - user_guide/modules/topic_modeling.md
           - user_guide/modules/rag_evaluation.md
+          - user_guide/modules/multi_turn.md
           - user_guide/modules/llm_security.md
           - user_guide/modules/business.md
           - user_guide/modules/labeling.md

@@ -910,6 +910,25 @@ KPI base model
 ----
 
 
+## LLMIntegrationCredentials
+```python 
+LLMIntegrationCredentials()
+```
+
+
+---
+Credentials to authenticate to an LLM provider.
+
+
+**Attributes**
+
+* **priority**  : int
+* **provider**  : LLM provider these credentials authenticate to
+
+
+----
+
+
 ## LLMPrompt
 ```python 
 LLMPrompt()
@@ -1239,6 +1258,7 @@ OpenAI integration credentials.
 **Attributes**
 
 * **partial_api_key**  : The api key (obfuscated) of the service
+* **base_url**  : Stored endpoint for that host
 
 
 ----
@@ -1771,6 +1791,30 @@ a LLM security report.
 * **status**  : JobStatus
 * **from_datetime**  : datetime
 * **to_datetime**  : datetime
+
+
+----
+
+
+## TaskMultiTurnReportItem
+```python 
+TaskMultiTurnReportItem()
+```
+
+
+---
+Task multi-turn report item model.
+It contains the most important information of
+a multi-turn report.
+
+
+**Attributes**
+
+* **id**  : str
+* **creation_datetime**  : datetime
+* **name**  : str
+* **status**  : JobStatus
+* **session_ids**  : list[str]
 
 
 ----

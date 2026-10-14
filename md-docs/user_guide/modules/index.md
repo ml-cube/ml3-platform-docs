@@ -39,6 +39,14 @@ Modules can be always active or on-demand: Monitoring module and Drift Explainab
 
     [:octicons-arrow-right-24: More info](rag_evaluation.md)
 
+-   :fontawesome-solid-comments:{ .lg .middle } **Multi-Turn Analysis**
+
+    ---
+
+    Evaluate conversational RAG sessions turn by turn.
+
+    [:octicons-arrow-right-24: More info](multi_turn.md)
+
 -   :material-shield-lock:{ .lg .middle } **LLM Security**
 
     ---

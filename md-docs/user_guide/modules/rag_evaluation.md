@@ -25,6 +25,8 @@ The three main components of a RAG framework are:
 ## RAG Evaluation Module
 The ML cube Platform RAG evaluation module is available for [RAG Tasks](../task.md#retrieval-augmented-generation) and generates an evaluation report for a given set of samples.
 
+For conversational RAG systems, where several samples belong to the same chat, see [Multi-Turn Analysis](multi_turn.md).
+
 !!! info
     It is possible to compute a RAG evaluation report both from [Web App] and [SDK]. The computed report can be viewed in the Web App and exported as an Excel file from the SDK.
 
