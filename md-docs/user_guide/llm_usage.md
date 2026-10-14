@@ -8,27 +8,6 @@ The modules in ML cube Platform can require some LLM Provider integrations, see 
 
 Configure credentials in the project's **Integrations** page, then configure usage limits as described below. Credentials belong to a project and can satisfy the requirements of multiple tasks in that project.
 
-### Configure a provider
-
-1. Open the project and select **Integrations**.
-2. Review the **LLM integrations required** warning, if present, to identify a compatible provider for each affected module.
-3. Click the **+** button, select **AI**, and choose a provider. For OpenRouter, use the OpenAI credentials form and select **OpenRouter** in the **Provider** field.
-4. Enter a name and the provider's connection details:
-
-    | Provider | Connection details |
-    | --- | --- |
-    | OpenAI / OpenRouter | API key, provider selection, and base URL. The base URL is filled from the selected provider. |
-    | Azure OpenAI | API key, endpoint, and API version. |
-    | Anthropic | API key. |
-    | Google GenAI | API key. |
-    | Google Vertex AI | API key for Express Mode. For service-account setup, see [GenAI Integration](integrations/index.md#genai-integration). |
-
-5. Set **Priority** (a higher value means a higher priority), optionally select the default-credentials checkbox, and click **Submit**.
-6. Review the warning again. Each affected task/module needs at least one compatible provider configured in the same project.
-
-!!! note
-    The integration warning checks which providers are configured. Its absence does not confirm that an API key is valid or that the provider account can access the models needed by an analysis. The current warning check recognizes dedicated Google Vertex AI credentials; GCP service-account credentials alone do not clear that warning.
-
 ## Open LLM Usage settings
 
 There are two views for LLM Usage limits depending on the User role and its scope:
