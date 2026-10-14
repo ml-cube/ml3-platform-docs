@@ -83,7 +83,7 @@ Modules can be always active or on-demand: Monitoring module and Drift Explainab
 
     ---
 
-    Package task data and analysis results into portable files.
+    Package task data, analysis results, and reports into portable files.
 
     [:octicons-arrow-right-24: More info](exports.md)
 
