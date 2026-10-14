@@ -88,6 +88,6 @@ Use **Edit limits** in the **Next window** tab to revise the schedule. Next-wind
 Use **Cancel** in the next-window view to cancel scheduled changes. The company view cancels both project and task changes for that project. The project view cancels only task changes; a scheduled project limit remains, and the restored task allocations must fit within it.
 
 <figure markdown>
-  ![Edit current window limits](../../imgs/llm-usage/company_settings_llm_usage_next_window.png)
-  <figcaption>Edit current window limits</figcaption>
+  ![Next window limits](../../imgs/llm-usage/company_settings_llm_usage_next_window.png)
+  <figcaption>Next window limits</figcaption>
 </figure>
