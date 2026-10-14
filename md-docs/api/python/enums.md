@@ -262,6 +262,59 @@ DetectionEventType()
 ----
 
 
+## ExportBundleType
+```python 
+ExportBundleType()
+```
+
+
+---
+Group of Platform artifacts included in an export.
+
+----
+
+
+## ExportStatus
+```python 
+ExportStatus()
+```
+
+
+---
+Status of an export operation.
+
+----
+
+
+## ExportType
+```python 
+ExportType()
+```
+
+
+---
+How the content of an export is selected.
+
+BATCH_RANGE exports the chosen bundles for an inclusive batch range,
+REPORT exports a user-selected list of reports.
+
+----
+
+
+## ExportableReportSortField
+```python 
+ExportableReportSortField()
+```
+
+
+---
+Field used to sort the reports that can be included in an export.
+
+REPORT_TYPE sorts by report type and then newest first.
+
+----
+
+
 ## ExternalIntegration
 ```python 
 ExternalIntegration()

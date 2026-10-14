@@ -1596,6 +1596,181 @@ Export a RAG evaluation report to a file.
 
 None
 
+### .create_export
+```python
+.create_export(
+   task_id: str, export_type: ExportType, starting_batch_index: (int|None) = None,
+   ending_batch_index: (int|None) = None,
+   bundles: (list[ExportBundleType]|None) = None,
+   reports: (list[ExportReportSelection]|None) = None
+)
+```
+
+---
+Create an export for a range of data batches or a list of reports.
+
+A `ExportType.BATCH_RANGE` export requires `starting_batch_index`
+and `ending_batch_index` and accepts `bundles`; it cannot set
+`reports`. A `ExportType.REPORT` export requires `reports` and
+cannot set the batch range or `bundles`.
+
+
+**Args**
+
+* **task_id**  : Identifier of the task whose artifacts will be exported.
+* **export_type**  : How the content of the export is selected.
+* **starting_batch_index**  : Index of the first data batch included.
+* **ending_batch_index**  : Index of the last data batch included.
+* **bundles**  : Artifact groups to include.
+* **reports**  : Reports to include, see `get_exportable_reports`.
+
+
+**Returns**
+
+Identifier of the created export.
+
+
+**Raises**
+
+`CreateExportException`
+
+### .get_exports
+```python
+.get_exports(
+   task_id: str, page: int = 1, page_size: int = 50, active: (bool|None) = None,
+   start_timestamp: (float|None) = None, end_timestamp: (float|None) = None,
+   starting_batch_index: (int|None) = None, ending_batch_index: (int|None) = None,
+   export_type: (ExportType|None) = None,
+   bundles: (list[ExportBundleType]|None) = None, report_name: (str|None) = None
+)
+```
+
+---
+Get a page of exports for a task.
+
+
+**Args**
+
+* **task_id**  : Identifier of the task.
+* **page**  : One-based page number. Defaults to 1.
+* **page_size**  : Number of exports per page. Defaults to 50.
+* **active**  : When set, filter by active or inactive exports.
+* **start_timestamp**  : Include exports created at or after this timestamp.
+* **end_timestamp**  : Include exports created before this timestamp.
+* **starting_batch_index**  : Include exports whose starting batch index
+    is greater than or equal to this value.
+* **ending_batch_index**  : Include exports whose ending batch index is
+    less than or equal to this value.
+* **export_type**  : When set, include only exports of this type.
+* **bundles**  : When set, include exports with at least one of these
+    bundles. For REPORT exports the bundles are the types of
+    the exported reports.
+* **report_name**  : Case-insensitive substring of the name of at least
+    one exported report.
+
+
+**Returns**
+
+Paginated exports and their current statuses.
+
+
+**Raises**
+
+`GetExportsException`
+
+### .get_export_creation_options
+```python
+.get_export_creation_options(
+   task_id: str
+)
+```
+
+---
+Get the options available when creating an export for a task.
+
+
+**Args**
+
+* **task_id**  : Identifier of the task.
+
+
+**Returns**
+
+Available bundles, available report types and the maximum
+selectable batch index.
+
+
+**Raises**
+
+`GetExportCreationOptionsException`
+
+### .get_exportable_reports
+```python
+.get_exportable_reports(
+   task_id: str, page: int = 1, page_size: int = 50,
+   report_types: (list[ExportBundleType]|None) = None, report_name: (str|None) = None,
+   start_timestamp: (float|None) = None, end_timestamp: (float|None) = None,
+   sort_field: (ExportableReportSortField|None) = None, ascending: bool = False
+)
+```
+
+---
+Get a page of the reports of a task that can be included in a
+report export.
+
+
+**Args**
+
+* **task_id**  : Identifier of the task.
+* **page**  : One-based page number. Defaults to 1.
+* **page_size**  : Number of reports per page. Defaults to 50.
+* **report_types**  : When set, include only reports of these types.
+    Types not available for the task are ignored.
+* **report_name**  : Case-insensitive substring of the report name.
+* **start_timestamp**  : Include reports created at or after this
+    timestamp.
+* **end_timestamp**  : Include reports created before this timestamp.
+* **sort_field**  : Field used to sort the reports. Defaults to
+    `ExportableReportSortField.CREATION_DATE`.
+* **ascending**  : Whether to sort in ascending order.
+
+
+**Returns**
+
+A page of exportable reports with their type, identifier, name
+and creation datetime, and the total number of reports.
+
+
+**Raises**
+
+`GetExportableReportsException`
+
+### .get_export_download_links
+```python
+.get_export_download_links(
+   task_id: str, export_id: str
+)
+```
+
+---
+Get signed download links for an export's artifacts.
+
+
+**Args**
+
+* **task_id**  : Identifier of the task.
+* **export_id**  : Identifier returned by `create_export`.
+
+
+**Returns**
+
+Export identifier and its signed artifact links.
+
+
+**Raises**
+
+`GetExportDownloadLinksException`
+
 ### .compute_topic_modeling_report
 ```python
 .compute_topic_modeling_report(

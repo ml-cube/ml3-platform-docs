@@ -352,6 +352,8 @@ The following [monitoring metrics](../monitoring/index.md#monitoring-metrics) ar
 | TEXT MULTI TURN REFERENCE RESOLUTION | Reference-resolution score |
 | TEXT MULTI TURN TOPIC SHIFT | Topic-shift score (on turns where the topic changed) |
 
+Completed reports can also be exported as ZIP archives of JSON files, see [Exports](exports.md).
+
 [Task]: ../task.md
 [Web App]: https://app.platform.mlcube.com/
 [SDK]: ../../api/python/index.md

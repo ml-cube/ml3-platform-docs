@@ -674,6 +674,81 @@ There is only one input that has type array_1
 ----
 
 
+## ExportCreationOptions
+```python 
+ExportCreationOptions()
+```
+
+
+---
+Options available when creating an export for a task.
+
+----
+
+
+## ExportDownloadLinks
+```python 
+ExportDownloadLinks()
+```
+
+
+---
+Signed artifact links generated for an export.
+
+----
+
+
+## ExportInstance
+```python 
+ExportInstance()
+```
+
+
+---
+A Platform export and its materialization status.
+
+Batch fields are set only for BATCH_RANGE exports, reports only for
+REPORT exports.
+
+----
+
+
+## ExportReport
+```python 
+ExportReport()
+```
+
+
+---
+A report included in a REPORT export.
+
+----
+
+
+## ExportReportSelection
+```python 
+ExportReportSelection()
+```
+
+
+---
+A report selected for a REPORT export.
+
+----
+
+
+## ExportableReport
+```python 
+ExportableReport()
+```
+
+
+---
+A report of a task that can be included in a REPORT export.
+
+----
+
+
 ## GCPCredentials
 ```python 
 GCPCredentials()
@@ -1264,6 +1339,30 @@ OpenAI integration credentials.
 ----
 
 
+## PaginatedExportableReports
+```python 
+PaginatedExportableReports()
+```
+
+
+---
+A page of the reports of a task that can be included in an export.
+
+----
+
+
+## PaginatedExports
+```python 
+PaginatedExports()
+```
+
+
+---
+A page of exports belonging to a task.
+
+----
+
+
 ## Project
 ```python 
 Project()
@@ -1618,6 +1717,18 @@ SetupMonitoringConfig()
 
 ---
 Initial setup payload for the monitoring config API.
+
+----
+
+
+## SingleBundleEndpointDownloadLink
+```python 
+SingleBundleEndpointDownloadLink()
+```
+
+
+---
+A signed download link for one artifact in an export.
 
 ----
 

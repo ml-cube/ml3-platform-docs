@@ -79,4 +79,12 @@ Modules can be always active or on-demand: Monitoring module and Drift Explainab
 
     [:octicons-arrow-right-24: More info](../data_explorer/index.md)
 
+-   :material-download:{ .lg .middle } **Exports**
+
+    ---
+
+    Package task data, analysis results, and reports into portable files.
+
+    [:octicons-arrow-right-24: More info](exports.md)
+
 </div>
