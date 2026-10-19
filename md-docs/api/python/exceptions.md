@@ -133,6 +133,18 @@ CreateDetectionEventRuleException
 ----
 
 
+## CreateExportException
+```python 
+CreateExportException()
+```
+
+
+---
+Raised when an export cannot be created.
+
+----
+
+
 ## CreateKPIException
 ```python 
 CreateKPIException()
@@ -201,6 +213,54 @@ GetAllLLMSpecsException()
 
 ---
 GetAllLLMSpecsException
+
+----
+
+
+## GetExportCreationOptionsException
+```python 
+GetExportCreationOptionsException()
+```
+
+
+---
+Raised when export creation options cannot be retrieved.
+
+----
+
+
+## GetExportDownloadLinksException
+```python 
+GetExportDownloadLinksException()
+```
+
+
+---
+Raised when export download links cannot be generated.
+
+----
+
+
+## GetExportableReportsException
+```python 
+GetExportableReportsException()
+```
+
+
+---
+Raised when exportable reports cannot be retrieved.
+
+----
+
+
+## GetExportsException
+```python 
+GetExportsException()
+```
+
+
+---
+Raised when task exports cannot be retrieved.
 
 ----
 

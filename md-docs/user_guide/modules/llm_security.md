@@ -156,6 +156,8 @@ When requesting the evaluation, a **timestamp interval** must be provided to spe
     report_id = reports[-1].id
     ```
 
+Completed reports can also be exported as Parquet files, see [Exports](exports.md).
+
 [Task]: ../task.md
 [Web App]: https://app.platform.mlcube.com/
 [SDK]: ../../api/python/index.md
