@@ -482,6 +482,56 @@ OpenAI-compatible hosts mapped to their official base URL.
 ----
 
 
+## LLMUsageLimitActivationMode
+```python 
+LLMUsageLimitActivationMode()
+```
+
+
+---
+Enumeration of when a new LLM usage limit becomes active
+
+**Fields:**
+
+- CURRENT_WINDOW: the limit replaces the active one immediately
+- NEXT_WINDOW: the limit is scheduled for the next time window
+
+----
+
+
+## LLMUsageLimitTimespan
+```python 
+LLMUsageLimitTimespan()
+```
+
+
+---
+Enumeration of the time windows over which an LLM usage limit is
+applied
+
+**Fields:**
+
+- WEEK
+
+----
+
+
+## LLMUsageMetricUnit
+```python 
+LLMUsageMetricUnit()
+```
+
+
+---
+Enumeration of the units in which an LLM usage limit is expressed
+
+**Fields:**
+
+- MILLION_TOKENS
+
+----
+
+
 ## ModelMetricName
 ```python 
 ModelMetricName()

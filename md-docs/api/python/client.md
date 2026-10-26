@@ -343,7 +343,7 @@ Create a task inside the project.
 * **data_structure**  : type of data in the task
 * **cost_info**  : optional argument that specify the cost
     information of the task
-* **optional_target**  : True if the target value is not always
+* **optional_target**  : True if the target value in not always
     available. This changes the behaviour and the detection
     phase of ML cube Platform that will analyse production
     data without considering the actual target
@@ -3021,6 +3021,37 @@ set as default.
 
 `SDKClientException`
 
+### .set_llm_integration_credentials_priority
+```python
+.set_llm_integration_credentials_priority(
+   credentials_id: str, priority: int
+)
+```
+
+---
+ Set the priority of the LLM integration credentials with the
+ given id. LLM modules try the project credentials from the
+ highest priority to the lowest.
+
+**Allowed Roles:**
+
+- At least `UPDATE_PROJECT_INFORMATION` for the project
+where the credentials have been configured
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **credentials_id**  : id of the LLM integration credentials.
+* **priority**  : new priority of the credentials, an integer of 1
+    or higher. A higher value means a higher priority.
+
+
+**Raises**
+
+`SDKClientException`
+
 ### .create_aws_integration_credentials
 ```python
 .create_aws_integration_credentials(
@@ -3773,3 +3804,330 @@ Returns the list of evaluation monitoring metrics in the task
 
 ---
 Returns the list of generic monitoring dimensions in the task
+
+### .get_company_llm_usage_limits
+```python
+.get_company_llm_usage_limits()
+```
+
+---
+Get the active LLM usage limits of all the projects and tasks of
+the company, with their usage in the current time window.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Returns**
+
+* **limits**  : `list[LLMUsageLimit]`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .get_project_llm_usage_limits
+```python
+.get_project_llm_usage_limits(
+   project_id: str
+)
+```
+
+---
+Get the active LLM usage limits of a project and of its tasks,
+with their usage in the current time window.
+
+**Allowed Roles:**
+
+- At least `READ_PROJECT_LLM_USAGE_LIMITS` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : the project identifier
+
+
+**Returns**
+
+* **limits**  : `list[LLMUsageLimit]`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .get_task_llm_usage_limit
+```python
+.get_task_llm_usage_limit(
+   project_id: str, task_id: str
+)
+```
+
+---
+Get the active LLM usage limit of a task, with its usage in the
+current time window.
+
+**Allowed Roles:**
+
+- At least `READ_PROJECT_LLM_USAGE_LIMITS` for the project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : the project identifier
+* **task_id**  : the task identifier
+
+
+**Returns**
+
+* **limit**  : `LLMUsageLimit`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .get_company_llm_usage_limits_next_window
+```python
+.get_company_llm_usage_limits_next_window()
+```
+
+---
+Get the LLM usage limits of the company projects and tasks that
+will be active in the next time window.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Returns**
+
+* **limits**  : `list[LLMUsageLimit]`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .get_project_llm_usage_limits_next_window
+```python
+.get_project_llm_usage_limits_next_window(
+   project_id: str
+)
+```
+
+---
+Get the LLM usage limits of a project and of its tasks that will
+be active in the next time window.
+
+**Allowed Roles:**
+
+- At least `READ_PROJECT_LLM_USAGE_LIMITS` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : the project identifier
+
+
+**Returns**
+
+* **limits**  : `list[LLMUsageLimit]`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .set_company_llm_usage_limits
+```python
+.set_company_llm_usage_limits(
+   project_limits: list[LLMUsageProjectLimit]
+)
+```
+
+---
+Set the LLM usage limits of one or more company projects and of
+their tasks.
+
+Every project limit must be at least the sum of its task limits.
+Limits activated in the current window must be at least 120% of
+the current usage, and they cannot be set while limits for the
+next window are scheduled.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_limits**  : the limits to set, one per project
+
+
+**Raises**
+
+`SDKClientException`
+
+### .set_project_llm_usage_limits
+```python
+.set_project_llm_usage_limits(
+   project_id: str, activation_mode: LLMUsageLimitActivationMode,
+   task_limits: dict[str, float]
+)
+```
+
+---
+Set the LLM usage limits of some tasks of a project, keeping the
+project limit unchanged.
+
+The project limit must be at least the sum of its task limits.
+Limits activated in the current window must be at least 120% of
+the current usage, and they cannot be set while limits for the
+next window are scheduled.
+
+**Allowed Roles:**
+
+- At least `MANAGE_PROJECT_LLM_USAGE_LIMITS` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : the project identifier
+* **activation_mode**  : whether the limits replace the active ones or
+    are scheduled for the next time window
+* **task_limits**  : the limit of each task, by task id, in million
+    tokens
+
+
+**Raises**
+
+`SDKClientException`
+
+### .update_company_llm_usage_next_window_limits
+```python
+.update_company_llm_usage_next_window_limits(
+   project_limits: list[LLMUsageProjectNextLimit]
+)
+```
+
+---
+Update the LLM usage limits of one or more company projects and of
+their tasks scheduled for the next time window.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_limits**  : the changes to the scheduled limits, one per
+    project
+
+
+**Raises**
+
+`SDKClientException`
+
+### .update_project_llm_usage_next_window_limits
+```python
+.update_project_llm_usage_next_window_limits(
+   project_id: str, task_limits: dict[str, float], task_limit_ids: dict[str, str],
+   timespan: LLMUsageLimitTimespan = LLMUsageLimitTimespan.WEEK,
+   metric_unit: LLMUsageMetricUnit = LLMUsageMetricUnit.MILLION_TOKENS
+)
+```
+
+---
+Update the LLM usage limits of some tasks of a project scheduled
+for the next time window.
+
+**Allowed Roles:**
+
+- At least `MANAGE_PROJECT_LLM_USAGE_LIMITS` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : the project identifier
+* **task_limits**  : the new limit of each task, by task id
+* **task_limit_ids**  : the identifier of the scheduled limit to
+    update, by task id
+* **timespan**  : time window over which the limits are applied
+* **metric_unit**  : unit of the limits
+
+
+**Raises**
+
+`SDKClientException`
+
+### .delete_company_llm_usage_next_window_limits
+```python
+.delete_company_llm_usage_next_window_limits(
+   project_ids: list[str]
+)
+```
+
+---
+Delete the LLM usage limits of some company projects, and of their
+tasks, scheduled for the next time window.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_ids**  : the projects whose scheduled limits are deleted
+
+
+**Raises**
+
+`SDKClientException`
+
+### .delete_project_llm_usage_next_window_limits
+```python
+.delete_project_llm_usage_next_window_limits(
+   project_id: str
+)
+```
+
+---
+Delete the LLM usage limits of the tasks of a project scheduled
+for the next time window.
+
+**Allowed Roles:**
+
+- At least `MANAGE_PROJECT_LLM_USAGE_LIMITS` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : the project identifier
+
+
+**Raises**
+
+`SDKClientException`

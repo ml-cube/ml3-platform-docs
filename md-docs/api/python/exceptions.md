@@ -73,6 +73,18 @@ ComputeLlmSecurityReportException
 ----
 
 
+## ComputeMultiTurnReportException
+```python 
+ComputeMultiTurnReportException()
+```
+
+
+---
+ComputeMultiTurnReportException
+
+----
+
+
 ## ComputeRagEvaluationReportException
 ```python 
 ComputeRagEvaluationReportException()
@@ -273,6 +285,18 @@ GetLlmSecurityReportException()
 
 ---
 GetLlmSecurityReportException
+
+----
+
+
+## GetMultiTurnReportException
+```python 
+GetMultiTurnReportException()
+```
+
+
+---
+GetMultiTurnReportException
 
 ----
 
