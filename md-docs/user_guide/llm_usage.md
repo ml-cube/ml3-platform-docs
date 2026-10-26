@@ -20,7 +20,7 @@ There are two views for LLM Usage limits depending on the User role and its scop
 The project view displays the project limit as a reference value. To change that limit, use the company view.
 
 <figure markdown>
-  ![Company Settings LLM Usage](../../imgs/llm-usage/company_settings_llm_usage.png)
+  ![Company Settings LLM Usage](../imgs/llm-usage/company_settings_llm_usage.png)
   <figcaption>LLM Usage page from Company Settings</figcaption>
 </figure>
 
