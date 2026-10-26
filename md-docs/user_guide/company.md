@@ -41,6 +41,7 @@ A Subscription has a **start** and an **expiration** date and contains the **mod
     | *Multi-Turn Analysis* | Evaluation of conversational RAG sessions, including core ideas, references, topic shifts and conciseness. |
     | *LLM Security* | Protection, auditing, and threat detection for Large Language Model interactions. |
     | *Business* | High-level performance tracking, primarily focused on KPI monitoring and business alignment. |
+    | *Export* | Allows to export data and ML cube Platform analysis results out of the platform. |
 
 
 Moreover, there are two types of subscriptions depending on where ML cube Platform is used:
