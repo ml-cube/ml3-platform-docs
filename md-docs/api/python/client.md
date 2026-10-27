@@ -1596,6 +1596,181 @@ Export a RAG evaluation report to a file.
 
 None
 
+### .create_export
+```python
+.create_export(
+   task_id: str, export_type: ExportType, starting_batch_index: (int|None) = None,
+   ending_batch_index: (int|None) = None,
+   bundles: (list[ExportBundleType]|None) = None,
+   reports: (list[ExportReportSelection]|None) = None
+)
+```
+
+---
+Create an export for a range of data batches or a list of reports.
+
+A `ExportType.BATCH_RANGE` export requires `starting_batch_index`
+and `ending_batch_index` and accepts `bundles`; it cannot set
+`reports`. A `ExportType.REPORT` export requires `reports` and
+cannot set the batch range or `bundles`.
+
+
+**Args**
+
+* **task_id**  : Identifier of the task whose artifacts will be exported.
+* **export_type**  : How the content of the export is selected.
+* **starting_batch_index**  : Index of the first data batch included.
+* **ending_batch_index**  : Index of the last data batch included.
+* **bundles**  : Artifact groups to include.
+* **reports**  : Reports to include, see `get_exportable_reports`.
+
+
+**Returns**
+
+Identifier of the created export.
+
+
+**Raises**
+
+`CreateExportException`
+
+### .get_exports
+```python
+.get_exports(
+   task_id: str, page: int = 1, page_size: int = 50, active: (bool|None) = None,
+   start_timestamp: (float|None) = None, end_timestamp: (float|None) = None,
+   starting_batch_index: (int|None) = None, ending_batch_index: (int|None) = None,
+   export_type: (ExportType|None) = None,
+   bundles: (list[ExportBundleType]|None) = None, report_name: (str|None) = None
+)
+```
+
+---
+Get a page of exports for a task.
+
+
+**Args**
+
+* **task_id**  : Identifier of the task.
+* **page**  : One-based page number. Defaults to 1.
+* **page_size**  : Number of exports per page. Defaults to 50.
+* **active**  : When set, filter by active or inactive exports.
+* **start_timestamp**  : Include exports created at or after this timestamp.
+* **end_timestamp**  : Include exports created before this timestamp.
+* **starting_batch_index**  : Include exports whose starting batch index
+    is greater than or equal to this value.
+* **ending_batch_index**  : Include exports whose ending batch index is
+    less than or equal to this value.
+* **export_type**  : When set, include only exports of this type.
+* **bundles**  : When set, include exports with at least one of these
+    bundles. For REPORT exports the bundles are the types of
+    the exported reports.
+* **report_name**  : Case-insensitive substring of the name of at least
+    one exported report.
+
+
+**Returns**
+
+Paginated exports and their current statuses.
+
+
+**Raises**
+
+`GetExportsException`
+
+### .get_export_creation_options
+```python
+.get_export_creation_options(
+   task_id: str
+)
+```
+
+---
+Get the options available when creating an export for a task.
+
+
+**Args**
+
+* **task_id**  : Identifier of the task.
+
+
+**Returns**
+
+Available bundles, available report types and the maximum
+selectable batch index.
+
+
+**Raises**
+
+`GetExportCreationOptionsException`
+
+### .get_exportable_reports
+```python
+.get_exportable_reports(
+   task_id: str, page: int = 1, page_size: int = 50,
+   report_types: (list[ExportBundleType]|None) = None, report_name: (str|None) = None,
+   start_timestamp: (float|None) = None, end_timestamp: (float|None) = None,
+   sort_field: (ExportableReportSortField|None) = None, ascending: bool = False
+)
+```
+
+---
+Get a page of the reports of a task that can be included in a
+report export.
+
+
+**Args**
+
+* **task_id**  : Identifier of the task.
+* **page**  : One-based page number. Defaults to 1.
+* **page_size**  : Number of reports per page. Defaults to 50.
+* **report_types**  : When set, include only reports of these types.
+    Types not available for the task are ignored.
+* **report_name**  : Case-insensitive substring of the report name.
+* **start_timestamp**  : Include reports created at or after this
+    timestamp.
+* **end_timestamp**  : Include reports created before this timestamp.
+* **sort_field**  : Field used to sort the reports. Defaults to
+    `ExportableReportSortField.CREATION_DATE`.
+* **ascending**  : Whether to sort in ascending order.
+
+
+**Returns**
+
+A page of exportable reports with their type, identifier, name
+and creation datetime, and the total number of reports.
+
+
+**Raises**
+
+`GetExportableReportsException`
+
+### .get_export_download_links
+```python
+.get_export_download_links(
+   task_id: str, export_id: str
+)
+```
+
+---
+Get signed download links for an export's artifacts.
+
+
+**Args**
+
+* **task_id**  : Identifier of the task.
+* **export_id**  : Identifier returned by `create_export`.
+
+
+**Returns**
+
+Export identifier and its signed artifact links.
+
+
+**Raises**
+
+`GetExportDownloadLinksException`
+
 ### .compute_topic_modeling_report
 ```python
 .compute_topic_modeling_report(
@@ -2846,6 +3021,37 @@ set as default.
 
 `SDKClientException`
 
+### .set_llm_integration_credentials_priority
+```python
+.set_llm_integration_credentials_priority(
+   credentials_id: str, priority: int
+)
+```
+
+---
+ Set the priority of the LLM integration credentials with the
+ given id. LLM modules try the project credentials from the
+ highest priority to the lowest.
+
+**Allowed Roles:**
+
+- At least `UPDATE_PROJECT_INFORMATION` for the project
+where the credentials have been configured
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **credentials_id**  : id of the LLM integration credentials.
+* **priority**  : new priority of the credentials, an integer of 1
+    or higher. A higher value means a higher priority.
+
+
+**Raises**
+
+`SDKClientException`
+
 ### .create_aws_integration_credentials
 ```python
 .create_aws_integration_credentials(
@@ -3004,7 +3210,7 @@ Create credentials to integrate with Azure.
 ### .create_google_genai_integration_credentials
 ```python
 .create_google_genai_integration_credentials(
-   name: str, default: bool, project_id: str, api_key: str
+   name: str, default: bool, priority: int, project_id: str, api_key: str
 )
 ```
 
@@ -3023,6 +3229,7 @@ Create credentials to access Google GenAI service.
 * **name**  : a simple name to identify this set of credentials
 * **default**  : whether to use these credentials by default when
     using a Google GenAI integration
+* **priority**  : order of these credentials, an integer of 1 or higher
 * **project_id**  : the project in which these credentials will
     be configured
 * **api_key**  : the subscription key
@@ -3040,7 +3247,7 @@ Create credentials to access Google GenAI service.
 ### .create_google_vertexai_integration_credentials
 ```python
 .create_google_vertexai_integration_credentials(
-   name: str, default: bool, project_id: str, api_key: str
+   name: str, default: bool, priority: int, project_id: str, api_key: str
 )
 ```
 
@@ -3059,6 +3266,7 @@ Create credentials to access Google VertexAI service.
 * **name**  : a simple name to identify this set of credentials
 * **default**  : whether to use these credentials by default when
     using a Google VertexAI integration
+* **priority**  : order of these credentials, an integer of 1 or higher
 * **project_id**  : the project in which these credentials will
     be configured
 * **api_key**  : The subscription key of the service
@@ -3076,8 +3284,8 @@ Create credentials to access Google VertexAI service.
 ### .create_azure_openai_integration_credentials
 ```python
 .create_azure_openai_integration_credentials(
-   name: str, default: bool, project_id: str, api_version: str, endpoint: str,
-   api_key: str
+   name: str, default: bool, priority: int, project_id: str, api_version: str,
+   endpoint: str, api_key: str
 )
 ```
 
@@ -3096,6 +3304,7 @@ Create credentials to access Azure OpenAI services.
 * **name**  : a simple name to identify this set of credentials
 * **default**  : whether to use these credentials by default when
     using a Azure OpenAI integration
+* **priority**  : order of these credentials, an integer of 1 or higher
 * **project_id**  : the project in which these credentials will
     be configured
 * **api_version**  : The version of the Azure OpenAI API to use
@@ -3115,12 +3324,13 @@ Create credentials to access Azure OpenAI services.
 ### .create_openai_integration_credentials
 ```python
 .create_openai_integration_credentials(
-   name: str, default: bool, project_id: str, api_key: str
+   name: str, default: bool, priority: int, project_id: str, api_key: str,
+   provider: (LLMProvider|None) = None, base_url: (str|None) = None
 )
 ```
 
 ---
-Create credentials to access OpenAI services.
+Create credentials to access OpenAI or an OpenAI-compatible API.
 
 **Allowed Roles:**
 
@@ -3134,9 +3344,15 @@ Create credentials to access OpenAI services.
 * **name**  : a simple name to identify this set of credentials
 * **default**  : whether to use these credentials by default when
     using a OpenAI integration
+* **priority**  : order of these credentials, an integer of 1 or higher
 * **project_id**  : the project in which these credentials will
     be configured
 * **api_key**  : The subscription key of the service
+* **provider**  : LLM provider. When unset, OpenAI is stored.
+* **base_url**  : Base URL for that host. When unset, blank, or equal
+    to the selected provider's official URL, that official URL
+    is stored. A URL that belongs to another provider is
+    rejected. Any other URL is stored.
 
 
 **Returns**
@@ -3151,7 +3367,7 @@ Create credentials to access OpenAI services.
 ### .create_anthropic_integration_credentials
 ```python
 .create_anthropic_integration_credentials(
-   name: str, default: bool, project_id: str, api_key: str
+   name: str, default: bool, priority: int, project_id: str, api_key: str
 )
 ```
 
@@ -3170,6 +3386,7 @@ Create credentials to access Anthropic services.
 * **name**  : a simple name to identify this set of credentials
 * **default**  : whether to use these credentials by default when
     using a Anthropic integration
+* **priority**  : order of these credentials, an integer of 1 or higher
 * **project_id**  : the project in which these credentials will
     be configured
 * **api_key**  : The subscription key of the service
@@ -3335,6 +3552,80 @@ For a given task id, get the computed LLM Security reports.
 
 GetLlmSecurityReportException
 
+### .compute_multi_turn_report
+```python
+.compute_multi_turn_report(
+   task_id: str, report_name: str, session_ids: list[str]
+)
+```
+
+---
+Compute the multi-turn report for a given task.
+
+This method guarantees that every session in `session_ids` is
+evaluated for the task's configured multi-turn metrics (or the
+full multi-turn metric catalog if none is configured): sessions
+already evaluated are reused as-is, the rest are evaluated now.
+
+This request starts an operation pipeline that is
+executed by ML cube Platform.
+Thus, the method returns the identifier of the job that you can
+monitor to know its status and proceed with the other work
+using the method `wait_job_completion(job_id)`
+
+**Allowed Roles:**
+- At least `PROJECT_EDIT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the identifier of the task
+* **report_name**  : the name of the report
+* **session_ids**  : the identifiers of the multi-turn sessions to
+    evaluate
+
+
+**Returns**
+
+* **job_id**  : `str` identifier of the submitted job
+
+
+**Raises**
+
+ComputeMultiTurnReportException
+
+### .get_multi_turn_reports
+```python
+.get_multi_turn_reports(
+   task_id: str
+)
+```
+
+---
+For a given task id, get the computed multi-turn reports.
+
+**Allowed Roles:**
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the identifier of the task
+
+
+**Returns**
+
+* **multi_turn_reports**  : list[TaskMultiTurnReportItem]
+
+
+**Raises**
+
+GetMultiTurnReportException
+
 ### .get_all_task_segments
 ```python
 .get_all_task_segments(
@@ -3429,11 +3720,16 @@ for a task monitoring config.
 
 Current backend semantics:
 
-- only the thresholds inside `evaluation_metrics` and
-  `generic_monitoring_dimensions` can be updated
-- the submitted lists must reference exactly the evaluation metrics
-  and generic dimensions already configured during the initial setup
-- persisted `monitored_dimensions` are preserved
+- only thresholds can be updated: for `evaluation_metrics` and
+  `generic_monitoring_dimensions`, and for `monitoring_metrics`
+  entries inside `monitored_dimensions` that accept a threshold
+  (e.g. `MonitoringMetric.TEXT_MULTI_TURN_*`)
+- the submitted `evaluation_metrics`/`generic_monitoring_dimensions`
+  lists must reference exactly the evaluation metrics and generic
+  dimensions already configured during the initial setup
+- each entry in `monitoring_metrics` must reference an
+  already-configured `(segment, target, metric)` triple; metrics
+  cannot be added, removed, or replaced this way
 - the monitoring config must already exist
 
 **Allowed Roles:**
@@ -3508,3 +3804,330 @@ Returns the list of evaluation monitoring metrics in the task
 
 ---
 Returns the list of generic monitoring dimensions in the task
+
+### .get_company_llm_usage_limits
+```python
+.get_company_llm_usage_limits()
+```
+
+---
+Get the active LLM usage limits of all the projects and tasks of
+the company, with their usage in the current time window.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Returns**
+
+* **limits**  : `list[LLMUsageLimit]`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .get_project_llm_usage_limits
+```python
+.get_project_llm_usage_limits(
+   project_id: str
+)
+```
+
+---
+Get the active LLM usage limits of a project and of its tasks,
+with their usage in the current time window.
+
+**Allowed Roles:**
+
+- At least `READ_PROJECT_LLM_USAGE_LIMITS` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : the project identifier
+
+
+**Returns**
+
+* **limits**  : `list[LLMUsageLimit]`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .get_task_llm_usage_limit
+```python
+.get_task_llm_usage_limit(
+   project_id: str, task_id: str
+)
+```
+
+---
+Get the active LLM usage limit of a task, with its usage in the
+current time window.
+
+**Allowed Roles:**
+
+- At least `READ_PROJECT_LLM_USAGE_LIMITS` for the project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : the project identifier
+* **task_id**  : the task identifier
+
+
+**Returns**
+
+* **limit**  : `LLMUsageLimit`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .get_company_llm_usage_limits_next_window
+```python
+.get_company_llm_usage_limits_next_window()
+```
+
+---
+Get the LLM usage limits of the company projects and tasks that
+will be active in the next time window.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Returns**
+
+* **limits**  : `list[LLMUsageLimit]`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .get_project_llm_usage_limits_next_window
+```python
+.get_project_llm_usage_limits_next_window(
+   project_id: str
+)
+```
+
+---
+Get the LLM usage limits of a project and of its tasks that will
+be active in the next time window.
+
+**Allowed Roles:**
+
+- At least `READ_PROJECT_LLM_USAGE_LIMITS` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : the project identifier
+
+
+**Returns**
+
+* **limits**  : `list[LLMUsageLimit]`
+
+
+**Raises**
+
+`SDKClientException`
+
+### .set_company_llm_usage_limits
+```python
+.set_company_llm_usage_limits(
+   project_limits: list[LLMUsageProjectLimit]
+)
+```
+
+---
+Set the LLM usage limits of one or more company projects and of
+their tasks.
+
+Every project limit must be at least the sum of its task limits.
+Limits activated in the current window must be at least 120% of
+the current usage, and they cannot be set while limits for the
+next window are scheduled.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_limits**  : the limits to set, one per project
+
+
+**Raises**
+
+`SDKClientException`
+
+### .set_project_llm_usage_limits
+```python
+.set_project_llm_usage_limits(
+   project_id: str, activation_mode: LLMUsageLimitActivationMode,
+   task_limits: dict[str, float]
+)
+```
+
+---
+Set the LLM usage limits of some tasks of a project, keeping the
+project limit unchanged.
+
+The project limit must be at least the sum of its task limits.
+Limits activated in the current window must be at least 120% of
+the current usage, and they cannot be set while limits for the
+next window are scheduled.
+
+**Allowed Roles:**
+
+- At least `MANAGE_PROJECT_LLM_USAGE_LIMITS` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : the project identifier
+* **activation_mode**  : whether the limits replace the active ones or
+    are scheduled for the next time window
+* **task_limits**  : the limit of each task, by task id, in million
+    tokens
+
+
+**Raises**
+
+`SDKClientException`
+
+### .update_company_llm_usage_next_window_limits
+```python
+.update_company_llm_usage_next_window_limits(
+   project_limits: list[LLMUsageProjectNextLimit]
+)
+```
+
+---
+Update the LLM usage limits of one or more company projects and of
+their tasks scheduled for the next time window.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_limits**  : the changes to the scheduled limits, one per
+    project
+
+
+**Raises**
+
+`SDKClientException`
+
+### .update_project_llm_usage_next_window_limits
+```python
+.update_project_llm_usage_next_window_limits(
+   project_id: str, task_limits: dict[str, float], task_limit_ids: dict[str, str],
+   timespan: LLMUsageLimitTimespan = LLMUsageLimitTimespan.WEEK,
+   metric_unit: LLMUsageMetricUnit = LLMUsageMetricUnit.MILLION_TOKENS
+)
+```
+
+---
+Update the LLM usage limits of some tasks of a project scheduled
+for the next time window.
+
+**Allowed Roles:**
+
+- At least `MANAGE_PROJECT_LLM_USAGE_LIMITS` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : the project identifier
+* **task_limits**  : the new limit of each task, by task id
+* **task_limit_ids**  : the identifier of the scheduled limit to
+    update, by task id
+* **timespan**  : time window over which the limits are applied
+* **metric_unit**  : unit of the limits
+
+
+**Raises**
+
+`SDKClientException`
+
+### .delete_company_llm_usage_next_window_limits
+```python
+.delete_company_llm_usage_next_window_limits(
+   project_ids: list[str]
+)
+```
+
+---
+Delete the LLM usage limits of some company projects, and of their
+tasks, scheduled for the next time window.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_ids**  : the projects whose scheduled limits are deleted
+
+
+**Raises**
+
+`SDKClientException`
+
+### .delete_project_llm_usage_next_window_limits
+```python
+.delete_project_llm_usage_next_window_limits(
+   project_id: str
+)
+```
+
+---
+Delete the LLM usage limits of the tasks of a project scheduled
+for the next time window.
+
+**Allowed Roles:**
+
+- At least `MANAGE_PROJECT_LLM_USAGE_LIMITS` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : the project identifier
+
+
+**Raises**
+
+`SDKClientException`

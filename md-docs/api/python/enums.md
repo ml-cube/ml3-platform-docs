@@ -262,6 +262,59 @@ DetectionEventType()
 ----
 
 
+## ExportBundleType
+```python 
+ExportBundleType()
+```
+
+
+---
+Group of Platform artifacts included in an export.
+
+----
+
+
+## ExportStatus
+```python 
+ExportStatus()
+```
+
+
+---
+Status of an export operation.
+
+----
+
+
+## ExportType
+```python 
+ExportType()
+```
+
+
+---
+How the content of an export is selected.
+
+BATCH_RANGE exports the chosen bundles for an inclusive batch range,
+REPORT exports a user-selected list of reports.
+
+----
+
+
+## ExportableReportSortField
+```python 
+ExportableReportSortField()
+```
+
+
+---
+Field used to sort the reports that can be included in an export.
+
+REPORT_TYPE sorts by report type and then newest first.
+
+----
+
+
 ## ExternalIntegration
 ```python 
 ExternalIntegration()
@@ -398,6 +451,84 @@ LLMProvider()
 Enumerator of the providers of LLMs we can use to generate
 text both for RAG and LLM.
 
+**Fields:**
+
+- OPENAI
+Official OpenAI API models.
+---
+- OPENROUTER
+    OpenAI-compatible OpenRouter host.
+- AZURE_OPENAI
+    Azure-hosted OpenAI models.
+- ANTHROPIC
+    Anthropic Claude models.
+- GOOGLE
+    Google GenAI models.
+- GOOGLE_VERTEXAI
+    Google Vertex AI models.
+
+
+**Methods:**
+
+
+### .openai_compatible_providers
+```python
+.openai_compatible_providers()
+```
+
+---
+OpenAI-compatible hosts mapped to their official base URL.
+
+----
+
+
+## LLMUsageLimitActivationMode
+```python 
+LLMUsageLimitActivationMode()
+```
+
+
+---
+Enumeration of when a new LLM usage limit becomes active
+
+**Fields:**
+
+- CURRENT_WINDOW: the limit replaces the active one immediately
+- NEXT_WINDOW: the limit is scheduled for the next time window
+
+----
+
+
+## LLMUsageLimitTimespan
+```python 
+LLMUsageLimitTimespan()
+```
+
+
+---
+Enumeration of the time windows over which an LLM usage limit is
+applied
+
+**Fields:**
+
+- WEEK
+
+----
+
+
+## LLMUsageMetricUnit
+```python 
+LLMUsageMetricUnit()
+```
+
+
+---
+Enumeration of the units in which an LLM usage limit is expressed
+
+**Fields:**
+
+- MILLION_TOKENS
+
 ----
 
 
@@ -489,6 +620,16 @@ Text:
     - TEXT_EMOTION
     - TEXT_SENTIMENT
     - TEXT_LENGTH
+    - TEXT_MULTI_TURN_INFORMATION
+    - TEXT_MULTI_TURN_INSTRUCTION
+    - TEXT_MULTI_TURN_OVERALL
+    - TEXT_MULTI_TURN_IN_CONTEXT
+    - TEXT_MULTI_TURN_OUT_OF_CONTEXT
+    - TEXT_MULTI_TURN_STRUCTURAL_CONSTRAINT
+    - TEXT_MULTI_TURN_POSITIONAL_BIAS
+    - TEXT_MULTI_TURN_CONCISENESS
+    - TEXT_MULTI_TURN_REFERENCE_RESOLUTION
+    - TEXT_MULTI_TURN_TOPIC_SHIFT
 
 Model probabilistic output:
     - MODEL_PERPLEXITY
@@ -549,6 +690,7 @@ MonitoringTarget()
 - MODEL_OUTPUT_RETRIEVED_CONTEXT
 - CHARACTER_ERROR_RATE
 - WORD_ERROR_RATE
+- TURN
 
 ----
 

@@ -390,6 +390,18 @@ config API and reused in the setup payload.
 ----
 
 
+## ConfiguredMonitoredDimensionMetric
+```python 
+ConfiguredMonitoredDimensionMetric()
+```
+
+
+---
+Persisted monitored-dimension metric selection.
+
+----
+
+
 ## ConfiguredMonitoredDimensionSegment
 ```python 
 ConfiguredMonitoredDimensionSegment()
@@ -674,6 +686,81 @@ There is only one input that has type array_1
 ----
 
 
+## ExportCreationOptions
+```python 
+ExportCreationOptions()
+```
+
+
+---
+Options available when creating an export for a task.
+
+----
+
+
+## ExportDownloadLinks
+```python 
+ExportDownloadLinks()
+```
+
+
+---
+Signed artifact links generated for an export.
+
+----
+
+
+## ExportInstance
+```python 
+ExportInstance()
+```
+
+
+---
+A Platform export and its materialization status.
+
+Batch fields are set only for BATCH_RANGE exports, reports only for
+REPORT exports.
+
+----
+
+
+## ExportReport
+```python 
+ExportReport()
+```
+
+
+---
+A report included in a REPORT export.
+
+----
+
+
+## ExportReportSelection
+```python 
+ExportReportSelection()
+```
+
+
+---
+A report selected for a REPORT export.
+
+----
+
+
+## ExportableReport
+```python 
+ExportableReport()
+```
+
+
+---
+A report of a task that can be included in a REPORT export.
+
+----
+
+
 ## GCPCredentials
 ```python 
 GCPCredentials()
@@ -910,6 +997,25 @@ KPI base model
 ----
 
 
+## LLMIntegrationCredentials
+```python 
+LLMIntegrationCredentials()
+```
+
+
+---
+Credentials to authenticate to an LLM provider.
+
+
+**Attributes**
+
+* **priority**  : int
+* **provider**  : LLM provider these credentials authenticate to
+
+
+----
+
+
 ## LLMPrompt
 ```python 
 LLMPrompt()
@@ -955,6 +1061,91 @@ Base model to define llm specs
 * **thinking_effort**  : str | None, it indicates the effort level for the model's thinking process.
 * **thinking_budget**  : int | None, it indicates the budget allocated for the model's thinking process.
 * **prompt**  : LLMPrompt, it defines the prompt structure including role, task, behavior and security guidelines.
+
+
+----
+
+
+## LLMUsageLimit
+```python 
+LLMUsageLimit()
+```
+
+
+---
+LLM usage limit of a project or of a task
+
+
+**Attributes**
+
+* **document_id**  : identifier of the limit, None for a default limit
+* **creation_date**  : when the limit has been created
+* **user_id**  : user who created the limit
+* **active_start_date**  : when the limit becomes active
+* **active_end_date**  : when the limit stops being active, None if it
+    has no end
+* **timespan**  : time window over which the limit is applied
+* **limit**  : maximum usage allowed in each time window, expressed in
+    `metric_unit`
+* **project_id**  : project of the limit
+* **task_id**  : task of the limit, None for the project limit
+* **metric_unit**  : unit of `limit` and `current_usage`
+* **previous_document_id**  : identifier of the limit replaced by this one
+* **current_usage**  : usage of the current time window, None when not
+    computed
+
+
+----
+
+
+## LLMUsageProjectLimit
+```python 
+LLMUsageProjectLimit()
+```
+
+
+---
+LLM usage limits to set on a project and on its tasks
+
+
+**Attributes**
+
+* **project_id**  : project to which the limits are applied
+* **activation_mode**  : whether the limits replace the active ones or
+    are scheduled for the next time window
+* **project_limit**  : limit of the project, None to keep the current one.
+    It must be at least the sum of the project task limits
+* **task_limits**  : limit of each task, by task id. Tasks not included
+    keep their current limit
+* **timespan**  : time window over which the limits are applied
+* **metric_unit**  : unit of the limits
+
+
+----
+
+
+## LLMUsageProjectNextLimit
+```python 
+LLMUsageProjectNextLimit()
+```
+
+
+---
+Changes to the LLM usage limits of a project scheduled for the next
+time window
+
+
+**Attributes**
+
+* **project_id**  : project to which the limits are applied
+* **project_limit_document_id**  : identifier of the scheduled project
+    limit to update, None when the project limit is not changed
+* **project_limit**  : new project limit, None to keep the scheduled one
+* **task_limits**  : new limit of each task, by task id
+* **task_limit_ids**  : identifier of the scheduled limit to update, by
+    task id
+* **timespan**  : time window over which the limits are applied
+* **metric_unit**  : unit of the limits
 
 
 ----
@@ -1020,18 +1211,6 @@ Monitoring metric configuration returned by the monitoring config API.
 ----
 
 
-## MonitoredDimensionSegmentSelection
-```python 
-MonitoredDimensionSegmentSelection()
-```
-
-
----
-Segment selection used in the initial setup payload.
-
-----
-
-
 ## MonitoredDimensionTargetOption
 ```python 
 MonitoredDimensionTargetOption()
@@ -1040,18 +1219,6 @@ MonitoredDimensionTargetOption()
 
 ---
 Monitoring target available for configuration.
-
-----
-
-
-## MonitoredDimensionTargetSelection
-```python 
-MonitoredDimensionTargetSelection()
-```
-
-
----
-Monitoring target selection used in the initial setup payload.
 
 ----
 
@@ -1239,7 +1406,32 @@ OpenAI integration credentials.
 **Attributes**
 
 * **partial_api_key**  : The api key (obfuscated) of the service
+* **base_url**  : Stored endpoint for that host
 
+
+----
+
+
+## PaginatedExportableReports
+```python 
+PaginatedExportableReports()
+```
+
+
+---
+A page of the reports of a task that can be included in an export.
+
+----
+
+
+## PaginatedExports
+```python 
+PaginatedExports()
+```
+
+
+---
+A page of exports belonging to a task.
 
 ----
 
@@ -1602,6 +1794,18 @@ Initial setup payload for the monitoring config API.
 ----
 
 
+## SingleBundleEndpointDownloadLink
+```python 
+SingleBundleEndpointDownloadLink()
+```
+
+
+---
+A signed download link for one artifact in an export.
+
+----
+
+
 ## SlackNotificationAction
 ```python 
 SlackNotificationAction()
@@ -1776,6 +1980,30 @@ a LLM security report.
 ----
 
 
+## TaskMultiTurnReportItem
+```python 
+TaskMultiTurnReportItem()
+```
+
+
+---
+Task multi-turn report item model.
+It contains the most important information of
+a multi-turn report.
+
+
+**Attributes**
+
+* **id**  : str
+* **creation_datetime**  : datetime
+* **name**  : str
+* **status**  : JobStatus
+* **session_ids**  : list[str]
+
+
+----
+
+
 ## TaskRagEvalReportItem
 ```python 
 TaskRagEvalReportItem()
@@ -1891,3 +2119,13 @@ Threshold-update payload for the monitoring config API.
 
 The configured evaluation-metric and generic-dimension sets must match
 what was chosen during the initial setup.
+
+----
+
+
+## UpdateMonitoringMetric
+```python 
+UpdateMonitoringMetric()
+```
+
+
