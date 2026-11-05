@@ -441,6 +441,25 @@ KPIStatus()
 ----
 
 
+## LLMModule
+```python 
+LLMModule()
+```
+
+
+---
+Enumeration of the Platform modules that use an LLM
+
+**Fields:**
+
+- RAG: RAG evaluation
+- TOPIC: topic modeling
+- MULTITURN: multi-turn evaluation
+- SECURITY: LLM security
+
+----
+
+
 ## LLMProvider
 ```python 
 LLMProvider()
@@ -528,6 +547,25 @@ Enumeration of the units in which an LLM usage limit is expressed
 **Fields:**
 
 - MILLION_TOKENS
+
+----
+
+
+## LLMUsageReportStatus
+```python 
+LLMUsageReportStatus()
+```
+
+
+---
+Enumeration of the statuses of an LLM usage report computation
+
+**Fields:**
+
+- STARTING: the report is created, its computation is not started
+- RUNNING
+- COMPLETED
+- ERROR
 
 ----
 

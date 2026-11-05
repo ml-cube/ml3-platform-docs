@@ -48,14 +48,18 @@ When exporting by report, each selected report produces its own file.
 | **LLM security reports** | Parquet file | RAG tasks with [LLM Security] enabled. |
 | **Topic modeling reports** | Parquet file | Text tasks with [Topic Analysis] enabled. |
 | **Multi-turn reports** | ZIP archive of JSON files | RAG and AI Agents tasks configured as multi-turn, when monitoring is included in the subscription. See [Multi-Turn Analysis]. |
+| **LLM usage reports** | Parquet file | Every task type. See [LLM Usage]. |
 
 A multi-turn report archive contains a `summary.json` file with the report
 summary and, for every session in the report, one JSON file per turn with its
 analysis, under `sessions/<session id>/`.
 
+An LLM usage report file contains one row for every day, task, job, model, and
+credential, with the number of LLM calls and the tokens of each type.
+
 !!! note
-    Multi-turn reports can be exported only by report: they are not available
-    as a bundle in a batch range export.
+    Multi-turn reports and LLM usage reports can be exported only by report:
+    they are not available as a bundle in a batch range export.
 
 Only completed reports whose results are stored can be exported. If a selected
 report is deleted after the export is created, the export still completes but
@@ -133,9 +137,9 @@ status; the list does not update automatically.
 
 A single report can also be exported directly from the module page where it is
 listed. The export button is in the actions column of the reports table of the
-[RAG evaluation], [LLM Security], [Topic Analysis], and [Multi-Turn Analysis]
-pages. It is available once the report is completed, and it is hidden when the
-Export feature is not enabled.
+[RAG evaluation], [LLM Security], [Topic Analysis], [Multi-Turn Analysis], and
+[LLM Usage] pages. It is available once the report is completed, and it is
+hidden when the Export feature is not enabled.
 
 1. Select the export icon in the row of the report.
 2. Review the report name, type, and file format, then select **Export**.
@@ -154,6 +158,28 @@ reason and offers **Retry**.
   ![Export a single report](../../imgs/exports/report-export.png)
   <figcaption>Export a single report from its module page.</figcaption>
 </figure>
+
+### Project and company LLM usage reports
+
+An LLM usage report of a whole project or of the whole company is exported
+with **one export per task**: each export contains only the usage of its task,
+and one is created also for the tasks without usage. Every export is an export
+by report of its task, so it is listed in the Exports page of that task and
+follows the same statuses and expiration.
+
+The window shows the download links grouped by task as each export completes,
+and how many of the task exports have been processed. It can be closed at any
+time: the exports keep running in the background.
+
+Exporting a project report requires permission to work on the project.
+Exporting a company report requires the company owner or administrator role.
+
+<!-- TODO: add screenshot md-docs/imgs/exports/llm-usage-report-export.png
+<figure markdown>
+  ![Export a project LLM usage report](../../imgs/exports/llm-usage-report-export.png)
+  <figcaption>Per-task exports of a project LLM usage report.</figcaption>
+</figure>
+-->
 
 ## Export statuses
 
@@ -263,6 +289,9 @@ the number of rows shown.
   selected. Also confirm that you have permission to work on the project.
 - **The export button of a report is disabled**: the report is not completed
   yet.
+- **The export of a project or company LLM usage report is not in the Exports
+  page**: these reports are exported with one export per task. Open the
+  Exports page of each task.
 - **The new export remains in queue or running**: wait for processing to finish,
   then select the **Reload exports** icon to retrieve the latest status.
 - **An export failed**: select its error-details icon for more information, then
@@ -291,6 +320,11 @@ Exports can also be managed with the [Python SDK]:
 - `get_exports` returns a page of the task exports, with the same filters
   offered in the web app.
 - `get_export_download_links` returns the download links of a completed export.
+- `create_project_llm_usage_report_exports` and
+  `create_company_llm_usage_report_exports` export a completed project or
+  company LLM usage report with one export per task. They return the task and
+  the export identifier of every export, to follow with `get_exports` and
+  `get_export_download_links` of that task.
 
 ??? code-block "SDK Example"
 
@@ -324,4 +358,5 @@ Exports can also be managed with the [Python SDK]:
 [LLM Security]: llm_security.md
 [Topic Analysis]: topic_modeling.md
 [Multi-Turn Analysis]: multi_turn.md
+[LLM Usage]: ../llm_usage.md
 [Python SDK]: ../../api/python/client.md#create_export
