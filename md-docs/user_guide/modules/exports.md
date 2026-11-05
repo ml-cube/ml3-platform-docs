@@ -174,12 +174,10 @@ time: the exports keep running in the background.
 Exporting a project report requires permission to work on the project.
 Exporting a company report requires the company owner or administrator role.
 
-<!-- TODO: add screenshot md-docs/imgs/exports/llm-usage-report-export.png
 <figure markdown>
   ![Export a project LLM usage report](../../imgs/exports/llm-usage-report-export.png)
   <figcaption>Per-task exports of a project LLM usage report.</figcaption>
 </figure>
--->
 
 ## Export statuses
 
