@@ -1066,6 +1066,28 @@ Base model to define llm specs
 ----
 
 
+## LLMTokenUsageBreakdown
+```python 
+LLMTokenUsageBreakdown()
+```
+
+
+---
+Tokens used by LLM calls, by kind
+
+
+**Attributes**
+
+* **input_normal**  : input tokens neither cached nor written to the cache
+* **input_cache_creation**  : input tokens written to the cache
+* **input_cached**  : input tokens read from the cache
+* **output_response**  : output tokens of the response
+* **output_thinking**  : output tokens of the thinking
+
+
+----
+
+
 ## LLMUsageLimit
 ```python 
 LLMUsageLimit()
@@ -1093,6 +1115,27 @@ LLM usage limit of a project or of a task
 * **previous_document_id**  : identifier of the limit replaced by this one
 * **current_usage**  : usage of the current time window, None when not
     computed
+
+
+----
+
+
+## LLMUsageLive
+```python 
+LLMUsageLive()
+```
+
+
+---
+LLM usage computed on request, without storing a report
+
+
+**Attributes**
+
+* **min_date**  : the first day that can be requested
+* **from_date**  : first day of the range
+* **to_date**  : last day of the range
+* **computation_datetime**  : when the usage has been computed
 
 
 ----
@@ -1146,6 +1189,203 @@ time window
     task id
 * **timespan**  : time window over which the limits are applied
 * **metric_unit**  : unit of the limits
+
+
+----
+
+
+## LLMUsageReport
+```python 
+LLMUsageReport()
+```
+
+
+---
+LLM usage report of a task, of a whole project or of a whole company
+
+
+**Attributes**
+
+* **id**  : identifier of the report
+* **name**  : name of the report
+* **creation_datetime**  : when the report has been created
+* **created_by**  : user who created the report
+* **status**  : status of the report computation
+* **from_date**  : Monday of the first week of the report
+* **to_date**  : Sunday of the last week of the report
+
+
+----
+
+
+## LLMUsageReportContent
+```python 
+LLMUsageReportContent()
+```
+
+
+---
+Content of an LLM usage report. The rows refer to the projects, tasks,
+jobs and credentials by their identifier
+
+
+**Attributes**
+
+* **weeks**  : weeks covered, with their limit
+* **projects**  : projects included
+* **tasks**  : tasks included
+* **jobs**  : jobs whose calls are included
+* **credentials**  : credentials used by the calls
+* **rows**  : usage by day, task, job, model and credential
+
+
+----
+
+
+## LLMUsageReportCredential
+```python 
+LLMUsageReportCredential()
+```
+
+
+---
+An LLM integration credential used by the calls of an LLM usage report
+
+
+**Attributes**
+
+* **credential_id**  : identifier of the credential
+* **name**  : name of the credential
+* **customer_label**  : label set by the customer, if any
+
+
+----
+
+
+## LLMUsageReportDetails
+```python 
+LLMUsageReportDetails()
+```
+
+
+---
+LLM usage report with its content, which is empty until the report is
+completed
+
+
+**Attributes**
+
+* **computation_datetime**  : when the report has been computed, None
+    until it is completed
+
+
+----
+
+
+## LLMUsageReportJob
+```python 
+LLMUsageReportJob()
+```
+
+
+---
+A job whose LLM calls are included in an LLM usage report
+
+
+**Attributes**
+
+* **job_id**  : identifier of the job
+* **module**  : Platform module of the job
+* **report_id**  : report computed by the job, if any
+* **report_name**  : name of the report computed by the job, if any
+* **group_id**  : kind of job, set for the jobs without report
+* **start_datetime**  : when the job started
+* **duration_seconds**  : duration of the job, None if not finished
+
+
+----
+
+
+## LLMUsageReportProject
+```python 
+LLMUsageReportProject()
+```
+
+
+---
+A project included in an LLM usage report
+
+
+**Attributes**
+
+* **project_id**  : identifier of the project
+* **name**  : name of the project
+
+
+----
+
+
+## LLMUsageReportRow
+```python 
+LLMUsageReportRow()
+```
+
+
+---
+LLM usage of one day, task, job, model and credential
+
+
+**Attributes**
+
+* **date**  : UTC day of the calls
+* **task_id**  : task of the calls
+* **job_id**  : job of the calls
+* **module**  : Platform module of the calls
+* **model**  : LLM model called
+* **credential_id**  : credential used by the calls
+* **calls**  : number of calls
+* **usage**  : tokens used by the calls
+
+
+----
+
+
+## LLMUsageReportTask
+```python 
+LLMUsageReportTask()
+```
+
+
+---
+A task included in an LLM usage report
+
+
+**Attributes**
+
+* **task_id**  : identifier of the task
+* **name**  : name of the task
+* **project_id**  : project of the task, None for a task that does not
+    exist any more
+
+
+----
+
+
+## LLMUsageReportWeek
+```python 
+LLMUsageReportWeek()
+```
+
+
+---
+A week covered by an LLM usage report
+
+
+**Attributes**
+
+* **start_date**  : Monday of the week
+* **limit**  : usage limit of the week, always None in a company report
+* **metric_unit**  : unit of `limit`
 
 
 ----
@@ -2023,6 +2263,20 @@ base model for Rag Evaluation Report
 * **from_datetime**  : datetime
 * **to_datetime**  : datetime
 
+
+----
+
+
+## TaskReportExport
+```python 
+TaskReportExport()
+```
+
+
+---
+The export of one task created when exporting an LLM usage report of
+a whole project or company. It is followed with the export methods of
+its task.
 
 ----
 

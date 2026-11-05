@@ -181,6 +181,30 @@ CreateLLMSpecsException
 ----
 
 
+## CreateLLMUsageReportException
+```python 
+CreateLLMUsageReportException()
+```
+
+
+---
+Raised when an LLM usage report cannot be created.
+
+----
+
+
+## CreateLLMUsageReportExportsException
+```python 
+CreateLLMUsageReportExportsException()
+```
+
+
+---
+Raised when the exports of an LLM usage report cannot be created.
+
+----
+
+
 ## CreateModelException
 ```python 
 CreateModelException()
@@ -273,6 +297,42 @@ GetExportsException()
 
 ---
 Raised when task exports cannot be retrieved.
+
+----
+
+
+## GetLLMUsageLiveException
+```python 
+GetLLMUsageLiveException()
+```
+
+
+---
+Raised when the live LLM usage cannot be computed.
+
+----
+
+
+## GetLLMUsageReportException
+```python 
+GetLLMUsageReportException()
+```
+
+
+---
+Raised when an LLM usage report cannot be retrieved.
+
+----
+
+
+## GetLLMUsageReportsException
+```python 
+GetLLMUsageReportsException()
+```
+
+
+---
+Raised when the LLM usage reports cannot be retrieved.
 
 ----
 
