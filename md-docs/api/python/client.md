@@ -4131,3 +4131,476 @@ for the next time window.
 **Raises**
 
 `SDKClientException`
+
+### .get_task_llm_usage_reports
+```python
+.get_task_llm_usage_reports(
+   task_id: str
+)
+```
+
+---
+Get the LLM usage reports of a task, newest first.
+
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the task identifier
+
+
+**Returns**
+
+* **reports**  : `list[LLMUsageReport]`
+
+
+**Raises**
+
+`GetLLMUsageReportsException`
+
+### .get_project_llm_usage_reports
+```python
+.get_project_llm_usage_reports(
+   project_id: str
+)
+```
+
+---
+Get the LLM usage reports of a whole project, newest first. The
+reports of its tasks are not included.
+
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : the project identifier
+
+
+**Returns**
+
+* **reports**  : `list[LLMUsageReport]`
+
+
+**Raises**
+
+`GetLLMUsageReportsException`
+
+### .get_company_llm_usage_reports
+```python
+.get_company_llm_usage_reports()
+```
+
+---
+Get the LLM usage reports of the whole company, newest first. The
+reports of its projects and tasks are not included.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Returns**
+
+* **reports**  : `list[LLMUsageReport]`
+
+
+**Raises**
+
+`GetLLMUsageReportsException`
+
+### .create_task_llm_usage_report
+```python
+.create_task_llm_usage_report(
+   task_id: str, name: str, from_date: date, to_date: date
+)
+```
+
+---
+Create a report of the LLM usage of a task in a range of whole
+weeks. The report is computed in background: poll it with
+`get_task_llm_usage_report` until its status is `COMPLETED`.
+
+**Allowed Roles:**
+
+- At least `WORK_ON_PROJECT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the task identifier
+* **name**  : name of the report
+* **from_date**  : Monday of the first week. A report covers at most
+    the last 52 weeks, the current one included
+* **to_date**  : Sunday of the last week, at most the Sunday of the
+    current week
+
+
+**Returns**
+
+* **report_id**  : `str` identifier of the created report
+
+
+**Raises**
+
+`CreateLLMUsageReportException`
+
+### .create_project_llm_usage_report
+```python
+.create_project_llm_usage_report(
+   project_id: str, name: str, from_date: date, to_date: date
+)
+```
+
+---
+Create a report of the LLM usage of all the tasks of a project in a
+range of whole weeks, compared with the project limits. The report
+is computed in background: poll it with
+`get_project_llm_usage_report` until its status is `COMPLETED`.
+
+**Allowed Roles:**
+
+- At least `WORK_ON_PROJECT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : the project identifier
+* **name**  : name of the report
+* **from_date**  : Monday of the first week. A report covers at most
+    the last 52 weeks, the current one included
+* **to_date**  : Sunday of the last week, at most the Sunday of the
+    current week
+
+
+**Returns**
+
+* **report_id**  : `str` identifier of the created report
+
+
+**Raises**
+
+`CreateLLMUsageReportException`
+
+### .create_company_llm_usage_report
+```python
+.create_company_llm_usage_report(
+   name: str, from_date: date, to_date: date
+)
+```
+
+---
+Create a report of the LLM usage of all the projects of the company
+in a range of whole weeks, without limits. The report is computed
+in background: poll it with `get_company_llm_usage_report` until
+its status is `COMPLETED`.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **name**  : name of the report
+* **from_date**  : Monday of the first week. A report covers at most
+    the last 52 weeks, the current one included
+* **to_date**  : Sunday of the last week, at most the Sunday of the
+    current week
+
+
+**Returns**
+
+* **report_id**  : `str` identifier of the created report
+
+
+**Raises**
+
+`CreateLLMUsageReportException`
+
+### .get_task_llm_usage_report
+```python
+.get_task_llm_usage_report(
+   task_id: str, report_id: str
+)
+```
+
+---
+Get an LLM usage report of a task with its content, which is empty
+until the report is completed.
+
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the task identifier
+* **report_id**  : the report identifier
+
+
+**Returns**
+
+* **report**  : `LLMUsageReportDetails`
+
+
+**Raises**
+
+`GetLLMUsageReportException`
+
+### .get_project_llm_usage_report
+```python
+.get_project_llm_usage_report(
+   project_id: str, report_id: str
+)
+```
+
+---
+Get an LLM usage report of a whole project with its content, which
+is empty until the report is completed.
+
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : the project identifier
+* **report_id**  : the report identifier
+
+
+**Returns**
+
+* **report**  : `LLMUsageReportDetails`
+
+
+**Raises**
+
+`GetLLMUsageReportException`
+
+### .get_company_llm_usage_report
+```python
+.get_company_llm_usage_report(
+   report_id: str
+)
+```
+
+---
+Get an LLM usage report of the whole company with its content,
+which is empty until the report is completed.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **report_id**  : the report identifier
+
+
+**Returns**
+
+* **report**  : `LLMUsageReportDetails`
+
+
+**Raises**
+
+`GetLLMUsageReportException`
+
+### .get_task_llm_usage_live
+```python
+.get_task_llm_usage_live(
+   task_id: str, from_date: (date|None) = None, to_date: (date|None) = None
+)
+```
+
+---
+Compute the LLM usage of a task on request, without storing a
+report. The range is of at most 28 days.
+
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **task_id**  : the task identifier
+* **from_date**  : first day of the range, both dates default to the
+    previous week and the current one
+* **to_date**  : last day of the range
+
+
+**Returns**
+
+* **usage**  : `LLMUsageLive`
+
+
+**Raises**
+
+`GetLLMUsageLiveException`
+
+### .get_project_llm_usage_live
+```python
+.get_project_llm_usage_live(
+   project_id: str, from_date: (date|None) = None, to_date: (date|None) = None
+)
+```
+
+---
+Compute the LLM usage of a whole project on request, without
+storing a report. The range is of at most 28 days.
+
+**Allowed Roles:**
+
+- At least `PROJECT_VIEW` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : the project identifier
+* **from_date**  : first day of the range, both dates default to the
+    previous week and the current one
+* **to_date**  : last day of the range
+
+
+**Returns**
+
+* **usage**  : `LLMUsageLive`
+
+
+**Raises**
+
+`GetLLMUsageLiveException`
+
+### .get_company_llm_usage_live
+```python
+.get_company_llm_usage_live(
+   from_date: (date|None) = None, to_date: (date|None) = None
+)
+```
+
+---
+Compute the LLM usage of the whole company on request, without
+storing a report and without limits. The range is of at most 28
+days.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **from_date**  : first day of the range, both dates default to the
+    previous week and the current one
+* **to_date**  : last day of the range
+
+
+**Returns**
+
+* **usage**  : `LLMUsageLive`
+
+
+**Raises**
+
+`GetLLMUsageLiveException`
+
+### .create_project_llm_usage_report_exports
+```python
+.create_project_llm_usage_report_exports(
+   project_id: str, report_id: str
+)
+```
+
+---
+Export a completed LLM usage report of a whole project with one
+export per task of the project, holding only the rows of the task.
+Follow each export with `get_exports` and
+`get_export_download_links` of its task.
+
+A report of a single task is exported with `create_export`,
+selecting it with `ExportBundleType.LLM_USAGE_REPORT`.
+
+**Allowed Roles:**
+
+- At least `WORK_ON_PROJECT` for that project
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **project_id**  : the project identifier
+* **report_id**  : the report identifier
+
+
+**Returns**
+
+* **exports**  : `list[TaskReportExport]`, one per task
+
+
+**Raises**
+
+`CreateLLMUsageReportExportsException`
+
+### .create_company_llm_usage_report_exports
+```python
+.create_company_llm_usage_report_exports(
+   report_id: str
+)
+```
+
+---
+Export a completed LLM usage report of the whole company with one
+export per task of its projects, holding only the rows of the task.
+Follow each export with `get_exports` and
+`get_export_download_links` of its task.
+
+**Allowed Roles:**
+
+- `COMPANY_OWNER`
+- `COMPANY_ADMIN`
+
+
+**Args**
+
+* **report_id**  : the report identifier
+
+
+**Returns**
+
+* **exports**  : `list[TaskReportExport]`, one per task
+
+
+**Raises**
+
+`CreateLLMUsageReportExportsException`
